@@ -1,0 +1,67 @@
+[
+  {
+    "Item1": 1.0,
+    "Item2": 0.05,
+    "Item3": true
+  },
+  {
+    "Item1": 0.6,
+    "Item2": 0.13,
+    "Item3": true
+  },
+  {
+    "Item1": 0.2,
+    "Item2": 0.21,
+    "Item3": true
+  },
+  {
+    "Item1": 0.2,
+    "Item2": 0.29,
+    "Item3": false
+  },
+  {
+    "Item1": 0.6,
+    "Item2": 0.37,
+    "Item3": false
+  },
+  {
+    "Item1": 1.0,
+    "Item2": 0.45,
+    "Item3": false
+  },
+  {
+    "Item1": 0.6,
+    "Item2": 0.53,
+    "Item3": false
+  },
+  {
+    "Item1": 0.2,
+    "Item2": 0.6,
+    "Item3": false
+  },
+  {
+    "Item1": 0.2,
+    "Item2": 0.68,
+    "Item3": true
+  },
+  {
+    "Item1": 0.6,
+    "Item2": 0.76,
+    "Item3": true
+  },
+  {
+    "Item1": 1.0,
+    "Item2": 0.84,
+    "Item3": true
+  },
+  {
+    "Item1": 1.0,
+    "Item2": 0.92,
+    "Item3": true
+  },
+  {
+    "Item1": 1.0,
+    "Item2": 1.0,
+    "Item3": true
+  }
+]

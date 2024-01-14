@@ -1,0 +1,331 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WhoWantsToBeMillionaire
+{
+    enum AnswerMode
+    {
+        Usual,
+        RightMistakes,
+        ReplaceQuestion,
+        TakingMoney
+    }
+
+    class ContainerQuestion : ControlAnimation
+    {
+        private readonly TextPictureBox textPrize;
+        private readonly TextPictureBox textQuestion;
+        private readonly Dictionary<char, Option> options;
+        private readonly CentralIconHint iconHint;
+
+        public delegate void EventOptionClick(string explanation);
+        public event EventOptionClick OptionClick;
+
+        public Question Question { private set; get; }
+
+        public AnswerMode AnswerMode { private set; get; }
+
+        public bool IsCorrectAnswer { private set; get; }
+
+        public ContainerQuestion(Size size) : base(size)
+        {
+            Bitmap qImage = (Bitmap)ResourceProcessing.GetImage("Question.png");
+            Bitmap opImage = CustomButton.ImageButton[ThemesButton.Blue];
+
+            int opWidth = (int)(0.45f * size.Width);
+
+            Size qSize = new Size(size.Width, qImage.Height * size.Width / qImage.Width);
+            Size opSize = new Size(opWidth, opImage.Height * opWidth / opImage.Width);
+
+            StringFormat qFormat = new StringFormat();
+            StringFormat opFormat = new StringFormat();
+
+            qFormat.Alignment = StringAlignment.Center;
+            qFormat.LineAlignment = StringAlignment.Center;
+
+            opFormat.Alignment = StringAlignment.Near;
+            opFormat.LineAlignment = StringAlignment.Center;
+
+            textQuestion = new TextPictureBox(qSize, qImage, 0.18f * qSize.Height, qFormat);
+            textPrize = new TextPictureBox(qSize, qImage, 0.42f * qSize.Height, qFormat);
+
+            textQuestion.Size = textPrize.Size = qSize;
+
+            textPrize.Y = textPrize.Height / 2;
+
+            int dy = (int)(0.1f * opImage.Height);
+
+            options = new Dictionary<char, Option>();
+            Option option;
+
+            for (int i = 0; i < 4; i++)
+            {
+                option = new Option((char)('A' + i), opSize, opImage, 0.3f * opSize.Height, opFormat);
+                option.Y = textQuestion.Height + i / 2 * (opSize.Height + dy) + dy;
+                option.Click += OnOptionClick;
+
+                options.Add(option.Letter, option);
+                Controls.Add(option);
+            }
+
+            int height = opSize.Height + dy;
+
+            iconHint = new CentralIconHint();
+            iconHint.Size = new Size((int)(1.6f * height), height);
+            iconHint.Location = new Point((size.Width - iconHint.Width) / 2, textQuestion.Height + opSize.Height / 2 + dy);
+            iconHint.Visible = false;
+
+            Controls.Add(textQuestion);
+            Controls.Add(textPrize);
+            Controls.Add(iconHint);
+
+            Enabled = false;
+
+            Reset();
+        }
+
+        public void Reset()
+        {
+            textPrize.X = -textQuestion.Width * 3 / 2;
+            SetXQuestion(textPrize.X);
+        }
+
+        private void SetXQuestion(int x = 0)
+        {
+            int i = 0;
+
+            textQuestion.X = x;
+            foreach (var op in options.Values)
+                op.X = textQuestion.Width / 2 - (i++ % 2 ^ 1) * op.Width + x;
+        }
+
+        private void SetTextQuestion()
+        {
+            textQuestion.Text = Question.Text;
+            foreach (var op in options.Values)
+            {
+                op.Text = Question.Options[op.Letter];
+                op.Enabled = op.Text != string.Empty;
+            }
+        }
+
+        public async Task ShowQuestion(int number)
+        {
+            await ShowQuestion(number, Question.RandomIndex(number));
+        }
+
+        public async Task ShowQuestion(int number, int index)
+        {
+            Question = new Question(number, index);
+            SetTextQuestion();
+
+            int countFrames = 15;
+            int dx = -textQuestion.X / countFrames;
+
+            do
+            {
+                textQuestion.X += dx;
+                foreach (var op in options.Values)
+                    op.X += dx;
+
+                await Task.Delay(MainForm.DeltaTime);
+            }
+            while (--countFrames > 0);
+
+            SetXQuestion();
+
+            countFrames = 6;
+
+            await textQuestion.ShowText(countFrames);
+            foreach (var op in options.Values)
+            {
+                await Task.Delay(1000);
+                await op.ShowText(countFrames);
+            }
+
+            AnswerMode = AnswerMode.Usual;
+            Enabled = true;
+        }
+
+        private async void OnOptionClick(object sender, EventArgs e)
+        {
+            Enabled = false;
+
+            Option option = sender as Option;
+            option.Choose();
+
+            IsCorrectAnswer = Question.Correct == option.Letter;
+
+            if (AnswerMode == AnswerMode.RightMistakes && !IsCorrectAnswer)
+            {
+                AnswerMode = AnswerMode.Usual;
+                await Task.Delay(3000);
+                option.Lock();
+
+                if (Question.CountOptions == 2)
+                {
+                    await Task.Delay(3000);
+                    IsCorrectAnswer = true;
+                    options[Question.Correct].Choose();
+                }
+                else
+                {
+                    Enabled = true;
+                    return;
+                }
+            }
+
+            string explanation = Question.Explanation;
+            if (!IsCorrectAnswer)
+                explanation += $"\nПравильный ответ: {Question.FullCorrect}.";
+
+            OptionClick.Invoke(explanation);
+        }
+
+        public async Task ShowCorrect()
+        {
+            await options[Question.Correct].Blink();
+        }
+
+        public async Task ShowPrize(string prize)
+        {
+            await ClearQuestion();
+
+            int countFrames = 15;
+            int dx = -textPrize.X / countFrames;
+
+            do
+            {
+                textPrize.X += dx;
+                textQuestion.X += dx;
+                foreach (var op in options.Values)
+                    op.X += dx;
+
+                await Task.Delay(MainForm.DeltaTime);
+            } while (--countFrames > 0);
+
+            textPrize.X = 0;
+
+            countFrames = 6;
+            textPrize.Text = prize;
+            await textPrize.ShowText(countFrames);
+        }
+
+        public async Task HidePrize()
+        {
+            await textPrize.HideText(6);
+
+            int countFrames = 15;
+            int dx = textPrize.Width / countFrames;
+
+            do
+            {
+                textPrize.X += dx;
+                await Task.Delay(MainForm.DeltaTime);
+            } while (--countFrames > 0);
+
+            Reset();
+        }
+
+        private void ShowCentralIcon(TypeHint hint)
+        {
+            iconHint.Visible = true;
+            iconHint.BringToFront();
+            iconHint.ShowIcon(hint);
+        }
+
+        private async Task ClearQuestion()
+        {
+            int countFrames = 6;
+
+            List<Task> tasks = new List<Task>();
+
+            tasks.Add(Task.Run(() => textQuestion.HideText(countFrames)));
+            foreach (var op in options.Values)
+                tasks.Add(Task.Run(() => op.Clear(countFrames)));
+            tasks.Add(Task.Run(() => iconHint.Clear(countFrames)));
+
+            await Task.WhenAll(tasks);
+
+            iconHint.Visible = false;
+        }
+
+        public async Task ReplaceQuestion()
+        {
+            await options[Question.Correct].Blink();
+            await Task.Delay(3000);
+            await ClearQuestion();
+
+            int countFrames = 15;
+            int dx = (Width - textQuestion.X) / countFrames;
+
+            do
+            {
+                textQuestion.X += dx;
+                foreach (var op in options.Values)
+                    op.X += dx;
+
+                await Task.Delay(MainForm.DeltaTime);
+            }
+            while (--countFrames > 0);
+
+            Reset();
+
+            int newIndex;
+            do
+                newIndex = Question.RandomIndex(Question.Number);
+            while (newIndex == Question.Index);
+
+            List<Task> tasks = new List<Task>();
+
+            tasks.Add(Task.Run(() => ShowCentralIcon(TypeHint.Replace)));
+            tasks.Add(Task.Run(() => ShowQuestion(Question.Number, newIndex)));
+
+            await Task.WhenAll(tasks);
+        }
+
+        public void OnHintClick(TypeHint hint)
+        {
+            switch (hint)
+            {
+                case TypeHint.FiftyFifty:
+                    var wrongKeys = Question.Options.Keys.Where(k => k != Question.Correct).ToList();
+                    char secondKey = wrongKeys[new Random().Next(wrongKeys.Count)];
+
+                    Dictionary<char, string> dict = new Dictionary<char, string>();
+                    foreach (var key in Question.Options.Keys)
+                        dict.Add(key, key == Question.Correct || key == secondKey ? Question.Options[key] : string.Empty);
+
+                    Question = new Question(Question.Number, Question.Index, Question.Text, dict, Question.Correct, Question.Explanation);
+                    SetTextQuestion();
+                    break;
+
+                case TypeHint.Call:
+                    Enabled = false;
+                    break;
+
+                case TypeHint.Audience:
+                    Enabled = false;
+                    break;
+
+                case TypeHint.RightMistake:
+                    AnswerMode = AnswerMode.RightMistakes;
+                    ShowCentralIcon(hint);
+                    break;
+
+                case TypeHint.Replace:
+                    AnswerMode = AnswerMode.ReplaceQuestion;
+                    ShowCentralIcon(hint);
+                    break;
+
+                case TypeHint.Host:
+                    Enabled = false;
+                    ShowCentralIcon(hint);
+                    break;
+            }
+        }
+    }
+}
