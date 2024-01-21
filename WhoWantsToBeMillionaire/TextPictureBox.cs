@@ -6,32 +6,15 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TextPictureBox : PictureBox
+    class TextPictureBox : MovingPictureBox
     {
         protected readonly StringFormat format;
 
         protected int alpha;
 
-        public int X
+        public TextPictureBox(Size size, Bitmap backgroundImage, float fontSize, StringFormat stringFormat) : base(size)
         {
-            set => Location = new Point(value, Location.Y);
-            get => Location.X;
-        }
-
-        public int Y
-        {
-            set => Location = new Point(Location.X, value);
-            get => Location.Y;
-        }
-
-        public TextPictureBox(Size size, Bitmap backgroundImage, float fontSize, StringFormat stringFormat)
-        {
-            Size = size;
             format = stringFormat;
-
-            SizeMode = PictureBoxSizeMode.StretchImage;
-            BackgroundImageLayout = ImageLayout.Stretch;
-
             ForeColor = Color.White;
             Font = new Font("", fontSize);
             BackgroundImage = backgroundImage;

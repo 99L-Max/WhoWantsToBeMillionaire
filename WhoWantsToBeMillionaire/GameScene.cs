@@ -122,9 +122,6 @@ namespace WhoWantsToBeMillionaire
                 case TypeHint.Audience:
                     command = SceneCommand.EndAudience;
                     break;
-                case TypeHint.Replace:
-                    command = SceneCommand.ReplaceQuestion;
-                    break;
                 case TypeHint.Host:
                     command = SceneCommand.EndHost;
                     break;
@@ -210,6 +207,12 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.ReplaceQuestion:
                     playerDialog.Clear();
                     await containerQuestion.ReplaceQuestion();
+                    containerHints.Enabled = true;
+                    break;
+
+                case SceneCommand.EndAudience:
+                    buttonCommand.Visible = false;
+                    await playerDialog.RemoveMovingPictureBox();
                     containerHints.Enabled = true;
                     break;
             }

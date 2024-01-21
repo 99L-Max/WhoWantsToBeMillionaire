@@ -79,9 +79,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudienceChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CentralIconHint.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ChartCollumn.cs" />
     <Compile Include="CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -98,6 +102,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MainMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MovingPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Option.cs">
@@ -223,6 +230,12 @@
     <EmbeddedResource Include="Resources\Textures\Hint_RightMistake_Active.png" />
     <EmbeddedResource Include="Resources\Textures\Hint_RightMistake_Locked.png" />
     <EmbeddedResource Include="Resources\Textures\Hint_RightMistake_Used.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\AudienceChart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\ChartColumn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

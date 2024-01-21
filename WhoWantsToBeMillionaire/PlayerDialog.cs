@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
@@ -8,6 +9,8 @@ namespace WhoWantsToBeMillionaire
         private readonly Label labelDialog;
         private readonly PictureBox logo;
         private readonly CustomButton buttonNext;
+
+        private AudienceChart audience;
 
         public new string Text
         {
@@ -29,7 +32,6 @@ namespace WhoWantsToBeMillionaire
             labelDialog.Font = new Font("", 0.04f * labelDialog.Size.Height, FontStyle.Bold);
             labelDialog.ForeColor = Color.White;
             labelDialog.TextAlign = ContentAlignment.MiddleCenter;
-            labelDialog.Controls.Add(logo);
 
             int sideLogo = (int)(0.5f * size.Height);
 
@@ -42,6 +44,7 @@ namespace WhoWantsToBeMillionaire
             buttonNext.Location = new Point((size.Width - buttonNext.Width) / 2, (size.Height - labelDialog.Height - buttonNext.Height) / 2 + labelDialog.Height);
             buttonNext.Text = "Продолжить";
 
+            labelDialog.Controls.Add(logo);
             Controls.Add(labelDialog);
             Controls.Add(buttonNext);
         }
@@ -61,9 +64,59 @@ namespace WhoWantsToBeMillionaire
             buttonNext.Visible = false;
         }
 
-        public void OnHintClick(TypeHint type, Question question)
+        public async void OnHintClick(TypeHint type, Question question)
         {
+            switch (type)
+            {
+                case TypeHint.Audience:
+                    int heigth = (int)(0.9f * labelDialog.Height);
+                    audience = new AudienceChart(new Size((int)(0.75f * heigth), heigth), question);
+                    audience.Location = new Point(Width, (labelDialog.Height - heigth) / 2);
 
+                    Controls.Add(audience);
+                    labelDialog.Visible = false;
+
+                    int xMiddle = (Width - audience.Width) / 2;
+                    int countFrames = 1000 / MainForm.DeltaTime;
+                    int dx = (xMiddle - audience.X) / countFrames;
+
+                    do
+                    {
+                        audience.X += dx;
+                        await Task.Delay(MainForm.DeltaTime);
+                    } while (--countFrames > 0);
+
+                    audience.X = xMiddle;
+
+                    await Task.Delay(2000);
+                    await audience.ShowAnimationVote(3000);
+                    await audience.ShowResult(15);
+
+                    buttonNext.Visible = true;
+                    break;
+            }
+        }
+
+        public async Task RemoveMovingPictureBox()
+        {
+            int countFrames = 1000 / MainForm.DeltaTime;
+            int dx;
+
+            if (Controls.Contains(audience))
+            {
+                dx = (Width - audience.X) / countFrames;
+
+                do
+                {
+                    audience.X += dx;
+                    await Task.Delay(MainForm.DeltaTime);
+                } while (--countFrames > 0);
+
+                Controls.Remove(audience);
+                audience.Dispose();
+            }
+
+            labelDialog.Visible = true;
         }
     }
 }
