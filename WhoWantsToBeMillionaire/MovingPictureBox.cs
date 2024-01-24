@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
@@ -22,6 +23,19 @@ namespace WhoWantsToBeMillionaire
             Size = size;
             SizeMode = PictureBoxSizeMode.StretchImage;
             BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        public async Task MoveX(int x, int countFrames)
+        {
+            int dx = (x - X) / countFrames;
+
+            do
+            {
+                X += dx;
+                await Task.Delay(MainForm.DeltaTime);
+            } while (--countFrames > 0);
+
+            X = x;
         }
     }
 }

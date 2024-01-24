@@ -8,9 +8,21 @@ namespace WhoWantsToBeMillionaire
 {
     class TextPictureBox : MovingPictureBox
     {
+        private string text;
+
         protected readonly StringFormat format;
 
         protected int alpha;
+
+        public new string Text
+        {
+            set
+            {
+                text = value;
+                Invalidate();
+            }
+            get => text;
+        }
 
         public TextPictureBox(Size size, Bitmap backgroundImage, float fontSize, StringFormat stringFormat) : base(size)
         {

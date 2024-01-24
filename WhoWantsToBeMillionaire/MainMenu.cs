@@ -6,16 +6,16 @@ namespace WhoWantsToBeMillionaire
     {
         public MainMenu(Size size) : base(size)
         {
-            ButtonCommand[] cmd = { ButtonCommand.Start, ButtonCommand.Statistics, ButtonCommand.Achievements, ButtonCommand.Settings, ButtonCommand.Exit };
-            CustomButton[] buttons = new CustomButton[cmd.Length];
+            MenuCommand[] cmd = { MenuCommand.Start, MenuCommand.Statistics, MenuCommand.Achievements, MenuCommand.Settings, MenuCommand.Exit };
+            MenuButton[] buttons = new MenuButton[cmd.Length];
 
             float fontSize = 0.25f * size.Height / cmd.Length;
 
             for (int i = 0; i < buttons.Length; i++)
             {
-                buttons[i] = new CustomButton(fontSize);
+                buttons[i] = new MenuButton(fontSize);
                 buttons[i].Command = cmd[i];
-                buttons[i].Click += (s, e) => OnButtonClick((s as CustomButton).Command);
+                buttons[i].Click += (s, e) => OnButtonClick((s as MenuButton).Command);
             }
 
             SetControls(buttons);

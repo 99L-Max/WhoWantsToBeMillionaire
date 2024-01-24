@@ -15,13 +15,12 @@ namespace WhoWantsToBeMillionaire
 
         private Color foreColorLetter;
 
-        public readonly char Letter;
+        public readonly Letter Letter;
 
-        public Option(char letter, Size size, Bitmap image, float fontSize, StringFormat format) : base(size, image, fontSize, format)
+        public Option(Letter letter, Size size, Bitmap image, float fontSize, StringFormat format) : base(size, image, fontSize, format)
         {
             Letter = letter;
-
-            label = Letter + ":";
+            label = $"{letter}:";
             rectLabel = new RectangleF(0, 0, rectangle.X, rectangle.Height);
 
             formatLabel = new StringFormat
@@ -68,7 +67,7 @@ namespace WhoWantsToBeMillionaire
         {
             SetForeColors(Color.Black, Color.White);
 
-            Bitmap[] frames = ResourceProcessing.FramesAppearance(CustomButton.ImageButton[ThemesButton.Orange], 6);
+            Bitmap[] frames = ResourceProcessing.FramesAppearance(CustomButton.ImageButton[ThemeButton.Orange], 6);
 
             foreach (var img in frames)
             {
@@ -76,7 +75,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            Image = CustomButton.ImageButton[ThemesButton.Orange];
+            Image = CustomButton.ImageButton[ThemeButton.Orange];
 
             foreach (var img in frames)
                 img.Dispose();
@@ -90,9 +89,9 @@ namespace WhoWantsToBeMillionaire
             Bitmap[] frames;
 
             if (Image == null)
-                frames = ResourceProcessing.FramesAppearance(CustomButton.ImageButton[ThemesButton.Green], countFrames);
+                frames = ResourceProcessing.FramesAppearance(CustomButton.ImageButton[ThemeButton.Green], countFrames);
             else
-                frames = ResourceProcessing.FramesTransition((Bitmap)Image, CustomButton.ImageButton[ThemesButton.Green], countFrames);
+                frames = ResourceProcessing.FramesTransition((Bitmap)Image, CustomButton.ImageButton[ThemeButton.Green], countFrames);
 
             int n = frames.Length - 1;
             int n2 = 2 * n;
@@ -104,7 +103,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            Image = CustomButton.ImageButton[ThemesButton.Green];
+            Image = CustomButton.ImageButton[ThemeButton.Green];
 
             foreach (var img in frames)
                 img.Dispose();
@@ -139,7 +138,7 @@ namespace WhoWantsToBeMillionaire
         {
             Enabled = false;
             SetForeColors(Color.White, Color.Orange);
-            Image = CustomButton.ImageButton[ThemesButton.Gray];
+            Image = CustomButton.ImageButton[ThemeButton.Gray];
         }
     }
 }

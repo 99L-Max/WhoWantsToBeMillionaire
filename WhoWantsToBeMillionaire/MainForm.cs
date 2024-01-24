@@ -51,11 +51,11 @@ namespace WhoWantsToBeMillionaire
             base.OnPaint(e);
         }
 
-        private async void OnButtonMenuClick(ButtonCommand cmd)
+        private async void OnButtonMenuClick(MenuCommand cmd)
         {
             switch (cmd)
             {
-                case ButtonCommand.Start:
+                case MenuCommand.Start:
                     menu.Visible = false;
 
                     //using (Screensaver saver = new Screensaver())
@@ -66,7 +66,7 @@ namespace WhoWantsToBeMillionaire
                     //}
 
                     scene.Visible = true;
-                    scene.Start();
+                    scene.ShowRules();
                     break;
 
                 default:

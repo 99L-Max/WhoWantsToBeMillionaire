@@ -7,7 +7,7 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly TableLayoutPanel table;
 
-        public delegate void EventButtonClick(ButtonCommand command);
+        public delegate void EventButtonClick(MenuCommand command);
         public event EventButtonClick ButtonClick;
 
         public Menu(Size size) : base(size)
@@ -37,7 +37,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        protected void OnButtonClick(ButtonCommand cmd)
+        protected void OnButtonClick(MenuCommand cmd)
         {
             ButtonClick.Invoke(cmd);
         }

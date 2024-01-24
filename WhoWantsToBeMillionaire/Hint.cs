@@ -17,11 +17,11 @@ namespace WhoWantsToBeMillionaire
     enum TypeHint
     {
         FiftyFifty,
-        Call,
-        Audience,
-        RightMistake,
-        Replace,
-        Host
+        PhoneFriend,
+        AskAudience,
+        DoubleDip,
+        SwitchQuestion,
+        AskHost
     }
 
     class Hint : PictureBox, IDisposable

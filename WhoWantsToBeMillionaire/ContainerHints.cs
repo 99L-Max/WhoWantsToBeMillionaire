@@ -61,20 +61,20 @@ namespace WhoWantsToBeMillionaire
             switch ((Mode)Settings.Default.Mode)
             {
                 default:
-                    types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.Call, TypeHint.Audience };
+                    types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience };
                     countColumns = 3;
                     goto case Mode.TEST;
                     break;
                 case Mode.Amateur:
-                    types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.Call, TypeHint.Audience, TypeHint.RightMistake };
+                    types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience, TypeHint.DoubleDip };
                     countColumns = 4;
                     break;
                 case Mode.Advanced:
-                    types = new TypeHint[] { TypeHint.Host, TypeHint.FiftyFifty, TypeHint.RightMistake, TypeHint.Call, TypeHint.Replace };
+                    types = new TypeHint[] { TypeHint.AskHost, TypeHint.FiftyFifty, TypeHint.DoubleDip, TypeHint.PhoneFriend, TypeHint.SwitchQuestion };
                     countColumns = 3;
                     break;
                 case Mode.TEST:
-                    types = new TypeHint[] { TypeHint.Audience, TypeHint.Host, TypeHint.FiftyFifty, TypeHint.RightMistake, TypeHint.Call, TypeHint.Replace };
+                    types = new TypeHint[] { TypeHint.AskAudience, TypeHint.AskHost, TypeHint.FiftyFifty, TypeHint.DoubleDip, TypeHint.PhoneFriend, TypeHint.SwitchQuestion };
                     countColumns = 3;
                     break;
             }
@@ -94,9 +94,10 @@ namespace WhoWantsToBeMillionaire
 
         private void OnHintClick(object sender, EventArgs e)
         {
-            countUsedHints++;
-
             Hint hint = sender as Hint;
+
+            Enabled = hint.Type == TypeHint.FiftyFifty;
+            countUsedHints++;
 
             hint.Enabled = false;
             hint.Click -= OnHintClick;
@@ -158,15 +159,15 @@ namespace WhoWantsToBeMillionaire
                 {
                     case TypeHint.FiftyFifty:
                         return "«50:50» — убирает два неверных варианта ответа.";
-                    case TypeHint.Call:
+                    case TypeHint.PhoneFriend:
                         return "«Звонок другу» — даёт возможность посоветоваться с другом по телефону.";
-                    case TypeHint.Audience:
+                    case TypeHint.AskAudience:
                         return "«Помощь зала» — позволяет взять подсказку у зрителей зала.";
-                    case TypeHint.RightMistake:
+                    case TypeHint.DoubleDip:
                         return "«Право на ошибку» — позволяет дать второй вариант ответа, если первый оказался неверным.";
-                    case TypeHint.Replace:
+                    case TypeHint.SwitchQuestion:
                         return "«Замена вопроса» — меняет вопрос на другой.";
-                    case TypeHint.Host:
+                    case TypeHint.AskHost:
                         return "«Помощь ведущего» — позволяет взять подсказку у ведущего.";
                 }
 

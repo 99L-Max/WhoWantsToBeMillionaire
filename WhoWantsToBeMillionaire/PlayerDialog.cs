@@ -7,25 +7,35 @@ namespace WhoWantsToBeMillionaire
     class PlayerDialog : ControlAnimation
     {
         private readonly Label labelDialog;
-        private readonly PictureBox logo;
-        private readonly CustomButton buttonNext;
+        private readonly Bitmap logo;
+        private readonly CustomButton buttonCommand;
+        private readonly AnswerHint answerHint;
 
-        private AudienceChart audience;
+        private VotingChart chart;
+        private PhoneTimer timer;
 
         public new string Text
         {
             set
             {
-                logo.Visible = false;
+                labelDialog.Image = null;
                 labelDialog.Text = value;
             }
         }
 
+        public ContentAlignment ContentAlignment
+        {
+            set => labelDialog.TextAlign = value;
+        }
+
         public PlayerDialog(Size size, CustomButton button) : base(size)
         {
+            int sideLogo = (int)(0.5f * size.Height);
+
             labelDialog = new Label();
-            logo = new PictureBox();
-            buttonNext = button;
+            logo = new Bitmap(ResourceProcessing.GetImage("Logo.png"), sideLogo, sideLogo);
+            buttonCommand = button;
+            answerHint = new AnswerHint();
 
             labelDialog.Size = new Size(size.Width, (int)(0.8f * size.Height));
             labelDialog.BackColor = Color.Transparent;
@@ -33,90 +43,80 @@ namespace WhoWantsToBeMillionaire
             labelDialog.ForeColor = Color.White;
             labelDialog.TextAlign = ContentAlignment.MiddleCenter;
 
-            int sideLogo = (int)(0.5f * size.Height);
+            buttonCommand.Location = new Point((size.Width - buttonCommand.Width) / 2, (size.Height - labelDialog.Height - buttonCommand.Height) / 2 + labelDialog.Height);
+            buttonCommand.Text = "Продолжить";
 
-            logo.BackColor = Color.Transparent;
-            logo.BackgroundImageLayout = ImageLayout.Stretch;
-            logo.Size = new Size(sideLogo, sideLogo);
-            logo.BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Logo.png"), logo.Size);
-            logo.Location = new Point((labelDialog.Width - logo.Width) / 2, (labelDialog.Height - logo.Width) / 2);
-
-            buttonNext.Location = new Point((size.Width - buttonNext.Width) / 2, (size.Height - labelDialog.Height - buttonNext.Height) / 2 + labelDialog.Height);
-            buttonNext.Text = "Продолжить";
-
-            labelDialog.Controls.Add(logo);
             Controls.Add(labelDialog);
-            Controls.Add(buttonNext);
+            Controls.Add(buttonCommand);
         }
 
         public void Reset()
         {
             labelDialog.Text = string.Empty;
-            logo.Visible = false;
-            buttonNext.Visible = false;
-            buttonNext.Enabled = true;
+            labelDialog.Image = null;
+            buttonCommand.Visible = false;
+            buttonCommand.Enabled = true;
         }
 
         public void Clear()
         {
             labelDialog.Text = string.Empty;
-            logo.Visible = true;
-            buttonNext.Visible = false;
+            labelDialog.Image = logo;
+            buttonCommand.Visible = false;
         }
 
         public async void OnHintClick(TypeHint type, Question question)
         {
             switch (type)
             {
-                case TypeHint.Audience:
+                case TypeHint.PhoneFriend:
+                    timer = new PhoneTimer((int)(0.4f * Height));
+                    timer.Location = new Point(Width, 0);
+
+                    labelDialog.Image = null;
+                    labelDialog.Controls.Add(timer);
+                    //timer.TimeUp += () => buttonNext.PerformClick();
+
+                    await timer.MoveX(Width - timer.Width, 1000 / MainForm.DeltaTime);
+                    timer.Start();
+
+                    buttonCommand.Visible = true;
+                    break;
+
+                case TypeHint.AskAudience:
                     int heigth = (int)(0.9f * labelDialog.Height);
-                    audience = new AudienceChart(new Size((int)(0.75f * heigth), heigth), question);
-                    audience.Location = new Point(Width, (labelDialog.Height - heigth) / 2);
+                    chart = new VotingChart(new Size((int)(0.75f * heigth), heigth));
+                    chart.Location = new Point(Width, (labelDialog.Height - heigth) / 2);
 
-                    Controls.Add(audience);
-                    labelDialog.Visible = false;
+                    labelDialog.Image = null;
+                    labelDialog.Controls.Add(chart);
 
-                    int xMiddle = (Width - audience.Width) / 2;
-                    int countFrames = 1000 / MainForm.DeltaTime;
-                    int dx = (xMiddle - audience.X) / countFrames;
-
-                    do
-                    {
-                        audience.X += dx;
-                        await Task.Delay(MainForm.DeltaTime);
-                    } while (--countFrames > 0);
-
-                    audience.X = xMiddle;
-
+                    await chart.MoveX((Width - chart.Width) / 2, 1000 / MainForm.DeltaTime);
                     await Task.Delay(2000);
-                    await audience.ShowAnimationVote(3000);
-                    await audience.ShowResult(15);
+                    await chart.ShowAnimationVote(3000);
+                    await chart.ShowPercents(15, answerHint.GetPersents(question));
 
-                    buttonNext.Visible = true;
+                    buttonCommand.Visible = true;
                     break;
             }
+        }
+
+        private async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)
+        {
+            await box.MoveX(Width, countFrames);
+            labelDialog.Controls.Remove(box);
+            box.Dispose();
         }
 
         public async Task RemoveMovingPictureBox()
         {
             int countFrames = 1000 / MainForm.DeltaTime;
-            int dx;
 
-            if (Controls.Contains(audience))
-            {
-                dx = (Width - audience.X) / countFrames;
+            if (labelDialog.Controls.Contains(chart))
+                await RemoveMovingPictureBox(chart, countFrames);
 
-                do
-                {
-                    audience.X += dx;
-                    await Task.Delay(MainForm.DeltaTime);
-                } while (--countFrames > 0);
-
-                Controls.Remove(audience);
-                audience.Dispose();
-            }
-
-            labelDialog.Visible = true;
+            if (labelDialog.Controls.Contains(timer))
+                await RemoveMovingPictureBox(timer, countFrames);
         }
     }
 }

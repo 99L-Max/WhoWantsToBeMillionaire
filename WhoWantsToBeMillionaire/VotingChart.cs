@@ -3,39 +3,30 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class AudienceChart : MovingPictureBox, IDisposable
+    class VotingChart : MovingPictureBox, IDisposable
     {
-        private readonly Random random;
         private readonly Bitmap background;
         private readonly Bitmap image;
         private readonly Bitmap imageColumn;
         private readonly Graphics g;
-        private readonly Question question;
-        private readonly Dictionary<char, ChartCollumn> columns;
+        private readonly Dictionary<Letter, ChartCollumn> columns;
 
-        public AudienceChart(Size size, Question question) : base(size)
+        public VotingChart(Size size) : base(size)
         {
-            random = new Random();
-
             background = new Bitmap(ResourceProcessing.GetImage("AudienceChart.png"));
             imageColumn = new Bitmap(ResourceProcessing.GetImage("ChartColumn.png"));
             image = new Bitmap(background.Width, background.Height);
             g = Graphics.FromImage(image);
 
-            BackgroundImageLayout = ImageLayout.Stretch;
-            SizeMode = PictureBoxSizeMode.StretchImage;
             Font = new Font("", 0.05f * background.Height);
 
             BackgroundImage = background;
 
-            this.question = question;
-
-            columns = new Dictionary<char, ChartCollumn>();
-            char[] keys = question.Options.Keys.ToArray();
+            columns = new Dictionary<Letter, ChartCollumn>();
+            Letter[] keys = Enum.GetValues(typeof(Letter)).Cast<Letter>().ToArray();
             int widthColumn = background.Width / (2 * keys.Length + 1);
 
             for (int i = 0; i < keys.Length; i++)
@@ -65,6 +56,8 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowAnimationVote(int millisecond)
         {
+            Random random = new Random();
+
             foreach (var c in columns.Values)
                 c.Percent = random.Next(101);
 
@@ -80,47 +73,25 @@ namespace WhoWantsToBeMillionaire
             } while (--countFrames > 0);
         }
 
-        public async Task ShowResult(int countFrames)
+        public async Task ShowPercents(int countFrames, Dictionary<Letter, float> percents)
         {
-            List<char> keys = question.Options.Where(x => x.Key != question.Correct && x.Value != string.Empty).Select(x => x.Key).OrderBy(k => random.Next()).ToList();
-            List<float> persents = new List<float>();
-            int sum = 101, randomPersent;
-
-            for (int i = 0; i < keys.Count; i++)
-            {
-                randomPersent = random.Next(sum);
-                persents.Add(randomPersent);
-                sum -= randomPersent;
-            }
-
-            persents.Add(sum);
-            persents = persents.OrderByDescending(x => x).ToList();
-
-            if (random.NextDouble() <= -0.05 * question.Number + 1.25 || keys.Count == 2)
-                keys.Insert(0, question.Correct);
-            else
-                keys.Insert(random.Next(keys.Count) + 1, question.Correct);
-
             foreach (var c in columns.Values)
                 c.Percent = 0;
             DrawChart(false);
 
-            Dictionary<char, float> dp = new Dictionary<char, float>();
-            for (int i = 0; i < keys.Count; i++)
-                dp.Add(keys[i], persents[i] / countFrames);
+            Dictionary<Letter, float> dp = percents.ToDictionary(k => k.Key, v => v.Value / countFrames);
 
             do
             {
-                foreach (var key in keys)
+                foreach (var key in percents.Keys)
                     columns[key].Percent += dp[key];
                 DrawChart(false);
 
                 await Task.Delay(MainForm.DeltaTime);
             } while (--countFrames > 0);
 
-
-            for (int i = 0; i < keys.Count; i++)
-                columns[keys[i]].Percent = persents[i];
+            foreach (var key in percents.Keys)
+                columns[key].Percent = percents[key];
             DrawChart(true);
         }
 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ThemesButton
+    enum ThemeButton
     {
         Blue,
         Orange,
@@ -15,33 +15,9 @@ namespace WhoWantsToBeMillionaire
         Gray
     }
 
-    enum ButtonCommand
-    {
-        Start,
-        Restart,
-        Continue,
-        Statistics,
-        Achievements,
-        Settings,
-        Exit
-    }
-
     class CustomButton : PictureBox
     {
-        private ButtonCommand command;
-
-        public static readonly ReadOnlyDictionary<ThemesButton, Bitmap> ImageButton;
-        public static readonly ReadOnlyDictionary<ButtonCommand, string> TextButton;
-
-        public ButtonCommand Command
-        {
-            set
-            {
-                command = value;
-                Text = TextButton[value];
-            }
-            get => command;
-        }
+        public static readonly ReadOnlyDictionary<ThemeButton, Bitmap> ImageButton;
 
         public new bool Enabled
         {
@@ -49,7 +25,7 @@ namespace WhoWantsToBeMillionaire
             {
                 base.Enabled = value;
 
-                BackgroundImage = ImageButton[value ? ThemesButton.Blue : ThemesButton.Gray];
+                BackgroundImage = ImageButton[value ? ThemeButton.Blue : ThemeButton.Gray];
                 ForeColor = value ? Color.White : Color.Black;
             }
             get => base.Enabled;
@@ -57,46 +33,24 @@ namespace WhoWantsToBeMillionaire
 
         static CustomButton()
         {
-            var img = new Dictionary<ThemesButton, Bitmap>();
+            var img = new Dictionary<ThemeButton, Bitmap>();
 
-            foreach (var key in Enum.GetValues(typeof(ThemesButton)).Cast<ThemesButton>())
+            foreach (var key in Enum.GetValues(typeof(ThemeButton)).Cast<ThemeButton>())
                 img.Add(key, new Bitmap(ResourceProcessing.GetImage($"Answer_{key}.png")));
 
-            var cmd = new Dictionary<ButtonCommand, string>()
-            {
-                { ButtonCommand.Start, "Новая игра" },
-                { ButtonCommand.Restart, "Новая игра" },
-                { ButtonCommand.Continue, "Продолжить игру" },
-                { ButtonCommand.Statistics, "Статистика" },
-                { ButtonCommand.Achievements, "Достижения" },
-                { ButtonCommand.Settings, "Настройки" },
-                { ButtonCommand.Exit, "Выход" }
-            };
-
-            ImageButton = new ReadOnlyDictionary<ThemesButton, Bitmap>(img);
-            TextButton = new ReadOnlyDictionary<ButtonCommand, string>(cmd);
+            ImageButton = new ReadOnlyDictionary<ThemeButton, Bitmap>(img);
         }
 
-        public CustomButton(float sizeFont)
-        {
-            Font = new Font("", sizeFont, FontStyle.Bold);
-            Dock = DockStyle.Fill;
-
-            SetDefaultSettings();
-        }
-
-        public CustomButton(Size size)
-        {
-            Size = size;
-            Font = new Font("", 0.35f * size.Height, FontStyle.Bold);
-
-            SetDefaultSettings();
-        }
-
-        private void SetDefaultSettings()
+        public CustomButton()
         {
             BackColor = Color.Transparent;
             BackgroundImageLayout = ImageLayout.Zoom;
+        }
+
+        public CustomButton(Size size) : this()
+        {
+            Size = size;
+            Font = new Font("", 0.35f * size.Height, FontStyle.Bold);
             OnMouseLeave(EventArgs.Empty);
         }
 
@@ -110,7 +64,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (Enabled)
             {
-                BackgroundImage = ImageButton[ThemesButton.Orange];
+                BackgroundImage = ImageButton[ThemeButton.Orange];
                 ForeColor = Color.Black;
             }
         }
@@ -119,7 +73,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (Enabled)
             {
-                BackgroundImage = ImageButton[ThemesButton.Blue];
+                BackgroundImage = ImageButton[ThemeButton.Blue];
                 ForeColor = Color.White;
             }
         }
@@ -127,7 +81,7 @@ namespace WhoWantsToBeMillionaire
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
             if (Enabled)
-                BackgroundImage = ImageButton[ThemesButton.Green];
+                BackgroundImage = ImageButton[ThemeButton.Green];
         }
 
         protected override void OnMouseUp(MouseEventArgs mevent)

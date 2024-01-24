@@ -9,16 +9,16 @@ namespace WhoWantsToBeMillionaire
     enum AnswerMode
     {
         Usual,
-        RightMistakes,
-        ReplaceQuestion,
-        TakingMoney
+        DoubleDips,
+        SwitchQuestion,
+        TakeMoney
     }
 
     class ContainerQuestion : ControlAnimation
     {
         private readonly TextPictureBox textPrize;
         private readonly TextPictureBox textQuestion;
-        private readonly Dictionary<char, Option> options;
+        private readonly Dictionary<Letter, Option> options;
         private readonly CentralIconHint iconHint;
 
         public delegate void EventOptionClick(string explanation);
@@ -33,7 +33,7 @@ namespace WhoWantsToBeMillionaire
         public ContainerQuestion(Size size) : base(size)
         {
             Bitmap qImage = (Bitmap)ResourceProcessing.GetImage("Question.png");
-            Bitmap opImage = CustomButton.ImageButton[ThemesButton.Blue];
+            Bitmap opImage = CustomButton.ImageButton[ThemeButton.Blue];
 
             int opWidth = (int)(0.45f * size.Width);
 
@@ -58,12 +58,13 @@ namespace WhoWantsToBeMillionaire
 
             int dy = (int)(0.1f * opImage.Height);
 
-            options = new Dictionary<char, Option>();
+            options = new Dictionary<Letter, Option>();
+            Letter[] keys = Enum.GetValues(typeof(Letter)).Cast<Letter>().ToArray();
             Option option;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < keys.Length; i++)
             {
-                option = new Option((char)('A' + i), opSize, opImage, 0.3f * opSize.Height, opFormat);
+                option = new Option(keys[i], opSize, opImage, 0.3f * opSize.Height, opFormat);
                 option.Y = textQuestion.Height + i / 2 * (opSize.Height + dy) + dy;
                 option.Click += OnOptionClick;
 
@@ -159,7 +160,7 @@ namespace WhoWantsToBeMillionaire
 
             IsCorrectAnswer = Question.Correct == option.Letter;
 
-            if (AnswerMode == AnswerMode.RightMistakes && !IsCorrectAnswer)
+            if (AnswerMode == AnswerMode.DoubleDips && !IsCorrectAnswer)
             {
                 AnswerMode = AnswerMode.Usual;
                 await Task.Delay(3000);
@@ -253,7 +254,7 @@ namespace WhoWantsToBeMillionaire
             iconHint.Visible = false;
         }
 
-        public async Task ReplaceQuestion()
+        public async Task SwitchQuestionQuestion()
         {
             await options[Question.Correct].Blink();
             await Task.Delay(3000);
@@ -281,7 +282,7 @@ namespace WhoWantsToBeMillionaire
 
             List<Task> tasks = new List<Task>();
 
-            tasks.Add(Task.Run(() => ShowCentralIcon(TypeHint.Replace)));
+            tasks.Add(Task.Run(() => ShowCentralIcon(TypeHint.SwitchQuestion)));
             tasks.Add(Task.Run(() => ShowQuestion(Question.Number, newIndex)));
 
             await Task.WhenAll(tasks);
@@ -292,36 +293,37 @@ namespace WhoWantsToBeMillionaire
             switch (hint)
             {
                 case TypeHint.FiftyFifty:
-                    var wrongKeys = Question.Options.Keys.Where(k => k != Question.Correct).ToList();
-                    char secondKey = wrongKeys[new Random().Next(wrongKeys.Count)];
+                    Dictionary<Letter, string> dict = new Dictionary<Letter, string>();
 
-                    Dictionary<char, string> dict = new Dictionary<char, string>();
-                    foreach (var key in Question.Options.Keys)
-                        dict.Add(key, key == Question.Correct || key == secondKey ? Question.Options[key] : string.Empty);
+                    var wrongKeys = Question.Options.Keys.Where(k => k != Question.Correct).ToList();
+                    Letter secondKey = wrongKeys[new Random().Next(wrongKeys.Count)];
+
+                    dict.Add(Question.Correct, Question.Options[Question.Correct]);
+                    dict.Add(secondKey, Question.Options[secondKey]);
 
                     Question = new Question(Question.Number, Question.Index, Question.Text, dict, Question.Correct, Question.Explanation);
                     SetTextQuestion();
                     break;
 
-                case TypeHint.Call:
+                case TypeHint.PhoneFriend:
                     Enabled = false;
                     break;
 
-                case TypeHint.Audience:
+                case TypeHint.AskAudience:
                     Enabled = false;
                     break;
 
-                case TypeHint.RightMistake:
-                    AnswerMode = AnswerMode.RightMistakes;
+                case TypeHint.DoubleDip:
+                    AnswerMode = AnswerMode.DoubleDips;
                     ShowCentralIcon(hint);
                     break;
 
-                case TypeHint.Replace:
-                    AnswerMode = AnswerMode.ReplaceQuestion;
+                case TypeHint.SwitchQuestion:
+                    AnswerMode = AnswerMode.SwitchQuestion;
                     ShowCentralIcon(hint);
                     break;
 
-                case TypeHint.Host:
+                case TypeHint.AskHost:
                     Enabled = false;
                     ShowCentralIcon(hint);
                     break;

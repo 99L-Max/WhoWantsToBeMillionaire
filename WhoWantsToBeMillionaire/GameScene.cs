@@ -25,10 +25,10 @@ namespace WhoWantsToBeMillionaire
         WishGoodLuck,
         NextQuestion,
         ShowLoss,
-        EndCall,
-        EndAudience,
-        ReplaceQuestion,
-        EndHost,
+        EndPhoneFriend,
+        EndAskAudience,
+        SwitchQuestion,
+        EndAskHost,
         TakeMoney,
     }
 
@@ -76,7 +76,7 @@ namespace WhoWantsToBeMillionaire
             containerHints.Reset();
         }
 
-        public async void Start()
+        public async void ShowRules()
         {
             await containerSums.Show();
 
@@ -103,10 +103,10 @@ namespace WhoWantsToBeMillionaire
                 default:
                     command = SceneCommand.NextQuestion;
                     break;
-                case AnswerMode.ReplaceQuestion:
-                    command = SceneCommand.ReplaceQuestion;
+                case AnswerMode.SwitchQuestion:
+                    command = SceneCommand.SwitchQuestion;
                     break;
-                case AnswerMode.TakingMoney:
+                case AnswerMode.TakeMoney:
                     command = SceneCommand.TakeMoney;
                     break;
             }
@@ -116,18 +116,17 @@ namespace WhoWantsToBeMillionaire
         {
             switch (type)
             {
-                case TypeHint.Call:
-                    command = SceneCommand.EndCall;
+                case TypeHint.PhoneFriend:
+                    command = SceneCommand.EndPhoneFriend;
                     break;
-                case TypeHint.Audience:
-                    command = SceneCommand.EndAudience;
+                case TypeHint.AskAudience:
+                    command = SceneCommand.EndAskAudience;
                     break;
-                case TypeHint.Host:
-                    command = SceneCommand.EndHost;
+                case TypeHint.AskHost:
+                    command = SceneCommand.EndAskHost;
                     break;
             }
 
-            containerHints.Enabled = type == TypeHint.FiftyFifty;
             playerDialog.OnHintClick(type, containerQuestion.Question);
             containerQuestion.OnHintClick(type);
         }
@@ -204,17 +203,21 @@ namespace WhoWantsToBeMillionaire
                     containerHints.Enabled = true;
                     break;
 
-                case SceneCommand.ReplaceQuestion:
-                    playerDialog.Clear();
-                    await containerQuestion.ReplaceQuestion();
-                    containerHints.Enabled = true;
-                    break;
-
-                case SceneCommand.EndAudience:
+                case SceneCommand.EndPhoneFriend:
+                case SceneCommand.EndAskAudience:
                     buttonCommand.Visible = false;
                     await playerDialog.RemoveMovingPictureBox();
                     containerHints.Enabled = true;
+                    containerQuestion.Enabled = true;
+                    playerDialog.Clear();
                     break;
+
+                case SceneCommand.SwitchQuestion:
+                    playerDialog.Clear();
+                    await containerQuestion.SwitchQuestionQuestion();
+                    containerHints.Enabled = true;
+                    break;
+
             }
         }
     }
