@@ -15,7 +15,7 @@ namespace WhoWantsToBeMillionaire
         Gray
     }
 
-    class CustomButton : PictureBox
+    class CustomButton : PictureBox, IDisposable
     {
         public static readonly ReadOnlyDictionary<ThemeButton, Bitmap> ImageButton;
 
@@ -87,6 +87,16 @@ namespace WhoWantsToBeMillionaire
         protected override void OnMouseUp(MouseEventArgs mevent)
         {
             OnMouseEnter(mevent);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                BackgroundImage.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

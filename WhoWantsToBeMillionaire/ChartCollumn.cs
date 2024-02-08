@@ -35,11 +35,11 @@ namespace WhoWantsToBeMillionaire
             this.width = width;
             this.yMax = yMax;
             this.maxHeight = maxHeight;
-
-            dp = 7;
         }
 
-        public void ChangePersent()
+        public void SetChangePerсent(float dp) => this.dp = dp;
+
+        public void ChangePerсent()
         {
             percent += dp;
 

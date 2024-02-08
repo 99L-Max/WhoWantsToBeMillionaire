@@ -6,12 +6,9 @@ namespace WhoWantsToBeMillionaire
     public partial class MainForm : Form
     {
         private readonly GameScene scene;
-        private readonly MainMenu menu;
-
-        private readonly Bitmap background;
+        private readonly Menu menu;
 
         public static readonly Rectangle RectScreen = Screen.PrimaryScreen.Bounds;
-
         public const int DeltaTime = 60;
 
         protected override CreateParams CreateParams
@@ -28,27 +25,18 @@ namespace WhoWantsToBeMillionaire
         {
             InitializeComponent();
 
-            background = new Bitmap(ResourceProcessing.GetImage("Background_Main.png"), RectScreen.Size);
+            BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Main.png"), RectScreen.Size);
 
             scene = new GameScene();
+            menu = new Menu(new Size(RectScreen.Width / 3, RectScreen.Height / 2));
+
             scene.Visible = false;
 
-            menu = new MainMenu(new Size(RectScreen.Width / 3, RectScreen.Height / 2));
+            menu.SetCommands(new MenuCommand[] { MenuCommand.Continue, MenuCommand.Start, MenuCommand.Achievements, MenuCommand.Settings, MenuCommand.Exit });
             menu.ButtonClick += OnButtonMenuClick;
 
             Controls.Add(scene);
             Controls.Add(menu);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(background, ClientRectangle);
-
-            if (menu.Visible)
-                using (Brush brush = new SolidBrush(Color.FromArgb(byte.MaxValue >> 1, Color.Black)))
-                    e.Graphics.FillRectangle(brush, ClientRectangle);
-
-            base.OnPaint(e);
         }
 
         private async void OnButtonMenuClick(MenuCommand cmd)

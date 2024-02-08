@@ -49,7 +49,7 @@ namespace WhoWantsToBeMillionaire
             opFormat.Alignment = StringAlignment.Near;
             opFormat.LineAlignment = StringAlignment.Center;
 
-            textQuestion = new TextPictureBox(qSize, qImage, 0.18f * qSize.Height, qFormat);
+            textQuestion = new TextPictureBox(qSize, qImage, 0.16f * qSize.Height, qFormat);
             textPrize = new TextPictureBox(qSize, qImage, 0.42f * qSize.Height, qFormat);
 
             textQuestion.Size = textPrize.Size = qSize;
@@ -231,6 +231,11 @@ namespace WhoWantsToBeMillionaire
             Reset();
         }
 
+        public void HideCentralIcon()
+        {
+            iconHint.HideIcon();
+        }
+
         private void ShowCentralIcon(TypeHint hint)
         {
             iconHint.Visible = true;
@@ -306,9 +311,6 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case TypeHint.PhoneFriend:
-                    Enabled = false;
-                    break;
-
                 case TypeHint.AskAudience:
                     Enabled = false;
                     break;

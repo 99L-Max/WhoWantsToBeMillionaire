@@ -39,7 +39,10 @@ namespace WhoWantsToBeMillionaire
         private readonly ContainerQuestion containerQuestion;
         private readonly CustomButton buttonCommand;
         private readonly PlayerDialog playerDialog;
+        private readonly AnswerHint answerHint;
 
+        private VotingChart chart;
+        private PhoneTimer timer;
         private SceneCommand command = SceneCommand.ShowSaveSums;
 
         public GameScene() : base(MainForm.RectScreen.Size)
@@ -53,10 +56,12 @@ namespace WhoWantsToBeMillionaire
             containerQuestion = new ContainerQuestion(new Size(MainForm.RectScreen.Width - containerSums.Width, (int)(MainForm.RectScreen.Height * 0.36f)));
             playerDialog = new PlayerDialog(new Size(MainForm.RectScreen.Width - containerSums.Width, MainForm.RectScreen.Height - containerQuestion.Height), buttonCommand);
             containerHints = new ContainerHints(new Size(containerSums.Width, (int)(containerSums.Height * 0.2f)));
+            answerHint = new AnswerHint();
 
             containerQuestion.Location = new Point(0, MainForm.RectScreen.Height - containerQuestion.Height);
 
             buttonCommand.Click += OnButtonCommandClick;
+            containerHints.HintClick += containerQuestion.OnHintClick;
             containerHints.HintClick += OnHintClick;
             containerQuestion.OptionClick += OnOptionClick;
 
@@ -112,23 +117,61 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void OnHintClick(TypeHint type)
+        private async void OnHintClick(TypeHint type)
         {
             switch (type)
             {
                 case TypeHint.PhoneFriend:
                     command = SceneCommand.EndPhoneFriend;
+
+                    playerDialog.Reset();
+                    playerDialog.ContentAlignment = ContentAlignment.MiddleLeft;
+
+                    timer = new PhoneTimer((int)(0.3f * playerDialog.Height));
+                    timer.TimeUp += OnButtonCommandClick;
+
+                    await Task.Delay(3000);
+
+                    foreach (var phrase in answerHint.GetPhoneFriendDialog(containerSums.NextSum))
+                    {
+                        playerDialog.AddText(phrase);
+                        await Task.Delay(2000);
+                    }
+
+                    await playerDialog.ShowMovingPictureBox(timer, false, 500 / MainForm.DeltaTime);
+
+                    playerDialog.Text = answerHint.GetPhoneFriendAnswer(containerQuestion.Question);
+                    timer.Start();
+
+                    buttonCommand.Visible = true;
                     break;
+
                 case TypeHint.AskAudience:
                     command = SceneCommand.EndAskAudience;
+
+                    int heigth = (int)(0.7f * playerDialog.Height);
+                    chart = new VotingChart(new Size((int)(0.75f * heigth), heigth));
+
+                    await playerDialog.ShowMovingPictureBox(chart, true, 1000 / MainForm.DeltaTime);
+                    await Task.Delay(2000);
+                    await chart.ShowAnimationVote(3000);
+                    await chart.ShowPercents(15, answerHint.GetPersents(containerQuestion.Question));
+
+                    buttonCommand.Visible = true;
                     break;
+
                 case TypeHint.AskHost:
                     command = SceneCommand.EndAskHost;
+                    playerDialog.Text = answerHint.GetAskHostAnswer(containerQuestion.Question);
+                    buttonCommand.Visible = true;
                     break;
             }
+        }
 
-            playerDialog.OnHintClick(type, containerQuestion.Question);
-            containerQuestion.OnHintClick(type);
+        private async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)
+        {
+            await playerDialog.RemoveMovingPictureBox(box, countFrames);
+            box.Dispose();
         }
 
         private async void OnButtonCommandClick(object sender, EventArgs e)
@@ -205,11 +248,25 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.EndPhoneFriend:
                 case SceneCommand.EndAskAudience:
-                    buttonCommand.Visible = false;
-                    await playerDialog.RemoveMovingPictureBox();
-                    containerHints.Enabled = true;
-                    containerQuestion.Enabled = true;
                     playerDialog.Clear();
+
+                    if (command == SceneCommand.EndPhoneFriend)
+                    {
+                        playerDialog.ContentAlignment = ContentAlignment.MiddleCenter;
+
+                        timer.Stop();
+                        timer.TimeUp -= OnButtonCommandClick;
+
+                        await Task.Delay(2000);
+                        await RemoveMovingPictureBox(timer, 500 / MainForm.DeltaTime);
+                    }
+                    else
+                    {
+                        await RemoveMovingPictureBox(chart, 1000 / MainForm.DeltaTime);
+                    }
+
+                    containerQuestion.Enabled = true;
+                    containerHints.Enabled = true;
                     break;
 
                 case SceneCommand.SwitchQuestion:
@@ -218,6 +275,12 @@ namespace WhoWantsToBeMillionaire
                     containerHints.Enabled = true;
                     break;
 
+                case SceneCommand.EndAskHost:
+                    playerDialog.Clear();
+                    containerQuestion.HideCentralIcon();
+                    containerQuestion.Enabled = true;
+                    containerHints.Enabled = true;
+                    break;
             }
         }
     }

@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnswerHint.cs" />
-    <Compile Include="MenuButton.cs">
+    <Compile Include="ButtonMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="VotingChart.cs">
@@ -103,9 +103,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Menu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MainMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MovingPictureBox.cs">
@@ -619,7 +616,28 @@
     <EmbeddedResource Include="Resources\Textures\Hint_SwitchQuestion_Used.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Textures\PhoneTimer.png" />
+    <EmbeddedResource Include="Resources\Dialogues\ChooseSaveSum.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Correct.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Incorrect.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Correct1.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Correct2.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Correct3.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog1.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog2.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog3.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect1.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect2.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect3.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_SwitchQuestion.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_SwitchQuestion_Correct.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_SwitchQuestion_Incorrect.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\TakingMoney.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\TakingMoney_Correct.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\TakingMoney_Incorrect.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\PhoneTimer_Back.png" />
+    <EmbeddedResource Include="Resources\Textures\PhoneTimer_Front.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

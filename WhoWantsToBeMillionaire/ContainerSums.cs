@@ -35,6 +35,8 @@ namespace WhoWantsToBeMillionaire
 
         public int[] SaveSums => rowsSum.Where(r => r.IsSaveSum && r.Number != rowsSum.Length).Select(r => r.Sum).ToArray();
 
+        public string NextSum => string.Format("{0:#,0}", rowsSum[numberQuestion - 1].Sum);
+
         public ContainerSums(Size size) : base(size)
         {
             using (Stream stream = ResourceProcessing.GetStream("Sums.json", TypeResource.Sums))

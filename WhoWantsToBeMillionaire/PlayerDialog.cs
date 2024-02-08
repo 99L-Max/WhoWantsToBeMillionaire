@@ -9,10 +9,6 @@ namespace WhoWantsToBeMillionaire
         private readonly Label labelDialog;
         private readonly Bitmap logo;
         private readonly CustomButton buttonCommand;
-        private readonly AnswerHint answerHint;
-
-        private VotingChart chart;
-        private PhoneTimer timer;
 
         public new string Text
         {
@@ -35,7 +31,6 @@ namespace WhoWantsToBeMillionaire
             labelDialog = new Label();
             logo = new Bitmap(ResourceProcessing.GetImage("Logo.png"), sideLogo, sideLogo);
             buttonCommand = button;
-            answerHint = new AnswerHint();
 
             labelDialog.Size = new Size(size.Width, (int)(0.8f * size.Height));
             labelDialog.BackColor = Color.Transparent;
@@ -55,8 +50,9 @@ namespace WhoWantsToBeMillionaire
             labelDialog.Text = string.Empty;
             labelDialog.Image = null;
             buttonCommand.Visible = false;
-            buttonCommand.Enabled = true;
         }
+
+        public void AddText(string text) => labelDialog.Text += text;
 
         public void Clear()
         {
@@ -65,58 +61,23 @@ namespace WhoWantsToBeMillionaire
             buttonCommand.Visible = false;
         }
 
-        public async void OnHintClick(TypeHint type, Question question)
+        public async Task ShowMovingPictureBox(MovingPictureBox box, bool isCenterHeight, int countFrames)
         {
-            switch (type)
+            box.Location = new Point(labelDialog.Width, isCenterHeight ? (labelDialog.Height - box.Height) / 2 : 0);
+
+            labelDialog.Image = null;
+            labelDialog.Controls.Add(box);
+
+            await box.MoveX(isCenterHeight ? (labelDialog.Width - box.Width) / 2 : labelDialog.Width - box.Width, countFrames);
+        }
+
+        public async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)
+        {
+            if (labelDialog.Controls.Contains(box))
             {
-                case TypeHint.PhoneFriend:
-                    timer = new PhoneTimer((int)(0.4f * Height));
-                    timer.Location = new Point(Width, 0);
-
-                    labelDialog.Image = null;
-                    labelDialog.Controls.Add(timer);
-                    //timer.TimeUp += () => buttonNext.PerformClick();
-
-                    await timer.MoveX(Width - timer.Width, 1000 / MainForm.DeltaTime);
-                    timer.Start();
-
-                    buttonCommand.Visible = true;
-                    break;
-
-                case TypeHint.AskAudience:
-                    int heigth = (int)(0.9f * labelDialog.Height);
-                    chart = new VotingChart(new Size((int)(0.75f * heigth), heigth));
-                    chart.Location = new Point(Width, (labelDialog.Height - heigth) / 2);
-
-                    labelDialog.Image = null;
-                    labelDialog.Controls.Add(chart);
-
-                    await chart.MoveX((Width - chart.Width) / 2, 1000 / MainForm.DeltaTime);
-                    await Task.Delay(2000);
-                    await chart.ShowAnimationVote(3000);
-                    await chart.ShowPercents(15, answerHint.GetPersents(question));
-
-                    buttonCommand.Visible = true;
-                    break;
+                await box.MoveX(labelDialog.Width, countFrames);
+                labelDialog.Controls.Remove(box);
             }
-        }
-
-        private async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)
-        {
-            await box.MoveX(Width, countFrames);
-            labelDialog.Controls.Remove(box);
-            box.Dispose();
-        }
-
-        public async Task RemoveMovingPictureBox()
-        {
-            int countFrames = 1000 / MainForm.DeltaTime;
-
-            if (labelDialog.Controls.Contains(chart))
-                await RemoveMovingPictureBox(chart, countFrames);
-
-            if (labelDialog.Controls.Contains(timer))
-                await RemoveMovingPictureBox(timer, countFrames);
         }
     }
 }

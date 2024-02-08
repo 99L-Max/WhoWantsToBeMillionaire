@@ -10,6 +10,7 @@ namespace WhoWantsToBeMillionaire
     enum TypeResource
     {
         AnimationData,
+        Dialogues,
         Questions,
         Sounds,
         Sums,
@@ -70,6 +71,12 @@ namespace WhoWantsToBeMillionaire
             Bitmap[] frames = FramesAppearance(image, count);
             Array.Reverse(frames);
             return frames;
+        }
+
+        public static string GetString(string fileName)
+        {
+            using (StreamReader stream = new StreamReader(GetStream(fileName, TypeResource.Dialogues)))
+                return stream.ReadToEnd();
         }
     }
 }

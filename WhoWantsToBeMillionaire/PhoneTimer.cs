@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
@@ -8,60 +8,81 @@ namespace WhoWantsToBeMillionaire
     class PhoneTimer : MovingPictureBox, IDisposable
     {
         private readonly Bitmap background;
+        private readonly Bitmap front;
+        private readonly Bitmap ring;
+        private readonly Graphics g;
+        private readonly Brush brush;
+        private readonly Timer timer;
+        private readonly int maxSeconds;
 
         private int seconds;
-        private bool isRun;
 
-        public int Seconds
-        { 
-            private set
-            {
-                seconds = value;
-                Invalidate();
-            } 
-            get => seconds; 
-        }
-
-        public delegate void EventTimeUp();
+        public delegate void EventTimeUp(object sender, EventArgs e);
         public event EventTimeUp TimeUp;
 
         public PhoneTimer(int side) : base(new Size(side, side))
         {
-            background = new Bitmap(ResourceProcessing.GetImage("PhoneTimer.png"));
-            Font = new Font("", 0.4f * side, FontStyle.Bold);
+            background = new Bitmap(ResourceProcessing.GetImage("PhoneTimer_Back.png"));
+            ring = new Bitmap(ResourceProcessing.GetImage("PhoneTimer_Front.png"));
+            front = new Bitmap(ring.Width, ring.Height);
+            brush = new SolidBrush(Color.Transparent);
+
+            g = Graphics.FromImage(front);
+            g.CompositingMode = CompositingMode.SourceCopy;
+
+            Font = new Font("", 0.35f * side, FontStyle.Bold);
             ForeColor = Color.White;
-            isRun = false;
-            seconds = 30;
+            maxSeconds = seconds = 30;
+
+            timer = new Timer();
+            timer.Interval = 1000;
+            timer.Tick += TimerTick;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            g.DrawImage(ring, 0, 0);
+            g.FillPie(brush, 0, 0, ring.Width, ring.Height, -90, (maxSeconds - seconds) * 360 / maxSeconds);
+
             e.Graphics.DrawImage(background, ClientRectangle);
+            e.Graphics.DrawImage(front, ClientRectangle);
+
             TextRenderer.DrawText(e.Graphics, $"{seconds}", Font, ClientRectangle, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
-        public async void Start()
+        private void TimerTick(object sender, EventArgs e)
         {
-            isRun = true;
+            seconds--;
+            Invalidate();
 
-            while (Seconds > 0 && isRun)
+            if (seconds == 0)
             {
-                await Task.Delay(1000);
-                Seconds--;
+                timer.Stop();
+                TimeUp.Invoke(this, EventArgs.Empty);
             }
+        }
 
-            TimeUp.Invoke();
+        public void Start()
+        {
+            timer.Start();
         }
 
         public void Stop()
         {
-            isRun = false;
+            timer.Stop();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
+            {
                 background.Dispose();
+                front.Dispose();
+                ring.Dispose();
+                g.Dispose();
+                brush.Dispose();
+                timer.Dispose();
+            }
 
             base.Dispose(disposing);
         }

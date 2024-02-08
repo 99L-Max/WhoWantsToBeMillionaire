@@ -53,6 +53,11 @@ namespace WhoWantsToBeMillionaire
             Explanation = explanation;
         }
 
+        internal Letter Where()
+        {
+            throw new NotImplementedException();
+        }
+
         private ReadOnlyDictionary<Letter, string> FormatOptions(Dictionary<Letter, string> dict)
         {
             foreach (var key in Enum.GetValues(typeof(Letter)).Cast<Letter>())

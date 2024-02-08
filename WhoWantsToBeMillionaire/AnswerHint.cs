@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -35,6 +36,63 @@ namespace WhoWantsToBeMillionaire
                 keys.Insert(random.Next(keys.Count) + 1, question.Correct);
 
             return keys.Zip(percents, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
+        }
+
+        public string[] GetPhoneFriendDialog(string sum)
+        {
+            int numberDialog = random.Next(1, 4);
+
+            string text = ResourceProcessing.GetString($"Hint_PhoneFriend_Dialog{numberDialog}.txt").Replace("<SUM>", sum);
+
+            return text.Split(new string[] { "\n" }, StringSplitOptions.None);
+        }
+
+        public string GetPhoneFriendAnswer(Question question)
+        {
+            int numberDialog = random.Next(1, 4);
+
+            StringBuilder result = new StringBuilder();
+
+            if (random.NextDouble() <= -0.07 * question.Number + 1.28 || question.CountOptions == 2)
+            {
+                result.Append(ResourceProcessing.GetString($"Hint_PhoneFriend_Correct{numberDialog}.txt"));
+                result.Replace("<CORRECT>", question.FullCorrect);
+            }
+            else
+            {
+                Letter wrong = question.Options.Where(x => x.Key != question.Correct).OrderBy(x => random.Next()).First().Key;
+
+                result.Append(ResourceProcessing.GetString($"Hint_PhoneFriend_Incorrect{numberDialog}.txt"));
+                result.Replace("<INCORRECT>", question.GetFullOption(wrong));
+            }
+
+            result.Replace("<QUESTION>", question.Text);
+
+            return result.ToString();
+        }
+
+        public string GetAskHostAnswer(Question question)
+        {
+            StringBuilder result = new StringBuilder();
+
+            double b = question.CountOptions > 2 ? 1.25 : 1.5;
+
+            if (random.NextDouble() <= -0.05 * question.Number + b)
+            {
+                result.Append(ResourceProcessing.GetString($"Hint_AskHost_Correct.txt").Split(new string[] { "\n" }, StringSplitOptions.None)[(question.Number - 1) / 5]);
+                result.Replace("<CORRECT>", question.FullCorrect);
+            }
+            else
+            {
+                Letter wrong = question.Options.Where(x => x.Key != question.Correct && x.Value != string.Empty).OrderBy(x => random.Next()).First().Key;
+
+                result.Append(ResourceProcessing.GetString($"Hint_AskHost_Incorrect.txt").Split(new string[] { "\n" }, StringSplitOptions.None)[(question.Number - 1) / 5]);
+                result.Replace("<INCORRECT>", question.GetFullOption(wrong));
+            }
+
+            result.Replace("<n>", "\n");
+
+            return result.ToString();
         }
     }
 }

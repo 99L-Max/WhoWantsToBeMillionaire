@@ -59,14 +59,18 @@ namespace WhoWantsToBeMillionaire
             Random random = new Random();
 
             foreach (var c in columns.Values)
-                c.Percent = random.Next(101);
+            { 
+                c.Percent = 0;
+                c.SetChangePerсent(random.Next(3, 8));
+            }
+            DrawChart(false);
 
             int countFrames = millisecond / MainForm.DeltaTime;
 
             do
             {
                 foreach (var c in columns.Values)
-                    c.ChangePersent();
+                    c.ChangePerсent();
 
                 DrawChart(false);
                 await Task.Delay(MainForm.DeltaTime);

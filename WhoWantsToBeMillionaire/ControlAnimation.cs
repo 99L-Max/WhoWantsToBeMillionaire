@@ -5,6 +5,16 @@ namespace WhoWantsToBeMillionaire
 {
     abstract class ControlAnimation : PictureBox
     {
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                base.CreateParams.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+
         public ControlAnimation(Size size)
         {
             Size = size;
