@@ -110,7 +110,6 @@ namespace WhoWantsToBeMillionaire
 
         private void OnOptionClick(string explanation)
         {
-            textQuestion.Enabled = false;
             tableHints.Enabled = false;
 
             switch (textQuestion.AnswerMode)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,8 +20,8 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly Graphics g;
         private readonly Bitmap image;
-        private readonly PictureText pictureTextQuestion;
         private readonly Bitmap wires;
+        private readonly PictureText pictureTextQuestion;
         private readonly Dictionary<Letter, Option> options;
         private readonly CentralIconHint iconHint;
 
@@ -93,13 +94,13 @@ namespace WhoWantsToBeMillionaire
             using (Graphics g = Graphics.FromImage(wires))
             using (Bitmap wire = new Bitmap(ResourceProcessing.GetImage("Wire.png")))
             {
-                int yWire = 0;
+                y = 0;
 
                 foreach (var op in options.Values)
-                    if (yWire != op.Rectangle.Y)
+                    if (y != op.Rectangle.Y)
                     {
-                        yWire = op.Rectangle.Y;
-                        g.DrawImage(wire, 0, yWire, wires.Width, op.Rectangle.Height);
+                        y = op.Rectangle.Y;
+                        g.DrawImage(wire, 0, y, wires.Width, op.Rectangle.Height);
                     }
 
                 foreach (var op in options.Values)
@@ -128,6 +129,16 @@ namespace WhoWantsToBeMillionaire
             AnswerMode = AnswerMode.Usual;
         }
 
+        private void DrawFrame(Bitmap frame, Rectangle rectangle, int numberFrame, int countFrames)
+        {
+            using (ImageAttributes attribute = new ImageAttributes())
+            {
+                ColorMatrix matrix = new ColorMatrix { Matrix33 = (numberFrame + 1f) / countFrames };
+                attribute.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+                g.DrawImage(frame, rectangle, 0, 0, frame.Width, frame.Height, GraphicsUnit.Pixel, attribute);
+            }
+        }
+
         public async Task ShowQuestion(int number, int countFrames)
         {
             await ShowQuestion(number, Question.RandomIndex(number), countFrames);
@@ -138,12 +149,11 @@ namespace WhoWantsToBeMillionaire
             Question = new Question(number, index);
             g.Clear(Color.Transparent);
 
-            Bitmap[] frames = ResourceProcessing.FramesAppearance(wires, countFrames);
+            Rectangle rectWires = new Rectangle(0, 0, Width, Height);
 
-            foreach (var frame in frames)
+            for (int i = 1; i <= countFrames; i++)
             {
-                g.DrawImage(wires, 0, 0);
-                frame.Dispose();
+                DrawFrame(wires, rectWires, i, countFrames);
 
                 Image = image;
                 await Task.Delay(MainForm.DeltaTime);
@@ -195,8 +205,10 @@ namespace WhoWantsToBeMillionaire
 
         private async void OnOptionClick(Letter letter)
         {
+            Enabled = false;
+
             Option option = options[letter];
-            SelectOption(letter);
+            SelectOption(letter, 6);
 
             IsCorrectAnswer = Question.Correct == letter;
 
@@ -219,7 +231,7 @@ namespace WhoWantsToBeMillionaire
                 {
                     await Task.Delay(3000);
                     IsCorrectAnswer = true;
-                    SelectOption(Question.Correct);
+                    SelectOption(Question.Correct, 6);
                 }
                 else
                 {
@@ -235,7 +247,7 @@ namespace WhoWantsToBeMillionaire
             OptionClick.Invoke(explanation);
         }
 
-        private async void SelectOption(Letter letter)
+        private async void SelectOption(Letter letter, int countFrames)
         {
             Option option = options[letter];
 
@@ -244,19 +256,15 @@ namespace WhoWantsToBeMillionaire
 
             using (Bitmap selectedOption = (Bitmap)ResourceProcessing.GetImage("Option_Orange.png"))
             {
-                Bitmap[] frames = ResourceProcessing.FramesAppearance(selectedOption, 6);
-
-                foreach (var img in frames)
+                for (int i = 1; i <= countFrames; i++)
                 {
-                    g.DrawImage(img, option.Rectangle);
+                    DrawFrame(selectedOption, option.Rectangle, i, countFrames);
+
                     g.DrawImage(option.ImageText, option.Rectangle);
 
                     Image = image;
                     await Task.Delay(MainForm.DeltaTime);
                 }
-
-                foreach (var img in frames)
-                    img.Dispose();
             }
         }
 
@@ -270,21 +278,20 @@ namespace WhoWantsToBeMillionaire
                 iconHint.Clear();
             }
 
-            Bitmap[] frames = ResourceProcessing.FramesDisappearance(image, countFrames);
+            Rectangle rectImage = new Rectangle(0, 0, Width, Height);
 
-            foreach (var img in frames)
-            {
-                Image = img;
-                await Task.Delay(MainForm.DeltaTime);
-            }
+            using (Bitmap mainImage = new Bitmap(image))
+                for (int i = countFrames - 1; i > 0; i--)
+                {
+                    g.Clear(Color.Transparent);
+                    DrawFrame(mainImage, rectImage, i, countFrames);
+
+                    Image = image;
+                    await Task.Delay(MainForm.DeltaTime);
+                }
 
             g.Clear(Color.Transparent);
-            Image = null;
-
-            foreach (var img in frames)
-                img.Dispose();
-
-            iconHint.Visible = false;
+            Image = image;
         }
 
         public async Task ShowCorrect(int countFrames)
@@ -296,23 +303,24 @@ namespace WhoWantsToBeMillionaire
             using (Bitmap startFrame = (Bitmap)ResourceProcessing.GetImage(option.Selected ? "Option_Orange.png" : "Option_Blue.png"))
             using (Bitmap finalFrame = (Bitmap)ResourceProcessing.GetImage("Option_Green.png"))
             {
-                Bitmap[] frames = ResourceProcessing.FramesTransition(startFrame, finalFrame, countFrames);
+                Bitmap frame, back;
 
-                int n = frames.Length - 1;
-                int n2 = 2 * n;
-                int n5 = 5 * n;
-
-                for (int i = 0; i <= n5; i++)
+                for (int stage = 0; stage < 5; stage++)
                 {
-                    g.DrawImage(frames[n - Math.Abs(i % n2 - n)], option.Rectangle);
-                    g.DrawImage(option.ImageText, option.Rectangle);
+                    (frame, back) = (stage & 1) == 0 ? (finalFrame, startFrame) : (startFrame, finalFrame);
 
-                    Image = image;
-                    await Task.Delay(MainForm.DeltaTime);
+                    for (int i = 1; i <= countFrames; i++)
+                    {
+                        g.DrawImage(back, option.Rectangle);
+
+                        DrawFrame(frame, option.Rectangle, i, countFrames);
+
+                        g.DrawImage(option.ImageText, option.Rectangle);
+
+                        Image = image;
+                        await Task.Delay(MainForm.DeltaTime);
+                    }
                 }
-
-                foreach (var img in frames)
-                    img.Dispose();
             }
         }
 
@@ -344,6 +352,7 @@ namespace WhoWantsToBeMillionaire
                     Question = new Question(Question.Number, Question.Index, Question.Text, dict, Question.Correct, Question.Explanation);
 
                     g.Clear(Color.Transparent);
+                    g.DrawImage(wires, 0, 0, Width, Height);
                     g.DrawImage(pictureTextQuestion.ImageText, pictureTextQuestion.Rectangle);
 
                     foreach (var op in options.Values)
