@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    abstract class MovingPictureBox : PictureBox
+    abstract class MovingPictureBox : PictureBoxAnimation
     {
         public int X
         {
@@ -18,9 +18,8 @@ namespace WhoWantsToBeMillionaire
             get => Location.Y;
         }
 
-        public MovingPictureBox(Size size)
+        public MovingPictureBox(Size size) : base(size)
         {
-            Size = size;
             SizeMode = PictureBoxSizeMode.StretchImage;
             BackgroundImageLayout = ImageLayout.Stretch;
         }

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    abstract class ControlAnimation : PictureBox
+    class PictureBoxAnimation : PictureBox
     {
         protected override CreateParams CreateParams
         {
@@ -15,7 +15,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public ControlAnimation(Size size)
+        public PictureBoxAnimation(Size size)
         {
             Size = size;
             BackColor = Color.Transparent;

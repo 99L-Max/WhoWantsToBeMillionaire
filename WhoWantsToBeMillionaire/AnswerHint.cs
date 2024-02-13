@@ -94,5 +94,23 @@ namespace WhoWantsToBeMillionaire
 
             return result.ToString();
         }
+
+        public string GetPhraseSwitchQuestion()
+        {
+            string[] phrases = ResourceProcessing.GetString($"Hint_SwitchQuestion.txt").Split(new string[] { "\n" }, StringSplitOptions.None);
+
+            return phrases[random.Next(phrases.Length)];
+        }
+
+        public string GetExplanationForSwitchQuestion(Question question, bool isCorrect)
+        {
+            string[] phrases = ResourceProcessing.GetString($"Hint_SwitchQuestion_{(isCorrect ? "Correct" : "Incorrect")}.txt").Split(new string[] { "\n" }, StringSplitOptions.None);
+            string phrase = phrases[random.Next(phrases.Length)].Replace("<NUMBER>", question.Number.ToString());
+
+            if (isCorrect)
+                return $"{question.Explanation}\n{phrase}";
+            else
+                return $"{question.Explanation}\nПравильный ответ: {question.FullCorrect}, {phrase}";
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class PlayerDialog : ControlAnimation
+    class PlayerDialog : PictureBoxAnimation
     {
         private readonly Label labelDialog;
         private readonly Bitmap logo;

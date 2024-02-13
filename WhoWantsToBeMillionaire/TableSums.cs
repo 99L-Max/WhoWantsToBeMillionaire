@@ -9,7 +9,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class ContainerSums : ControlAnimation
+    class TableSums : MovingPictureBox
     {
         private int numberQuestion;
 
@@ -37,7 +37,7 @@ namespace WhoWantsToBeMillionaire
 
         public string NextSum => string.Format("{0:#,0}", rowsSum[numberQuestion - 1].Sum);
 
-        public ContainerSums(Size size) : base(size)
+        public TableSums(Size size) : base(size)
         {
             using (Stream stream = ResourceProcessing.GetStream("Sums.json", TypeResource.Sums))
             using (StreamReader reader = new StreamReader(stream))
@@ -114,7 +114,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Reset()
         {
-            Location = new Point(MainForm.RectScreen.Width, 0);
+            X = MainForm.RectScreen.Width;
 
             tableSums.Visible = false;
 
@@ -126,20 +126,6 @@ namespace WhoWantsToBeMillionaire
                     row.IsSaveSum = row.Number % 5 == 0;
 
             Prize = 0;
-        }
-
-        public async new Task Show()
-        {
-            int countFrames = 10;
-            int dx = Width / countFrames;
-
-            while (countFrames-- > 0)
-            {
-                Location = new Point(Location.X - dx, 0);
-                await Task.Delay(MainForm.DeltaTime);
-            }
-
-            Location = new Point(MainForm.RectScreen.Width - Width, 0);
         }
 
         public async Task ShowControls()

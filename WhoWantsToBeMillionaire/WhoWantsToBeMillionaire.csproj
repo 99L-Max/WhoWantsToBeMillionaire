@@ -83,6 +83,12 @@
     <Compile Include="ButtonMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TextQuestion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextPrize.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="VotingChart.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -96,10 +102,10 @@
     <Compile Include="GameScene.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Hint.cs">
+    <Compile Include="ButtonHint.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ContainerHints.cs">
+    <Compile Include="TableHints.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Menu.cs">
@@ -108,19 +114,14 @@
     <Compile Include="MovingPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Option.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Option.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlAnimation.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ContainerQuestion.cs">
+    <Compile Include="PictureBoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PhoneTimer.cs">
@@ -139,11 +140,9 @@
     <Compile Include="Screensaver.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TextPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PictureText.cs" />
     <Compile Include="Sound.cs" />
-    <Compile Include="ContainerSums.cs">
+    <Compile Include="TableSums.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
@@ -571,10 +570,10 @@
     <EmbeddedResource Include="Resources\Textures\Background_Main.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Textures\Answer_Blue.png" />
-    <EmbeddedResource Include="Resources\Textures\Answer_Gray.png" />
-    <EmbeddedResource Include="Resources\Textures\Answer_Green.png" />
-    <EmbeddedResource Include="Resources\Textures\Answer_Orange.png" />
+    <EmbeddedResource Include="Resources\Textures\Option_Blue.png" />
+    <EmbeddedResource Include="Resources\Textures\Option_Gray.png" />
+    <EmbeddedResource Include="Resources\Textures\Option_Green.png" />
+    <EmbeddedResource Include="Resources\Textures\Option_Orange.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Textures\Menu.png" />
@@ -638,6 +637,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Textures\PhoneTimer_Back.png" />
     <EmbeddedResource Include="Resources\Textures\PhoneTimer_Front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\Wire.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

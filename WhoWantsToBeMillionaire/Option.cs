@@ -1,144 +1,66 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Drawing;
 
 namespace WhoWantsToBeMillionaire
 {
-    class Option : TextPictureBox
+    class Option : PictureText
     {
-        private readonly RectangleF rectangle;
-        private readonly RectangleF rectLabel;
         private readonly StringFormat formatLabel;
-        private readonly string label;
+        private readonly Rectangle rectText;
+        private readonly Rectangle rectLabel;
 
-        private Color foreColorLetter;
+        private Color foreColorText;
+        private Color foreColorLabel;
 
         public readonly Letter Letter;
 
-        public Option(Letter letter, Size size, Bitmap image, float fontSize, StringFormat format) : base(size, image, fontSize, format)
+        public bool Enabled;
+        public bool Selected;
+
+        public Option(Rectangle rectangle, Letter letter, Font font, StringFormat format) : base(rectangle, font, format)
         {
             Letter = letter;
-            label = $"{letter}:";
-            rectLabel = new RectangleF(0, 0, rectangle.X, rectangle.Height);
 
-            formatLabel = new StringFormat
+            rectLabel = new Rectangle(0, 0, (int)(0.15f * Rectangle.Width), Rectangle.Height);
+            rectText = new Rectangle(rectLabel.Width, 0, Rectangle.Width - rectLabel.Width, Rectangle.Height);
+
+            formatLabel = new StringFormat();
+
+            formatLabel.Alignment = StringAlignment.Far;
+            formatLabel.LineAlignment = StringAlignment.Center;
+        }
+
+        public override void Reset()
+        {
+            Enabled = true;
+            Selected = false;
+            foreColorText = Color.White;
+            foreColorLabel = Color.Orange;
+
+            base.Reset();
+        }
+
+        public void SetForeColors(Color colorText, Color colorLetter)
+        {
+            foreColorText = colorText;
+            foreColorLabel = colorLetter;
+
+            DrawText();
+        }
+
+        protected override void DrawText()
+        {
+            using (Graphics g = Graphics.FromImage(ImageText))
             {
-                Alignment = StringAlignment.Far,
-                LineAlignment = StringAlignment.Center
-            };
+                g.Clear(Color.Transparent);
 
-            rectLabel = new RectangleF(0f, 0f, 0.15f * Width, Height);
-            rectangle = new RectangleF(rectLabel.Width, 0f, Width, Height);
-
-            Reset();
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-           e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
-           
-           if (Image != null)
-               e.Graphics.DrawImage(Image, ClientRectangle);
-
-            if (alpha > 0)
-                using (Brush brush = new SolidBrush(Color.FromArgb(alpha, ForeColor)))
-                using (Brush brushLetter = new SolidBrush(Color.FromArgb(alpha, foreColorLetter)))
-                {
-                    e.Graphics.DrawString(Text, Font, brush, rectangle, format);
-                    e.Graphics.DrawString(label, Font, brushLetter, rectLabel, formatLabel);
-                }
-        }
-
-        public void Reset()
-        {
-            Image = null;
-            SetForeColors(Color.White, Color.Orange);
-        }
-
-        private void SetForeColors(Color colorText, Color colorLetter)
-        {
-            foreColorLetter = colorLetter;
-            ForeColor = colorText;
-        }
-
-        public async void Choose()
-        {
-            SetForeColors(Color.Black, Color.White);
-
-            Bitmap[] frames = ResourceProcessing.FramesAppearance(CustomButton.ImageButton[ThemeButton.Orange], 6);
-
-            foreach (var img in frames)
-            {
-                Image = img;
-                await Task.Delay(MainForm.DeltaTime);
+                if (alpha > 0)
+                    using (Brush brustText = new SolidBrush(Color.FromArgb(alpha, foreColorText)))
+                    using (Brush brustLabel = new SolidBrush(Color.FromArgb(alpha, foreColorLabel)))
+                    {
+                        g.DrawString(text, font, brustText, rectText, formatText);
+                        g.DrawString($"{Letter}:", font, brustLabel, rectLabel, formatLabel);
+                    }
             }
-
-            Image = CustomButton.ImageButton[ThemeButton.Orange];
-
-            foreach (var img in frames)
-                img.Dispose();
-        }
-
-        public async Task Blink()
-        {
-            SetForeColors(Color.White, Color.Black);
-
-            int countFrames = 6;
-            Bitmap[] frames;
-
-            if (Image == null)
-                frames = ResourceProcessing.FramesAppearance(CustomButton.ImageButton[ThemeButton.Green], countFrames);
-            else
-                frames = ResourceProcessing.FramesTransition((Bitmap)Image, CustomButton.ImageButton[ThemeButton.Green], countFrames);
-
-            int n = frames.Length - 1;
-            int n2 = 2 * n;
-            int n5 = 5 * n;
-
-            for (int i = 0; i <= n5; i++)
-            {
-                Image = frames[n - Math.Abs(i % n2 - n)];
-                await Task.Delay(MainForm.DeltaTime);
-            }
-
-            Image = CustomButton.ImageButton[ThemeButton.Green];
-
-            foreach (var img in frames)
-                img.Dispose();
-        }
-
-        public async Task Clear(int countFrames)
-        {
-            if (Image == null)
-            {
-                await HideText(countFrames);
-            }
-            else
-            {
-                int[] alphas = Enumerable.Range(0, countFrames).Select(x => byte.MaxValue * x / (countFrames - 1)).Reverse().ToArray();
-                Bitmap[] frames = ResourceProcessing.FramesDisappearance((Bitmap)Image, countFrames);
-
-                for (int i = 0; i < countFrames; i++)
-                {
-                    alpha = alphas[i];
-                    Image = frames[i];
-                    await Task.Delay(MainForm.DeltaTime);
-                }
-
-                Reset();
-
-                foreach (var img in frames)
-                    img.Dispose();
-            }
-        }
-
-        public void Lock()
-        {
-            Enabled = false;
-            SetForeColors(Color.White, Color.Orange);
-            Image = CustomButton.ImageButton[ThemeButton.Gray];
         }
     }
 }

@@ -17,7 +17,11 @@ namespace WhoWantsToBeMillionaire
 
     class CustomButton : PictureBox, IDisposable
     {
-        public static readonly ReadOnlyDictionary<ThemeButton, Bitmap> ImageButton;
+        private static readonly ReadOnlyDictionary<ThemeButton, Bitmap> ImageButton;
+
+        private Rectangle rectangle;
+        private ThemeButton theme;
+        private Color foreColor;
 
         public new bool Enabled
         {
@@ -25,8 +29,9 @@ namespace WhoWantsToBeMillionaire
             {
                 base.Enabled = value;
 
-                BackgroundImage = ImageButton[value ? ThemeButton.Blue : ThemeButton.Gray];
-                ForeColor = value ? Color.White : Color.Black;
+                theme = value ? ThemeButton.Blue : ThemeButton.Gray;
+                foreColor = value ? Color.White : Color.Black;
+                Invalidate();
             }
             get => base.Enabled;
         }
@@ -36,7 +41,7 @@ namespace WhoWantsToBeMillionaire
             var img = new Dictionary<ThemeButton, Bitmap>();
 
             foreach (var key in Enum.GetValues(typeof(ThemeButton)).Cast<ThemeButton>())
-                img.Add(key, new Bitmap(ResourceProcessing.GetImage($"Answer_{key}.png")));
+                img.Add(key, new Bitmap(ResourceProcessing.GetImage($"Option_{key}.png")));
 
             ImageButton = new ReadOnlyDictionary<ThemeButton, Bitmap>(img);
         }
@@ -44,7 +49,7 @@ namespace WhoWantsToBeMillionaire
         public CustomButton()
         {
             BackColor = Color.Transparent;
-            BackgroundImageLayout = ImageLayout.Zoom;
+            SizeChanged += OnSizeChanged;
         }
 
         public CustomButton(Size size) : this()
@@ -54,18 +59,36 @@ namespace WhoWantsToBeMillionaire
             OnMouseLeave(EventArgs.Empty);
         }
 
+        private void OnSizeChanged(object sender, EventArgs e)
+        {
+            Size sizeImage = ImageButton[ThemeButton.Blue].Size;
+
+            float wfactor = (float)sizeImage.Width / Width;
+            float hfactor = (float)sizeImage.Height / Height;
+
+            float resizeFactor = Math.Max(wfactor, hfactor);
+
+            Size sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
+
+            int x = (Width - sizeRect.Width) >> 1;
+            int y = (Height - sizeRect.Height) >> 1;
+
+            rectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
-            TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            e.Graphics.DrawImage(ImageButton[theme], rectangle);
+            TextRenderer.DrawText(e.Graphics, Text, Font, rectangle, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
         protected override void OnMouseEnter(EventArgs e)
         {
             if (Enabled)
             {
-                BackgroundImage = ImageButton[ThemeButton.Orange];
-                ForeColor = Color.Black;
+                theme = ThemeButton.Orange;
+                foreColor = Color.Black;
+                Invalidate();
             }
         }
 
@@ -73,30 +96,25 @@ namespace WhoWantsToBeMillionaire
         {
             if (Enabled)
             {
-                BackgroundImage = ImageButton[ThemeButton.Blue];
-                ForeColor = Color.White;
+                theme = ThemeButton.Blue;
+                foreColor = Color.White;
+                Invalidate();
             }
         }
 
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
             if (Enabled)
-                BackgroundImage = ImageButton[ThemeButton.Green];
+            {
+                theme = ThemeButton.Green;
+                foreColor = Color.Black;
+                Invalidate();
+            }
         }
 
         protected override void OnMouseUp(MouseEventArgs mevent)
         {
             OnMouseEnter(mevent);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                BackgroundImage.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

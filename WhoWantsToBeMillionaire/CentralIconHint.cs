@@ -62,7 +62,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public async void ShowIcon(TypeHint type)
+        public async Task ShowIcon(TypeHint type)
         {
             Bitmap icon = new Bitmap(ResourceProcessing.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
 
@@ -72,7 +72,7 @@ namespace WhoWantsToBeMillionaire
             backgrounds.Push(icon);
         }
 
-        public async void HideIcon()
+        public async Task HideIcon()
         {
             if (backgrounds.Count == 0) return;
 
@@ -85,23 +85,11 @@ namespace WhoWantsToBeMillionaire
             icon.Dispose();
         }
 
-        public async Task Clear(int countFrames)
+        public void Clear()
         {
             if (backgrounds.Count == 0) return;
 
-            Bitmap[] frames = ResourceProcessing.FramesDisappearance(backgrounds.Peek(), countFrames);
-            BackgroundImage = null;
-
-            foreach (var img in frames)
-            {
-                Image = img;
-                await Task.Delay(MainForm.DeltaTime);
-            }
-
-            Image = null;
-
-            foreach (var img in frames)
-                img.Dispose();
+            BackgroundImage = Image = null;
 
             do
                 backgrounds.Pop().Dispose();

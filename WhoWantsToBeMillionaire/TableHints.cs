@@ -6,10 +6,10 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class ContainerHints : ControlAnimation
+    class TableHints : PictureBoxAnimation
     {
-        private Hint[] hints;
-        private Queue<Hint> hiddenHints;
+        private ButtonHint[] hints;
+        private Queue<ButtonHint> hiddenHints;
         private int countUsedHints;
 
         public const int MaxCountAllowedHints = 4;
@@ -43,7 +43,7 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventHintClick(TypeHint type);
         public event EventHintClick HintClick;
 
-        public ContainerHints(Size size) : base(size) { }
+        public TableHints(Size size) : base(size) { }
 
         public void Reset()
         {
@@ -51,7 +51,7 @@ namespace WhoWantsToBeMillionaire
 
             Controls.Clear();
 
-            hints?.ToList().ForEach(b => b?.Dispose());
+            hints?.ToList().ForEach(h => h?.Dispose());
 
             countUsedHints = 0;
 
@@ -82,37 +82,37 @@ namespace WhoWantsToBeMillionaire
             int width = (int)(0.9f * Width / countColumns);
             Size sizeHint = new Size(width, (int)(0.63f * width));
 
-            hints = types.Select(t => new Hint(t)).ToArray();
+            hints = types.Select(t => new ButtonHint(t)).ToArray();
 
             foreach (var hint in hints)
                 hint.Click += OnHintClick;
 
-            hiddenHints = new Queue<Hint>(hints);
+            hiddenHints = new Queue<ButtonHint>(hints);
 
-            SetLocationsHints(new Queue<Hint>(hints), sizeHint, countColumns);
+            SetLocationsHints(new Queue<ButtonHint>(hints), sizeHint, countColumns);
         }
 
         private void OnHintClick(object sender, EventArgs e)
         {
-            Hint hint = sender as Hint;
+            ButtonHint hint = sender as ButtonHint;
 
-            Enabled = hint.Type == TypeHint.FiftyFifty;
             countUsedHints++;
 
             hint.Enabled = false;
             hint.Click -= OnHintClick;
 
             if (countUsedHints >= MaxCountAllowedHints)
-                foreach (var h in hints.Where(x => x.Enabled))
-                {
-                    h.Lock();
-                    h.Click -= OnHintClick;
-                }
+                foreach (var h in hints)
+                    if (h.Enabled)
+                    {
+                        h.Lock();
+                        h.Click -= OnHintClick;
+                    }
 
             HintClick.Invoke(hint.Type);
         }
 
-        private void SetLocationsHints(Queue<Hint> hints, Size sizeHint, int countColumns)
+        private void SetLocationsHints(Queue<ButtonHint> hints, Size sizeHint, int countColumns)
         {
             int countRows = (int)Math.Ceiling((float)hints.Count / countColumns);
 
@@ -121,8 +121,8 @@ namespace WhoWantsToBeMillionaire
 
             int y;
 
-            Queue<Hint> queue = new Queue<Hint>();
-            Hint hint;
+            Queue<ButtonHint> queue = new Queue<ButtonHint>();
+            ButtonHint hint;
 
             for (int row = 0; row < countRows; row++)
             {

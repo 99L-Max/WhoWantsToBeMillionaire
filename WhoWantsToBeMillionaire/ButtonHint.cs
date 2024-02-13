@@ -24,7 +24,7 @@ namespace WhoWantsToBeMillionaire
         AskHost
     }
 
-    class Hint : PictureBox, IDisposable
+    class ButtonHint : PictureBox, IDisposable
     {
         private static readonly Bitmap background;
 
@@ -36,12 +36,12 @@ namespace WhoWantsToBeMillionaire
 
         public StatusHint Status { private set; get; }
 
-        static Hint()
+        static ButtonHint()
         {
             background = new Bitmap(ResourceProcessing.GetImage("Focus_Hint.png"));
         }
 
-        public Hint(TypeHint type)
+        public ButtonHint(TypeHint type)
         {
             Type = type;
 
