@@ -6,7 +6,9 @@ namespace WhoWantsToBeMillionaire
     public partial class MainForm : Form
     {
         private readonly GameScene scene;
-        private readonly Menu menu;
+        private readonly MainMenu mainMenu;
+
+        private ContextMenu contextMenu;
 
         public static readonly Rectangle RectScreen = Screen.PrimaryScreen.Bounds;
         public const int DeltaTime = 60;
@@ -26,25 +28,55 @@ namespace WhoWantsToBeMillionaire
             InitializeComponent();
 
             BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Main.png"), RectScreen.Size);
+            BackgroundImageLayout = ImageLayout.Stretch;
 
             scene = new GameScene();
-            menu = new Menu(new Size(RectScreen.Width / 3, RectScreen.Height / 2));
+            mainMenu = new MainMenu();
 
             scene.Visible = false;
 
-            menu.SetCommands(new MenuCommand[] { MenuCommand.Continue, MenuCommand.Start, MenuCommand.Achievements, MenuCommand.Settings, MenuCommand.Exit });
-            menu.ButtonClick += OnButtonMenuClick;
+            mainMenu.ButtonClick += OnButtonMainMenuClick;
 
             Controls.Add(scene);
-            Controls.Add(menu);
+            Controls.Add(mainMenu);
+
+            mainMenu.SetCommands(new MainMenuCommand[] { MainMenuCommand.Start, MainMenuCommand.Achievements, MainMenuCommand.Settings, MainMenuCommand.Exit });
         }
 
-        private async void OnButtonMenuClick(MenuCommand cmd)
+        private void OnButtonMainMenuClick(MainMenuCommand cmd)
         {
             switch (cmd)
             {
-                case MenuCommand.Start:
-                    menu.Visible = false;
+                default:
+                    Close();
+                    break;
+
+                case MainMenuCommand.Start:
+                    contextMenu = new ModeMenu(new Size(RectScreen.Width / 3, RectScreen.Height * 2 / 3));
+                    contextMenu.ButtonClick += OnButtonContextMenuClick;
+
+                    mainMenu.Controls.Add(contextMenu);
+                    mainMenu.TableVisible = false;
+                    break;
+            }
+        }
+
+        private async void OnButtonContextMenuClick(ContextMenuCommand cmd)
+        {
+            switch (cmd)
+            {
+                default:
+                    CloseContextMenu();
+                    break;
+
+                case ContextMenuCommand.StartGame:
+                    Properties.Settings.Default.Mode = (int)(contextMenu as ModeMenu).SelectedMode;
+                    Properties.Settings.Default.Save();
+
+                    mainMenu.Visible = false;
+                    CloseContextMenu();
+
+                    scene.Reset();
 
                     //using (Screensaver saver = new Screensaver())
                     //{
@@ -54,12 +86,19 @@ namespace WhoWantsToBeMillionaire
                     //}
 
                     scene.Visible = true;
-                    scene.ShowRules();
+                    scene.Start();
                     break;
+            }
+        }
 
-                default:
-                    Close();
-                    break;
+        private void CloseContextMenu()
+        {
+            if (contextMenu != null)
+            {
+                mainMenu.TableVisible = true;
+                mainMenu.Controls.Remove(contextMenu);
+                contextMenu.ButtonClick -= OnButtonContextMenuClick;
+                contextMenu.Dispose();
             }
         }
     }

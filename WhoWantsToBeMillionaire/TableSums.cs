@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -14,7 +13,7 @@ namespace WhoWantsToBeMillionaire
         private int numberQuestion;
 
         private readonly TableLayoutPanel tableSums;
-        private readonly RowSum[] rowsSum;
+        private readonly RowTableSum[] rowsSum;
 
         public delegate void EventSaveSumSelected(int sum);
         public event EventSaveSumSelected SaveSumSelected;
@@ -49,7 +48,7 @@ namespace WhoWantsToBeMillionaire
                 BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Amounts.png"), size);
 
                 tableSums = new TableLayoutPanel();
-                rowsSum = new RowSum[sums.Length];
+                rowsSum = new RowTableSum[sums.Length];
 
                 int heightRow = (int)(size.Height * 0.67f / sums.Length);
 
@@ -66,12 +65,28 @@ namespace WhoWantsToBeMillionaire
 
                 for (int i = sums.Length - 1; i > -1; i--)
                 {
-                    rowsSum[i] = new RowSum(i + 1, sums[i]);
+                    rowsSum[i] = new RowTableSum(i + 1, sums[i]);
                     tableSums.Controls.Add(rowsSum[i], 0, sums.Length - rowsSum[i].Number);
                 }
 
                 Controls.Add(tableSums);
             }
+        }
+
+        public void Reset(Mode mode)
+        {
+            X = MainForm.RectScreen.Width;
+
+            tableSums.Visible = false;
+
+            foreach (var row in rowsSum)
+                row.Reset();
+
+            if (mode == Mode.Classic)
+                foreach (var row in rowsSum)
+                    row.IsSaveSum = row.Number % 5 == 0;
+
+            Prize = 0;
         }
 
         private void SetSelectedSum(int number)
@@ -95,7 +110,7 @@ namespace WhoWantsToBeMillionaire
 
         private void SelectSaveSum(object sender, EventArgs e)
         {
-            RowSum saveSum = sender as RowSum;
+            RowTableSum saveSum = sender as RowTableSum;
 
             foreach (var row in rowsSum)
             {
@@ -112,29 +127,11 @@ namespace WhoWantsToBeMillionaire
             SaveSumSelected.Invoke(saveSum.Sum);
         }
 
-        public void Reset()
-        {
-            X = MainForm.RectScreen.Width;
-
-            tableSums.Visible = false;
-
-            foreach (var row in rowsSum)
-                row.Reset();
-
-            if ((Mode)Settings.Default.Mode == Mode.Classic)
-                foreach (var row in rowsSum)
-                    row.IsSaveSum = row.Number % 5 == 0;
-
-            Prize = 0;
-        }
-
-        public async Task ShowControls()
+        public async Task ShowSums()
         {
             tableSums.Visible = true;
 
             await Task.Delay(1000);
-
-            int delay = 4 * MainForm.DeltaTime;
 
             for (int i = 0; i < rowsSum.Length; i++)
             {
@@ -147,7 +144,7 @@ namespace WhoWantsToBeMillionaire
                 catch (IndexOutOfRangeException) { }
                 finally
                 {
-                    await Task.Delay(delay);
+                    await Task.Delay(250);
                 }
             }
 

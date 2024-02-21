@@ -43,7 +43,7 @@ namespace WhoWantsToBeMillionaire
             int opWidth = (int)(0.45f * size.Width);
 
             Bitmap qImage = (Bitmap)ResourceProcessing.GetImage("Question.png");
-            Bitmap opImage = (Bitmap)ResourceProcessing.GetImage("Option_Blue.png");
+            Bitmap opImage = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Blue.png");
 
             Rectangle qRectangle = new Rectangle(0, 0, size.Width, qImage.Height * size.Width / qImage.Width);
             Size opSize = new Size(opWidth, opImage.Height * opWidth / opImage.Width);
@@ -220,7 +220,7 @@ namespace WhoWantsToBeMillionaire
                 option.SetForeColors(Color.FromArgb(32, 32, 32), Color.DimGray);
                 option.Enabled = false;
 
-                using (Bitmap lockedOption = (Bitmap)ResourceProcessing.GetImage("Option_Gray.png"))
+                using (Bitmap lockedOption = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Gray.png"))
                     g.DrawImage(lockedOption, option.Rectangle);
 
                 g.DrawImage(option.ImageText, option.Rectangle);
@@ -254,7 +254,7 @@ namespace WhoWantsToBeMillionaire
             option.Selected = true;
             option.SetForeColors(Color.Black, Color.White);
 
-            using (Bitmap selectedOption = (Bitmap)ResourceProcessing.GetImage("Option_Orange.png"))
+            using (Bitmap selectedOption = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Orange.png"))
             {
                 for (int i = 1; i <= countFrames; i++)
                 {
@@ -300,8 +300,8 @@ namespace WhoWantsToBeMillionaire
 
             option.SetForeColors(Color.White, Color.Black);
 
-            using (Bitmap startFrame = (Bitmap)ResourceProcessing.GetImage(option.Selected ? "Option_Orange.png" : "Option_Blue.png"))
-            using (Bitmap finalFrame = (Bitmap)ResourceProcessing.GetImage("Option_Green.png"))
+            using (Bitmap startFrame = (Bitmap)ResourceProcessing.GetImage(option.Selected ? "ButtonWire_Orange.png" : "ButtonWire_Blue.png"))
+            using (Bitmap finalFrame = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Green.png"))
             {
                 Bitmap frame, back;
 
@@ -386,5 +386,7 @@ namespace WhoWantsToBeMillionaire
                     break;
             }
         }
+
+        public void TakeMoney() => AnswerMode = AnswerMode.TakeMoney;
     }
 }

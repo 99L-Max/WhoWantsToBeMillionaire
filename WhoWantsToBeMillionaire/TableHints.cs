@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -45,9 +44,9 @@ namespace WhoWantsToBeMillionaire
 
         public TableHints(Size size) : base(size) { }
 
-        public void Reset()
+        public void Reset(Mode mode)
         {
-            Enabled = false;
+            Visible = Enabled = false;
 
             Controls.Clear();
 
@@ -58,12 +57,11 @@ namespace WhoWantsToBeMillionaire
             int countColumns;
             TypeHint[] types;
 
-            switch ((Mode)Settings.Default.Mode)
+            switch (mode)
             {
                 default:
                     types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience };
                     countColumns = 3;
-                    goto case Mode.TEST;
                     break;
                 case Mode.Amateur:
                     types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience, TypeHint.DoubleDip };
@@ -71,10 +69,6 @@ namespace WhoWantsToBeMillionaire
                     break;
                 case Mode.Advanced:
                     types = new TypeHint[] { TypeHint.AskHost, TypeHint.FiftyFifty, TypeHint.DoubleDip, TypeHint.PhoneFriend, TypeHint.SwitchQuestion };
-                    countColumns = 3;
-                    break;
-                case Mode.TEST:
-                    types = new TypeHint[] { TypeHint.AskAudience, TypeHint.AskHost, TypeHint.FiftyFifty, TypeHint.DoubleDip, TypeHint.PhoneFriend, TypeHint.SwitchQuestion };
                     countColumns = 3;
                     break;
             }

@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class PlayerDialog : PictureBoxAnimation
+    class PanelDialog : PictureBoxAnimation
     {
         private readonly Label labelDialog;
         private readonly Bitmap logo;
-        private readonly CustomButton buttonCommand;
+        private readonly ButtonWire buttonCommand;
 
         public new string Text
         {
@@ -24,7 +24,7 @@ namespace WhoWantsToBeMillionaire
             set => labelDialog.TextAlign = value;
         }
 
-        public PlayerDialog(Size size, CustomButton button) : base(size)
+        public PanelDialog(Size size, ButtonWire button) : base(size)
         {
             int sideLogo = (int)(0.5f * size.Height);
 

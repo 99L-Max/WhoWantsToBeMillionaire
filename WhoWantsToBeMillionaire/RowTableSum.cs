@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class RowSum : PictureBox
+    class RowTableSum : PictureBox
     {
         private static readonly Bitmap background;
         private static readonly Bitmap iconCircle;
@@ -25,11 +25,14 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                isSelected = value;
-                BackgroundImage = isSelected ? background : null;
+                if (isSelected != value)
+                {
+                    isSelected = value;
+                    BackgroundImage = isSelected ? background : null;
 
-                if (iconVisible)
-                    Draw();
+                    if (iconVisible)
+                        Draw();
+                }
             }
             get => isSelected;
         }
@@ -60,7 +63,7 @@ namespace WhoWantsToBeMillionaire
             get => isSaveSum;
         }
 
-        static RowSum()
+        static RowTableSum()
         {
             int height = 60;
 
@@ -75,7 +78,7 @@ namespace WhoWantsToBeMillionaire
             };
         }
 
-        public RowSum(int number, int sum)
+        public RowTableSum(int number, int sum)
         {
             Number = number;
             Sum = sum;
@@ -127,6 +130,9 @@ namespace WhoWantsToBeMillionaire
             iconVisible = false;
             isSaveSum = false;
             isSelected = false;
+
+            BackgroundImage = null;
+
             Draw();
         }
 
