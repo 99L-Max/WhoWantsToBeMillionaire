@@ -11,11 +11,11 @@ namespace WhoWantsToBeMillionaire
         private Queue<ButtonHint> hiddenHints;
         private int countUsedHints;
 
-        public const int MaxCountAllowedHints = 4;
-
         public int CountHints => hints.Length;
 
         public int CountActiveHints => hints.Select(h => h.Enabled).Count();
+
+        public TypeHint PeekHiddenHint => hiddenHints.Peek().Type;
 
         public bool AllHintsVisible => hiddenHints.Count == 0;
 
@@ -95,13 +95,12 @@ namespace WhoWantsToBeMillionaire
             hint.Enabled = false;
             hint.Click -= OnHintClick;
 
-            if (countUsedHints >= MaxCountAllowedHints)
-                foreach (var h in hints)
-                    if (h.Enabled)
-                    {
-                        h.Lock();
-                        h.Click -= OnHintClick;
-                    }
+            if (countUsedHints >= Hint.MaxCountAllowedHints)
+                foreach (var h in hints.Where(x => x.Enabled))
+                {
+                    h.Click -= OnHintClick;
+                    h.Lock();
+                }
 
             HintClick.Invoke(hint.Type);
         }
@@ -144,28 +143,6 @@ namespace WhoWantsToBeMillionaire
                     Controls.Add(hint);
                 }
             }
-        }
-
-        public string GetDescriptionHint()
-        {
-            if (hiddenHints?.Count > 0)
-                switch (hiddenHints.Peek().Type)
-                {
-                    case TypeHint.FiftyFifty:
-                        return "«50:50» — убирает два неверных варианта ответа.";
-                    case TypeHint.PhoneFriend:
-                        return "«Звонок другу» — даёт возможность посоветоваться с другом по телефону.";
-                    case TypeHint.AskAudience:
-                        return "«Помощь зала» — позволяет взять подсказку у зрителей зала.";
-                    case TypeHint.DoubleDip:
-                        return "«Право на ошибку» — позволяет дать второй вариант ответа, если первый оказался неверным.";
-                    case TypeHint.SwitchQuestion:
-                        return "«Замена вопроса» — меняет вопрос на другой.";
-                    case TypeHint.AskHost:
-                        return "«Помощь ведущего» — позволяет взять подсказку у ведущего.";
-                }
-
-            return "Подсказка не найдена.";
         }
 
         public void ShowHint()

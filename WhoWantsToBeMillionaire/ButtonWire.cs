@@ -53,6 +53,9 @@ namespace WhoWantsToBeMillionaire
         protected ButtonWire()
         {
             BackColor = Color.Transparent;
+            foreColor = Color.White;
+            theme = ThemeButtonWire.Blue;
+
             SizeChanged += OnSizeChanged;
         }
 
@@ -60,7 +63,6 @@ namespace WhoWantsToBeMillionaire
         {
             Size = size;
             Font = new Font("", 0.35f * size.Height, FontStyle.Bold);
-            OnMouseLeave(EventArgs.Empty);
         }
 
         private void OnSizeChanged(object sender, EventArgs e)

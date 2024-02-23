@@ -27,18 +27,18 @@ namespace WhoWantsToBeMillionaire
 
     class GameScene : PictureBoxAnimation
     {
+        private readonly ButtonWire buttonCommand;
         private readonly Host host;
+        private readonly Hint hint;
+        private readonly PanelDialog dialog;
+        private readonly PictureBoxAnimation containerQuestion;
         private readonly TableHints tableHints;
         private readonly TableSums tableSums;
-        private readonly PictureBoxAnimation containerQuestion;
-        private readonly TextQuestion textQuestion;
         private readonly TextPrize textPrize;
-        private readonly ButtonWire buttonCommand;
-        private readonly PanelDialog dialog;
-        private readonly AnswerHint answerHint;
+        private readonly TextQuestion textQuestion;
 
-        private VotingChart chart;
         private PhoneTimer timer;
+        private VotingChart chart;
         private SceneCommand command;
         private Mode mode;
 
@@ -54,7 +54,7 @@ namespace WhoWantsToBeMillionaire
             buttonCommand = new ButtonWire(new Size(MainForm.RectScreen.Width - tableSums.Width, (int)(0.06f * MainForm.RectScreen.Height)));
             dialog = new PanelDialog(new Size(MainForm.RectScreen.Width - tableSums.Width, MainForm.RectScreen.Height - textQuestion.Height), buttonCommand);
             tableHints = new TableHints(new Size(tableSums.Width, (int)(tableSums.Height * 0.2f)));
-            answerHint = new AnswerHint();
+            hint = new Hint();
 
             containerQuestion.Location = new Point(0, MainForm.RectScreen.Height - textQuestion.Height);
 
@@ -97,9 +97,7 @@ namespace WhoWantsToBeMillionaire
             buttonCommand.Enabled = false;
             buttonCommand.Visible = true;
 
-            dialog.Text =
-                $"Вам необходимо правильно ответить на {tableSums.MaxNumberQuestion} вопросов из различных областей знаний. " +
-                $"Каждый вопрос имеет 4 варианта ответа, из которых только один является верным.";
+            dialog.Text = host.Say(HostPhrases.Rules, tableSums.MaxNumberQuestion.ToString());
 
             await tableSums.ShowSums();
 
@@ -119,7 +117,8 @@ namespace WhoWantsToBeMillionaire
 
                 case AnswerMode.SwitchQuestion:
                     command = SceneCommand.SwitchQuestion;
-                    dialog.Text = answerHint.GetExplanationForSwitchQuestion(textQuestion.Question, textQuestion.IsCorrectAnswer);
+                    HostPhrases phrase = textQuestion.IsCorrectAnswer ? HostPhrases.SwitchQuestionCorrect : HostPhrases.SwitchQuestionIncorrect;
+                    dialog.Text = $"{explanation}\n{host.Say(phrase, textQuestion.Question.Number.ToString())}";
                     break;
 
                 case AnswerMode.TakeMoney:
@@ -148,7 +147,7 @@ namespace WhoWantsToBeMillionaire
 
                     await Task.Delay(3000);
 
-                    foreach (var phrase in answerHint.GetPhoneFriendDialog(tableSums.NextSum))
+                    foreach (var phrase in hint.PhoneFriendDialog(tableSums.NextSum))
                     {
                         dialog.AddText(phrase);
                         await Task.Delay(2000);
@@ -156,7 +155,7 @@ namespace WhoWantsToBeMillionaire
 
                     await dialog.ShowMovingPictureBox(timer, false, 500 / MainForm.DeltaTime);
 
-                    dialog.Text = answerHint.GetPhoneFriendAnswer(textQuestion.Question);
+                    dialog.Text = hint.PhoneFriendAnswer(textQuestion.Question);
                     timer.Start();
 
                     buttonCommand.Visible = true;
@@ -171,18 +170,18 @@ namespace WhoWantsToBeMillionaire
                     await dialog.ShowMovingPictureBox(chart, true, 1000 / MainForm.DeltaTime);
                     await Task.Delay(2000);
                     await chart.ShowAnimationVote(3000);
-                    await chart.ShowPercents(15, answerHint.GetPersents(textQuestion.Question));
+                    await chart.ShowPercents(15, hint.PercentsAudience(textQuestion.Question));
 
                     buttonCommand.Visible = true;
                     break;
 
                 case TypeHint.SwitchQuestion:
-                    dialog.Text = answerHint.GetPhraseSwitchQuestion();
+                    dialog.Text = host.Say(HostPhrases.AskBeforeSwitchQuestion);
                     break;
 
                 case TypeHint.AskHost:
                     command = SceneCommand.EndAskHost;
-                    dialog.Text = answerHint.GetAskHostAnswer(textQuestion.Question);
+                    dialog.Text = hint.HostAnswer(textQuestion.Question);
                     buttonCommand.Visible = true;
                     break;
             }
@@ -212,10 +211,21 @@ namespace WhoWantsToBeMillionaire
 
         private void SaveSumSelected(int sum)
         {
-            dialog.Text = $"{String.Format("{0:#,0}", sum)} рублей — несгораемая сумма!\nИ для Вас начинается игра «Кто хочет стать миллионером?»!!!";
+            dialog.Text = host.Say(HostPhrases.SaveSumSelected, String.Format("{0:#,0}", sum)) + "\n" + host.Say(HostPhrases.GameStart);
             tableSums.SaveSumSelected -= SaveSumSelected;
 
             command = SceneCommand.Start;
+            buttonCommand.Visible = true;
+        }
+
+        private void PlayerTakingMoney()
+        {
+            textQuestion.Enabled = false;
+            tableHints.Enabled = false;
+
+            command = SceneCommand.TakeMoney;
+            dialog.Text = host.Say(HostPhrases.PlayerTakingMoney, tableSums.Prize.ToString());
+
             buttonCommand.Visible = true;
         }
 
@@ -266,7 +276,7 @@ namespace WhoWantsToBeMillionaire
                     buttonCommand.Enabled = false;
                     command = SceneCommand.ShowCountHints;
 
-                    dialog.Text = $"Несгораемые суммы: {string.Join(", ", Array.ConvertAll(tableSums.SaveSums, x => string.Format("{0:#,0}", x)))}.";
+                    dialog.Text = host.Say(HostPhrases.SaveSums, string.Join(", ", Array.ConvertAll(tableSums.SaveSums, x => string.Format("{0:#,0}", x))));
 
                     await tableSums.ShowSaveSums();
 
@@ -275,37 +285,37 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.ShowCountHints:
                     command = SceneCommand.ShowHint;
-                    dialog.Text = $"У Вас есть {tableHints.StringCountActiveHints}.";
+                    dialog.Text = host.Say(HostPhrases.CountHints, tableHints.StringCountActiveHints);
                     break;
 
                 case SceneCommand.ShowHint:
-                    dialog.Text = tableHints.GetDescriptionHint();
+                    dialog.Text = hint.Description(tableHints.PeekHiddenHint);
                     tableHints.ShowHint();
 
                     if (tableHints.AllHintsVisible)
-                        command = tableHints.CountActiveHints > TableHints.MaxCountAllowedHints ? SceneCommand.AboutRestrictionsHints : SceneCommand.AboutTakingMoney;
+                        command = tableHints.CountHints > Hint.MaxCountAllowedHints ? SceneCommand.AboutRestrictionsHints : SceneCommand.AboutTakingMoney;
                     break;
 
                 case SceneCommand.AboutRestrictionsHints:
                     command = SceneCommand.AboutTakingMoney;
-                    dialog.Text = $"Но использовать можно только {TableHints.MaxCountAllowedHints} из них.";
+                    dialog.Text = host.Say(HostPhrases.AboutRestrictionsHints, Hint.MaxCountAllowedHints.ToString());
                     break;
 
                 case SceneCommand.AboutTakingMoney:
                     command = mode == Mode.Classic ? SceneCommand.AboutStarting : SceneCommand.ChoosingSaveSum;
-                    dialog.Text = "До тех пор, пока Вы не дали ответ, можете забрать выигранные деньги.";
+                    dialog.Text = host.Say(HostPhrases.AboutTakingMoney);
                     break;
 
                 case SceneCommand.ChoosingSaveSum:
                     buttonCommand.Visible = false;
-                    dialog.Text = "Какая сумма будет несгораемой?";
+                    dialog.Text = host.Say(HostPhrases.AskSaveSum);
                     tableSums.SaveSumSelected += SaveSumSelected;
                     tableSums.AddSelectionSaveSum();
                     break;
 
                 case SceneCommand.AboutStarting:
                     command = SceneCommand.Start;
-                    dialog.Text = "И для Вас начинается игра «Кто хочет стать миллионером?»!!!";
+                    dialog.Text = host.Say(HostPhrases.GameStart);
                     break;
 
                 case SceneCommand.Start:
@@ -316,6 +326,7 @@ namespace WhoWantsToBeMillionaire
                     await textQuestion.ShowQuestion(1, 6);
 
                     tableHints.Enabled = true;
+                    textQuestion.Enabled = true;
                     break;
 
                 case SceneCommand.EndPhoneFriend:
@@ -374,7 +385,12 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCommand.TakeMoney:
-                    dialog.Text = host.AskAfterTakingMoney();
+                    dialog.Clear();
+
+                    await Task.Delay(3000);
+
+                    dialog.Text = host.Say(HostPhrases.AskAfterTakingMoney);
+                    textQuestion.ModeTakeMoney();
                     textQuestion.Enabled = true;
                     break;
             }

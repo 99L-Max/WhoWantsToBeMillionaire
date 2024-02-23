@@ -50,8 +50,11 @@ namespace WhoWantsToBeMillionaire
             comboBox = new GameComboBox(modes, fontSize);
             comboBox.SelectedIndexChanged += ModeChanged;
 
-            buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, "Старт", fontSize);
-            buttonBack = new ButtonContextMenu(ContextMenuCommand.Back, "Назад", fontSize);
+            buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
+            buttonBack = new ButtonContextMenu(ContextMenuCommand.Back, fontSize);
+
+            buttonStart.Text = "Старт";
+            buttonBack.Text = "Назад";
 
             buttonStart.Click += OnButtonClick;
             buttonBack.Click += OnButtonClick;

@@ -46,15 +46,17 @@ namespace WhoWantsToBeMillionaire
             ImageButton = new ReadOnlyDictionary<ThemeButtonEllipse, Bitmap>(img);
         }
 
-        public ButtonEllipse(string text, float fontSize)
+        protected ButtonEllipse()
         {
             BackColor = Color.Transparent;
-            BackgroundImageLayout = ImageLayout.Zoom;
-            Dock = DockStyle.Fill;
-            Font = new Font("", fontSize, FontStyle.Bold);
-            Text = text;
+            foreColor = Color.White;
+            theme = ThemeButtonEllipse.Blue;
+        }
 
-            OnMouseLeave(EventArgs.Empty);
+        public ButtonEllipse(Size size) : this()
+        {
+            Size = size;
+            Font = new Font("", 0.35f * size.Height, FontStyle.Bold);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -69,6 +71,7 @@ namespace WhoWantsToBeMillionaire
             {
                 theme = ThemeButtonEllipse.Orange;
                 foreColor = Color.Black;
+
                 Invalidate();
             }
         }
@@ -79,6 +82,7 @@ namespace WhoWantsToBeMillionaire
             {
                 theme = ThemeButtonEllipse.Blue;
                 foreColor = Color.White;
+
                 Invalidate();
             }
         }
@@ -89,6 +93,7 @@ namespace WhoWantsToBeMillionaire
             {
                 theme = ThemeButtonEllipse.Green;
                 foreColor = Color.Black;
+
                 Invalidate();
             }
         }

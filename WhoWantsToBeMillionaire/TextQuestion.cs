@@ -124,6 +124,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Reset()
         {
+            Enabled = false;
             X = -Width * 3 / 2;
             Image = null;
             AnswerMode = AnswerMode.Usual;
@@ -387,6 +388,6 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void TakeMoney() => AnswerMode = AnswerMode.TakeMoney;
+        public void ModeTakeMoney() => AnswerMode = AnswerMode.TakeMoney;
     }
 }

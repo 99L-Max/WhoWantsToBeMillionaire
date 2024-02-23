@@ -19,7 +19,7 @@ namespace WhoWantsToBeMillionaire
         public readonly Letter Correct;
         public readonly ReadOnlyDictionary<Letter, string> Options;
 
-        public string FullCorrect => GetFullOption(Correct);
+        public string FullCorrect => FullOption(Correct);
 
         public int CountOptions => Options.Values.Where(x => x != string.Empty).Count();
 
@@ -67,6 +67,6 @@ namespace WhoWantsToBeMillionaire
             return new Random().Next(35 - (number - 1) / 3 * 5) + 1;
         }
 
-        public string GetFullOption(Letter key) => $"«{key}: {Options[key]}»";
+        public string FullOption(Letter key) => $"«{key}: {Options[key]}»";
     }
 }
