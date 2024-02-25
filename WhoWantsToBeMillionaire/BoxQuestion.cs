@@ -18,6 +18,8 @@ namespace WhoWantsToBeMillionaire
 
     class BoxQuestion : GameContol
     {
+        private const int CountFramesAlphaChange = 6;
+
         private readonly Graphics g;
         private readonly Bitmap image;
         private readonly Bitmap wires;
@@ -157,26 +159,26 @@ namespace WhoWantsToBeMillionaire
             Image = image;
         }
 
-        public async Task ShowQuestion(int number, int countFrames)
+        public async Task ShowQuestion(int number)
         {
-            await ShowQuestion(number, Question.RandomIndex(number) , countFrames);
+            await ShowQuestion(number, Question.RandomIndex(number));
         }
 
-        public async Task ShowQuestion(int number, int index, int countFrames)
+        public async Task ShowQuestion(int number, int index)
         {
             SetText(new Question(number, index));
 
             Rectangle rectWires = new Rectangle(0, 0, Width, Height);
 
-            for (int i = 1; i <= countFrames; i++)
+            for (int i = 1; i <= CountFramesAlphaChange; i++)
             {
-                DrawFrame(wires, rectWires, i, countFrames);
+                DrawFrame(wires, rectWires, i, CountFramesAlphaChange);
 
                 Image = image;
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            int[] alphas = Enumerable.Range(0, countFrames).Select(x => byte.MaxValue * x / (countFrames - 1)).ToArray();
+            int[] alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1)).ToArray();
 
             foreach (var a in alphas)
             {
@@ -216,11 +218,11 @@ namespace WhoWantsToBeMillionaire
 
         private void OnOptionClick(Letter letter)
         {
-            SelectOption(letter, 6);
+            SelectOption(letter);
             OptionClick.Invoke(letter);
         }
 
-        private async void SelectOption(Letter letter, int countFrames)
+        private async void SelectOption(Letter letter)
         {
             IsCorrectAnswer = letter == Question.Correct;
 
@@ -231,9 +233,9 @@ namespace WhoWantsToBeMillionaire
 
             using (Bitmap selectedOption = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Orange.png"))
             {
-                for (int i = 1; i <= countFrames; i++)
+                for (int i = 1; i <= CountFramesAlphaChange; i++)
                 {
-                    DrawFrame(selectedOption, option.Rectangle, i, countFrames);
+                    DrawFrame(selectedOption, option.Rectangle, i, CountFramesAlphaChange);
 
                     g.DrawImage(option.ImageText, option.Rectangle);
 
@@ -263,7 +265,7 @@ namespace WhoWantsToBeMillionaire
             OnOptionClick(Question.Correct);
         }
 
-        public async Task Clear(int countFrames)
+        public async Task Clear()
         {
             if (iconHint.Visible)
             {
@@ -278,10 +280,10 @@ namespace WhoWantsToBeMillionaire
             Rectangle rectImage = new Rectangle(0, 0, Width, Height);
 
             using (Bitmap mainImage = new Bitmap(image))
-                for (int i = countFrames - 1; i > 0; i--)
+                for (int i = CountFramesAlphaChange - 1; i > 0; i--)
                 {
                     g.Clear(Color.Transparent);
-                    DrawFrame(mainImage, rectImage, i, countFrames);
+                    DrawFrame(mainImage, rectImage, i, CountFramesAlphaChange);
 
                     Image = image;
                     await Task.Delay(MainForm.DeltaTime);
@@ -291,7 +293,7 @@ namespace WhoWantsToBeMillionaire
             Image = image;
         }
 
-        public async Task ShowCorrect(int countFrames, bool isDelay)
+        public async Task ShowCorrect(bool isDelay)
         {
             Option option = options[Question.Correct];
 
@@ -306,11 +308,11 @@ namespace WhoWantsToBeMillionaire
                 {
                     (frame, back) = (stage & 1) == 0 ? (finalFrame, startFrame) : (startFrame, finalFrame);
 
-                    for (int i = 1; i <= countFrames; i++)
+                    for (int i = 1; i <= CountFramesAlphaChange; i++)
                     {
                         g.DrawImage(back, option.Rectangle);
 
-                        DrawFrame(frame, option.Rectangle, i, countFrames);
+                        DrawFrame(frame, option.Rectangle, i, CountFramesAlphaChange);
 
                         g.DrawImage(option.ImageText, option.Rectangle);
 

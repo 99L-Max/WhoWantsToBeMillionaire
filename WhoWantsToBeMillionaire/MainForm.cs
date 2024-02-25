@@ -5,13 +5,14 @@ namespace WhoWantsToBeMillionaire
 {
     public partial class MainForm : Form
     {
+        public const int DeltaTime = 40;
+
         private readonly GameScene scene;
         private readonly MainMenu mainMenu;
 
         private ContextMenu contextMenu;
 
         public static readonly Rectangle RectScreen = Screen.PrimaryScreen.Bounds;
-        public const int DeltaTime = 60;
 
         protected override CreateParams CreateParams
         {

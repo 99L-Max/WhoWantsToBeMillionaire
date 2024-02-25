@@ -8,6 +8,10 @@ namespace WhoWantsToBeMillionaire
 {
     class BoxAnimation : GameContol
     {
+        private const int CountFramesMoving = 15;
+        private const int CountFramesAlphaChange = 6;
+        private const int CountFramesResize = 6;
+
         private readonly Image mainImage;
         private readonly Graphics g;
         private readonly BitmapText bitmapText;
@@ -52,26 +56,18 @@ namespace WhoWantsToBeMillionaire
             g.DrawImage(image, x, y, (int)(share * mainImage.Width), (int)(share * mainImage.Height));
         }
 
-        public async Task HideImage(int countFrames)
+        public async Task HideImage()
         {
             using (Image img = new Bitmap(mainImage))
-                for (int i = countFrames - 1; i > 0; i--)
-                {
-                    g.Clear(Color.Transparent);
-                    DrawFrame(img, i, countFrames);
-                    await Task.Delay(MainForm.DeltaTime);
-                }
-
-            g.Clear(Color.Transparent);
-            Invalidate();
+                await HideImage(img);
         }
 
-        public async Task HideImage(Image image, int countFrames)
+        public async Task HideImage(Image image)
         {
-            for (int i = countFrames - 1; i > 0; i--)
+            for (int i = CountFramesAlphaChange - 1; i > 0; i--)
             {
                 g.Clear(Color.Transparent);
-                DrawFrame(image, i, countFrames);
+                DrawFrame(image, i, CountFramesAlphaChange);
                 await Task.Delay(MainForm.DeltaTime);
             }
 
@@ -79,13 +75,13 @@ namespace WhoWantsToBeMillionaire
             Invalidate();
         }
 
-        public async Task ShowImage(Image image, int framesTrans, int framesResize)
+        public async Task ShowImage(Image image)
         {
             float share = 0.9f;
-            float dShare = (1f - share) / (framesResize - 1);
+            float dShare = (1f - share) / (CountFramesResize - 1);
 
             int x0 = (int)(-1.5f * mainImage.Width);
-            int dx = -x0 / (framesTrans - 1);
+            int dx = -x0 / (CountFramesMoving - 1);
 
             for (int x = x0; x < 0; x += dx)
             {
@@ -96,7 +92,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            for (int i = 0; i < framesResize; i++)
+            for (int i = 0; i < CountFramesResize; i++)
             {
                 g.Clear(Color.Transparent);
 
@@ -111,12 +107,12 @@ namespace WhoWantsToBeMillionaire
             Invalidate();
         }
 
-        public async Task ShowTransition(Image startImg, Image finalImg, int framesTrans, int framesResize)
+        public async Task ShowTransition(Image startImg, Image finalImg)
         {
             float share = 1f;
-            float dShare = 0.1f / (framesResize - 1);
+            float dShare = 0.1f / (CountFramesResize - 1);
 
-            for (int i = 0; i < framesResize; i++)
+            for (int i = 0; i < CountFramesResize; i++)
             {
                 g.Clear(Color.Transparent);
 
@@ -128,7 +124,7 @@ namespace WhoWantsToBeMillionaire
             }
 
             int x0 = (int)(-1.5f * mainImage.Width);
-            int dx = -x0  / (framesTrans - 1);
+            int dx = -x0  / (CountFramesMoving - 1);
 
             for (int x = x0; x < 0; x += dx)
             {
@@ -141,7 +137,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            for (int i = 0; i < framesResize; i++)
+            for (int i = 0; i < CountFramesResize; i++)
             {
                 g.Clear(Color.Transparent);
 
@@ -156,11 +152,11 @@ namespace WhoWantsToBeMillionaire
             Invalidate();
         }
 
-        public async Task ShowText(string text, int countFrames)
+        public async Task ShowText(string text)
         {
             bitmapText.Text = text;
 
-            int[] alphas = Enumerable.Range(0, countFrames).Select(x => byte.MaxValue * x / (countFrames - 1)).ToArray();
+            int[] alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1)).ToArray();
 
             foreach (var a in alphas)
             {
