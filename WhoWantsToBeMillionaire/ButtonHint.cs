@@ -26,7 +26,7 @@ namespace WhoWantsToBeMillionaire
 
     class ButtonHint : PictureBox, IDisposable
     {
-        private static readonly Bitmap background;
+        private static readonly Bitmap focus;
 
         private readonly Bitmap image;
         
@@ -38,7 +38,7 @@ namespace WhoWantsToBeMillionaire
 
         static ButtonHint()
         {
-            background = new Bitmap(ResourceProcessing.GetImage("Focus_Hint.png"));
+            focus = new Bitmap(ResourceProcessing.GetImage("Focus_Hint.png"));
         }
 
         public ButtonHint(TypeHint type)
@@ -78,7 +78,7 @@ namespace WhoWantsToBeMillionaire
 
         private void OnHintMouseLeave(object sender, EventArgs e) => BackgroundImage = null;
 
-        private void OnHintMouseEnter(object sender, EventArgs e) => BackgroundImage = background;
+        private void OnHintMouseEnter(object sender, EventArgs e) => BackgroundImage = focus;
 
         private void OnHintClick(object sender, EventArgs e)
         {
@@ -94,10 +94,10 @@ namespace WhoWantsToBeMillionaire
 
         private void ClearMouseEvents()
         {
-            OnHintMouseLeave(this, EventArgs.Empty);
             Click -= OnHintClick;
             MouseEnter -= OnHintMouseEnter;
             MouseLeave -= OnHintMouseLeave;
+            OnHintMouseLeave(this, EventArgs.Empty);
         }
 
         public new async void Show()

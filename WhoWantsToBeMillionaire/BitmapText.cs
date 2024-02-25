@@ -2,24 +2,35 @@
 
 namespace WhoWantsToBeMillionaire
 {
-    class PictureText
+    class BitmapText
     {
         protected readonly Graphics g;
-
         protected readonly StringFormat formatText;
-        protected readonly Font font;
 
         protected int alpha;
         protected string text;
+        protected Font font;
 
         public readonly Rectangle Rectangle;
+
+        public float SizeFont
+        {
+            set
+            {
+                font.Dispose();
+                font = new Font("", value);
+                DrawText();
+            }
+        }
 
         public string Text
         {
             set
             {
                 text = value;
-                DrawText();
+
+                if (alpha > 0)
+                    DrawText();
             }
 
             get => text;
@@ -29,21 +40,28 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                alpha = value;
-                DrawText();
+                if (alpha != value)
+                {
+                    alpha = value;
+                    DrawText();
+                }
             }
         }
 
         public Bitmap ImageText { private set; get; }
 
-        public PictureText(Rectangle rectangle, Font font, StringFormat format)
+        public BitmapText(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
+
+        public BitmapText(Rectangle rectangle)
         {
             Rectangle = rectangle;
             ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
+            formatText = new StringFormat();
+            font = new Font("", 0.25f * Rectangle.Height);
             g = Graphics.FromImage(ImageText);
 
-            this.font = font;
-            formatText = format;
+            formatText.Alignment = StringAlignment.Center;
+            formatText.LineAlignment = StringAlignment.Center;
         }
 
         protected virtual void DrawText()

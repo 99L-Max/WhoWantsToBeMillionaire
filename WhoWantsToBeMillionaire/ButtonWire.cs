@@ -59,10 +59,10 @@ namespace WhoWantsToBeMillionaire
             SizeChanged += OnSizeChanged;
         }
 
-        public ButtonWire(Size size) : this()
+        public ButtonWire(int width, int height) : this()
         {
-            Size = size;
-            Font = new Font("", 0.35f * size.Height, FontStyle.Bold);
+            Size = new Size(width, height);
+            Font = new Font("", 0.35f * height, FontStyle.Bold);
         }
 
         private void OnSizeChanged(object sender, EventArgs e)

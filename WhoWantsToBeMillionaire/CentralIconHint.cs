@@ -10,7 +10,7 @@ namespace WhoWantsToBeMillionaire
 {
     class CentralIconHint : PictureBox
     {
-        private readonly Stack<Bitmap> backgrounds;
+        private readonly Stack<Bitmap> icons;
 
         public CentralIconHint()
         {
@@ -18,7 +18,7 @@ namespace WhoWantsToBeMillionaire
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
 
-            backgrounds = new Stack<Bitmap>();
+            icons = new Stack<Bitmap>();
         }
 
         private async Task ShowAnimation(Bitmap icon, bool isShow)
@@ -69,16 +69,16 @@ namespace WhoWantsToBeMillionaire
             await ShowAnimation(icon, true);
 
             BackgroundImage = icon;
-            backgrounds.Push(icon);
+            icons.Push(icon);
         }
 
         public async Task HideIcon()
         {
-            if (backgrounds.Count == 0) return;
+            if (icons.Count == 0) return;
 
-            Bitmap icon = backgrounds.Pop();
+            Bitmap icon = icons.Pop();
 
-            BackgroundImage = backgrounds.Count > 0 ? backgrounds.Peek() : null;
+            BackgroundImage = icons.Count > 0 ? icons.Peek() : null;
 
             await ShowAnimation(icon, false);
 
@@ -87,13 +87,13 @@ namespace WhoWantsToBeMillionaire
 
         public void Clear()
         {
-            if (backgrounds.Count == 0) return;
+            if (icons.Count == 0) return;
 
             BackgroundImage = Image = null;
 
             do
-                backgrounds.Pop().Dispose();
-            while (backgrounds.Count > 0);
+                icons.Pop().Dispose();
+            while (icons.Count > 0);
         }
     }
 }

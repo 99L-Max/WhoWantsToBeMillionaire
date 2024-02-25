@@ -12,10 +12,12 @@ namespace WhoWantsToBeMillionaire
         AskSaveSum,
         SaveSumSelected,
         GameStart,
-        AskBeforeSwitchQuestion,
-        SwitchQuestionCorrect,
-        SwitchQuestionIncorrect,
-        AskAfterTakingMoney,
+        SwitchQuestion_AskAnswer,
+        SwitchQuestion_CorrectAnswer,
+        SwitchQuestion_IncorrectAnswer,
+        TakingMoney_AskAnswer,
+        TakingMoney_CorrectAnswer,
+        TakingMoney_IncorrectAnswer,
         PlayerTakingMoney
     }
 
@@ -49,19 +51,25 @@ namespace WhoWantsToBeMillionaire
                     return "И для Вас начинается игра «Кто хочет стать миллионером?»!!!";
 
                 case HostPhrases.AskSaveSum:
-                    return GetRandomPhrase("Host_AskSaveSum.txt");
+                    return RandomPhrase("Host_AskSaveSum.txt");
 
-                case HostPhrases.AskBeforeSwitchQuestion:
-                    return GetRandomPhrase("Host_SwitchQuestion.txt");
+                case HostPhrases.SwitchQuestion_AskAnswer:
+                    return RandomPhrase("Host_SwitchQuestion_AskAnswer.txt");
 
-                case HostPhrases.SwitchQuestionCorrect:
-                    return GetRandomPhrase("Host_SwitchQuestion_CorrectAnswer.txt").Replace("<NUMBER>", args[0]);
+                case HostPhrases.SwitchQuestion_CorrectAnswer:
+                    return RandomPhrase("Host_SwitchQuestion_CorrectAnswer.txt").Replace("<NUMBER>", args[0]);
 
-                case HostPhrases.SwitchQuestionIncorrect:
-                    return GetRandomPhrase("Host_SwitchQuestion_IncorrectAnswer.txt").Replace("<NUMBER>", args[0]);
+                case HostPhrases.SwitchQuestion_IncorrectAnswer:
+                    return RandomPhrase("Host_SwitchQuestion_IncorrectAnswer.txt").Replace("<NUMBER>", args[0]);
 
-                case HostPhrases.AskAfterTakingMoney:
-                    return GetRandomPhrase("Host_AskAfterTakingMoney.txt");
+                case HostPhrases.TakingMoney_AskAnswer:
+                    return RandomPhrase("Host_TakingMoney_AskAnswer.txt");
+
+                case HostPhrases.TakingMoney_CorrectAnswer:
+                    return RandomPhrase("Host_TakingMoney_CorrectAnswer.txt").Replace("<SUM>", args[0]);
+
+                case HostPhrases.TakingMoney_IncorrectAnswer:
+                    return RandomPhrase("Host_TakingMoney_IncorrectAnswer.txt");
 
                 case HostPhrases.PlayerTakingMoney:
                     string answer = $"Игрок берёт деньги!\nВыигрыш нашего гостя сотавил {args[0]} рублей!";
@@ -75,7 +83,7 @@ namespace WhoWantsToBeMillionaire
             return string.Empty;
         }
 
-        private string GetRandomPhrase(string fileName)
+        private string RandomPhrase(string fileName)
         {
             string[] phrases = ResourceProcessing.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
 

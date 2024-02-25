@@ -20,7 +20,7 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventTimeUp(object sender, EventArgs e);
         public event EventTimeUp TimeUp;
 
-        public PhoneTimer(int side) : base(new Size(side, side))
+        public PhoneTimer(int side) : base(side, side)
         {
             background = new Bitmap(ResourceProcessing.GetImage("PhoneTimer_Back.png"));
             ring = new Bitmap(ResourceProcessing.GetImage("PhoneTimer_Front.png"));
@@ -62,20 +62,16 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void Start()
-        {
-            timer.Start();
-        }
+        public void Start() => timer.Start();
 
-        public void Stop()
-        {
-            timer.Stop();
-        }
+        public void Stop() => timer.Stop();
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                timer.Tick -= TimerTick;
+
                 background.Dispose();
                 front.Dispose();
                 ring.Dispose();

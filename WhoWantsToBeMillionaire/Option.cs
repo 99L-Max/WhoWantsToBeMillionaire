@@ -2,39 +2,40 @@
 
 namespace WhoWantsToBeMillionaire
 {
-    class Option : PictureText
+    class Option : BitmapText
     {
-        private readonly StringFormat formatLabel;
+        private readonly StringFormat formatLetter;
         private readonly Rectangle rectText;
-        private readonly Rectangle rectLabel;
+        private readonly Rectangle rectLetter;
 
         private Color foreColorText;
-        private Color foreColorLabel;
+        private Color foreColorLetter;
 
         public readonly Letter Letter;
 
         public bool Enabled;
         public bool Selected;
 
-        public Option(Rectangle rectangle, Letter letter, Font font, StringFormat format) : base(rectangle, font, format)
+        public Option(Rectangle rectangle, Letter letter) : base(rectangle)
         {
             Letter = letter;
 
-            rectLabel = new Rectangle(0, 0, (int)(0.15f * Rectangle.Width), Rectangle.Height);
-            rectText = new Rectangle(rectLabel.Width, 0, Rectangle.Width - rectLabel.Width, Rectangle.Height);
+            rectLetter = new Rectangle(0, 0, (int)(0.15f * Rectangle.Width), Rectangle.Height);
+            rectText = new Rectangle(rectLetter.Width, 0, Rectangle.Width - rectLetter.Width, Rectangle.Height);
+            formatLetter = new StringFormat();
 
-            formatLabel = new StringFormat();
+            formatText.Alignment = StringAlignment.Near;
+            formatText.LineAlignment = StringAlignment.Center;
 
-            formatLabel.Alignment = StringAlignment.Far;
-            formatLabel.LineAlignment = StringAlignment.Center;
+            formatLetter.Alignment = StringAlignment.Far;
+            formatLetter.LineAlignment = StringAlignment.Center;
         }
 
         public override void Reset()
         {
-            Enabled = true;
             Selected = false;
             foreColorText = Color.White;
-            foreColorLabel = Color.Orange;
+            foreColorLetter = Color.Orange;
 
             base.Reset();
         }
@@ -42,7 +43,7 @@ namespace WhoWantsToBeMillionaire
         public void SetForeColors(Color colorText, Color colorLetter)
         {
             foreColorText = colorText;
-            foreColorLabel = colorLetter;
+            foreColorLetter = colorLetter;
 
             DrawText();
         }
@@ -55,10 +56,10 @@ namespace WhoWantsToBeMillionaire
 
                 if (alpha > 0)
                     using (Brush brustText = new SolidBrush(Color.FromArgb(alpha, foreColorText)))
-                    using (Brush brustLabel = new SolidBrush(Color.FromArgb(alpha, foreColorLabel)))
+                    using (Brush brustLetter = new SolidBrush(Color.FromArgb(alpha, foreColorLetter)))
                     {
                         g.DrawString(text, font, brustText, rectText, formatText);
-                        g.DrawString($"{Letter}:", font, brustLabel, rectLabel, formatLabel);
+                        g.DrawString($"{Letter}:", font, brustLetter, rectLetter, formatLetter);
                     }
             }
         }

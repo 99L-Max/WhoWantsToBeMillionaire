@@ -4,8 +4,18 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    abstract class MovingPictureBox : PictureBoxAnimation
+    abstract class MovingPictureBox : GameContol
     {
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                base.CreateParams.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+
         public int X
         {
             set => Location = new Point(value, Location.Y);
@@ -18,11 +28,7 @@ namespace WhoWantsToBeMillionaire
             get => Location.Y;
         }
 
-        public MovingPictureBox(Size size) : base(size)
-        {
-            SizeMode = PictureBoxSizeMode.StretchImage;
-            BackgroundImageLayout = ImageLayout.Stretch;
-        }
+        public MovingPictureBox(int width, int height) : base(width, height) { }
 
         public async Task MoveX(int x, int countFrames)
         {

@@ -23,6 +23,8 @@ namespace WhoWantsToBeMillionaire
 
         public int CountOptions => Options.Values.Where(x => x != string.Empty).Count();
 
+        public Question(int number) : this(number, RandomIndex(number)) { }
+
         public Question(int number, int index)
         {
             Number = number;

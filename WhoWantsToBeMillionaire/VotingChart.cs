@@ -14,7 +14,7 @@ namespace WhoWantsToBeMillionaire
         private readonly Graphics g;
         private readonly Dictionary<Letter, ChartCollumn> columns;
 
-        public VotingChart(Size size) : base(size)
+        public VotingChart(int width, int height) : base(width, height)
         {
             background = new Bitmap(ResourceProcessing.GetImage("AudienceChart.png"));
             imageColumn = new Bitmap(ResourceProcessing.GetImage("ChartColumn.png"));
@@ -33,14 +33,14 @@ namespace WhoWantsToBeMillionaire
                 columns.Add(keys[i], new ChartCollumn(i, widthColumn, 210, 45));
         }
 
-        private void DrawChart(bool labelsVisible)
+        private void DrawChart(bool percentsVisible)
         {
             g.Clear(Color.Transparent);
 
             foreach (var c in columns.Values)
                 g.DrawImage(imageColumn, c.RectangleF);
 
-            if (labelsVisible)
+            if (percentsVisible)
                 using (Brush brush = new SolidBrush(Color.White))
                 using (StringFormat format = new StringFormat())
                 {

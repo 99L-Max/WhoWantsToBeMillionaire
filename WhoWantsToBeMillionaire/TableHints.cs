@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TableHints : PictureBoxAnimation
+    class TableHints : GameContol
     {
         private ButtonHint[] hints;
         private Queue<ButtonHint> hiddenHints;
@@ -42,7 +43,7 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventHintClick(TypeHint type);
         public event EventHintClick HintClick;
 
-        public TableHints(Size size) : base(size) { }
+        public TableHints(int width, int height) : base(width, height) { }
 
         public void Reset(Mode mode)
         {

@@ -16,6 +16,19 @@ namespace WhoWantsToBeMillionaire
             random = new Random();
         }
 
+        public Question ReduceOptions(Question question)
+        {
+            Dictionary<Letter, string> dict = new Dictionary<Letter, string>();
+
+            var wrongKeys = question.Options.Keys.Where(k => k != question.Correct).ToList();
+            Letter secondKey = wrongKeys[new Random().Next(wrongKeys.Count)];
+
+            dict.Add(question.Correct, question.Options[question.Correct]);
+            dict.Add(secondKey, question.Options[secondKey]);
+
+            return new Question(question.Number, question.Index, question.Text, dict, question.Correct, question.Explanation);
+        }
+
         public Dictionary<Letter, float> PercentsAudience(Question question)
         {
             List<Letter> keys = question.Options.Where(x => x.Key != question.Correct && x.Value != string.Empty).Select(x => x.Key).OrderBy(k => random.Next()).ToList();

@@ -10,66 +10,64 @@ namespace WhoWantsToBeMillionaire
 {
     class TableSums : MovingPictureBox
     {
-        private int numberQuestion;
+        private int numberNextSum;
 
-        private readonly TableLayoutPanel tableSums;
+        private readonly TableLayoutPanel table;
         private readonly RowTableSum[] rowsSum;
 
         public delegate void EventSaveSumSelected(int sum);
         public event EventSaveSumSelected SaveSumSelected;
 
-        public int Prize { private set; get; }
+        public string Prize { private set; get; }
 
-        public int NumberQuestion
+        public int NumberNextSum
         {
             set
             {
-                numberQuestion = value;
-                SetSelectedSum(numberQuestion - 1);
+                numberNextSum = value;
+                SetSelectedSum(numberNextSum - 1);
             }
-            get => numberQuestion;
+            get => numberNextSum;
         }
 
-        public int MaxNumberQuestion => rowsSum.Length;
+        public int MaxNumberSum => rowsSum.Length;
 
         public int[] SaveSums => rowsSum.Where(r => r.IsSaveSum && r.Number != rowsSum.Length).Select(r => r.Sum).ToArray();
 
-        public string NextSum => string.Format("{0:#,0}", rowsSum[numberQuestion - 1].Sum);
+        public string NextSum => string.Format("{0:#,0}", rowsSum[numberNextSum - 1].Sum);
 
-        public TableSums(Size size) : base(size)
+        public TableSums(int width, int height) : base(width, height)
         {
             using (Stream stream = ResourceProcessing.GetStream("Sums.json", TypeResource.Sums))
             using (StreamReader reader = new StreamReader(stream))
             {
-                string jsonText = reader.ReadToEnd();
-                int[] sums = JsonConvert.DeserializeObject<int[]>(jsonText);
+                int[] sums = JsonConvert.DeserializeObject<int[]>(reader.ReadToEnd());
 
-                BackgroundImageLayout = ImageLayout.Stretch;
-                BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Amounts.png"), size);
+                BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Amounts.png"), width, height);
 
-                tableSums = new TableLayoutPanel();
+                table = new TableLayoutPanel();
                 rowsSum = new RowTableSum[sums.Length];
 
-                int heightRow = (int)(size.Height * 0.67f / sums.Length);
+                int heightRow = (int)(height * 0.67f / sums.Length);
 
-                tableSums.Size = new Size((int)(0.8f * size.Width), heightRow * sums.Length + 1);
-                tableSums.Location = new Point((Width - tableSums.Width) / 2, (int)(0.2f * size.Height));
-                tableSums.BackColor = Color.Transparent;
+                table.Size = new Size((int)(0.8f * width), heightRow * sums.Length + 1);
+                table.Location = new Point((Width - table.Width) / 2, (int)(0.2f * height));
+                table.BackColor = Color.Transparent;
 
-                tableSums.RowCount = sums.Length;
+                table.RowCount = sums.Length;
 
-                for (int i = 0; i < tableSums.RowCount; i++)
-                    tableSums.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / tableSums.RowCount));
+                for (int i = 0; i < table.RowCount; i++)
+                    table.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / table.RowCount));
 
-                tableSums.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
 
                 for (int i = sums.Length - 1; i > -1; i--)
                 {
                     rowsSum[i] = new RowTableSum(i + 1, sums[i]);
-                    tableSums.Controls.Add(rowsSum[i], 0, sums.Length - rowsSum[i].Number);
+                    table.Controls.Add(rowsSum[i], 0, sums.Length - rowsSum[i].Number);
                 }
 
-                Controls.Add(tableSums);
+                Controls.Add(table);
             }
         }
 
@@ -77,7 +75,7 @@ namespace WhoWantsToBeMillionaire
         {
             X = MainForm.RectScreen.Width;
 
-            tableSums.Visible = false;
+            table.Visible = false;
 
             foreach (var row in rowsSum)
                 row.Reset();
@@ -86,7 +84,12 @@ namespace WhoWantsToBeMillionaire
                 foreach (var row in rowsSum)
                     row.IsSaveSum = row.Number % 5 == 0;
 
-            Prize = 0;
+            Prize = "0";
+        }
+
+        private void SetPrize(int numberSum)
+        {
+            Prize = numberNextSum < rowsSum.Length ? string.Format("{0:#,0}", rowsSum[numberSum - 1].Sum) : "МИЛЛИОНЕР!";
         }
 
         private void SetSelectedSum(int number)
@@ -129,7 +132,7 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowSums()
         {
-            tableSums.Visible = true;
+            table.Visible = true;
 
             await Task.Delay(1000);
 
@@ -176,18 +179,22 @@ namespace WhoWantsToBeMillionaire
             rowsSum[rowsSum.Length - 1].IsSelected = true;
         }
 
-        public void AnswerGiven(bool isCorrect)
+        public void UpdatePrize(bool isCorrect)
         {
             if (isCorrect)
             {
-                Prize = rowsSum[numberQuestion - 1].Sum;
-                NumberQuestion++;
+                SetPrize(numberNextSum);
+                NumberNextSum++;
             }
             else
             {
-                numberQuestion = rowsSum.Where(r => r.IsSaveSum && r.Number < numberQuestion).Select(r => r.Number).DefaultIfEmpty(0).Last();
-                SetSelectedSum(numberQuestion);
-                Prize = numberQuestion > 0 ? rowsSum[numberQuestion - 1].Sum : 0;
+                numberNextSum = rowsSum.Where(r => r.IsSaveSum && r.Number < numberNextSum).Select(r => r.Number).DefaultIfEmpty(0).Last();
+                SetSelectedSum(numberNextSum);
+
+                if (numberNextSum > 0)
+                    SetPrize(rowsSum[numberNextSum - 1].Sum);
+                else
+                    Prize = "0";
             }
         }
     }

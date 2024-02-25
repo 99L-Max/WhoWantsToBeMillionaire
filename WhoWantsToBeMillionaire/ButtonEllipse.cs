@@ -17,7 +17,7 @@ namespace WhoWantsToBeMillionaire
 
     class ButtonEllipse : PictureBox
     {
-        private static readonly ReadOnlyDictionary<ThemeButtonEllipse, Bitmap> ImageButton;
+        private static readonly ReadOnlyDictionary<ThemeButtonEllipse, Bitmap> imageButton;
 
         private ThemeButtonEllipse theme;
         private Color foreColor;
@@ -43,7 +43,7 @@ namespace WhoWantsToBeMillionaire
             foreach (var key in Enum.GetValues(typeof(ThemeButtonEllipse)).Cast<ThemeButtonEllipse>())
                 img.Add(key, new Bitmap(ResourceProcessing.GetImage($"ButtonEllipse_{key}.png")));
 
-            ImageButton = new ReadOnlyDictionary<ThemeButtonEllipse, Bitmap>(img);
+            imageButton = new ReadOnlyDictionary<ThemeButtonEllipse, Bitmap>(img);
         }
 
         protected ButtonEllipse()
@@ -53,15 +53,15 @@ namespace WhoWantsToBeMillionaire
             theme = ThemeButtonEllipse.Blue;
         }
 
-        public ButtonEllipse(Size size) : this()
+        public ButtonEllipse(int width, int height) : this()
         {
-            Size = size;
-            Font = new Font("", 0.35f * size.Height, FontStyle.Bold);
+            Size = new Size(width, height);
+            Font = new Font("", 0.35f * height, FontStyle.Bold);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(ImageButton[theme], ClientRectangle);
+            e.Graphics.DrawImage(imageButton[theme], ClientRectangle);
             TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
