@@ -1,18 +1,19 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     public partial class MainForm : Form
     {
         public const int DeltaTime = 40;
+        public static readonly ReadOnlyRectangle RectScreen = new ReadOnlyRectangle(Screen.PrimaryScreen.Bounds);
 
         private readonly GameScene scene;
-        private readonly MainMenu mainMenu;
+        private readonly MenuMain mainMenu;
+        private readonly StatisticsData statisticsData;
 
         private ContextMenu contextMenu;
-
-        public static readonly Rectangle RectScreen = Screen.PrimaryScreen.Bounds;
 
         protected override CreateParams CreateParams
         {
@@ -29,19 +30,20 @@ namespace WhoWantsToBeMillionaire
             InitializeComponent();
 
             BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Main.png"), RectScreen.Size);
-            BackgroundImageLayout = ImageLayout.Stretch;
 
             scene = new GameScene();
-            mainMenu = new MainMenu();
+            mainMenu = new MenuMain();
+            statisticsData = new StatisticsData(FileManager.PathLocalAppData);
 
             scene.Visible = false;
 
             mainMenu.ButtonClick += OnButtonMainMenuClick;
+            scene.StatisticsChanged += UpdateStatistics;
 
             Controls.Add(scene);
             Controls.Add(mainMenu);
 
-            mainMenu.SetCommands(new MainMenuCommand[] { MainMenuCommand.Start, MainMenuCommand.Achievements, MainMenuCommand.Settings, MainMenuCommand.Exit });
+            mainMenu.SetCommands(new MainMenuCommand[] { MainMenuCommand.Start, MainMenuCommand.Achievements, MainMenuCommand.Statistics, MainMenuCommand.Settings, MainMenuCommand.Exit });
         }
 
         private void OnButtonMainMenuClick(MainMenuCommand cmd)
@@ -53,11 +55,19 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case MainMenuCommand.Start:
-                    contextMenu = new ModeMenu(new Size(RectScreen.Width / 3, RectScreen.Height * 2 / 3));
+                    contextMenu = new MenuMode(RectScreen.Width / 3, RectScreen.Height * 2 / 3);
                     contextMenu.ButtonClick += OnButtonContextMenuClick;
 
                     mainMenu.Controls.Add(contextMenu);
-                    mainMenu.TableVisible = false;
+                    mainMenu.ButtonsVisible = false;
+                    break;
+
+                case MainMenuCommand.Statistics:
+                    contextMenu = new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData);
+                    contextMenu.ButtonClick += OnButtonContextMenuClick;
+
+                    mainMenu.Controls.Add(contextMenu);
+                    mainMenu.ButtonsVisible = false;
                     break;
             }
         }
@@ -71,32 +81,42 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case ContextMenuCommand.StartGame:
-                    Properties.Settings.Default.Mode = (int)(contextMenu as ModeMenu).SelectedMode;
-                    Properties.Settings.Default.Save();
+                    Settings.Default.Mode = (int)(contextMenu as MenuMode).SelectedMode;
+                    Settings.Default.Save();
+                    scene.Reset();
 
                     mainMenu.Visible = false;
                     CloseContextMenu();
 
-                    scene.Reset();
-
                     //using (Screensaver saver = new Screensaver())
                     //{
                     //    Controls.Add(saver);
-                    //    await saver.Show();
+                    //
+                    //    await saver.ShowSaver();
+                    //
                     //    Controls.Remove(saver);
                     //}
 
                     scene.Visible = true;
                     scene.Start();
                     break;
+
+                case ContextMenuCommand.ResetStatistics:
+                    MessageBox.Show("DELETED");
+                    break;
             }
+        }
+
+        private void UpdateStatistics(StatsAttribute attribute, int value)
+        {
+            statisticsData.Update(attribute, value);
         }
 
         private void CloseContextMenu()
         {
             if (contextMenu != null)
             {
-                mainMenu.TableVisible = true;
+                mainMenu.ButtonsVisible = true;
                 mainMenu.Controls.Remove(contextMenu);
                 contextMenu.ButtonClick -= OnButtonContextMenuClick;
                 contextMenu.Dispose();

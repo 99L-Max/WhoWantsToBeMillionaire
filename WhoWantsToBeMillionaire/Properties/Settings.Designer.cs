@@ -34,5 +34,53 @@ namespace WhoWantsToBeMillionaire.Properties {
                 this["Mode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint TotalPrize {
+            get {
+                return ((uint)(this["TotalPrize"]));
+            }
+            set {
+                this["TotalPrize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint NumberCorrectAnswers {
+            get {
+                return ((uint)(this["NumberCorrectAnswers"]));
+            }
+            set {
+                this["NumberCorrectAnswers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint NumberIncorrectAnswers {
+            get {
+                return ((uint)(this["NumberIncorrectAnswers"]));
+            }
+            set {
+                this["NumberIncorrectAnswers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint NumberHintsUsed {
+            get {
+                return ((uint)(this["NumberHintsUsed"]));
+            }
+            set {
+                this["NumberHintsUsed"] = value;
+            }
+        }
     }
 }

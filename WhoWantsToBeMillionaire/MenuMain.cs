@@ -1,32 +1,34 @@
-﻿using System.Windows.Forms;
+﻿using System;
 using System.Drawing;
-using System;
+using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
     enum MainMenuCommand
     {
         Start,
+        NewGame,
         Continue,
         Achievements,
         Settings,
+        Statistics,
         Exit
     }
 
-    class MainMenu : PictureBox
+    class MenuMain : PictureBox
     {
         private readonly TableLayoutPanel table;
 
         public delegate void EventButtonClick(MainMenuCommand command);
         public event EventButtonClick ButtonClick;
 
-        public bool TableVisible
+        public bool ButtonsVisible
         {
             set => table.Visible = value;
             get => table.Visible;
         }
 
-        public MainMenu()
+        public MenuMain()
         {
             Dock = DockStyle.Fill;
             BackColor = Color.FromArgb(byte.MaxValue >> 1, Color.Black);
@@ -40,8 +42,8 @@ namespace WhoWantsToBeMillionaire
         public void SetCommands(MainMenuCommand[] commands)
         {
             foreach (var ctrl in table.Controls)
-                if (ctrl is ButtonMainMenu)
-                    (ctrl as ButtonMainMenu).Dispose();
+                if (ctrl is IDisposable)
+                    (ctrl as IDisposable).Dispose();
 
             int heightButton = (int)(0.08f * MainForm.RectScreen.Height);
 
@@ -58,11 +60,12 @@ namespace WhoWantsToBeMillionaire
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 
             float fontSize = 0.32f * heightButton;
+            var dict = ResourceProcessing.GetDictionary("MenuCommands.json");
 
             for (int i = 0; i < buttons.Length; i++)
             {
-                buttons[i] = new ButtonMainMenu(fontSize);
-                buttons[i].Command = commands[i];
+                buttons[i] = new ButtonMainMenu(commands[i], fontSize);
+                buttons[i].Text = dict[commands[i].ToString()];
                 buttons[i].Click += OnButtonClick;
 
                 table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));

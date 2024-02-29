@@ -42,6 +42,9 @@ namespace WhoWantsToBeMillionaire
         private SceneCommand command;
         private Mode mode;
 
+        public delegate void EventStatisticsChanged(StatsAttribute key, int value = 0);
+        public event EventStatisticsChanged StatisticsChanged;
+
         public GameScene() : base(MainForm.RectScreen.Size)
         {
             Dock = DockStyle.Fill;
@@ -129,11 +132,13 @@ namespace WhoWantsToBeMillionaire
                     else
                         command = SceneCommand.Loss;
 
+                    StatisticsChanged.Invoke(boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers);
+
                     dialog.Text = explanation;
                     break;
 
                 case AnswerMode.DoubleDips:
-                    if (boxQuestion.AnswerMode == AnswerMode.DoubleDips && !boxQuestion.IsCorrectAnswer)
+                    if (!boxQuestion.IsCorrectAnswer)
                     {
                         boxQuestion.AnswerMode = AnswerMode.Usual;
                         await Task.Delay(3000);
@@ -151,6 +156,8 @@ namespace WhoWantsToBeMillionaire
                             return;
                         }
                     }
+                    else
+                        goto default;
                     break;
 
                 case AnswerMode.SwitchQuestion:
@@ -175,6 +182,8 @@ namespace WhoWantsToBeMillionaire
 
         private async void OnHintClick(TypeHint type)
         {
+            StatisticsChanged.Invoke(StatsAttribute.NumberHintsUsed);
+
             tableHints.Enabled = type == TypeHint.FiftyFifty;
 
             switch (type)
@@ -270,12 +279,12 @@ namespace WhoWantsToBeMillionaire
             tableHints.Enabled = false;
 
             command = SceneCommand.TakeMoney;
-            dialog.Text = host.Say(HostPhrases.PlayerTakingMoney, tableSums.Prize);
+            dialog.Text = host.Say(HostPhrases.PlayerTakingMoney, string.Format("{0:#,0}", tableSums.Prize));
 
             buttonCommand.Visible = true;
         }
 
-        private async Task ShowPrize()
+        private async Task TransitionToPrize()
         {
             dialog.Clear();
             await boxQuestion.ShowCorrect(!boxQuestion.IsCorrectAnswer);
@@ -288,7 +297,7 @@ namespace WhoWantsToBeMillionaire
             SetBoxQuestionVisible(false);
 
             await boxAnimation.ShowTransition(boxQuestion.BackgroundImage, prizeImage);
-            await boxAnimation.ShowText(tableSums.Prize);
+            await boxAnimation.ShowText(tableSums.TextPrize);
 
             boxQuestion.Reset();
         }
@@ -304,7 +313,7 @@ namespace WhoWantsToBeMillionaire
             switch (command)
             {
                 case SceneCommand.NextQuestion:
-                    await ShowPrize();
+                    await TransitionToPrize();
                     await Task.Delay(3000);
                     await boxAnimation.HideImage();
 
@@ -320,12 +329,14 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCommand.Loss:
-                    await ShowPrize();
+                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
+                    await TransitionToPrize();
                     MessageBox.Show("CONTEXT MENU");
                     break;
 
                 case SceneCommand.Victory:
-                    await ShowPrize();
+                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
+                    await TransitionToPrize();
                     //ПАУЗА
                     MessageBox.Show("CONTEXT MENU");
                     break;

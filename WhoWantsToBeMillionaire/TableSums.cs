@@ -18,7 +18,9 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventSaveSumSelected(int sum);
         public event EventSaveSumSelected SaveSumSelected;
 
-        public string Prize { private set; get; }
+        public int Prize { private set; get; }
+
+        public string TextPrize { private set; get; }
 
         public int NumberNextSum
         {
@@ -84,12 +86,21 @@ namespace WhoWantsToBeMillionaire
                 foreach (var row in rowsSum)
                     row.IsSaveSum = row.Number % 5 == 0;
 
-            Prize = "0";
+            SetPrize(0);
         }
 
         private void SetPrize(int numberSum)
         {
-            Prize = numberNextSum < rowsSum.Length ? string.Format("{0:#,0}", rowsSum[numberSum - 1].Sum) : "МИЛЛИОНЕР!";
+            try
+            {
+                Prize = rowsSum[numberSum - 1].Sum;
+                TextPrize = numberNextSum < rowsSum.Length ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Prize = 0;
+                TextPrize = "0";
+            }
         }
 
         private void SetSelectedSum(int number)
@@ -190,11 +201,7 @@ namespace WhoWantsToBeMillionaire
             {
                 numberNextSum = rowsSum.Where(r => r.IsSaveSum && r.Number < numberNextSum).Select(r => r.Number).DefaultIfEmpty(0).Last();
                 SetSelectedSum(numberNextSum);
-
-                if (numberNextSum > 0)
-                    SetPrize(rowsSum[numberNextSum - 1].Sum);
-                else
-                    Prize = "0";
+                SetPrize(numberNextSum - 1);
             }
         }
     }

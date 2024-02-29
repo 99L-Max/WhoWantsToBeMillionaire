@@ -10,50 +10,33 @@ namespace WhoWantsToBeMillionaire
         Right
     }
 
-    class ButtonArrow : PictureBox, IDisposable
+    class ButtonArrow : PictureBox
     {
-        private readonly Image image;
-        private readonly Image imageClick;
+        private readonly string arrow;
 
         public readonly DirectionArrow DirectionArrow;
 
-        public ButtonArrow(DirectionArrow directionArrow)
+        public ButtonArrow(DirectionArrow directionArrow, float fontSize)
         {
             DirectionArrow = directionArrow;
-
             BackColor = Color.Transparent;
-            SizeMode = PictureBoxSizeMode.Zoom;
+            Font = new Font(FontFamily.GenericMonospace, fontSize, FontStyle.Bold);
+            arrow = directionArrow == DirectionArrow.Left ? "<" : ">";
 
-            image = ResourceProcessing.GetImage($"Arrow_{DirectionArrow}.png");
-            imageClick = ResourceProcessing.GetImage($"Arrow_{DirectionArrow}_Click.png");
-
-            Image = image;
+            OnMouseLeave(EventArgs.Empty);
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            Image = imageClick;
+            TextRenderer.DrawText(e.Graphics, arrow, Font, ClientRectangle, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            Image = image;
-        }
+        protected override void OnMouseEnter(EventArgs e) => ForeColor = Color.Orange;
 
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            Image = image;
-        }
+        protected override void OnMouseUp(MouseEventArgs e) => ForeColor = Color.Orange;
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                image.Dispose();
-                imageClick.Dispose();
-            }
+        protected override void OnMouseDown(MouseEventArgs e) => ForeColor = Color.Indigo;
 
-            base.Dispose(disposing);
-        }
+        protected override void OnMouseLeave(EventArgs e) => ForeColor = Color.Indigo;
     }
 }

@@ -38,12 +38,12 @@ namespace WhoWantsToBeMillionaire
                     e.Graphics.FillRectangle(brush, ClientRectangle);
         }
 
-        public new async Task Show()
+        public async Task ShowSaver()
         {
             imageVisible = false;
             sideLogo = 0f;
 
-            await ShowTransition(5);
+            await ShowTransition(10);
 
             for (float i = 0.1f; i < 0.8f; i += 0.045f)
             {
@@ -54,24 +54,21 @@ namespace WhoWantsToBeMillionaire
 
             await Task.Delay(3000);
 
-            await ShowTransition(10);
-
-            Visible = false;
+            await ShowTransition(20);
         }
 
         private async Task ShowTransition(int countFrames)
         {
-            List<int> alphas = Enumerable.Range(0, countFrames).Select(a => byte.MaxValue * a / (countFrames - 1)).ToList();
+            var alphas = Enumerable.Range(0, countFrames).Select(a => byte.MaxValue * a / (countFrames - 1));
 
             await FillRectangles(alphas);
 
             imageVisible = !imageVisible;
-            alphas.Reverse();
 
-            await FillRectangles(alphas);
+            await FillRectangles(alphas.Reverse());
         }
 
-        private async Task FillRectangles(List<int> alphas)
+        private async Task FillRectangles(IEnumerable<int> alphas)
         {
             foreach (var a in alphas)
             {
@@ -85,8 +82,8 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                background?.Dispose();
-                logo?.Dispose();
+                background.Dispose();
+                logo.Dispose();
             }
 
             base.Dispose(disposing);

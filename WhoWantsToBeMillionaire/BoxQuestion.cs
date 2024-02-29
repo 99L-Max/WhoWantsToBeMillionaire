@@ -178,7 +178,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            int[] alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1)).ToArray();
+            var alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1));
 
             foreach (var a in alphas)
             {
@@ -218,6 +218,7 @@ namespace WhoWantsToBeMillionaire
 
         private void OnOptionClick(Letter letter)
         {
+            Enabled = false;
             SelectOption(letter);
             OptionClick.Invoke(letter);
         }

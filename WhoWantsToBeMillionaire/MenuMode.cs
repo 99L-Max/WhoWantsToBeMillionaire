@@ -1,6 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -11,43 +11,28 @@ namespace WhoWantsToBeMillionaire
         Advanced,
     }
 
-    class ModeMenu : ContextMenu
+    class MenuMode : ContextMenu, IDisposable
     {
-        private readonly Label labelMode;
-        private readonly Label labelDescriptionMode;
+        private readonly LabelMenu labelTitle;
+        private readonly LabelMenu labelDescriptionMode;
         private readonly GameComboBox comboBox;
         private readonly ButtonContextMenu buttonStart;
         private readonly ButtonContextMenu buttonBack;
 
         public Mode SelectedMode { private set; get; }
 
-        public ModeMenu(Size size) : base(size)
+        public MenuMode(int width, int height) : base(width, height)
         {
-            string[] modes = { "Классический", "Любительский", "Расширенный" };
-            float[] widths = new float[] { 1f, 1f, 3f, 1f, 1f };
+            var modes = ResourceProcessing.GetDictionary("Modes.json");
 
-            table.RowCount = widths.Length;
+            float fontSize = 0.04f * Height;
 
-            foreach (var w in widths)
-                table.RowStyles.Add(new RowStyle(SizeType.Percent, w));
+            labelTitle = new LabelMenu(1.2f * fontSize, ContentAlignment.MiddleCenter);
+            labelDescriptionMode = new LabelMenu(fontSize);
 
-            float fontSize = 0.04f * size.Height;
-            Size sizeButtonCell = new Size(Width, (int)(Height / widths.Sum()));
+            labelTitle.Text = "Выберите режим";
 
-            labelMode = new Label();
-            labelDescriptionMode = new Label();
-
-            labelDescriptionMode.Dock = labelMode.Dock = DockStyle.Fill;
-            labelDescriptionMode.ForeColor = labelMode.ForeColor = Color.White;
-
-            labelMode.TextAlign = ContentAlignment.MiddleCenter;
-
-            labelMode.Font = new Font("", 1.2f * fontSize);
-            labelDescriptionMode.Font = new Font("", fontSize);
-
-            labelMode.Text = "Выберите режим";
-
-            comboBox = new GameComboBox(modes, fontSize);
+            comboBox = new GameComboBox(modes.Values.ToArray(), fontSize);
             comboBox.SelectedIndexChanged += ModeChanged;
 
             buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
@@ -59,11 +44,13 @@ namespace WhoWantsToBeMillionaire
             buttonStart.Click += OnButtonClick;
             buttonBack.Click += OnButtonClick;
 
-            table.Controls.Add(labelMode, 0, 0);
+            table.Controls.Add(labelTitle, 0, 0);
             table.Controls.Add(comboBox, 0, 1);
             table.Controls.Add(labelDescriptionMode, 0, 2);
             table.Controls.Add(buttonStart, 0, 3);
             table.Controls.Add(buttonBack, 0, 4);
+
+            SetHeights(new float[] { 1f, 1f, 3f, 1f, 1f });
 
             comboBox.SelectedIndex = 0;
         }
@@ -90,6 +77,17 @@ namespace WhoWantsToBeMillionaire
                     labelDescriptionMode.Text = string.Empty;
                     break;
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                buttonStart.Click -= OnButtonClick;
+                buttonBack.Click -= OnButtonClick;
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

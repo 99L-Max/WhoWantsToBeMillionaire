@@ -1,0 +1,20 @@
+﻿using System;
+using System.IO;
+
+namespace WhoWantsToBeMillionaire
+{
+    static class FileManager
+    {
+        public static readonly string PathLocalAppData;
+
+        static FileManager()
+        {
+            PathLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + $@"\{typeof(FileManager).Namespace}";
+        }
+
+        public static void CreateSaveDirictory()
+        {
+            Directory.CreateDirectory(PathLocalAppData);
+        }
+    }
+}

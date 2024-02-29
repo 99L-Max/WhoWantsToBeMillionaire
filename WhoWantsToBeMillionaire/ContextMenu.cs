@@ -7,23 +7,24 @@ namespace WhoWantsToBeMillionaire
     enum ContextMenuCommand
     {
         Back,
-        StartGame
+        StartGame,
+        ResetStatistics
     }
 
-    abstract class ContextMenu : PictureBox
+    abstract class ContextMenu : PictureBox, IDisposable
     {
         protected readonly TableLayoutPanel table;
 
         public delegate void EventButtonClick(ContextMenuCommand command);
         public event EventButtonClick ButtonClick;
 
-        public ContextMenu(Size size)
+        public ContextMenu(int width, int height)
         {
-            Size = size;
+            Size = new Size(width, height);
             Location = new Point((MainForm.RectScreen.Width - Width) >> 1, (MainForm.RectScreen.Height - Height) >> 1);
             BackColor = Color.Transparent;
             BackgroundImageLayout = ImageLayout.Stretch;
-            BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Menu.png"), size);
+            BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Menu.png"), Size);
 
             table = new TableLayoutPanel();
 
@@ -36,6 +37,27 @@ namespace WhoWantsToBeMillionaire
         protected void OnButtonClick(object sender, EventArgs e)
         {
             ButtonClick.Invoke((sender as ButtonContextMenu).Command);
+        }
+
+        protected void SetHeights(float[] heights)
+        {
+            table.RowStyles.Clear();
+            table.RowCount = heights.Length;
+
+            foreach (var h in heights)
+                table.RowStyles.Add(new RowStyle(SizeType.Percent, h));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (var ctrl in table.Controls)
+                    if (ctrl is IDisposable)
+                        (ctrl as IDisposable).Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

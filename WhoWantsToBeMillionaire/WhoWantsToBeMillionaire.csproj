@@ -82,6 +82,11 @@
     <Compile Include="BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LabelMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReadOnlyRectangle.cs" />
+    <Compile Include="GameSettings.cs" />
     <Compile Include="Hint.cs" />
     <Compile Include="ButtonArrow.cs">
       <SubType>Component</SubType>
@@ -105,10 +110,18 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Host.cs" />
-    <Compile Include="ModeMenu.cs">
+    <Compile Include="MenuMode.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BoxQuestion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FileManager.cs" />
+    <Compile Include="SettingsMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatisticsData.cs" />
+    <Compile Include="MenuStatistics.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="VotingChart.cs">
@@ -127,7 +140,7 @@
     <Compile Include="TableHints.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MainMenu.cs">
+    <Compile Include="MenuMain.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MovingPictureBox.cs">
@@ -565,6 +578,9 @@
     <EmbeddedResource Include="Resources\Questions\Q15V14.json" />
     <EmbeddedResource Include="Resources\Questions\Q15V15.json" />
     <EmbeddedResource Include="Resources\Sums\Sums.json" />
+    <EmbeddedResource Include="Resources\Dictionary\Statistics.json" />
+    <EmbeddedResource Include="Resources\Dictionary\MenuCommands.json" />
+    <EmbeddedResource Include="Resources\Dictionary\Modes.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -583,10 +599,6 @@
     <EmbeddedResource Include="Resources\Dialogues\Host_SwitchQuestion_IncorrectAnswer.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_CorrectAnswer.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_IncorrectAnswer.txt" />
-    <EmbeddedResource Include="Resources\Textures\Arrow_Left.png" />
-    <EmbeddedResource Include="Resources\Textures\Arrow_Left_Click.png" />
-    <EmbeddedResource Include="Resources\Textures\Arrow_Right.png" />
-    <EmbeddedResource Include="Resources\Textures\Arrow_Right_Click.png" />
     <EmbeddedResource Include="Resources\Textures\AudienceChart.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Amounts.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Main.png" />

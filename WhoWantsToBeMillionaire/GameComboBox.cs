@@ -42,8 +42,8 @@ namespace WhoWantsToBeMillionaire
 
             this.items = items;
 
-            leftArrow = new ButtonArrow(DirectionArrow.Left);
-            rightArrow = new ButtonArrow(DirectionArrow.Right);
+            leftArrow = new ButtonArrow(DirectionArrow.Left, 2 * fontSize);
+            rightArrow = new ButtonArrow(DirectionArrow.Right, 2 * fontSize);
 
             Controls.Add(leftArrow);
             Controls.Add(rightArrow);
