@@ -166,6 +166,8 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowQuestion(int number, int index)
         {
+            Reset();
+
             SetText(new Question(number, index));
 
             Rectangle rectWires = new Rectangle(0, 0, Width, Height);
@@ -294,7 +296,7 @@ namespace WhoWantsToBeMillionaire
             Image = image;
         }
 
-        public async Task ShowCorrect(bool isDelay)
+        public async Task ShowCorrect(bool addDelay)
         {
             Option option = options[Question.Correct];
 
@@ -323,7 +325,7 @@ namespace WhoWantsToBeMillionaire
                 }
             }
 
-            if (isDelay)
+            if (addDelay)
                 await Task.Delay(3000);
         }
 

@@ -15,6 +15,7 @@ namespace WhoWantsToBeMillionaire
         SwitchQuestion_AskAnswer,
         SwitchQuestion_CorrectAnswer,
         SwitchQuestion_IncorrectAnswer,
+        TakingMoney_ClarifyDecision,
         TakingMoney_AskAnswer,
         TakingMoney_CorrectAnswer,
         TakingMoney_IncorrectAnswer,
@@ -61,6 +62,9 @@ namespace WhoWantsToBeMillionaire
 
                 case HostPhrases.SwitchQuestion_IncorrectAnswer:
                     return RandomPhrase("Host_SwitchQuestion_IncorrectAnswer.txt").Replace("<NUMBER>", args[0]);
+
+                case HostPhrases.TakingMoney_ClarifyDecision:
+                    return "Вы хотите забрать деньги?";
 
                 case HostPhrases.TakingMoney_AskAnswer:
                     return RandomPhrase("Host_TakingMoney_AskAnswer.txt");

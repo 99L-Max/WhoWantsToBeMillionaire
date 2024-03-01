@@ -1,19 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace WhoWantsToBeMillionaire
+﻿namespace WhoWantsToBeMillionaire
 {
     class ButtonMainMenu : ButtonWire
     {
         public readonly MainMenuCommand Command;
 
-        public ButtonMainMenu(MainMenuCommand cmd, float sizeFont) : base()
+        public ButtonMainMenu(MainMenuCommand cmd, float fontSize) : base(fontSize)
         {
             Command = cmd;
-            Font = new Font("", sizeFont, FontStyle.Bold);
-            Dock = DockStyle.Fill;
-            OnMouseLeave(EventArgs.Empty);
         }
     }
 }

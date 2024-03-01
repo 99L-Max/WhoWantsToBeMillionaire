@@ -20,8 +20,11 @@ namespace WhoWantsToBeMillionaire
         private static readonly ReadOnlyDictionary<ThemeButtonWire, Bitmap> imageButton;
         private static readonly Bitmap wire;
 
-        private Rectangle rectangle;
-        private Rectangle rectangleWire;
+        private readonly Label leftBarrier;
+        private readonly Label rightBarrier;
+
+        private Rectangle rectImage;
+        private Rectangle rectBackground;
         private Color foreColor;
         private ThemeButtonWire theme;
 
@@ -50,19 +53,24 @@ namespace WhoWantsToBeMillionaire
             wire = new Bitmap(ResourceProcessing.GetImage("Wire.png"));
         }
 
-        protected ButtonWire()
+        public ButtonWire(float sizeFont)
         {
             BackColor = Color.Transparent;
+            Dock = DockStyle.Fill;
+            Font = new Font("", sizeFont, FontStyle.Bold);
+
             foreColor = Color.White;
             theme = ThemeButtonWire.Blue;
 
-            SizeChanged += OnSizeChanged;
-        }
+            leftBarrier = new Label();
+            rightBarrier = new Label();
 
-        public ButtonWire(int width, int height) : this()
-        {
-            Size = new Size(width, height);
-            Font = new Font("", 0.35f * height, FontStyle.Bold);
+            Controls.Add(leftBarrier);
+            Controls.Add(rightBarrier);
+
+            SizeChanged += OnSizeChanged;
+
+            OnMouseLeave(EventArgs.Empty);
         }
 
         private void OnSizeChanged(object sender, EventArgs e)
@@ -79,15 +87,18 @@ namespace WhoWantsToBeMillionaire
             int x = (Width - sizeRect.Width) >> 1;
             int y = (Height - sizeRect.Height) >> 1;
 
-            rectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
-            rectangleWire = new Rectangle(0, y, Width, sizeRect.Height);
+            rectImage = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
+            rectBackground = new Rectangle(0, y, Width, sizeRect.Height);
+
+            rightBarrier.Size = leftBarrier.Size = new Size((Width - rectImage.Width) / 2, Height);
+            rightBarrier.Location = new Point(Width - rightBarrier.Width, 0);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(wire, rectangleWire);
-            e.Graphics.DrawImage(imageButton[theme], rectangle);
-            TextRenderer.DrawText(e.Graphics, Text, Font, rectangle, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            e.Graphics.DrawImage(wire, rectBackground);
+            e.Graphics.DrawImage(imageButton[theme], rectImage);
+            TextRenderer.DrawText(e.Graphics, Text, Font, rectImage, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
         protected override void OnMouseEnter(EventArgs e)

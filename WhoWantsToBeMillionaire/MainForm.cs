@@ -51,6 +51,7 @@ namespace WhoWantsToBeMillionaire
             switch (cmd)
             {
                 default:
+                    statisticsData.Save(FileManager.PathLocalAppData);
                     Close();
                     break;
 
@@ -68,6 +69,10 @@ namespace WhoWantsToBeMillionaire
 
                     mainMenu.Controls.Add(contextMenu);
                     mainMenu.ButtonsVisible = false;
+                    break;
+
+                case MainMenuCommand.Achievements:
+                    MessageBox.Show("Achievements");
                     break;
             }
         }
@@ -99,10 +104,6 @@ namespace WhoWantsToBeMillionaire
 
                     scene.Visible = true;
                     scene.Start();
-                    break;
-
-                case ContextMenuCommand.ResetStatistics:
-                    MessageBox.Show("DELETED");
                     break;
             }
         }

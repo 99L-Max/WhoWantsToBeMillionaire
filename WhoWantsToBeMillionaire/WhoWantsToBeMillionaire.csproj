@@ -177,6 +177,7 @@
     <Compile Include="TableSums.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="_Draft.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -592,7 +593,7 @@
     <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Correct.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney.txt" />
+    <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_AskAnswer.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Host_AskSaveSum.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Host_SwitchQuestion_AskAnswer.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Host_SwitchQuestion_CorrectAnswer.txt" />

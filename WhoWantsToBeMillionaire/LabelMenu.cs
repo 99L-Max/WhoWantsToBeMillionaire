@@ -5,7 +5,7 @@ namespace WhoWantsToBeMillionaire
 {
     class LabelMenu : Label
     {
-        public LabelMenu(float fontSize, ContentAlignment alignment = ContentAlignment.TopLeft)
+        public LabelMenu(float fontSize, ContentAlignment alignment = ContentAlignment.MiddleLeft)
         {
             ForeColor = Color.White;
             Dock = DockStyle.Fill;

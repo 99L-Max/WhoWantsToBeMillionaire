@@ -7,8 +7,7 @@ namespace WhoWantsToBeMillionaire
     enum ContextMenuCommand
     {
         Back,
-        StartGame,
-        ResetStatistics
+        StartGame
     }
 
     abstract class ContextMenu : PictureBox, IDisposable
@@ -53,8 +52,15 @@ namespace WhoWantsToBeMillionaire
             if (disposing)
             {
                 foreach (var ctrl in table.Controls)
+                {
+                    if(ctrl is ButtonContextMenu)
+                        (ctrl as ButtonContextMenu).Click -= OnButtonClick;
+
                     if (ctrl is IDisposable)
                         (ctrl as IDisposable).Dispose();
+                }
+
+                table.Controls.Clear();
             }
 
             base.Dispose(disposing);

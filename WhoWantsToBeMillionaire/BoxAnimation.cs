@@ -33,6 +33,12 @@ namespace WhoWantsToBeMillionaire
             e.Graphics.DrawImage(image, ClientRectangle);
         }
 
+        public void Reset()
+        {
+            g.Clear(Color.Transparent);
+            Invalidate();
+        }
+
         private async Task DrawResizingImage(Image img, float startShare, float finalShare)
         {
             var shares = Enumerable.Range(0, CountFramesResize).Select(i => startShare + (finalShare - startShare) / (CountFramesResize - 1) * i);

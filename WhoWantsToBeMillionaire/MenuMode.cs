@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 
 namespace WhoWantsToBeMillionaire
@@ -11,7 +10,7 @@ namespace WhoWantsToBeMillionaire
         Advanced,
     }
 
-    class MenuMode : ContextMenu, IDisposable
+    class MenuMode : ContextMenu
     {
         private readonly LabelMenu labelTitle;
         private readonly LabelMenu labelDescriptionMode;
@@ -62,32 +61,21 @@ namespace WhoWantsToBeMillionaire
             switch (SelectedMode)
             {
                 case Mode.Classic:
-                    labelDescriptionMode.Text = "\nПодсказок: 3\n\nНесгораемых сумм: 2";
+                    labelDescriptionMode.Text = "Подсказок: 3\n\nНесгораемых сумм: 2";
                     break;
 
                 case Mode.Amateur:
-                    labelDescriptionMode.Text = "\nПодсказок: 4\n\nНесгораемых сумм: 1";
+                    labelDescriptionMode.Text = "Подсказок: 4\n\nНесгораемых сумм: 1";
                     break;
 
                 case Mode.Advanced:
-                    labelDescriptionMode.Text = "\nПодсказок: 5\n\nНесгораемых сумм: 1";
+                    labelDescriptionMode.Text = "Подсказок: 5\n\nНесгораемых сумм: 1";
                     break;
 
                 default:
                     labelDescriptionMode.Text = string.Empty;
                     break;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                buttonStart.Click -= OnButtonClick;
-                buttonBack.Click -= OnButtonClick;
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

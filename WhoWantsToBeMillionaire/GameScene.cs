@@ -8,27 +8,30 @@ namespace WhoWantsToBeMillionaire
     enum SceneCommand
     {
         Start,
-        ShowSaveSums,
-        ShowCountHints,
-        ShowHint,
-        AboutRestrictionsHints,
-        AboutTakingMoney,
+        Show_SaveSums,
+        Show_CountHints,
+        Show_Hint,
+        About_RestrictionsHints,
+        About_TakingMoney,
+        About_Starting,
         ChoosingSaveSum,
-        AboutStarting,
         NextQuestion,
         Loss,
         Victory,
-        EndPhoneFriend,
-        EndAskAudience,
+        End_PhoneFriend,
+        End_AskAudience,
+        End_AskHost,
         SwitchQuestion,
-        EndAskHost,
         TakeMoney,
+        TakeMoney_Confirmation,
+        TakeMoney_ShowPrize,
+        Cancel_TakingMoney
     }
 
     class GameScene : GameContol
     {
         private readonly Bitmap prizeImage;
-        private readonly ButtonWire buttonCommand;
+        private readonly ButtonEllipse buttonTakeMoney;
         private readonly BoxAnimation boxAnimation;
         private readonly BoxQuestion boxQuestion;
         private readonly Host host;
@@ -40,10 +43,21 @@ namespace WhoWantsToBeMillionaire
         private PhoneTimer timer;
         private VotingChart chart;
         private SceneCommand command;
+        private SceneCommand cancelCommand;
         private Mode mode;
 
-        public delegate void EventStatisticsChanged(StatsAttribute key, int value = 0);
+        public delegate void EventStatisticsChanged(StatsAttribute key, int value = 1);
         public event EventStatisticsChanged StatisticsChanged;
+
+        private bool ControlEnabled
+        {
+            set
+            {
+                buttonTakeMoney.Enabled = value;
+                boxQuestion.Enabled = value;
+                tableHints.Enabled = value;
+            }
+        }
 
         public GameScene() : base(MainForm.RectScreen.Size)
         {
@@ -53,12 +67,15 @@ namespace WhoWantsToBeMillionaire
             tableSums = new TableSums((int)(MainForm.RectScreen.Width * 0.3f), MainForm.RectScreen.Height);
             boxAnimation = new BoxAnimation(MainForm.RectScreen.Width - tableSums.Width, (int)(MainForm.RectScreen.Height * 0.36f));
             boxQuestion = new BoxQuestion(boxAnimation.Width, boxAnimation.Height);
-            buttonCommand = new ButtonWire(MainForm.RectScreen.Width - tableSums.Width, (int)(0.06f * MainForm.RectScreen.Height));
-            dialog = new Dialog(MainForm.RectScreen.Width - tableSums.Width, MainForm.RectScreen.Height - boxQuestion.Height, buttonCommand);
+            buttonTakeMoney = new ButtonEllipse((int)(0.8f * tableSums.Width), (int)(0.05f * tableSums.Height));
+            dialog = new Dialog(MainForm.RectScreen.Width - tableSums.Width, MainForm.RectScreen.Height - boxQuestion.Height);
             tableHints = new TableHints(tableSums.Width, (int)(tableSums.Height * 0.2f));
             hint = new Hint();
 
             boxAnimation.Location = boxQuestion.Location = new Point(0, MainForm.RectScreen.Height - boxQuestion.Height);
+            buttonTakeMoney.Location = new Point((tableSums.Width - buttonTakeMoney.Width) / 2, tableSums.Height - 2 * buttonTakeMoney.Height);
+
+            buttonTakeMoney.Text = "Забрать деньги";
 
             prizeImage = new Bitmap(boxAnimation.Width, boxAnimation.Height);
 
@@ -72,11 +89,14 @@ namespace WhoWantsToBeMillionaire
                 g.DrawImage(img, 0, y, prizeImage.Width, height);
             }
 
-            buttonCommand.Click += OnButtonCommandClick;
+            dialog.CommandClick += OnCommandClick;
+            dialog.CancelClick += OnCacnelClick;
+            buttonTakeMoney.Click += OnButtonTakeMoneyClick;
             tableHints.HintClick += OnHintClick;
             boxQuestion.OptionClick += OnOptionClick;
 
             tableSums.Controls.Add(tableHints);
+            tableSums.Controls.Add(buttonTakeMoney);
 
             Controls.Add(tableSums);
             Controls.Add(dialog);
@@ -92,32 +112,33 @@ namespace WhoWantsToBeMillionaire
             tableHints.Reset(mode);
             dialog.Reset();
             boxQuestion.Reset();
+            boxAnimation.Reset();
+
+            buttonTakeMoney.Visible = false;
 
             SetBoxQuestionVisible(false);
         }
 
         public async void Start()
         {
-            command = mode == Mode.Classic ? SceneCommand.ShowSaveSums : SceneCommand.ShowCountHints;
+            command = mode == Mode.Classic ? SceneCommand.Show_SaveSums : SceneCommand.Show_CountHints;
 
             await tableSums.MoveX(MainForm.RectScreen.Width - tableSums.Width, 600 / MainForm.DeltaTime);
 
             tableHints.Visible = true;
 
-            buttonCommand.Enabled = false;
-            buttonCommand.Visible = true;
+            dialog.ButtonCommandEnabled = false;
+            dialog.ButtonCommandVisible = true;
 
             dialog.Text = host.Say(HostPhrases.Rules, tableSums.MaxNumberSum.ToString());
 
             await tableSums.ShowSums();
 
-            buttonCommand.Enabled = true;
+            dialog.ButtonCommandEnabled = true;
         }
 
         private async void OnOptionClick(Letter letter)
         {
-            tableHints.Enabled = false;
-
             string explanation = boxQuestion.Question.Explanation;
             if (!boxQuestion.IsCorrectAnswer)
                 explanation += $"\nПравильный ответ: {boxQuestion.Question.FullCorrect}.";
@@ -125,14 +146,24 @@ namespace WhoWantsToBeMillionaire
             switch (boxQuestion.AnswerMode)
             {
                 default:
-                    if (boxQuestion.IsCorrectAnswer && boxQuestion.Question.Number < tableSums.MaxNumberSum)
-                        command = SceneCommand.NextQuestion;
-                    else if (boxQuestion.IsCorrectAnswer)
-                        command = SceneCommand.Victory;
-                    else
-                        command = SceneCommand.Loss;
+                    ControlEnabled = false;
 
                     StatisticsChanged.Invoke(boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers);
+
+                    if (boxQuestion.IsCorrectAnswer && boxQuestion.Question.Number < tableSums.MaxNumberSum)
+                    {
+                        command = SceneCommand.NextQuestion;
+                    }
+                    else
+                    {
+                        StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
+                        buttonTakeMoney.Visible = false;
+
+                        if (boxQuestion.IsCorrectAnswer)
+                            command = SceneCommand.Victory;
+                        else
+                            command = SceneCommand.Loss;
+                    }
 
                     dialog.Text = explanation;
                     break;
@@ -169,7 +200,7 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case AnswerMode.TakeMoney:
-                    command = SceneCommand.TakeMoney;
+                    command = SceneCommand.TakeMoney_ShowPrize;
 
                     HostPhrases phrase2 = boxQuestion.IsCorrectAnswer ? HostPhrases.TakingMoney_CorrectAnswer : HostPhrases.TakingMoney_IncorrectAnswer;
 
@@ -177,14 +208,14 @@ namespace WhoWantsToBeMillionaire
                     break;
             }
 
-            buttonCommand.Visible = true;
+            dialog.ButtonCommandVisible = true;
         }
 
         private async void OnHintClick(TypeHint type)
         {
             StatisticsChanged.Invoke(StatsAttribute.NumberHintsUsed);
 
-            tableHints.Enabled = type == TypeHint.FiftyFifty;
+            buttonTakeMoney.Enabled = tableHints.Enabled = type == TypeHint.FiftyFifty;
 
             switch (type)
             {
@@ -194,13 +225,13 @@ namespace WhoWantsToBeMillionaire
 
                 case TypeHint.PhoneFriend:
                     boxQuestion.Enabled = false;
-                    command = SceneCommand.EndPhoneFriend;
+                    command = SceneCommand.End_PhoneFriend;
 
                     dialog.Reset();
                     dialog.ContentAlignment = ContentAlignment.MiddleLeft;
 
                     timer = new PhoneTimer((int)(0.3f * dialog.Height));
-                    timer.TimeUp += OnButtonCommandClick;
+                    timer.TimeUp += OnCommandClick;
 
                     await Task.Delay(3000);
 
@@ -215,12 +246,12 @@ namespace WhoWantsToBeMillionaire
                     dialog.Text = hint.PhoneFriendAnswer(boxQuestion.Question);
                     timer.Start();
 
-                    buttonCommand.Visible = true;
+                    dialog.ButtonCommandVisible = true;
                     break;
 
                 case TypeHint.AskAudience:
                     boxQuestion.Enabled = false;
-                    command = SceneCommand.EndAskAudience;
+                    command = SceneCommand.End_AskAudience;
 
                     int heigth = (int)(0.7f * dialog.Height);
                     chart = new VotingChart((int)(0.75f * heigth), heigth);
@@ -230,7 +261,7 @@ namespace WhoWantsToBeMillionaire
                     await chart.ShowAnimationVote(3000);
                     await chart.ShowPercents(15, hint.PercentsAudience(boxQuestion.Question));
 
-                    buttonCommand.Visible = true;
+                    dialog.ButtonCommandVisible = true;
                     break;
 
                 case TypeHint.DoubleDip:
@@ -252,8 +283,8 @@ namespace WhoWantsToBeMillionaire
 
                     await boxQuestion.ShowCentralIcon(type);
 
-                    command = SceneCommand.EndAskHost;
-                    buttonCommand.Visible = true;
+                    command = SceneCommand.End_AskHost;
+                    dialog.ButtonCommandVisible = true;
                     break;
             }
         }
@@ -270,26 +301,28 @@ namespace WhoWantsToBeMillionaire
             tableSums.SaveSumSelected -= SaveSumSelected;
 
             command = SceneCommand.Start;
-            buttonCommand.Visible = true;
+            dialog.ButtonCommandVisible = true;
         }
 
-        private void PlayerTakingMoney()
+        private void OnButtonTakeMoneyClick(object sender, EventArgs e)
         {
-            boxQuestion.Enabled = false;
-            tableHints.Enabled = false;
+            ControlEnabled = false;
 
-            command = SceneCommand.TakeMoney;
-            dialog.Text = host.Say(HostPhrases.PlayerTakingMoney, string.Format("{0:#,0}", tableSums.Prize));
+            command = SceneCommand.TakeMoney_Confirmation;
+            cancelCommand = SceneCommand.Cancel_TakingMoney;
 
-            buttonCommand.Visible = true;
+            dialog.Text = host.Say(HostPhrases.TakingMoney_ClarifyDecision);
+            dialog.ButtonCommandVisible = true;
+            dialog.ButtonCancelVisible = true;
         }
 
-        private async Task TransitionToPrize()
+        private async Task TransitionToPrize(bool addDelay, bool updatePrize)
         {
             dialog.Clear();
-            await boxQuestion.ShowCorrect(!boxQuestion.IsCorrectAnswer);
+            await boxQuestion.ShowCorrect(addDelay);
 
-            tableSums.UpdatePrize(boxQuestion.IsCorrectAnswer);
+            if (updatePrize)
+                tableSums.UpdatePrize(boxQuestion.IsCorrectAnswer);
 
             await boxQuestion.Clear();
             await Task.Delay(500);
@@ -298,8 +331,6 @@ namespace WhoWantsToBeMillionaire
 
             await boxAnimation.ShowTransition(boxQuestion.BackgroundImage, prizeImage);
             await boxAnimation.ShowText(tableSums.TextPrize);
-
-            boxQuestion.Reset();
         }
 
         private void SetBoxQuestionVisible(bool visible)
@@ -308,12 +339,12 @@ namespace WhoWantsToBeMillionaire
             boxAnimation.Visible = !visible;
         }
 
-        private async void OnButtonCommandClick(object sender, EventArgs e)
+        private async void OnCommandClick(object sender, EventArgs e)
         {
             switch (command)
             {
                 case SceneCommand.NextQuestion:
-                    await TransitionToPrize();
+                    await TransitionToPrize(false, true);
                     await Task.Delay(3000);
                     await boxAnimation.HideImage();
 
@@ -324,65 +355,61 @@ namespace WhoWantsToBeMillionaire
 
                     await boxQuestion.ShowQuestion(boxQuestion.Question.Number + 1);
 
-                    tableHints.Enabled = true;
-                    boxQuestion.Enabled = true;
+                    ControlEnabled = true;
                     break;
 
                 case SceneCommand.Loss:
-                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
-                    await TransitionToPrize();
+                    await TransitionToPrize(true, true);
                     MessageBox.Show("CONTEXT MENU");
                     break;
 
                 case SceneCommand.Victory:
-                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
-                    await TransitionToPrize();
-                    //ПАУЗА
+                    await TransitionToPrize(true, true);
                     MessageBox.Show("CONTEXT MENU");
                     break;
 
-                case SceneCommand.ShowSaveSums:
-                    buttonCommand.Enabled = false;
-                    command = SceneCommand.ShowCountHints;
+                case SceneCommand.Show_SaveSums:
+                    dialog.ButtonCommandEnabled = false;
+                    command = SceneCommand.Show_CountHints;
 
                     dialog.Text = host.Say(HostPhrases.SaveSums, string.Join(", ", Array.ConvertAll(tableSums.SaveSums, x => string.Format("{0:#,0}", x))));
 
                     await tableSums.ShowSaveSums();
 
-                    buttonCommand.Enabled = true;
+                    dialog.ButtonCommandEnabled = true;
                     break;
 
-                case SceneCommand.ShowCountHints:
-                    command = SceneCommand.ShowHint;
+                case SceneCommand.Show_CountHints:
+                    command = SceneCommand.Show_Hint;
                     dialog.Text = host.Say(HostPhrases.CountHints, tableHints.StringCountActiveHints);
                     break;
 
-                case SceneCommand.ShowHint:
+                case SceneCommand.Show_Hint:
                     dialog.Text = hint.Description(tableHints.PeekHiddenHint);
                     tableHints.ShowHint();
 
                     if (tableHints.AllHintsVisible)
-                        command = tableHints.CountHints > Hint.MaxCountAllowedHints ? SceneCommand.AboutRestrictionsHints : SceneCommand.AboutTakingMoney;
+                        command = tableHints.CountHints > Hint.MaxCountAllowedHints ? SceneCommand.About_RestrictionsHints : SceneCommand.About_TakingMoney;
                     break;
 
-                case SceneCommand.AboutRestrictionsHints:
-                    command = SceneCommand.AboutTakingMoney;
+                case SceneCommand.About_RestrictionsHints:
+                    command = SceneCommand.About_TakingMoney;
                     dialog.Text = host.Say(HostPhrases.AboutRestrictionsHints, Hint.MaxCountAllowedHints.ToString());
                     break;
 
-                case SceneCommand.AboutTakingMoney:
-                    command = mode == Mode.Classic ? SceneCommand.AboutStarting : SceneCommand.ChoosingSaveSum;
+                case SceneCommand.About_TakingMoney:
+                    command = mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum;
                     dialog.Text = host.Say(HostPhrases.AboutTakingMoney);
                     break;
 
                 case SceneCommand.ChoosingSaveSum:
-                    buttonCommand.Visible = false;
+                    dialog.ButtonCommandVisible = false;
                     dialog.Text = host.Say(HostPhrases.AskSaveSum);
                     tableSums.SaveSumSelected += SaveSumSelected;
                     tableSums.AddSelectionSaveSum();
                     break;
 
-                case SceneCommand.AboutStarting:
+                case SceneCommand.About_Starting:
                     command = SceneCommand.Start;
                     dialog.Text = host.Say(HostPhrases.GameStart);
                     break;
@@ -397,20 +424,20 @@ namespace WhoWantsToBeMillionaire
 
                     await boxQuestion.ShowQuestion(1);
 
-                    tableHints.Enabled = true;
-                    boxQuestion.Enabled = true;
+                    ControlEnabled = true;
+                    buttonTakeMoney.Visible = true;
                     break;
 
-                case SceneCommand.EndPhoneFriend:
-                case SceneCommand.EndAskAudience:
+                case SceneCommand.End_PhoneFriend:
+                case SceneCommand.End_AskAudience:
                     dialog.Clear();
 
-                    if (command == SceneCommand.EndPhoneFriend)
+                    if (command == SceneCommand.End_PhoneFriend)
                     {
                         dialog.ContentAlignment = ContentAlignment.MiddleCenter;
 
                         timer.Stop();
-                        timer.TimeUp -= OnButtonCommandClick;
+                        timer.TimeUp -= OnCommandClick;
 
                         await Task.Delay(2000);
                         await RemoveMovingPictureBox(timer, 500 / MainForm.DeltaTime);
@@ -420,8 +447,7 @@ namespace WhoWantsToBeMillionaire
                         await RemoveMovingPictureBox(chart, 1000 / MainForm.DeltaTime);
                     }
 
-                    boxQuestion.Enabled = true;
-                    tableHints.Enabled = true;
+                    ControlEnabled = true;
                     break;
 
                 case SceneCommand.SwitchQuestion:
@@ -448,17 +474,25 @@ namespace WhoWantsToBeMillionaire
                     await boxQuestion.ShowCentralIcon(TypeHint.SwitchQuestion);
                     await boxQuestion.ShowQuestion(boxQuestion.Question.Number, newIndex);
 
-                    tableHints.Enabled = true;
-                    boxQuestion.Enabled = true;
+                    ControlEnabled = true;
                     break;
 
-                case SceneCommand.EndAskHost:
+                case SceneCommand.End_AskHost:
                     dialog.Clear();
 
                     await boxQuestion.HideCentralIcon();
 
-                    boxQuestion.Enabled = true;
-                    tableHints.Enabled = true;
+                    ControlEnabled = true;
+                    break;
+
+                case SceneCommand.TakeMoney_Confirmation:
+                    command = SceneCommand.TakeMoney;
+
+                    buttonTakeMoney.Visible = false;
+
+                    dialog.Clear();
+                    dialog.Text = host.Say(HostPhrases.PlayerTakingMoney, tableSums.TextPrize);
+                    dialog.ButtonCommandVisible = true;
                     break;
 
                 case SceneCommand.TakeMoney:
@@ -469,6 +503,22 @@ namespace WhoWantsToBeMillionaire
                     dialog.Text = host.Say(HostPhrases.TakingMoney_AskAnswer);
                     boxQuestion.AnswerMode = AnswerMode.TakeMoney;
                     boxQuestion.Enabled = true;
+                    break;
+
+                case SceneCommand.TakeMoney_ShowPrize:
+                    await TransitionToPrize(true, false);
+                    MessageBox.Show("Context Menu");
+                    break;
+            }
+        }
+
+        private void OnCacnelClick(object sender, EventArgs e)
+        {
+            switch (cancelCommand)
+            {
+                case SceneCommand.Cancel_TakingMoney:
+                    dialog.Clear();
+                    ControlEnabled = true;
                     break;
             }
         }

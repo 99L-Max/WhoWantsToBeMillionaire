@@ -1,14 +1,22 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class Dialog : GameContol
+    class Dialog : TableLayoutPanel
     {
-        private readonly Label labelDialog;
-        private readonly Bitmap logo;
+        private readonly LabelMenu labelDialog;
         private readonly ButtonWire buttonCommand;
+        private readonly ButtonWire buttonCansel;
+        private readonly Bitmap logo;
+
+        public delegate void EventCommandClick(object sender, EventArgs e);
+        public delegate void EventCancelClick(object sender, EventArgs e);
+
+        public event EventCommandClick CommandClick;
+        public event EventCancelClick CancelClick;
 
         public new string Text
         {
@@ -19,37 +27,61 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
+        public bool ButtonCommandVisible
+        {
+            set => buttonCommand.Visible = value;
+        }
+
+        public bool ButtonCancelVisible
+        {
+            set => buttonCansel.Visible = value;
+        }
+
+        public bool ButtonCommandEnabled
+        {
+            set => buttonCommand.Enabled = value;
+        }
+
         public ContentAlignment ContentAlignment
         {
             set => labelDialog.TextAlign = value;
         }
 
-        public Dialog(int width, int height, ButtonWire button) : base(width, height)
+        public Dialog(int width, int height)
         {
-            int sideLogo = (int)(0.5f * height);
+            Size = new Size(width, height);
 
-            labelDialog = new Label();
+            int sideLogo = (int)(0.6f * height);
+            float fontSize = 0.035f * height;
+
+            labelDialog = new LabelMenu(0.032f * height, ContentAlignment.MiddleCenter);
             logo = new Bitmap(ResourceProcessing.GetImage("Logo.png"), sideLogo, sideLogo);
-            buttonCommand = button;
 
-            labelDialog.Size = new Size(width, (int)(0.8f * height));
-            labelDialog.BackColor = Color.Transparent;
-            labelDialog.Font = new Font("", 0.04f * labelDialog.Size.Height, FontStyle.Bold);
-            labelDialog.ForeColor = Color.White;
-            labelDialog.TextAlign = ContentAlignment.MiddleCenter;
+            buttonCommand = new ButtonWire(fontSize);
+            buttonCansel = new ButtonWire(fontSize);
 
-            buttonCommand.Location = new Point((width - buttonCommand.Width) / 2, (height - labelDialog.Height - buttonCommand.Height) / 2 + labelDialog.Height);
+            buttonCommand.Click += (s, e) => CommandClick.Invoke(this, e);
+            buttonCansel.Click += (s, e) => CancelClick.Invoke(this, e);
+
             buttonCommand.Text = "Продолжить";
+            buttonCansel.Text = "Отмена";
 
-            Controls.Add(labelDialog);
-            Controls.Add(buttonCommand);
+            RowCount = 3;
+
+            RowStyles.Add(new RowStyle(SizeType.Percent, 8f));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
+
+            Controls.Add(labelDialog, 0, 0);
+            Controls.Add(buttonCommand, 0, 1);
+            Controls.Add(buttonCansel, 0, 2);
         }
 
         public void Reset()
         {
             labelDialog.Text = string.Empty;
             labelDialog.Image = null;
-            buttonCommand.Visible = false;
+            buttonCommand.Visible = buttonCansel.Visible = false;
         }
 
         public void AddText(string text) => labelDialog.Text += text;
@@ -58,7 +90,7 @@ namespace WhoWantsToBeMillionaire
         {
             labelDialog.Text = string.Empty;
             labelDialog.Image = logo;
-            buttonCommand.Visible = false;
+            buttonCommand.Visible = buttonCansel.Visible = false;
         }
 
         public async Task ShowMovingPictureBox(MovingPictureBox box, bool isCenterHeight, int countFrames)

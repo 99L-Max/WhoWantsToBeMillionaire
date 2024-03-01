@@ -51,12 +51,6 @@ namespace WhoWantsToBeMillionaire
             return res;
         }
 
-        public void Reset()
-        {
-            foreach (var key in attributes.Keys)
-                attributes[key] = 0;
-        }
-
         public void Update(StatsAttribute key, int value = 1)
         {
             attributes[key] += value;
