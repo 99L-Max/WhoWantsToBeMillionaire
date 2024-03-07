@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -39,11 +40,13 @@ namespace WhoWantsToBeMillionaire
 
             mainMenu.ButtonClick += OnButtonMainMenuClick;
             scene.StatisticsChanged += UpdateStatistics;
+            scene.SceneRestarting += RestartingScene;
+            scene.ExitToMainMenu += ExitToMainMenu;
 
             Controls.Add(scene);
             Controls.Add(mainMenu);
 
-            mainMenu.SetCommands(new MainMenuCommand[] { MainMenuCommand.Start, MainMenuCommand.Achievements, MainMenuCommand.Statistics, MainMenuCommand.Settings, MainMenuCommand.Exit });
+            mainMenu.SetCommands(MainMenuCommand.NewGame, MainMenuCommand.Achievements, MainMenuCommand.Statistics, MainMenuCommand.Settings, MainMenuCommand.Exit);
         }
 
         private void OnButtonMainMenuClick(MainMenuCommand cmd)
@@ -55,7 +58,7 @@ namespace WhoWantsToBeMillionaire
                     Close();
                     break;
 
-                case MainMenuCommand.Start:
+                case MainMenuCommand.NewGame:
                     contextMenu = new MenuMode(RectScreen.Width / 3, RectScreen.Height * 2 / 3);
                     contextMenu.ButtonClick += OnButtonContextMenuClick;
 
@@ -64,7 +67,7 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case MainMenuCommand.Statistics:
-                    contextMenu = new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData);
+                    contextMenu = new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData.ToString());
                     contextMenu.ButtonClick += OnButtonContextMenuClick;
 
                     mainMenu.Controls.Add(contextMenu);
@@ -93,18 +96,40 @@ namespace WhoWantsToBeMillionaire
                     mainMenu.Visible = false;
                     CloseContextMenu();
 
-                    //using (Screensaver saver = new Screensaver())
-                    //{
-                    //    Controls.Add(saver);
-                    //
-                    //    await saver.ShowSaver();
-                    //
-                    //    Controls.Remove(saver);
-                    //}
+                    //await ShowScreenSaver(true);
 
                     scene.Visible = true;
                     scene.Start();
                     break;
+            }
+        }
+
+        private async void RestartingScene()
+        {
+            scene.Visible = false;
+            scene.Reset();
+
+            await ShowScreenSaver(false);
+
+            scene.Visible = true;
+            scene.Restart();
+        }
+
+        private void ExitToMainMenu()
+        {
+            scene.Visible = false;
+            mainMenu.Visible = true;
+        }
+
+        private async Task ShowScreenSaver(bool isFirst)
+        {
+            using (Screensaver saver = new Screensaver())
+            {
+                Controls.Add(saver);
+
+                await saver.ShowSaver();
+
+                Controls.Remove(saver);
             }
         }
 
@@ -122,6 +147,11 @@ namespace WhoWantsToBeMillionaire
                 contextMenu.ButtonClick -= OnButtonContextMenuClick;
                 contextMenu.Dispose();
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            statisticsData.Save(FileManager.PathLocalAppData);
         }
     }
 }

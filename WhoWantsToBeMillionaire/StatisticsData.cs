@@ -42,13 +42,9 @@ namespace WhoWantsToBeMillionaire
 
         public override string ToString()
         {
-            var res = string.Empty;
             var dict = ResourceProcessing.GetDictionary("Statistics.json");
 
-            foreach (var at in attributes)
-                res += $"\n{dict[at.Key.ToString()]}: {String.Format("{0:#,0}", at.Value)}\n";
-
-            return res;
+            return string.Join("\n\n", attributes.Select(kv => $"{dict[kv.Key.ToString()]}: {String.Format("{0:#,0}", kv.Value)}"));
         }
 
         public void Update(StatsAttribute key, int value = 1)

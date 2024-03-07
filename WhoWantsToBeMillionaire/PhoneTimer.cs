@@ -17,7 +17,7 @@ namespace WhoWantsToBeMillionaire
 
         private int seconds;
 
-        public delegate void EventTimeUp(object sender, EventArgs e);
+        public delegate void EventTimeUp(object sender, SceneCommand cmd);
         public event EventTimeUp TimeUp;
 
         public PhoneTimer(int side) : base(side, side)
@@ -58,7 +58,7 @@ namespace WhoWantsToBeMillionaire
             if (seconds == 0)
             {
                 timer.Stop();
-                TimeUp.Invoke(this, EventArgs.Empty);
+                TimeUp.Invoke(this, SceneCommand.End_PhoneFriend);
             }
         }
 

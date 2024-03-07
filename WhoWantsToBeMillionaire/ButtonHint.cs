@@ -97,7 +97,7 @@ namespace WhoWantsToBeMillionaire
             Click -= OnHintClick;
             MouseEnter -= OnHintMouseEnter;
             MouseLeave -= OnHintMouseLeave;
-            OnHintMouseLeave(this, EventArgs.Empty);
+            BackgroundImage = null;
         }
 
         public new async void Show()

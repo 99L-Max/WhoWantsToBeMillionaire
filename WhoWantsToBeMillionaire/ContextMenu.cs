@@ -38,7 +38,7 @@ namespace WhoWantsToBeMillionaire
             ButtonClick.Invoke((sender as ButtonContextMenu).Command);
         }
 
-        protected void SetHeights(float[] heights)
+        protected void SetHeights(params float[] heights)
         {
             table.RowStyles.Clear();
             table.RowCount = heights.Length;

@@ -104,6 +104,7 @@ namespace WhoWantsToBeMillionaire
             if (disposing)
             {
                 BackgroundImage = Image = null;
+
                 g.Dispose();
                 background.Dispose();
                 image.Dispose();

@@ -163,10 +163,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="ResourceProcessing.cs" />
-    <Compile Include="RowTableSum.cs">
+    <Compile Include="RowTableSums.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dialog.cs">
+    <Compile Include="CommandBoard.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Screensaver.cs">

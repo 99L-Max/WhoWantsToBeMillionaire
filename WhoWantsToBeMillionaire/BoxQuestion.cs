@@ -129,7 +129,7 @@ namespace WhoWantsToBeMillionaire
             AnswerMode = AnswerMode.Usual;
         }
 
-        private void DrawFrame(Bitmap frame, Rectangle rectangle, int numberFrame, int countFrames)
+        private void DrawFrame(Image frame, Rectangle rectangle, int numberFrame, int countFrames)
         {
             using (ImageAttributes attribute = new ImageAttributes())
             {
@@ -234,7 +234,7 @@ namespace WhoWantsToBeMillionaire
             option.Selected = true;
             option.SetForeColors(Color.Black, Color.White);
 
-            using (Bitmap selectedOption = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Orange.png"))
+            using (Image selectedOption = ResourceProcessing.GetImage("ButtonWire_Orange.png"))
             {
                 for (int i = 1; i <= CountFramesAlphaChange; i++)
                 {
@@ -255,7 +255,7 @@ namespace WhoWantsToBeMillionaire
             option.SetForeColors(Color.FromArgb(32, 32, 32), Color.DimGray);
             option.Selected = option.Enabled = false;
 
-            using (Bitmap lockedOption = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Gray.png"))
+            using (Image lockedOption = ResourceProcessing.GetImage("ButtonWire_Gray.png"))
                 g.DrawImage(lockedOption, option.Rectangle);
 
             g.DrawImage(option.ImageText, option.Rectangle);
@@ -282,7 +282,7 @@ namespace WhoWantsToBeMillionaire
 
             Rectangle rectImage = new Rectangle(0, 0, Width, Height);
 
-            using (Bitmap mainImage = new Bitmap(image))
+            using (Image mainImage = new Bitmap(image))
                 for (int i = CountFramesAlphaChange - 1; i > 0; i--)
                 {
                     g.Clear(Color.Transparent);

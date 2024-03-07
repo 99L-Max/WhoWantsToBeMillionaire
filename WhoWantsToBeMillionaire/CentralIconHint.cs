@@ -87,13 +87,10 @@ namespace WhoWantsToBeMillionaire
 
         public void Clear()
         {
-            if (icons.Count == 0) return;
-
             BackgroundImage = Image = null;
 
-            do
-                icons.Pop().Dispose();
             while (icons.Count > 0);
+                icons.Pop().Dispose();
         }
     }
 }

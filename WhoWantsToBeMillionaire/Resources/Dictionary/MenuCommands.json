@@ -1,1 +1,8 @@
-{"Start":"Начать игру","NewGame":"Новая игра","Continue":"Продолжить игру","Achievements":"Достижения","Settings":"Настройки","Statistics":"Статистика","Exit":"Выход"}
+{
+  "NewGame": "Новая игра",
+  "Continue": "Продолжить игру",
+  "Achievements": "Достижения",
+  "Settings": "Настройки",
+  "Statistics": "Статистика",
+  "Exit": "Выход"
+}

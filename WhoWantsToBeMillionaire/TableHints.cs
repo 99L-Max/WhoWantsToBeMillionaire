@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -64,10 +63,12 @@ namespace WhoWantsToBeMillionaire
                     types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience };
                     countColumns = 3;
                     break;
+
                 case Mode.Amateur:
                     types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience, TypeHint.DoubleDip };
                     countColumns = 4;
                     break;
+
                 case Mode.Advanced:
                     types = new TypeHint[] { TypeHint.AskHost, TypeHint.FiftyFifty, TypeHint.DoubleDip, TypeHint.PhoneFriend, TypeHint.SwitchQuestion };
                     countColumns = 3;

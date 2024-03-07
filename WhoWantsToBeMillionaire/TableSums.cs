@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -10,10 +11,11 @@ namespace WhoWantsToBeMillionaire
 {
     class TableSums : MovingPictureBox
     {
+        private bool taskCanceled;
         private int numberNextSum;
 
         private readonly TableLayoutPanel table;
-        private readonly RowTableSum[] rowsSum;
+        private readonly RowTableSums[] rowsSum;
 
         public delegate void EventSaveSumSelected(int sum);
         public event EventSaveSumSelected SaveSumSelected;
@@ -48,7 +50,7 @@ namespace WhoWantsToBeMillionaire
                 BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Amounts.png"), width, height);
 
                 table = new TableLayoutPanel();
-                rowsSum = new RowTableSum[sums.Length];
+                rowsSum = new RowTableSums[sums.Length];
 
                 int heightRow = (int)(height * 0.67f / sums.Length);
 
@@ -65,7 +67,7 @@ namespace WhoWantsToBeMillionaire
 
                 for (int i = sums.Length - 1; i > -1; i--)
                 {
-                    rowsSum[i] = new RowTableSum(i + 1, sums[i]);
+                    rowsSum[i] = new RowTableSums(i + 1, sums[i]);
                     table.Controls.Add(rowsSum[i], 0, sums.Length - rowsSum[i].Number);
                 }
 
@@ -87,6 +89,13 @@ namespace WhoWantsToBeMillionaire
                     row.IsSaveSum = row.Number % 5 == 0;
 
             SetPrize(0);
+        }
+
+        public async new Task Show()
+        {
+            await MoveX(MainForm.RectScreen.Width - Width, 600 / MainForm.DeltaTime);
+
+            table.Visible = true;
         }
 
         private void SetPrize(int numberSum)
@@ -124,7 +133,7 @@ namespace WhoWantsToBeMillionaire
 
         private void SelectSaveSum(object sender, EventArgs e)
         {
-            RowTableSum saveSum = sender as RowTableSum;
+            RowTableSums saveSum = sender as RowTableSums;
 
             foreach (var row in rowsSum)
             {
@@ -143,22 +152,29 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowSums()
         {
-            table.Visible = true;
+            taskCanceled = false;
 
-            await Task.Delay(1000);
+            Queue<RowTableSums> rows = new Queue<RowTableSums>(rowsSum);
+            RowTableSums row = null;
 
-            for (int i = 0; i < rowsSum.Length; i++)
+            while (rows.Count > 0)
             {
-                try
+                rows.Peek().IsSelected = true;
+
+                if (row != null)
                 {
-                    rowsSum[i].IsSelected = true;
-                    rowsSum[i - 1].IsSelected = false;
-                    rowsSum[i - 1].IconVisible = true;
+                    row.IsSelected = false;
+                    row.IconVisible = true;
                 }
-                catch (IndexOutOfRangeException) { }
-                finally
+
+                row = rows.Dequeue();
+
+                await Task.Delay(250);
+
+                if(taskCanceled)
                 {
-                    await Task.Delay(250);
+                    IncompleteResetRows();
+                    return;
                 }
             }
 
@@ -167,11 +183,9 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowSaveSums()
         {
-            foreach (var row in rowsSum)
-            {
-                row.IconVisible = false;
-                row.IsSelected = false;
-            }
+            taskCanceled = false;
+
+            IncompleteResetRows();
 
             foreach (var row in rowsSum)
             {
@@ -185,10 +199,24 @@ namespace WhoWantsToBeMillionaire
 
                     row.IsSelected = false;
                 }
+
+                if (taskCanceled)
+                {
+                    IncompleteResetRows();
+                    return;
+                }
             }
 
             rowsSum[rowsSum.Length - 1].IsSelected = true;
         }
+
+        private void IncompleteResetRows()
+        {
+            foreach (var row in rowsSum)
+                row.IsSelected = row.IconVisible = false;
+        }
+
+        public void CancelTask() => taskCanceled = true;
 
         public void UpdatePrize(bool isCorrect)
         {

@@ -12,7 +12,7 @@ namespace WhoWantsToBeMillionaire
             PathLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + $@"\{typeof(FileManager).Namespace}";
         }
 
-        public static void CreateSaveDirictory()
+        public static void CreateSaveDirectory()
         {
             Directory.CreateDirectory(PathLocalAppData);
         }

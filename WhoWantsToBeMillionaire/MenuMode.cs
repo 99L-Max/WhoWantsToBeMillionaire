@@ -49,7 +49,7 @@ namespace WhoWantsToBeMillionaire
             table.Controls.Add(buttonStart, 0, 3);
             table.Controls.Add(buttonBack, 0, 4);
 
-            SetHeights(new float[] { 1f, 1f, 3f, 1f, 1f });
+            SetHeights(1f, 1f, 3f, 1f, 1f);
 
             comboBox.SelectedIndex = 0;
         }

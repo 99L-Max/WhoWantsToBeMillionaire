@@ -6,7 +6,6 @@ namespace WhoWantsToBeMillionaire
 {
     enum MainMenuCommand
     {
-        Start,
         NewGame,
         Continue,
         Achievements,
@@ -39,7 +38,7 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(table);
         }
 
-        public void SetCommands(MainMenuCommand[] commands)
+        public void SetCommands(params MainMenuCommand[] commands)
         {
             foreach (var ctrl in table.Controls)
                 if (ctrl is IDisposable)

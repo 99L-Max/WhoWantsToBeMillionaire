@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class RowTableSum : PictureBox
+    class RowTableSums : PictureBox
     {
         private static readonly Bitmap background;
         private static readonly Bitmap iconCircle;
@@ -63,7 +63,7 @@ namespace WhoWantsToBeMillionaire
             get => isSaveSum;
         }
 
-        static RowTableSum()
+        static RowTableSums()
         {
             int height = 60;
 
@@ -78,7 +78,7 @@ namespace WhoWantsToBeMillionaire
             };
         }
 
-        public RowTableSum(int number, int sum)
+        public RowTableSums(int number, int sum)
         {
             Number = number;
             Sum = sum;

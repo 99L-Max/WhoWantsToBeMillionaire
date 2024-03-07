@@ -7,9 +7,9 @@ namespace WhoWantsToBeMillionaire
 {
     class Hint
     {
-        private readonly Random random;
-
         public const int MaxCountAllowedHints = 4;
+
+        private readonly Random random;
 
         public Hint()
         {
