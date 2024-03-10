@@ -82,11 +82,23 @@
     <Compile Include="BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GameCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameSettingsData.cs" />
+    <Compile Include="GameTrackBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IGameSettings.cs" />
+    <Compile Include="IReset.cs" />
     <Compile Include="LabelMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LoopStream.cs" />
+    <Compile Include="MenuSettings.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReadOnlyRectangle.cs" />
-    <Compile Include="GameSettings.cs" />
     <Compile Include="Hint.cs" />
     <Compile Include="ButtonArrow.cs">
       <SubType>Component</SubType>
@@ -131,7 +143,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ChartCollumn.cs" />
-    <Compile Include="GameScene.cs">
+    <Compile Include="Scene.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ButtonHint.cs">
@@ -579,14 +591,48 @@
     <EmbeddedResource Include="Resources\Questions\Q15V14.json" />
     <EmbeddedResource Include="Resources\Questions\Q15V15.json" />
     <EmbeddedResource Include="Resources\Sums\Sums.json" />
-    <EmbeddedResource Include="Resources\Dictionary\Statistics.json" />
-    <EmbeddedResource Include="Resources\Dictionary\MenuCommands.json" />
-    <EmbeddedResource Include="Resources\Dictionary\Modes.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\Statistics.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\MenuCommands.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\Modes.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\Settings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sounds\Achievement.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Accepted.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Easy.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Normal.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Difficult.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Ending.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_SaveSum.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_DrumRoll.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Incorrect_Normal.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Incorrect_Final.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_AskAudience_Begin.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_AskAudience_End.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_AskAudience_Voting.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_AskHost.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_DoubleDip.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_FiftyFifty.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_PhoneFriend_Beeps.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_PhoneFriend_Dialing.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_PhoneFriend_End.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Hint_PhoneFriend_Timer.wav" />
+    <EmbeddedResource Include="Resources\Sounds\PlayerTakesMoney.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Question_Next.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Question_Reflections.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Rules.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Rules_Hint1.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Rules_Hint2.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Rules_Hint3.wav" />
+    <EmbeddedResource Include="Resources\Sounds\SavaSumSelected.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Screensaver_Full.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Screensaver_Restart.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Start.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Final.wav" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Correct.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Incorrect.txt" />
@@ -643,6 +689,16 @@
     <EmbeddedResource Include="Resources\Textures\Question.png" />
     <EmbeddedResource Include="Resources\Textures\ReverseSide_Hint.png" />
     <EmbeddedResource Include="Resources\Textures\Wire.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sounds\CentralIcon_Hide.wav" />
+    <EmbeddedResource Include="Resources\Sounds\CentralIcon_Show.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sounds\Answer_Incorrect_Easy.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sounds\Answer_Incorrect_Difficult.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

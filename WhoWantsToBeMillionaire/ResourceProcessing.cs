@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace WhoWantsToBeMillionaire
@@ -12,7 +10,7 @@ namespace WhoWantsToBeMillionaire
     {
         AnimationData,
         Dialogues,
-        Dictionary,
+        Dictionaries,
         Questions,
         Sounds,
         Sums,
@@ -40,7 +38,7 @@ namespace WhoWantsToBeMillionaire
 
         public static Dictionary<string, string> GetDictionary(string fileName)
         {
-            using (Stream stream = GetStream(fileName, TypeResource.Dictionary))
+            using (Stream stream = GetStream(fileName, TypeResource.Dictionaries))
             using (StreamReader reader = new StreamReader(stream))
             {
                 string jsonStr = reader.ReadToEnd();

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class CommandBoard : TableLayoutPanel
+    class CommandBoard : TableLayoutPanel, IReset
     {
         private readonly LabelMenu labelDialog;
         private readonly ButtonWire buttonCommand;
@@ -81,7 +81,7 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(buttonCanсel, 0, 2);
         }
 
-        public void Reset()
+        public void Reset(Mode? mode = null)
         {
             labelDialog.Text = string.Empty;
             labelDialog.Image = null;
@@ -126,14 +126,16 @@ namespace WhoWantsToBeMillionaire
             ButtonsVisible = true;
         }
 
-        public async Task ShowMovingPictureBox(MovingPictureBox box, bool isCenterHeight, int countFrames)
+        public async Task ShowMovingPictureBox(MovingPictureBox box, int milliseconds, bool centering)
         {
-            box.Location = new Point(labelDialog.Width, isCenterHeight ? (labelDialog.Height - box.Height) / 2 : 0);
+            box.Location = new Point(labelDialog.Width, centering ? (labelDialog.Height - box.Height) >> 1 : 0);
 
             labelDialog.Image = null;
             labelDialog.Controls.Add(box);
 
-            await box.MoveX(isCenterHeight ? (labelDialog.Width - box.Width) / 2 : labelDialog.Width - box.Width, countFrames);
+            int x = centering ? (labelDialog.Width - box.Width) >> 1 : labelDialog.Width - box.Width;
+
+            await box.MoveX(x, milliseconds / MainForm.DeltaTime);
         }
 
         public async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)

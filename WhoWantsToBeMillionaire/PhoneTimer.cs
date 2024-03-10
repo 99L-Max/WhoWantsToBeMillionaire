@@ -55,14 +55,20 @@ namespace WhoWantsToBeMillionaire
             seconds--;
             Invalidate();
 
-            if (seconds == 0)
+            if (seconds <= 0)
             {
                 timer.Stop();
                 TimeUp.Invoke(this, SceneCommand.End_PhoneFriend);
             }
         }
 
-        public void Start() => timer.Start();
+        public void Start() 
+        {
+            Sound.StopAll();
+            Sound.Play("Hint_PhoneFriend_Timer.wav");
+
+            timer.Start(); 
+        }
 
         public void Stop() => timer.Stop();
 

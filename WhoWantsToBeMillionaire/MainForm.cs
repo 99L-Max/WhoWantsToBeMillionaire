@@ -1,20 +1,21 @@
 ﻿using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    public partial class MainForm : Form
+    partial class MainForm : Form, IGameSettings
     {
         public const int DeltaTime = 40;
         public static readonly ReadOnlyRectangle RectScreen = new ReadOnlyRectangle(Screen.PrimaryScreen.Bounds);
 
-        private readonly GameScene scene;
+        private readonly Scene scene;
         private readonly MenuMain mainMenu;
         private readonly StatisticsData statisticsData;
+        private readonly GameSettingsData settingsData;
 
         private ContextMenu contextMenu;
+        private bool showScreenSaver = true;
 
         protected override CreateParams CreateParams
         {
@@ -32,9 +33,10 @@ namespace WhoWantsToBeMillionaire
 
             BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Main.png"), RectScreen.Size);
 
-            scene = new GameScene();
+            scene = new Scene();
             mainMenu = new MenuMain();
             statisticsData = new StatisticsData(FileManager.PathLocalAppData);
+            settingsData = new GameSettingsData(FileManager.PathLocalAppData);
 
             scene.Visible = false;
 
@@ -66,6 +68,14 @@ namespace WhoWantsToBeMillionaire
                     mainMenu.ButtonsVisible = false;
                     break;
 
+                case MainMenuCommand.Settings:
+                    contextMenu = new MenuSettings(RectScreen.Width / 3, RectScreen.Height * 2 / 3, settingsData);
+                    contextMenu.ButtonClick += OnButtonContextMenuClick;
+
+                    mainMenu.Controls.Add(contextMenu);
+                    mainMenu.ButtonsVisible = false;
+                    break;
+
                 case MainMenuCommand.Statistics:
                     contextMenu = new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData.ToString());
                     contextMenu.ButtonClick += OnButtonContextMenuClick;
@@ -89,9 +99,7 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case ContextMenuCommand.StartGame:
-                    Settings.Default.Mode = (int)(contextMenu as MenuMode).SelectedMode;
-                    Settings.Default.Save();
-                    scene.Reset();
+                    scene.Reset((contextMenu as MenuMode).SelectedMode);
 
                     mainMenu.Visible = false;
                     CloseContextMenu();
@@ -127,7 +135,7 @@ namespace WhoWantsToBeMillionaire
             {
                 Controls.Add(saver);
 
-                await saver.ShowSaver();
+                await saver.ShowSaver(isFirst);
 
                 Controls.Remove(saver);
             }
@@ -149,9 +157,15 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
+        public void SetSettings(GameSettingsData data)
+        {
+            showScreenSaver = (bool)data.GetSettings(GameSettings.ShowScreensaver);
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             statisticsData.Save(FileManager.PathLocalAppData);
+            settingsData.Save(FileManager.PathLocalAppData);
         }
     }
 }

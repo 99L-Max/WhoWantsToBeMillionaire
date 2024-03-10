@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TableHints : GameContol
+    class TableHints : GameContol, IReset
     {
         private ButtonHint[] hints;
         private Queue<ButtonHint> hiddenHints;
@@ -44,7 +44,7 @@ namespace WhoWantsToBeMillionaire
 
         public TableHints(int width, int height) : base(width, height) { }
 
-        public void Reset(Mode mode)
+        public void Reset(Mode? mode = null)
         {
             Visible = Enabled = false;
 
@@ -150,6 +150,10 @@ namespace WhoWantsToBeMillionaire
         public void ShowHint()
         {
             hiddenHints.Dequeue().Show();
+
+            int num = hints.Length - hiddenHints.Count;
+
+            Sound.Play(num < 4 ? $"Rules_Hint{num}.wav" : $"CentralIcon_Show.wav");
         }
 
         public void ShowAllHints()

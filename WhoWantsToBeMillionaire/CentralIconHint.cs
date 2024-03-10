@@ -21,8 +21,11 @@ namespace WhoWantsToBeMillionaire
             icons = new Stack<Bitmap>();
         }
 
-        private async Task ShowAnimation(Bitmap icon, bool isShow)
+        private async Task ShowAnimation(Bitmap icon, bool isShow, bool playSound)
         {
+            if (playSound)
+                Sound.Play(isShow ? "CentralIcon_Show.wav" : "CentralIcon_Hide.wav");
+
             using (Stream stream = ResourceProcessing.GetStream("ShowCentralIcon.json", TypeResource.AnimationData))
             using (StreamReader reader = new StreamReader(stream))
             using (Bitmap reverseSide = new Bitmap(ResourceProcessing.GetImage("ReverseSide_Hint.png")))
@@ -62,17 +65,17 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public async Task ShowIcon(TypeHint type)
+        public async Task ShowIcon(TypeHint type, bool playSound)
         {
             Bitmap icon = new Bitmap(ResourceProcessing.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
 
-            await ShowAnimation(icon, true);
+            await ShowAnimation(icon, true, playSound);
 
             BackgroundImage = icon;
             icons.Push(icon);
         }
 
-        public async Task HideIcon()
+        public async Task HideIcon(bool playSound)
         {
             if (icons.Count == 0) return;
 
@@ -80,7 +83,7 @@ namespace WhoWantsToBeMillionaire
 
             BackgroundImage = icons.Count > 0 ? icons.Peek() : null;
 
-            await ShowAnimation(icon, false);
+            await ShowAnimation(icon, false, playSound);
 
             icon.Dispose();
         }
@@ -89,7 +92,7 @@ namespace WhoWantsToBeMillionaire
         {
             BackgroundImage = Image = null;
 
-            while (icons.Count > 0);
+            while (icons.Count > 0)
                 icons.Pop().Dispose();
         }
     }

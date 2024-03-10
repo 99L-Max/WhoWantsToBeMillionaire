@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class BoxAnimation : GameContol
+    class BoxAnimation : GameContol, IReset
     {
         private const int CountFramesMoving = 12;
         private const int CountFramesAlphaChange = 6;
@@ -33,7 +33,7 @@ namespace WhoWantsToBeMillionaire
             e.Graphics.DrawImage(image, ClientRectangle);
         }
 
-        public void Reset()
+        public void Reset(Mode? mode = null)
         {
             g.Clear(Color.Transparent);
             Invalidate();

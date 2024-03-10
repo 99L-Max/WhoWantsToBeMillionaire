@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TableSums : MovingPictureBox
+    class TableSums : MovingPictureBox, IReset
     {
         private bool taskCanceled;
         private int numberNextSum;
@@ -75,11 +75,15 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void Reset(Mode mode)
+        public void Reset(Mode? mode = null)
         {
             X = MainForm.RectScreen.Width;
 
             table.Visible = false;
+
+            foreach (var ctrl in Controls)
+                if (ctrl is IReset)
+                    (ctrl as IReset).Reset(mode);
 
             foreach (var row in rowsSum)
                 row.Reset();
@@ -147,6 +151,7 @@ namespace WhoWantsToBeMillionaire
 
             rowsSum[rowsSum.Length - 1].IsSaveSum = true;
 
+            Sound.Play("SavaSumSelected.wav");
             SaveSumSelected.Invoke(saveSum.Sum);
         }
 
@@ -229,7 +234,7 @@ namespace WhoWantsToBeMillionaire
             {
                 numberNextSum = rowsSum.Where(r => r.IsSaveSum && r.Number < numberNextSum).Select(r => r.Number).DefaultIfEmpty(0).Last();
                 SetSelectedSum(numberNextSum);
-                SetPrize(numberNextSum - 1);
+                SetPrize(numberNextSum);
             }
         }
     }

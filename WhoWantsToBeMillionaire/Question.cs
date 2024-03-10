@@ -10,10 +10,19 @@ namespace WhoWantsToBeMillionaire
 {
     enum Letter { A, B, C, D }
 
+    enum DifficultyQuestion
+    {
+        Easy,
+        Normal,
+        Difficult,
+        Final
+    }
+
     class Question
     {
         public readonly int Number;
         public readonly int Index;
+        public readonly DifficultyQuestion Difficulty;
         public readonly string Text;
         public readonly string Explanation;
         public readonly Letter Correct;
@@ -29,6 +38,7 @@ namespace WhoWantsToBeMillionaire
         {
             Number = number;
             Index = index;
+            Difficulty = Number == 15 ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
 
             using (Stream stream = ResourceProcessing.GetStream($"Q{number:d2}V{index:d2}.json", TypeResource.Questions))
             using (StreamReader reader = new StreamReader(stream))
@@ -48,7 +58,7 @@ namespace WhoWantsToBeMillionaire
         {
             Number = number;
             Index = index;
-
+            Difficulty = Number == 15 ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
             Text = text;
             Options = FormatOptions(options);
             Correct = correct;

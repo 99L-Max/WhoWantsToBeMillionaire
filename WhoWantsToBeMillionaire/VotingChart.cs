@@ -56,6 +56,8 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowAnimationVote(int millisecond)
         {
+            Sound.PlayBackground("Hint_AskAudience_Voting.wav");
+
             Random random = new Random();
 
             foreach (var c in columns.Values)
@@ -79,6 +81,9 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowPercents(int countFrames, Dictionary<Letter, float> percents)
         {
+            Sound.StopAll();
+            Sound.Play("Hint_AskAudience_End.wav");
+
             foreach (var c in columns.Values)
                 c.Percent = 0;
             DrawChart(false);

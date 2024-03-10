@@ -16,7 +16,7 @@ namespace WhoWantsToBeMillionaire
         TakeMoney
     }
 
-    class BoxQuestion : GameContol
+    class BoxQuestion : GameContol, IReset, IGameSettings
     {
         private const int CountFramesAlphaChange = 6;
 
@@ -26,6 +26,8 @@ namespace WhoWantsToBeMillionaire
         private readonly BitmapText questionText;
         private readonly Dictionary<Letter, Option> options;
         private readonly CentralIconHint iconHint;
+
+        private bool isShowOptionsSequentially = true;
 
         public delegate void EventOptionClick(Letter letter);
         public event EventOptionClick OptionClick;
@@ -117,7 +119,7 @@ namespace WhoWantsToBeMillionaire
             MouseUp += OnMouseUp;
         }
 
-        public void Reset()
+        public void Reset(Mode? mode = null)
         {
             questionText.Reset();
 
@@ -139,7 +141,11 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void SetText(Question question)
+        public void SetQuestion(int number) => SetQuestion(new Question(number));
+
+        public void SetQuestion(int number, int index) => SetQuestion(new Question(number, index));
+
+        public void SetQuestion(Question question)
         {
             Question = question;
 
@@ -159,17 +165,8 @@ namespace WhoWantsToBeMillionaire
             Image = image;
         }
 
-        public async Task ShowQuestion(int number)
+        public async Task ShowQuestion()
         {
-            await ShowQuestion(number, Question.RandomIndex(number));
-        }
-
-        public async Task ShowQuestion(int number, int index)
-        {
-            Reset();
-
-            SetText(new Question(number, index));
-
             Rectangle rectWires = new Rectangle(0, 0, Width, Height);
 
             for (int i = 1; i <= CountFramesAlphaChange; i++)
@@ -180,6 +177,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
+            int delay = 250 + 500 * (int)Question.Difficulty;
             var alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1));
 
             foreach (var a in alphas)
@@ -191,7 +189,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(delay);
 
             foreach (var op in options.Values)
             {
@@ -204,7 +202,7 @@ namespace WhoWantsToBeMillionaire
                     await Task.Delay(MainForm.DeltaTime);
                 }
 
-                await Task.Delay(1000);
+                await Task.Delay(delay);
             }
         }
 
@@ -222,6 +220,13 @@ namespace WhoWantsToBeMillionaire
         {
             Enabled = false;
             SelectOption(letter);
+
+            if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Usual || AnswerMode == AnswerMode.DoubleDips))
+            {
+                Sound.Play("Answer_Accepted.wav");
+                Sound.PlayBackground("Answer_DrumRoll.wav");
+            }
+
             OptionClick.Invoke(letter);
         }
 
@@ -261,6 +266,8 @@ namespace WhoWantsToBeMillionaire
             g.DrawImage(option.ImageText, option.Rectangle);
 
             Image = image;
+
+            Sound.Play($"Answer_Incorrect_{Question.Difficulty}.wav");
         }
 
         public void ClickCorrect()
@@ -294,18 +301,23 @@ namespace WhoWantsToBeMillionaire
 
             g.Clear(Color.Transparent);
             Image = image;
+
+            Reset();
         }
 
-        public async Task ShowCorrect(bool addDelay)
+        public async Task ShowCorrect(bool playSound, bool addDelay)
         {
+            if (playSound)
+                Sound.Play(IsCorrectAnswer ? $"Answer_Correct_{Question.Difficulty}.wav" : $"Answer_Incorrect_{Question.Difficulty}.wav");
+
             Option option = options[Question.Correct];
 
             option.SetForeColors(Color.White, Color.Black);
 
-            using (Bitmap startFrame = (Bitmap)ResourceProcessing.GetImage(option.Selected ? "ButtonWire_Orange.png" : "ButtonWire_Blue.png"))
-            using (Bitmap finalFrame = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Green.png"))
+            using (Image startFrame = ResourceProcessing.GetImage(option.Selected ? "ButtonWire_Orange.png" : "ButtonWire_Blue.png"))
+            using (Image finalFrame = ResourceProcessing.GetImage("ButtonWire_Green.png"))
             {
-                Bitmap frame, back;
+                Image frame, back;
 
                 for (int stage = 0; stage < 5; stage++)
                 {
@@ -329,16 +341,27 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(3000);
         }
 
-        public async Task ShowCentralIcon(TypeHint hint)
+        public async Task ShowCentralIcon(TypeHint hint, bool playSound)
         {
             iconHint.Visible = true;
-            await iconHint.ShowIcon(hint);
+            await iconHint.ShowIcon(hint, playSound);
         }
 
-        public async Task HideCentralIcon()
+        public async Task HideCentralIcon(bool playSound)
         {
-            await iconHint.HideIcon();
+            await iconHint.HideIcon(playSound);
             iconHint.Visible = iconHint.BackgroundImage != null;
+        }
+
+        public void PlayBackgroundSound(string soundName)
+        {
+            if (Question.Difficulty != DifficultyQuestion.Easy)
+                Sound.PlayBackground(soundName);
+        }
+
+        public void SetSettings(GameSettingsData data)
+        {
+            isShowOptionsSequentially = (bool)data.GetSettings(GameSettings.ShowOptionsSequentially);
         }
     }
 }
