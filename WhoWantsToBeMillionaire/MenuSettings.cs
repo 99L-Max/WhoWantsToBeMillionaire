@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -14,7 +13,7 @@ namespace WhoWantsToBeMillionaire
 
         public MenuSettings(int width, int height, GameSettingsData data) : base(width, height)
         {
-            float fontSize = 0.04f * Height;
+            float fontSize = 0.035f * Height;
 
             gameSettings = data;
 
@@ -24,8 +23,9 @@ namespace WhoWantsToBeMillionaire
             chbScreensaver = new GameCheckBox(fontSize);
             chbOptionsSequentially = new GameCheckBox(fontSize);
 
-            chbScreensaver.Text = "Показывать заставку";
             labelTitle.Text = "Настройки";
+            chbScreensaver.Text = "Показывать заставку";
+            chbOptionsSequentially.Text = "Последовательный показ вариантов";
             buttonBack.Text = "Назад";
 
             buttonBack.Click += OnButtonClick;

@@ -40,7 +40,7 @@ namespace WhoWantsToBeMillionaire
 
             scene.Visible = false;
 
-            mainMenu.ButtonClick += OnButtonMainMenuClick;
+            mainMenu.ButtonClick += OnMainMenuClick;
             scene.StatisticsChanged += UpdateStatistics;
             scene.SceneRestarting += RestartingScene;
             scene.ExitToMainMenu += ExitToMainMenu;
@@ -51,7 +51,7 @@ namespace WhoWantsToBeMillionaire
             mainMenu.SetCommands(MainMenuCommand.NewGame, MainMenuCommand.Achievements, MainMenuCommand.Statistics, MainMenuCommand.Settings, MainMenuCommand.Exit);
         }
 
-        private void OnButtonMainMenuClick(MainMenuCommand cmd)
+        private void OnMainMenuClick(MainMenuCommand cmd)
         {
             switch (cmd)
             {
@@ -62,7 +62,7 @@ namespace WhoWantsToBeMillionaire
 
                 case MainMenuCommand.NewGame:
                     contextMenu = new MenuMode(RectScreen.Width / 3, RectScreen.Height * 2 / 3);
-                    contextMenu.ButtonClick += OnButtonContextMenuClick;
+                    contextMenu.ButtonClick += OnContextMenuClick;
 
                     mainMenu.Controls.Add(contextMenu);
                     mainMenu.ButtonsVisible = false;
@@ -70,7 +70,7 @@ namespace WhoWantsToBeMillionaire
 
                 case MainMenuCommand.Settings:
                     contextMenu = new MenuSettings(RectScreen.Width / 3, RectScreen.Height * 2 / 3, settingsData);
-                    contextMenu.ButtonClick += OnButtonContextMenuClick;
+                    contextMenu.ButtonClick += OnContextMenuClick;
 
                     mainMenu.Controls.Add(contextMenu);
                     mainMenu.ButtonsVisible = false;
@@ -78,7 +78,7 @@ namespace WhoWantsToBeMillionaire
 
                 case MainMenuCommand.Statistics:
                     contextMenu = new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData.ToString());
-                    contextMenu.ButtonClick += OnButtonContextMenuClick;
+                    contextMenu.ButtonClick += OnContextMenuClick;
 
                     mainMenu.Controls.Add(contextMenu);
                     mainMenu.ButtonsVisible = false;
@@ -90,7 +90,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private async void OnButtonContextMenuClick(ContextMenuCommand cmd)
+        private async void OnContextMenuClick(ContextMenuCommand cmd)
         {
             switch (cmd)
             {
@@ -152,7 +152,7 @@ namespace WhoWantsToBeMillionaire
             {
                 mainMenu.ButtonsVisible = true;
                 mainMenu.Controls.Remove(contextMenu);
-                contextMenu.ButtonClick -= OnButtonContextMenuClick;
+                contextMenu.ButtonClick -= OnContextMenuClick;
                 contextMenu.Dispose();
             }
         }

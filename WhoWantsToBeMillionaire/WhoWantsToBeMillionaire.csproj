@@ -700,5 +700,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Sounds\Answer_Incorrect_Difficult.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\ButtonArrow_Left.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonArrow_Left_Click.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonArrow_Right.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonArrow_Right_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\CheckBox_Checked.png" />
+    <EmbeddedResource Include="Resources\Textures\CheckBox_Unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Buttons\" />
+    <Folder Include="GameControls\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Menus\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

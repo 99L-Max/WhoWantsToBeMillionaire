@@ -62,7 +62,7 @@ namespace WhoWantsToBeMillionaire
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawImage(imageButton[theme], ClientRectangle);
-            TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, foreColor);
         }
 
         protected override void OnMouseEnter(EventArgs e)

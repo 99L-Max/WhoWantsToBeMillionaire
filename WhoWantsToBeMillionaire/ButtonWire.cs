@@ -98,7 +98,7 @@ namespace WhoWantsToBeMillionaire
         {
             e.Graphics.DrawImage(wire, rectBackground);
             e.Graphics.DrawImage(imageButton[theme], rectImage);
-            TextRenderer.DrawText(e.Graphics, Text, Font, rectImage, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            TextRenderer.DrawText(e.Graphics, Text, Font, rectImage, foreColor);
         }
 
         protected override void OnMouseEnter(EventArgs e)

@@ -15,6 +15,8 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventSelectedIndexChanged();
         public EventSelectedIndexChanged SelectedIndexChanged;
 
+        public bool LoopedSwitch = true;
+
         public int SelectedIndex
         {
             set
@@ -33,8 +35,6 @@ namespace WhoWantsToBeMillionaire
 
         public GameComboBox(string[] items, float fontSize)
         {
-            BackgroundImageLayout = ImageLayout.Stretch;
-            BackgroundImage = ResourceProcessing.GetImage("ButtonModeSelection.png");
             Font = new Font("", fontSize);
             ForeColor = Color.White;
             Dock = DockStyle.Fill;
@@ -42,28 +42,35 @@ namespace WhoWantsToBeMillionaire
 
             this.items = items;
 
-            leftArrow = new ButtonArrow(DirectionArrow.Left, 2 * fontSize);
-            rightArrow = new ButtonArrow(DirectionArrow.Right, 2 * fontSize);
+            leftArrow = new ButtonArrow(DirectionArrow.Left);
+            rightArrow = new ButtonArrow(DirectionArrow.Right);
 
             Controls.Add(leftArrow);
             Controls.Add(rightArrow);
 
-            leftArrow.Click += OnArrowClick;
-            rightArrow.Click += OnArrowClick;
+            leftArrow.Click += OnLeftClick;
+            rightArrow.Click += OnRightClick;
+
+            leftArrow.DoubleClick += OnLeftClick;
+            rightArrow.DoubleClick += OnRightClick;
 
             SizeChanged += OnSizeChanged;
         }
 
-        private void OnArrowClick(object sender, EventArgs e)
+        private void OnLeftClick(object sender, EventArgs e)
         {
-            if ((sender as ButtonArrow).DirectionArrow == DirectionArrow.Right)
-            {
-                SelectedIndex = (SelectedIndex + 1) % items.Length;
-            }
+            if (LoopedSwitch)
+                SelectedIndex = selectedIndex > 1 ? selectedIndex - 1 : items.Length - 1;
             else
-            {
-                SelectedIndex = (SelectedIndex == 0 ? items.Length : SelectedIndex) - 1;
-            }
+                SelectedIndex = Math.Max(0, selectedIndex - 1);
+        }
+
+        private void OnRightClick(object sender, EventArgs e)
+        {
+            if (LoopedSwitch)
+                SelectedIndex = selectedIndex < items.Length - 1 ? selectedIndex + 1 : 0;
+            else
+                SelectedIndex = Math.Min(selectedIndex + 1, items.Length - 1);
         }
 
         private void OnSizeChanged(object sender, EventArgs e)
@@ -80,8 +87,13 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                leftArrow.Click -= OnArrowClick;
-                rightArrow.Click -= OnArrowClick;
+                leftArrow.Click -= OnLeftClick;
+                rightArrow.Click -= OnRightClick;
+
+                leftArrow.DoubleClick -= OnLeftClick;
+                rightArrow.DoubleClick -= OnRightClick;
+
+                SizeChanged -= OnSizeChanged;
 
                 leftArrow.Dispose();
                 rightArrow.Dispose();

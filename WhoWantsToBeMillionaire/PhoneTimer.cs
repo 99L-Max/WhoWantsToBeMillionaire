@@ -47,7 +47,7 @@ namespace WhoWantsToBeMillionaire
             e.Graphics.DrawImage(background, ClientRectangle);
             e.Graphics.DrawImage(front, ClientRectangle);
 
-            TextRenderer.DrawText(e.Graphics, $"{seconds}", Font, ClientRectangle, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            TextRenderer.DrawText(e.Graphics, $"{seconds}", Font, ClientRectangle, ForeColor);
         }
 
         private void TimerTick(object sender, EventArgs e)

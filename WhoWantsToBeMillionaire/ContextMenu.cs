@@ -51,12 +51,12 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                foreach (var ctrl in table.Controls)
+                foreach (Control ctrl in table.Controls)
                 {
                     if(ctrl is ButtonContextMenu)
                         (ctrl as ButtonContextMenu).Click -= OnButtonClick;
 
-                    if (ctrl is IDisposable)
+                    if (ctrl is IDisposable) 
                         (ctrl as IDisposable).Dispose();
                 }
 
