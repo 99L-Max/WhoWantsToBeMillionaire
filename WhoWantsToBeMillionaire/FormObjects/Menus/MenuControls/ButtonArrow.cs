@@ -21,8 +21,8 @@ namespace WhoWantsToBeMillionaire
         {
             DirectionArrow = direction;
 
-            image = ResourceProcessing.GetImage($"ButtonArrow_{direction}.png");
-            imageClick = ResourceProcessing.GetImage($"ButtonArrow_{direction}_Click.png");
+            image = ResourceManager.GetImage($"ButtonArrow_{direction}.png");
+            imageClick = ResourceManager.GetImage($"ButtonArrow_{direction}_Click.png");
 
             OnMouseLeave(EventArgs.Empty);
         }

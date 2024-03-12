@@ -48,8 +48,8 @@ namespace WhoWantsToBeMillionaire
 
             int opWidth = (int)(0.45f * width);
 
-            Bitmap qImage = (Bitmap)ResourceProcessing.GetImage("Question.png");
-            Bitmap opImage = (Bitmap)ResourceProcessing.GetImage("ButtonWire_Blue.png");
+            Bitmap qImage = (Bitmap)ResourceManager.GetImage("Question.png");
+            Bitmap opImage = (Bitmap)ResourceManager.GetImage("ButtonWire_Blue.png");
 
             Rectangle qRectangle = new Rectangle(0, 0, width, qImage.Height * width / qImage.Width);
             Size opSize = new Size(opWidth, opImage.Height * opWidth / opImage.Width);
@@ -90,7 +90,7 @@ namespace WhoWantsToBeMillionaire
             }
 
             using (Graphics g = Graphics.FromImage(wires))
-            using (Bitmap wire = new Bitmap(ResourceProcessing.GetImage("Wire.png")))
+            using (Bitmap wire = new Bitmap(ResourceManager.GetImage("Wire.png")))
             {
                 y = 0;
 
@@ -239,7 +239,7 @@ namespace WhoWantsToBeMillionaire
             option.Selected = true;
             option.SetForeColors(Color.Black, Color.White);
 
-            using (Image selectedOption = ResourceProcessing.GetImage("ButtonWire_Orange.png"))
+            using (Image selectedOption = ResourceManager.GetImage("ButtonWire_Orange.png"))
             {
                 for (int i = 1; i <= CountFramesAlphaChange; i++)
                 {
@@ -260,7 +260,7 @@ namespace WhoWantsToBeMillionaire
             option.SetForeColors(Color.FromArgb(32, 32, 32), Color.DimGray);
             option.Selected = option.Enabled = false;
 
-            using (Image lockedOption = ResourceProcessing.GetImage("ButtonWire_Gray.png"))
+            using (Image lockedOption = ResourceManager.GetImage("ButtonWire_Gray.png"))
                 g.DrawImage(lockedOption, option.Rectangle);
 
             g.DrawImage(option.ImageText, option.Rectangle);
@@ -314,8 +314,8 @@ namespace WhoWantsToBeMillionaire
 
             option.SetForeColors(Color.White, Color.Black);
 
-            using (Image startFrame = ResourceProcessing.GetImage(option.Selected ? "ButtonWire_Orange.png" : "ButtonWire_Blue.png"))
-            using (Image finalFrame = ResourceProcessing.GetImage("ButtonWire_Green.png"))
+            using (Image startFrame = ResourceManager.GetImage(option.Selected ? "ButtonWire_Orange.png" : "ButtonWire_Blue.png"))
+            using (Image finalFrame = ResourceManager.GetImage("ButtonWire_Green.png"))
             {
                 Image frame, back;
 

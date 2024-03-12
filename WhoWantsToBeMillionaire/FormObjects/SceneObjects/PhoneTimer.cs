@@ -22,8 +22,8 @@ namespace WhoWantsToBeMillionaire
 
         public PhoneTimer(int side) : base(side, side)
         {
-            background = new Bitmap(ResourceProcessing.GetImage("PhoneTimer_Back.png"));
-            ring = new Bitmap(ResourceProcessing.GetImage("PhoneTimer_Front.png"));
+            background = new Bitmap(ResourceManager.GetImage("PhoneTimer_Back.png"));
+            ring = new Bitmap(ResourceManager.GetImage("PhoneTimer_Front.png"));
             front = new Bitmap(ring.Width, ring.Height);
             brush = new SolidBrush(Color.Transparent);
 

@@ -47,10 +47,10 @@ namespace WhoWantsToBeMillionaire
             var img = new Dictionary<ThemeButtonWire, Bitmap>();
 
             foreach (var key in Enum.GetValues(typeof(ThemeButtonWire)).Cast<ThemeButtonWire>())
-                img.Add(key, new Bitmap(ResourceProcessing.GetImage($"ButtonWire_{key}.png")));
+                img.Add(key, new Bitmap(ResourceManager.GetImage($"ButtonWire_{key}.png")));
 
             imageButton = new ReadOnlyDictionary<ThemeButtonWire, Bitmap>(img);
-            wire = new Bitmap(ResourceProcessing.GetImage("Wire.png"));
+            wire = new Bitmap(ResourceManager.GetImage("Wire.png"));
         }
 
         public ButtonWire(float sizeFont)

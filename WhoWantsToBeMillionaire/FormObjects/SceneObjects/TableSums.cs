@@ -42,12 +42,12 @@ namespace WhoWantsToBeMillionaire
 
         public TableSums(int width, int height) : base(width, height)
         {
-            using (Stream stream = ResourceProcessing.GetStream("Sums.json", TypeResource.Sums))
+            using (Stream stream = ResourceManager.GetStream("Sums.json", TypeResource.Sums))
             using (StreamReader reader = new StreamReader(stream))
             {
                 int[] sums = JsonConvert.DeserializeObject<int[]>(reader.ReadToEnd());
 
-                BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Amounts.png"), width, height);
+                BackgroundImage = new Bitmap(ResourceManager.GetImage("Background_Amounts.png"), width, height);
 
                 table = new TableLayoutPanel();
                 rowsSum = new RowTableSums[sums.Length];

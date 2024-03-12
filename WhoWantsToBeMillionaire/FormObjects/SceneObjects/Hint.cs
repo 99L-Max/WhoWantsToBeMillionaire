@@ -55,7 +55,7 @@ namespace WhoWantsToBeMillionaire
 
         public string[] PhoneFriendDialog(string sum)
         {
-            string[] dialogues = ResourceProcessing.GetString("Hint_PhoneFriend_Dialog.txt").Split(new string[] { "<SEPARATOR>" }, StringSplitOptions.None);
+            string[] dialogues = ResourceManager.GetString("Hint_PhoneFriend_Dialog.txt").Split(new string[] { "<SEPARATOR>" }, StringSplitOptions.None);
 
             string result = dialogues[random.Next(dialogues.Length)].Replace("<SUM>", sum);
 
@@ -79,7 +79,7 @@ namespace WhoWantsToBeMillionaire
                 fileName = "Hint_PhoneFriend_Incorrect.txt";
             }
 
-            string[] dialogues = ResourceProcessing.GetString(fileName).Split(new string[] { "<SEPARATOR>" }, StringSplitOptions.None);
+            string[] dialogues = ResourceManager.GetString(fileName).Split(new string[] { "<SEPARATOR>" }, StringSplitOptions.None);
             result.Append(dialogues[random.Next(dialogues.Length)]);
 
             result.Replace("<ANSWER>", answer);
@@ -108,7 +108,7 @@ namespace WhoWantsToBeMillionaire
                 fileName = "Hint_AskHost_Incorrect.txt";
             }
 
-            string[] phrases = ResourceProcessing.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
+            string[] phrases = ResourceManager.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
 
             result.Append(isCorrect ? phrases[(question.Number - 1) / 5] : phrases[random.Next(phrases.Length)]);
             

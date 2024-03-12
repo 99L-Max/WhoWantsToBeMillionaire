@@ -41,8 +41,8 @@ namespace WhoWantsToBeMillionaire
             label.Font = new Font("", fontSize, FontStyle.Bold);
             label.TextAlign = ContentAlignment.MiddleLeft;
 
-            imgChecked = ResourceProcessing.GetImage("CheckBox_Checked.png");
-            imgUnchecked = ResourceProcessing.GetImage("CheckBox_Unchecked.png");
+            imgChecked = ResourceManager.GetImage("CheckBox_Checked.png");
+            imgUnchecked = ResourceManager.GetImage("CheckBox_Unchecked.png");
 
             label.MouseDown += OnMouseDown;
             MouseDown += OnMouseDown;

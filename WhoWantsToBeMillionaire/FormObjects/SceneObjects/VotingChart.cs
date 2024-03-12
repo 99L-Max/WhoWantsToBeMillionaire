@@ -16,8 +16,8 @@ namespace WhoWantsToBeMillionaire
 
         public VotingChart(int width, int height) : base(width, height)
         {
-            background = new Bitmap(ResourceProcessing.GetImage("AudienceChart.png"));
-            imageColumn = new Bitmap(ResourceProcessing.GetImage("ChartColumn.png"));
+            background = new Bitmap(ResourceManager.GetImage("AudienceChart.png"));
+            imageColumn = new Bitmap(ResourceManager.GetImage("ChartColumn.png"));
             image = new Bitmap(background.Width, background.Height);
             g = Graphics.FromImage(image);
 

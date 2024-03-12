@@ -67,9 +67,9 @@ namespace WhoWantsToBeMillionaire
         {
             int height = 60;
 
-            background = new Bitmap(ResourceProcessing.GetImage("CurrentAmount.png"), 500, height);
-            iconCircle = new Bitmap(ResourceProcessing.GetImage("IconSum_Circle.png"), height, height);
-            iconRhomb = new Bitmap(ResourceProcessing.GetImage("IconSum_Rhomb.png"), height, height);
+            background = new Bitmap(ResourceManager.GetImage("CurrentAmount.png"), 500, height);
+            iconCircle = new Bitmap(ResourceManager.GetImage("IconSum_Circle.png"), height, height);
+            iconRhomb = new Bitmap(ResourceManager.GetImage("IconSum_Rhomb.png"), height, height);
 
             stringFormat = new StringFormat
             {

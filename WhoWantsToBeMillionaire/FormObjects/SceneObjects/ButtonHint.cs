@@ -38,7 +38,7 @@ namespace WhoWantsToBeMillionaire
 
         static ButtonHint()
         {
-            focus = new Bitmap(ResourceProcessing.GetImage("Focus_Hint.png"));
+            focus = new Bitmap(ResourceManager.GetImage("Focus_Hint.png"));
         }
 
         public ButtonHint(TypeHint type)
@@ -49,7 +49,7 @@ namespace WhoWantsToBeMillionaire
             SizeMode = PictureBoxSizeMode.Zoom;
             BackgroundImageLayout = ImageLayout.Zoom;
 
-            image = new Bitmap(ResourceProcessing.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
+            image = new Bitmap(ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
 
             Enabled = isShown = false;
         }
@@ -61,7 +61,7 @@ namespace WhoWantsToBeMillionaire
 
             float proporsion = 0.75f;
 
-            using (Bitmap icon = new Bitmap(ResourceProcessing.GetImage($"Hint_{Type}_{Status}.png")))
+            using (Bitmap icon = new Bitmap(ResourceManager.GetImage($"Hint_{Type}_{Status}.png")))
             using (Graphics g = Graphics.FromImage(image))
             {
                 float width = image.Width * proporsion;
@@ -106,10 +106,10 @@ namespace WhoWantsToBeMillionaire
 
             isShown = true;
 
-            using (Stream stream = ResourceProcessing.GetStream("ShowHint.json", TypeResource.AnimationData))
+            using (Stream stream = ResourceManager.GetStream("ShowHint.json", TypeResource.AnimationData))
             using (StreamReader reader = new StreamReader(stream))
             using (Bitmap icon = new Bitmap(image))
-            using (Bitmap reverseSide = new Bitmap(ResourceProcessing.GetImage("ReverseSide_Hint.png")))
+            using (Bitmap reverseSide = new Bitmap(ResourceManager.GetImage("ReverseSide_Hint.png")))
             using (Graphics g = Graphics.FromImage(image))
             {
                 string jsonText = reader.ReadToEnd();

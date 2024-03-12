@@ -59,7 +59,7 @@ namespace WhoWantsToBeMillionaire
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 
             float fontSize = 0.32f * heightButton;
-            var dict = ResourceProcessing.GetDictionary("MenuCommands.json");
+            var dict = ResourceManager.GetDictionary("MenuCommands.json");
 
             for (int i = 0; i < buttons.Length; i++)
             {

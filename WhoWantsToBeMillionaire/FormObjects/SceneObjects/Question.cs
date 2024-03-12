@@ -40,7 +40,7 @@ namespace WhoWantsToBeMillionaire
             Index = index;
             Difficulty = Number == 15 ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
 
-            using (Stream stream = ResourceProcessing.GetStream($"Q{number:d2}V{index:d2}.json", TypeResource.Questions))
+            using (Stream stream = ResourceManager.GetStream($"Q{number:d2}V{index:d2}.json", TypeResource.Questions))
             using (StreamReader reader = new StreamReader(stream))
             {
                 JObject jObj = JObject.Parse(reader.ReadToEnd());

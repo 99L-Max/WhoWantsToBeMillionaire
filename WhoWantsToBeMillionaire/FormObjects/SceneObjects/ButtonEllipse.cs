@@ -41,7 +41,7 @@ namespace WhoWantsToBeMillionaire
             var img = new Dictionary<ThemeButtonEllipse, Bitmap>();
 
             foreach (var key in Enum.GetValues(typeof(ThemeButtonEllipse)).Cast<ThemeButtonEllipse>())
-                img.Add(key, new Bitmap(ResourceProcessing.GetImage($"ButtonEllipse_{key}.png")));
+                img.Add(key, new Bitmap(ResourceManager.GetImage($"ButtonEllipse_{key}.png")));
 
             imageButton = new ReadOnlyDictionary<ThemeButtonEllipse, Bitmap>(img);
         }

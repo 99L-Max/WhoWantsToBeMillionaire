@@ -17,7 +17,7 @@ namespace WhoWantsToBeMillionaire
         Textures
     }
 
-    static class ResourceProcessing
+    static class ResourceManager
     {
         public static Stream GetStream(string resourceName, TypeResource type)
         {

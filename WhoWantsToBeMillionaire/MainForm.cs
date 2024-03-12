@@ -31,7 +31,7 @@ namespace WhoWantsToBeMillionaire
         {
             InitializeComponent();
 
-            BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Background_Main.png"), RectScreen.Size);
+            BackgroundImage = new Bitmap(ResourceManager.GetImage("Background_Main.png"), RectScreen.Size);
 
             scene = new Scene();
             mainMenu = new MenuMain();

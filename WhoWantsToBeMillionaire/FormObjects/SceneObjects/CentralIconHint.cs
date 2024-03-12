@@ -26,9 +26,9 @@ namespace WhoWantsToBeMillionaire
             if (playSound)
                 Sound.Play(isShow ? "CentralIcon_Show.wav" : "CentralIcon_Hide.wav");
 
-            using (Stream stream = ResourceProcessing.GetStream("ShowCentralIcon.json", TypeResource.AnimationData))
+            using (Stream stream = ResourceManager.GetStream("ShowCentralIcon.json", TypeResource.AnimationData))
             using (StreamReader reader = new StreamReader(stream))
-            using (Bitmap reverseSide = new Bitmap(ResourceProcessing.GetImage("ReverseSide_Hint.png")))
+            using (Bitmap reverseSide = new Bitmap(ResourceManager.GetImage("ReverseSide_Hint.png")))
             using (Bitmap image = new Bitmap(icon.Width, icon.Height))
             using (Graphics g = Graphics.FromImage(image))
             {
@@ -67,7 +67,7 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowIcon(TypeHint type, bool playSound)
         {
-            Bitmap icon = new Bitmap(ResourceProcessing.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
+            Bitmap icon = new Bitmap(ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
 
             await ShowAnimation(icon, true, playSound);
 

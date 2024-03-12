@@ -23,7 +23,7 @@ namespace WhoWantsToBeMillionaire
             Location = new Point((MainForm.RectScreen.Width - Width) >> 1, (MainForm.RectScreen.Height - Height) >> 1);
             BackColor = Color.Transparent;
             BackgroundImageLayout = ImageLayout.Stretch;
-            BackgroundImage = new Bitmap(ResourceProcessing.GetImage("Menu.png"), Size);
+            BackgroundImage = new Bitmap(ResourceManager.GetImage("Menu.png"), Size);
 
             table = new TableLayoutPanel();
 

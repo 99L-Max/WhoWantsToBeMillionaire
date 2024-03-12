@@ -89,7 +89,7 @@ namespace WhoWantsToBeMillionaire
 
         private string RandomPhrase(string fileName)
         {
-            string[] phrases = ResourceProcessing.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
+            string[] phrases = ResourceManager.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
 
             return phrases[new Random().Next(phrases.Length)];
         }

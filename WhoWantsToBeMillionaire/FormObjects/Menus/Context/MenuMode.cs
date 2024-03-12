@@ -22,7 +22,7 @@ namespace WhoWantsToBeMillionaire
 
         public MenuMode(int width, int height) : base(width, height)
         {
-            var modes = ResourceProcessing.GetDictionary("Modes.json");
+            var modes = ResourceManager.GetDictionary("Modes.json");
 
             float fontSize = 0.04f * Height;
 

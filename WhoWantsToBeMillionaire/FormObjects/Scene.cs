@@ -90,7 +90,7 @@ namespace WhoWantsToBeMillionaire
             prizeImage = new Bitmap(boxAnimation.Width, boxAnimation.Height);
 
             using (Graphics g = Graphics.FromImage(prizeImage))
-            using (Image img = ResourceProcessing.GetImage("Question.png"))
+            using (Image img = ResourceManager.GetImage("Question.png"))
             {
                 int height = prizeImage.Width * img.Height / img.Width;
                 int y = (prizeImage.Height - height) >> 1;

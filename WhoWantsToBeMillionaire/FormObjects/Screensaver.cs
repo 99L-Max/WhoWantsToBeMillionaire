@@ -21,8 +21,8 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.Transparent;
 
-            background = new Bitmap(ResourceProcessing.GetImage("Background_Screensaver.png"), MainForm.RectScreen.Size);
-            logo = new Bitmap(ResourceProcessing.GetImage("Logo.png"));
+            background = new Bitmap(ResourceManager.GetImage("Background_Screensaver.png"), MainForm.RectScreen.Size);
+            logo = new Bitmap(ResourceManager.GetImage("Logo.png"));
         }
 
         protected override void OnPaint(PaintEventArgs e)

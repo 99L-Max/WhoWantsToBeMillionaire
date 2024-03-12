@@ -23,7 +23,7 @@ namespace WhoWantsToBeMillionaire
 
         public static void Play(string soundName)
         {
-            Stream stream = ResourceProcessing.GetStream(soundName, TypeResource.Sounds);
+            Stream stream = ResourceManager.GetStream(soundName, TypeResource.Sounds);
             WaveFileReader reader = new WaveFileReader(stream);
             WaveOut waveOut = new WaveOut();
 
@@ -49,7 +49,7 @@ namespace WhoWantsToBeMillionaire
         {
             StopBackground();
 
-            streamBack = ResourceProcessing.GetStream(soundName, TypeResource.Sounds);
+            streamBack = ResourceManager.GetStream(soundName, TypeResource.Sounds);
             readerBack = new WaveFileReader(streamBack);
             loopStream = new LoopStream(readerBack);
 

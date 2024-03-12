@@ -62,7 +62,7 @@ namespace WhoWantsToBeMillionaire
             float fontSize = 0.035f * height;
 
             labelDialog = new LabelMenu(0.032f * height, ContentAlignment.MiddleCenter);
-            logo = new Bitmap(ResourceProcessing.GetImage("Logo.png"), sideLogo, sideLogo);
+            logo = new Bitmap(ResourceManager.GetImage("Logo.png"), sideLogo, sideLogo);
 
             buttonCommand = new ButtonWire(fontSize);
             buttonCanсel = new ButtonWire(fontSize);
