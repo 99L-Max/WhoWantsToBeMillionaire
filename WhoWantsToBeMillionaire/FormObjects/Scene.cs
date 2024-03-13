@@ -25,7 +25,8 @@ namespace WhoWantsToBeMillionaire
         SwitchQuestion,
         TakeMoney,
         TakeMoney_Confirmation,
-        TakeMoney_ShowPrize
+        TakeMoney_ShowPrize,
+        FinalQuestion
     }
 
     enum SceneCancelCommand
@@ -141,7 +142,7 @@ namespace WhoWantsToBeMillionaire
 
             tableHints.Visible = true;
             commandBoard.ButtonCommandEnabled = false;
-            commandBoard.Text = host.Say(HostPhrases.Rules, tableSums.MaxNumberSum.ToString());
+            commandBoard.Text = host.Say(HostPhrases.Rules, Question.MaxNumber.ToString()); ;
 
             await Task.Delay(1000);
 
@@ -176,10 +177,9 @@ namespace WhoWantsToBeMillionaire
             {
                 default:
                     ControlEnabled = false;
-
                     StatisticsChanged.Invoke(boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers);
 
-                    if (boxQuestion.IsCorrectAnswer && boxQuestion.Question.Number < tableSums.MaxNumberSum)
+                    if (boxQuestion.IsCorrectAnswer && boxQuestion.Question.Number < Question.MaxNumber)
                     {
                         commandBoard.Command = SceneCommand.NextQuestion;
                     }
@@ -350,13 +350,13 @@ namespace WhoWantsToBeMillionaire
 
         private async Task ShowCorrectAndPrize(bool playSound, bool addDelay, bool updatePrize)
         {
+            commandBoard.Clear();
             Sound.StopAll();
 
-            commandBoard.Clear();
             await boxQuestion.ShowCorrect(playSound, addDelay);
 
             if (updatePrize)
-                tableSums.UpdatePrize(boxQuestion.IsCorrectAnswer);
+                tableSums.Update(boxQuestion.IsCorrectAnswer);
 
             await boxQuestion.Clear();
             await Task.Delay(500);
@@ -367,6 +367,35 @@ namespace WhoWantsToBeMillionaire
             await boxAnimation.ShowText(tableSums.TextPrize);
         }
 
+        private async Task ShowQuestion(int number)
+        {
+            boxQuestion.SetQuestion(number);
+
+            if (boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
+            {
+                if (boxQuestion.Question.Difficulty == DifficultyQuestion.Final)
+                {
+                    Sound.Play("Start.wav");
+                    await Task.Delay(5000);
+                }
+                else
+                {
+                    Sound.Play("Question_Next.wav");
+                    await Task.Delay(3000);
+                }
+
+                Sound.PlayBackground("Question_Reflections.wav");
+            }
+
+            await boxAnimation.ShowImage(boxQuestion.BackgroundImage);
+
+            boxQuestion.Visible = true;
+
+            await boxQuestion.ShowQuestion();
+
+            ControlEnabled = true;
+        }
+
         private async void OnCommandClick(object sender, SceneCommand command)
         {
             switch (command)
@@ -375,30 +404,28 @@ namespace WhoWantsToBeMillionaire
                     await ShowCorrectAndPrize(true, false, true);
                     await Task.Delay(1500 + 500 * (int)boxQuestion.Question.Difficulty);
                     await boxAnimation.HideImage();
-                    await Task.Delay(1000);
 
-                    boxQuestion.SetQuestion(boxQuestion.Question.Number + 1);
-
-                    if (boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
+                    if (boxQuestion.Question.Number + 1 < Question.MaxNumber)
                     {
-                        Sound.Play("Question_Next.wav");
-
-                        await Task.Delay(3000);
-
-                        Sound.PlayBackground("Question_Reflections.wav");
+                        await Task.Delay(1000);
+                        await ShowQuestion(boxQuestion.Question.Number + 1);
                     }
+                    else
+                    {
+                        commandBoard.Text = host.Say(HostPhrases.AboutFinalQuestion, Question.MaxNumber.ToString(), tableSums.NextSum);
+                        commandBoard.Command = SceneCommand.FinalQuestion;
+                        commandBoard.ButtonCommandVisible = true;
+                    }
+                    break;
 
-                    await boxAnimation.ShowImage(boxQuestion.BackgroundImage);
-
-                    boxQuestion.Visible = true;
-
-                    await boxQuestion.ShowQuestion();
-
-                    ControlEnabled = true;
+                case SceneCommand.FinalQuestion:
+                    commandBoard.Clear();
+                    await ShowQuestion(Question.MaxNumber);
                     break;
 
                 case SceneCommand.Loss:
                     await ShowCorrectAndPrize(true, true, true);
+
                     StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
                     commandBoard.AskRestart();
                     break;
@@ -462,21 +489,15 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCommand.Start:
+                    commandBoard.Clear();
+                    tableSums.Clear();
+
                     Sound.StopBackground();
                     Sound.Play("Start.wav");
 
-                    commandBoard.Clear();
-                    boxQuestion.SetQuestion(1);
-                    tableSums.NumberNextSum = 1;
-
                     await Task.Delay(3000);
-                    await boxAnimation.ShowImage(boxQuestion.BackgroundImage);
+                    await ShowQuestion(1);
 
-                    boxQuestion.Visible = true;
-
-                    await boxQuestion.ShowQuestion();
-
-                    ControlEnabled = true;
                     buttonTakeMoney.Visible = true;
                     break;
 

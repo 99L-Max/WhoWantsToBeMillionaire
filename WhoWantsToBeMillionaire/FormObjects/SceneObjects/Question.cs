@@ -20,6 +20,8 @@ namespace WhoWantsToBeMillionaire
 
     class Question
     {
+        public const int MaxNumber = 15;
+
         public readonly int Number;
         public readonly int Index;
         public readonly DifficultyQuestion Difficulty;
@@ -34,51 +36,40 @@ namespace WhoWantsToBeMillionaire
 
         public Question(int number) : this(number, RandomIndex(number)) { }
 
-        public Question(int number, int index)
+        public Question(int number, int index) : this(number, index, Enum.GetValues(typeof(Letter)).Cast<Letter>()) { }
+
+        public Question(int number, int index, IEnumerable<Letter> letters)
         {
             Number = number;
             Index = index;
-            Difficulty = Number == 15 ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
+            Difficulty = Number == MaxNumber ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
 
             using (Stream stream = ResourceManager.GetStream($"Q{number:d2}V{index:d2}.json", TypeResource.Questions))
             using (StreamReader reader = new StreamReader(stream))
             {
                 JObject jObj = JObject.Parse(reader.ReadToEnd());
 
-                var options = JsonConvert.DeserializeObject<Dictionary<Letter, string>>(jObj["Options"].ToString());
-
                 Text = jObj["Question"].Value<string>();
                 Explanation = jObj["Explanation"].Value<string>();
-                Options = FormatOptions(options);
                 Correct = (Letter)Enum.Parse(typeof(Letter), jObj["Correct"].Value<string>());
+
+                if (!letters.Contains(Correct))
+                    letters.Append(Correct);
+
+                var options = JsonConvert.DeserializeObject<Dictionary<Letter, string>>(jObj["Options"].ToString());
+
+                foreach (var key in options.Keys.ToArray())
+                    if (!letters.Contains(key))
+                        options[key] = string.Empty;
+
+                Options = new ReadOnlyDictionary<Letter, string>(options);
             }
         }
 
-        public Question(int number, int index, string text, Dictionary<Letter, string> options, Letter correct, string explanation)
-        {
-            Number = number;
-            Index = index;
-            Difficulty = Number == 15 ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
-            Text = text;
-            Options = FormatOptions(options);
-            Correct = correct;
-            Explanation = explanation;
-        }
+        public static int RandomIndex(int number) =>
+            new Random().Next(35 - (number - 1) / 3 * 5) + 1;
 
-        private ReadOnlyDictionary<Letter, string> FormatOptions(Dictionary<Letter, string> dict)
-        {
-            foreach (var key in Enum.GetValues(typeof(Letter)).Cast<Letter>())
-                if (!dict.Keys.Contains(key))
-                    dict.Add(key, string.Empty);
-
-            return new ReadOnlyDictionary<Letter, string>(dict.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value));
-        }
-
-        public static int RandomIndex(int number)
-        {
-            return new Random().Next(35 - (number - 1) / 3 * 5) + 1;
-        }
-
-        public string FullOption(Letter key) => $"«{key}: {Options[key]}»";
+        public string FullOption(Letter key) =>
+            $"«{key}: {Options[key]}»";
     }
 }

@@ -9,6 +9,7 @@ namespace WhoWantsToBeMillionaire
         CountHints,
         AboutRestrictionsHints,
         AboutTakingMoney,
+        AboutFinalQuestion,
         AskSaveSum,
         SaveSumSelected,
         GameStart,
@@ -44,6 +45,12 @@ namespace WhoWantsToBeMillionaire
 
                 case HostPhrases.AboutTakingMoney:
                     return "До тех пор, пока Вы не дали ответ, можете забрать выигранные деньги.";
+
+                case HostPhrases.AboutFinalQuestion:
+                    return $"А теперь мы с Вами подошли к кульминационному моменту. " +
+                           $"Лишь немногие достигали наивысшую планку игры «Кто хочет стать миллионером?», " +
+                           $"а правильно отвечали на последний вопрос единицы. Последний рубеж!" +
+                           $"\n{args[0]}-й вопрос на {args[1]} рублей.";
 
                 case HostPhrases.SaveSumSelected:
                     return $"{args[0]} рублей — несгораемая сумма!";

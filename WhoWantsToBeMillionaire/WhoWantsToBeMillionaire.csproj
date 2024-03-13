@@ -85,7 +85,7 @@
     <Compile Include="FormObjects\Menus\MenuControls\GameCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\DataObjects\GameSettingsData.cs" />
+    <Compile Include="FormObjects\Menus\DataObjects\GameSettingsData.cs" />
     <Compile Include="FormObjects\Menus\MenuControls\GameTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -128,8 +128,8 @@
     <Compile Include="FormObjects\SceneObjects\BoxQuestion.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\DataObjects\FileManager.cs" />
-    <Compile Include="FormObjects\DataObjects\StatisticsData.cs" />
+    <Compile Include="FormObjects\Menus\DataObjects\FileManager.cs" />
+    <Compile Include="FormObjects\Menus\DataObjects\StatisticsData.cs" />
     <Compile Include="FormObjects\Menus\Context\MenuStatistics.cs">
       <SubType>Component</SubType>
     </Compile>

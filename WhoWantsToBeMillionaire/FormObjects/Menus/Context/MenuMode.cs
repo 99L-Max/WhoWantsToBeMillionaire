@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -12,44 +11,29 @@ namespace WhoWantsToBeMillionaire
 
     class MenuMode : ContextMenu
     {
-        private readonly LabelMenu labelTitle;
         private readonly LabelMenu labelDescriptionMode;
         private readonly GameComboBox comboBox;
         private readonly ButtonContextMenu buttonStart;
-        private readonly ButtonContextMenu buttonBack;
 
         public Mode SelectedMode { private set; get; }
 
-        public MenuMode(int width, int height) : base(width, height)
+        public MenuMode(int width, int height) : base(width, height, "Выберите режим", 0.04f * height)
         {
             var modes = ResourceManager.GetDictionary("Modes.json");
 
             float fontSize = 0.04f * Height;
 
-            labelTitle = new LabelMenu(1.2f * fontSize, ContentAlignment.MiddleCenter);
             labelDescriptionMode = new LabelMenu(fontSize);
-
-            labelTitle.Text = "Выберите режим";
-
             comboBox = new GameComboBox(modes.Values.ToArray(), fontSize);
-            comboBox.SelectedIndexChanged += ModeChanged;
-
             buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
-            buttonBack = new ButtonContextMenu(ContextMenuCommand.Back, fontSize);
 
             buttonStart.Text = "Старт";
-            buttonBack.Text = "Назад";
 
             buttonStart.Click += OnButtonClick;
-            buttonBack.Click += OnButtonClick;
+            comboBox.SelectedIndexChanged += ModeChanged;
 
-            table.Controls.Add(labelTitle, 0, 0);
-            table.Controls.Add(comboBox, 0, 1);
-            table.Controls.Add(labelDescriptionMode, 0, 2);
-            table.Controls.Add(buttonStart, 0, 3);
-            table.Controls.Add(buttonBack, 0, 4);
-
-            SetHeights(1f, 1f, 3f, 1f, 1f);
+            SetControls(comboBox, labelDescriptionMode, buttonStart);
+            SetHeights(1f, 3f, 1f);
 
             comboBox.SelectedIndex = 0;
         }

@@ -12,7 +12,7 @@ namespace WhoWantsToBeMillionaire
     class TableSums : MovingPictureBox, IReset
     {
         private bool taskCanceled;
-        private int numberNextSum;
+        private int numberQuestion;
 
         private readonly TableLayoutPanel table;
         private readonly RowTableSums[] rowsSum;
@@ -24,21 +24,9 @@ namespace WhoWantsToBeMillionaire
 
         public string TextPrize { private set; get; }
 
-        public int NumberNextSum
-        {
-            set
-            {
-                numberNextSum = value;
-                SetSelectedSum(numberNextSum - 1);
-            }
-            get => numberNextSum;
-        }
+        public string NextSum => string.Format("{0:#,0}", rowsSum[Math.Min(numberQuestion - 1, rowsSum.Length - 1)].Sum);
 
-        public int MaxNumberSum => rowsSum.Length;
-
-        public int[] SaveSums => rowsSum.Where(r => r.IsSaveSum && r.Number != rowsSum.Length).Select(r => r.Sum).ToArray();
-
-        public string NextSum => string.Format("{0:#,0}", rowsSum[numberNextSum - 1].Sum);
+        public int[] SaveSums => rowsSum.Where(r => r.IsSaveSum && r.Number < Question.MaxNumber).Select(r => r.Sum).ToArray();
 
         public TableSums(int width, int height) : base(width, height)
         {
@@ -92,13 +80,13 @@ namespace WhoWantsToBeMillionaire
                 foreach (var row in rowsSum)
                     row.IsSaveSum = row.Number % 5 == 0;
 
+            numberQuestion = 1;
             SetPrize(0);
         }
 
         public async new Task Show()
         {
             await MoveX(MainForm.RectScreen.Width - Width, 600 / MainForm.DeltaTime);
-
             table.Visible = true;
         }
 
@@ -107,7 +95,7 @@ namespace WhoWantsToBeMillionaire
             try
             {
                 Prize = rowsSum[numberSum - 1].Sum;
-                TextPrize = numberNextSum < rowsSum.Length ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
+                TextPrize = numberSum < rowsSum.Length ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
             }
             catch (IndexOutOfRangeException)
             {
@@ -116,7 +104,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void SetSelectedSum(int number)
+        public void SetSelectedSum(int number)
         {
             foreach (var row in rowsSum)
             {
@@ -139,17 +127,15 @@ namespace WhoWantsToBeMillionaire
         {
             RowTableSums saveSum = sender as RowTableSums;
 
+            SetSelectedSum(saveSum.Number);
+
             foreach (var row in rowsSum)
             {
                 row.Click -= SelectSaveSum;
                 row.RemoveMouseEvents();
-                row.IconVisible = row.Number <= saveSum.Number;
             }
 
-            saveSum.IsSaveSum = true;
-            saveSum.IsSelected = true;
-
-            rowsSum[rowsSum.Length - 1].IsSaveSum = true;
+            rowsSum[rowsSum.Length - 1].IsSaveSum = saveSum.IsSaveSum = true;
 
             Sound.Play("SavaSumSelected.wav");
             SaveSumSelected.Invoke(saveSum.Sum);
@@ -176,9 +162,9 @@ namespace WhoWantsToBeMillionaire
 
                 await Task.Delay(250);
 
-                if(taskCanceled)
+                if (taskCanceled)
                 {
-                    IncompleteResetRows();
+                    Clear();
                     return;
                 }
             }
@@ -190,7 +176,7 @@ namespace WhoWantsToBeMillionaire
         {
             taskCanceled = false;
 
-            IncompleteResetRows();
+            Clear();
 
             foreach (var row in rowsSum)
             {
@@ -207,7 +193,7 @@ namespace WhoWantsToBeMillionaire
 
                 if (taskCanceled)
                 {
-                    IncompleteResetRows();
+                    Clear();
                     return;
                 }
             }
@@ -215,27 +201,27 @@ namespace WhoWantsToBeMillionaire
             rowsSum[rowsSum.Length - 1].IsSelected = true;
         }
 
-        private void IncompleteResetRows()
-        {
-            foreach (var row in rowsSum)
-                row.IsSelected = row.IconVisible = false;
-        }
-
         public void CancelTask() => taskCanceled = true;
 
-        public void UpdatePrize(bool isCorrect)
+        public void Update(bool isCorrectAnswer)
         {
-            if (isCorrect)
+            if (isCorrectAnswer)
             {
-                SetPrize(numberNextSum);
-                NumberNextSum++;
+                SetPrize(numberQuestion);
+                SetSelectedSum(numberQuestion++);
             }
             else
             {
-                numberNextSum = rowsSum.Where(r => r.IsSaveSum && r.Number < numberNextSum).Select(r => r.Number).DefaultIfEmpty(0).Last();
-                SetSelectedSum(numberNextSum);
-                SetPrize(numberNextSum);
+                int number = rowsSum.Where(r => r.IsSaveSum && r.Number < numberQuestion).Select(r => r.Number).DefaultIfEmpty(0).Last();
+                SetSelectedSum(number);
+                SetPrize(number);
             }
+        }
+
+        public void Clear()
+        {
+            foreach (var row in rowsSum)
+                row.IsSelected = row.IconVisible = false;
         }
     }
 }
