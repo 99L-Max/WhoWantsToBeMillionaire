@@ -1,27 +1,101 @@
-﻿namespace WhoWantsToBeMillionaire
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace WhoWantsToBeMillionaire
 {
-    class MenuSettings : ContextMenu
+    class MenuSettings : ContextMenu, IDisposable
     {
-        private readonly GameSettingsData gameSettings;
-        private readonly GameTrackBar tbVolume;
-        private readonly GameCheckBox chbScreensaver;
-        private readonly GameCheckBox chbOptionsSequentially;
+        private readonly Dictionary<GameSettings, float> settings;
+        private readonly List<GameComboBox> comboBoxes = new List<GameComboBox>();
+        private readonly TableLayoutPanel table;
+        private readonly ButtonContextMenu buttonSave;
 
-        public MenuSettings(int width, int height, GameSettingsData data) : base(width, height, "Настройки", 0.04f * height)
+        public Dictionary<GameSettings, float> SettingsData => settings.ToDictionary(k => k.Key, v => v.Value);
+
+        public MenuSettings(int width, int height, GameSettingsData data) : base("Настройки", width, height, 0.035f * height)
         {
-            float fontSize = 0.04f * height;
+            var keys = Enum.GetValues(typeof(GameSettings)).Cast<GameSettings>();
+            settings = keys.ToDictionary(k => k, v => data.GetSettings(v));
 
-            gameSettings = data;
+            table = new TableLayoutPanel();
+            table.Dock = DockStyle.Fill;
+            table.ColumnCount = 2;
 
-            tbVolume = new GameTrackBar();
-            chbScreensaver = new GameCheckBox(fontSize);
-            chbOptionsSequentially = new GameCheckBox(fontSize);
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80f));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20f));
 
-            chbScreensaver.Text = "Показывать заставку";
-            chbOptionsSequentially.Text = "Последовательный показ вариантов";
+            table.RowCount = table.Controls.Count;
 
-            SetControls(tbVolume, chbScreensaver, chbOptionsSequentially);
-            SetHeights(1f, 1f, 1f);
+            float fontSize = 0.035f * height;
+            var dict = ResourceManager.GetDictionary("Settings.json");
+
+            using (Stream stream = ResourceManager.GetStream("SettingsValues.json", TypeResource.SettingsValues))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(reader.ReadToEnd());
+                int i = 0;
+
+                table.RowCount = keys.Count();
+
+                foreach (var key in keys)
+                {
+                    LabelMenu label = new LabelMenu(fontSize);
+                    GameComboBox comboBox = new GameComboBox(values[key.ToString()], fontSize);
+
+                    comboBox.SelectedIndexChanged += UpdateSetting;
+
+                    label.Text = dict[key.ToString()];
+                    comboBox.LoopedSwitch = key != GameSettings.Volume;
+                    comboBox.Tag = key;
+                    comboBox.SelectedIndex = (int)settings[key];
+
+                    table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
+                    table.Controls.Add(label, 0, i);
+                    table.Controls.Add(comboBox, 1, i);
+
+                    comboBoxes.Add(comboBox);
+                    i++;
+                }
+            }
+
+            buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings, fontSize);
+            buttonSave.Text = "Применить";
+            buttonSave.Click += OnButtonClick;
+
+            SetControls(table, buttonSave);
+            SetHeights(table.RowCount, 1f);
+        }
+
+        private void UpdateSetting(object sender, EventArgs e)
+        {
+            var comboBox = sender as GameComboBox;
+            var key = (GameSettings)comboBox.Tag;
+            settings[key] = comboBox.SelectedIndex;
+
+            if (key == GameSettings.Volume)
+            {
+                float volume = float.Parse(comboBox.Text) / 100f;
+                Sound.SetVolume(volume);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                comboBoxes.ForEach(c => { 
+                    c.SelectedIndexChanged -= UpdateSetting;
+                    c.Dispose(); 
+                });
+
+                table.Controls.Clear();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

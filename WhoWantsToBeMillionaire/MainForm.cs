@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,9 +13,9 @@ namespace WhoWantsToBeMillionaire
         private readonly Scene scene;
         private readonly MenuMain mainMenu;
         private readonly StatisticsData statisticsData;
-        private readonly GameSettingsData settingsData;
 
         private ContextMenu contextMenu;
+        private GameSettingsData settingsData;
         private bool showScreenSaver = true;
 
         protected override CreateParams CreateParams
@@ -38,12 +39,13 @@ namespace WhoWantsToBeMillionaire
             statisticsData = new StatisticsData(FileManager.PathLocalAppData);
             settingsData = new GameSettingsData(FileManager.PathLocalAppData);
 
+            SetSettings(settingsData);
+            settingsData.ApplyGlobal();
             scene.Visible = false;
 
             mainMenu.ButtonClick += OnMainMenuClick;
             scene.StatisticsChanged += UpdateStatistics;
-            scene.SceneRestarting += RestartingScene;
-            scene.ExitToMainMenu += ExitToMainMenu;
+            scene.GameOver += GameOver;
 
             Controls.Add(scene);
             Controls.Add(mainMenu);
@@ -56,36 +58,23 @@ namespace WhoWantsToBeMillionaire
             switch (cmd)
             {
                 default:
-                    statisticsData.Save(FileManager.PathLocalAppData);
                     Close();
                     break;
 
                 case MainMenuCommand.NewGame:
-                    contextMenu = new MenuMode(RectScreen.Width / 3, RectScreen.Height * 2 / 3);
-                    contextMenu.ButtonClick += OnContextMenuClick;
-
-                    mainMenu.Controls.Add(contextMenu);
-                    mainMenu.ButtonsVisible = false;
-                    break;
-
-                case MainMenuCommand.Settings:
-                    contextMenu = new MenuSettings(RectScreen.Width / 3, RectScreen.Height * 2 / 3, settingsData);
-                    contextMenu.ButtonClick += OnContextMenuClick;
-
-                    mainMenu.Controls.Add(contextMenu);
-                    mainMenu.ButtonsVisible = false;
+                    OpenContextMenu(new MenuMode(RectScreen.Width / 3, RectScreen.Height * 2 / 3));
                     break;
 
                 case MainMenuCommand.Statistics:
-                    contextMenu = new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData.ToString());
-                    contextMenu.ButtonClick += OnContextMenuClick;
-
-                    mainMenu.Controls.Add(contextMenu);
-                    mainMenu.ButtonsVisible = false;
+                    OpenContextMenu(new MenuStatistics(RectScreen.Width / 3, RectScreen.Height * 2 / 3, statisticsData.ToString()));
                     break;
 
                 case MainMenuCommand.Achievements:
                     MessageBox.Show("Achievements");
+                    break;
+
+                case MainMenuCommand.Settings:
+                    OpenContextMenu(new MenuSettings(RectScreen.Width / 2, RectScreen.Height * 2 / 3, settingsData));
                     break;
             }
         }
@@ -104,46 +93,28 @@ namespace WhoWantsToBeMillionaire
                     mainMenu.Visible = false;
                     CloseContextMenu();
 
-                    //await ShowScreenSaver(true);
+                    if (showScreenSaver)
+                        await ShowScreenSaver(true);
 
                     scene.Visible = true;
                     scene.Start();
                     break;
+
+                case ContextMenuCommand.ApplySettings:
+                    settingsData = new GameSettingsData((contextMenu as MenuSettings).SettingsData);
+                    SetSettings(settingsData);
+                    CloseContextMenu();
+                    break;
             }
         }
 
-        private async void RestartingScene()
+        private void OpenContextMenu(ContextMenu menu)
         {
-            scene.Visible = false;
-            scene.Reset();
+            contextMenu = menu;
+            contextMenu.ButtonClick += OnContextMenuClick;
 
-            await ShowScreenSaver(false);
-
-            scene.Visible = true;
-            scene.Restart();
-        }
-
-        private void ExitToMainMenu()
-        {
-            scene.Visible = false;
-            mainMenu.Visible = true;
-        }
-
-        private async Task ShowScreenSaver(bool isFirst)
-        {
-            using (Screensaver saver = new Screensaver())
-            {
-                Controls.Add(saver);
-
-                await saver.ShowSaver(isFirst);
-
-                Controls.Remove(saver);
-            }
-        }
-
-        private void UpdateStatistics(StatsAttribute attribute, int value)
-        {
-            statisticsData.Update(attribute, value);
+            mainMenu.Controls.Add(contextMenu);
+            mainMenu.ButtonsVisible = false;
         }
 
         private void CloseContextMenu()
@@ -157,12 +128,50 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void SetSettings(GameSettingsData data)
+        private async void GameOver(bool isRestart)
         {
-            showScreenSaver = (bool)data.GetSettings(GameSettings.ShowScreensaver);
+            if (isRestart)
+            {
+                scene.Visible = false;
+                scene.Reset(scene.Mode);
+
+                if (showScreenSaver)
+                    await ShowScreenSaver(false);
+
+                scene.Visible = true;
+                scene.Restart();
+            }
+            else
+            {
+                scene.Visible = false;
+                mainMenu.Visible = true;
+            }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private async Task ShowScreenSaver(bool isFullVersion)
+        {
+            using (Screensaver saver = new Screensaver())
+            {
+                Controls.Add(saver);
+
+                await saver.ShowSaver(isFullVersion);
+
+                Controls.Remove(saver);
+            }
+        }
+
+        private void UpdateStatistics(StatsAttribute attribute, int value)
+        {
+            statisticsData.Update(attribute, value);
+        }
+
+        public void SetSettings(GameSettingsData data)
+        {
+            showScreenSaver = Convert.ToBoolean(data.GetSettings(GameSettings.ShowScreensaver));
+            scene.SetSettings(data);
+        }
+
+        private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             statisticsData.Save(FileManager.PathLocalAppData);
             settingsData.Save(FileManager.PathLocalAppData);

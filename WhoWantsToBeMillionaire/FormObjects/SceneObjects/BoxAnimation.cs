@@ -14,7 +14,7 @@ namespace WhoWantsToBeMillionaire
 
         private readonly Image image;
         private readonly Graphics g;
-        private readonly BitmapText bitmapText;
+        private readonly TextBitmap bitmapText;
 
         public float SizeFont
         {
@@ -25,7 +25,7 @@ namespace WhoWantsToBeMillionaire
         {
             image = new Bitmap(width, height);
             g = Graphics.FromImage(image);
-            bitmapText = new BitmapText(width, height);
+            bitmapText = new TextBitmap(width, height);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -33,7 +33,7 @@ namespace WhoWantsToBeMillionaire
             e.Graphics.DrawImage(image, ClientRectangle);
         }
 
-        public void Reset(Mode? mode = null)
+        public void Reset(Mode mode = Mode.Classic)
         {
             g.Clear(Color.Transparent);
             Invalidate();

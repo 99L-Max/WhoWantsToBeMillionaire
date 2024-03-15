@@ -23,11 +23,12 @@ namespace WhoWantsToBeMillionaire
         private readonly Graphics g;
         private readonly Bitmap image;
         private readonly Bitmap wires;
-        private readonly BitmapText questionText;
+        private readonly TextBitmap textQuestion;
         private readonly Dictionary<Letter, Option> options;
         private readonly CentralIconHint iconHint;
+        private readonly List<TextBitmap> bitmapTexts;
 
-        private bool isShowOptionsSequentially = true;
+        private bool isSequentially = true;
 
         public delegate void EventOptionClick(Letter letter);
         public event EventOptionClick OptionClick;
@@ -45,6 +46,7 @@ namespace WhoWantsToBeMillionaire
             options = new Dictionary<Letter, Option>();
             iconHint = new CentralIconHint();
             g = Graphics.FromImage(image);
+            bitmapTexts = new List<TextBitmap>();
 
             int opWidth = (int)(0.45f * width);
 
@@ -54,8 +56,10 @@ namespace WhoWantsToBeMillionaire
             Rectangle qRectangle = new Rectangle(0, 0, width, qImage.Height * width / qImage.Width);
             Size opSize = new Size(opWidth, opImage.Height * opWidth / opImage.Width);
 
-            questionText = new BitmapText(qRectangle);
-            questionText.SizeFont = 0.32f * opSize.Height;
+            textQuestion = new TextBitmap(qRectangle);
+            textQuestion.SizeFont = 0.32f * opSize.Height;
+
+            bitmapTexts.Add(textQuestion);
 
             Letter[] keys = Enum.GetValues(typeof(Letter)).Cast<Letter>().ToArray();
 
@@ -75,6 +79,7 @@ namespace WhoWantsToBeMillionaire
                 option = new Option(rect, keys[i]);
                 option.SizeFont = 0.3f * opSize.Height;
                 options.Add(option.Letter, option);
+                bitmapTexts.Add(option);
             }
 
             Bitmap background = new Bitmap(width, height);
@@ -119,13 +124,9 @@ namespace WhoWantsToBeMillionaire
             MouseUp += OnMouseUp;
         }
 
-        public void Reset(Mode? mode = null)
+        public void Reset(Mode mode = Mode.Classic)
         {
-            questionText.Reset();
-
-            foreach (var op in options.Values)
-                op.Reset();
-
+            bitmapTexts.ForEach(t => t.Reset());
             Enabled = false;
             Image = null;
             AnswerMode = AnswerMode.Usual;
@@ -152,8 +153,8 @@ namespace WhoWantsToBeMillionaire
             g.Clear(Color.Transparent);
             g.DrawImage(wires, 0, 0, Width, Height);
 
-            questionText.Text = question.Text;
-            g.DrawImage(questionText.ImageText, questionText.Rectangle);
+            textQuestion.Text = question.Text;
+            g.DrawImage(textQuestion.ImageText, textQuestion.Rectangle);
 
             foreach (var op in options.Values)
             {
@@ -171,38 +172,45 @@ namespace WhoWantsToBeMillionaire
 
             for (int i = 1; i <= CountFramesAlphaChange; i++)
             {
+                g.Clear(Color.Transparent);
                 DrawFrame(wires, rectWires, i, CountFramesAlphaChange);
 
                 Image = image;
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            int delay = 250 + 500 * (int)Question.Difficulty;
             var alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1));
 
-            foreach (var a in alphas)
+            if (isSequentially)
             {
-                questionText.Alpha = a;
-                g.DrawImage(questionText.ImageText, questionText.Rectangle);
+                int delay = 250 + 500 * (int)Question.Difficulty;
 
-                Image = image;
-                await Task.Delay(MainForm.DeltaTime);
+                foreach (var text in bitmapTexts)
+                {
+                    foreach (var a in alphas)
+                    {
+                        text.Alpha = a;
+                        g.DrawImage(text.ImageText, text.Rectangle);
+                        Image = image;
+                        await Task.Delay(MainForm.DeltaTime);
+                    }
+
+                    await Task.Delay(delay);
+                }
             }
-
-            await Task.Delay(delay);
-
-            foreach (var op in options.Values)
+            else
             {
                 foreach (var a in alphas)
                 {
-                    op.Alpha = a;
-                    g.DrawImage(op.ImageText, op.Rectangle);
+                    foreach (var text in bitmapTexts)
+                    {
+                        text.Alpha = a;
+                        g.DrawImage(text.ImageText, text.Rectangle);
+                    }
 
                     Image = image;
                     await Task.Delay(MainForm.DeltaTime);
                 }
-
-                await Task.Delay(delay);
             }
         }
 
@@ -244,7 +252,6 @@ namespace WhoWantsToBeMillionaire
                 for (int i = 1; i <= CountFramesAlphaChange; i++)
                 {
                     DrawFrame(selectedOption, option.Rectangle, i, CountFramesAlphaChange);
-
                     g.DrawImage(option.ImageText, option.Rectangle);
 
                     Image = image;
@@ -270,30 +277,24 @@ namespace WhoWantsToBeMillionaire
             Sound.Play($"Answer_Incorrect_{Question.Difficulty}.wav");
         }
 
-        public void ClickCorrect()
-        {
-            OnOptionClick(Question.Correct);
-        }
+        public void ClickCorrect() => OnOptionClick(Question.Correct);
 
         public async Task Clear()
         {
             if (iconHint.Visible)
             {
                 g.DrawImage(iconHint.BackgroundImage, new Rectangle(iconHint.Location, iconHint.Size));
-
                 Image = image;
 
                 iconHint.Visible = false;
                 iconHint.Clear();
             }
 
-            Rectangle rectImage = new Rectangle(0, 0, Width, Height);
-
             using (Image mainImage = new Bitmap(image))
                 for (int i = CountFramesAlphaChange - 1; i > 0; i--)
                 {
                     g.Clear(Color.Transparent);
-                    DrawFrame(mainImage, rectImage, i, CountFramesAlphaChange);
+                    DrawFrame(mainImage, ClientRectangle, i, CountFramesAlphaChange);
 
                     Image = image;
                     await Task.Delay(MainForm.DeltaTime);
@@ -305,10 +306,15 @@ namespace WhoWantsToBeMillionaire
             Reset();
         }
 
-        public async Task ShowCorrect(bool playSound, bool addDelay)
+        public async Task ShowCorrect(bool playSound, bool addDelay, bool isSaveSum = false)
         {
             if (playSound)
-                Sound.Play(IsCorrectAnswer ? $"Answer_Correct_{Question.Difficulty}.wav" : $"Answer_Incorrect_{Question.Difficulty}.wav");
+                if (isSaveSum && IsCorrectAnswer && Question.Difficulty != DifficultyQuestion.Final)
+                    Sound.Play("Answer_Correct_SaveSum.wav");
+                else if (IsCorrectAnswer)
+                    Sound.Play($"Answer_Correct_{Question.Difficulty}.wav");
+                else
+                    Sound.Play($"Answer_Incorrect_{Question.Difficulty}.wav");
 
             Option option = options[Question.Correct];
 
@@ -361,7 +367,7 @@ namespace WhoWantsToBeMillionaire
 
         public void SetSettings(GameSettingsData data)
         {
-            isShowOptionsSequentially = (bool)data.GetSettings(GameSettings.ShowOptionsSequentially);
+            isSequentially = Convert.ToBoolean(data.GetSettings(GameSettings.ShowOptionsSequentially));
         }
     }
 }

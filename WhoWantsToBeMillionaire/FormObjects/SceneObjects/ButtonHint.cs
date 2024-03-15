@@ -29,29 +29,48 @@ namespace WhoWantsToBeMillionaire
         private static readonly Bitmap focus;
 
         private readonly Bitmap image;
-        
+
+        private GameToolTip toolTip = null;
         private bool isShown;
 
         public readonly TypeHint Type;
+        public readonly string Description;
 
         public StatusHint Status { private set; get; }
 
-        static ButtonHint()
+        public bool ToolTipVisible
         {
-            focus = new Bitmap(ResourceManager.GetImage("Focus_Hint.png"));
+            set
+            {
+                if (value && toolTip == null)
+                {
+                    toolTip = new GameToolTip(350, 90, 14f);
+                    toolTip.SetToolTip(this, Description);
+                }
+                else
+                {
+                    toolTip?.Dispose();
+                    toolTip = null;
+                }
+            }
         }
 
-        public ButtonHint(TypeHint type)
+        static ButtonHint() =>
+            focus = new Bitmap(ResourceManager.GetImage("Focus_Hint.png"));
+
+        public ButtonHint(TypeHint type, string description, bool toolTipVisible)
         {
             Type = type;
+            Description = description;
+            ToolTipVisible = toolTipVisible;
 
             BackColor = Color.Transparent;
             SizeMode = PictureBoxSizeMode.Zoom;
             BackgroundImageLayout = ImageLayout.Zoom;
 
-            image = new Bitmap(ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
-
             Enabled = isShown = false;
+
+            image = new Bitmap(ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
         }
 
         private void SetStatus(StatusHint status, bool enabled)
@@ -112,17 +131,16 @@ namespace WhoWantsToBeMillionaire
             using (Bitmap reverseSide = new Bitmap(ResourceManager.GetImage("ReverseSide_Hint.png")))
             using (Graphics g = Graphics.FromImage(image))
             {
-                string jsonText = reader.ReadToEnd();
-                (float, float, bool)[] data = JsonConvert.DeserializeObject<(float, float, bool)[]>(jsonText);
+                (float, float, bool)[] aniData = JsonConvert.DeserializeObject<(float, float, bool)[]>(reader.ReadToEnd());
 
                 float compression, proporsion;
                 bool isFront;
 
                 float x, y, width, height;
 
-                foreach (var el in data)
+                foreach (var data in aniData)
                 {
-                    (compression, proporsion, isFront) = el;
+                    (compression, proporsion, isFront) = data;
 
                     width = image.Width * compression * proporsion;
                     height = image.Height * proporsion;
@@ -151,8 +169,9 @@ namespace WhoWantsToBeMillionaire
             if (disposing)
             {
                 ClearMouseEvents();
-                Image = null;
+
                 image.Dispose();
+                toolTip?.Dispose();
             }
 
             base.Dispose(disposing);

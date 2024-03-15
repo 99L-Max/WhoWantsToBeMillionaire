@@ -111,26 +111,5 @@ namespace WhoWantsToBeMillionaire
 
             return result.ToString();
         }
-
-        public string Description(TypeHint type)
-        {
-            switch (type)
-            {
-                case TypeHint.FiftyFifty:
-                    return "«50:50» — убирает два неверных варианта ответа.";
-                case TypeHint.PhoneFriend:
-                    return "«Звонок другу» — даёт возможность посоветоваться с другом по телефону.";
-                case TypeHint.AskAudience:
-                    return "«Помощь зала» — позволяет взять подсказку у зрителей зала.";
-                case TypeHint.DoubleDip:
-                    return "«Право на ошибку» — позволяет дать второй вариант ответа, если первый оказался неверным.";
-                case TypeHint.SwitchQuestion:
-                    return "«Замена вопроса» — меняет вопрос на другой.";
-                case TypeHint.AskHost:
-                    return "«Помощь ведущего» — позволяет взять подсказку у ведущего.";
-            }
-
-            return "Подсказка не найдена.";
-        }
     }
 }

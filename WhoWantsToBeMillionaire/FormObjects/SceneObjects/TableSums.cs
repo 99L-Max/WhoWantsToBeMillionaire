@@ -28,6 +28,8 @@ namespace WhoWantsToBeMillionaire
 
         public int[] SaveSums => rowsSum.Where(r => r.IsSaveSum && r.Number < Question.MaxNumber).Select(r => r.Sum).ToArray();
 
+        public bool NowSaveSum => rowsSum[numberQuestion - 1].IsSaveSum;
+
         public TableSums(int width, int height) : base(width, height)
         {
             using (Stream stream = ResourceManager.GetStream("Sums.json", TypeResource.Sums))
@@ -35,7 +37,7 @@ namespace WhoWantsToBeMillionaire
             {
                 int[] sums = JsonConvert.DeserializeObject<int[]>(reader.ReadToEnd());
 
-                BackgroundImage = new Bitmap(ResourceManager.GetImage("Background_Amounts.png"), width, height);
+                BackgroundImage = new Bitmap(ResourceManager.GetImage("Background_Sums.png"), width, height);
 
                 table = new TableLayoutPanel();
                 rowsSum = new RowTableSums[sums.Length];
@@ -63,15 +65,11 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void Reset(Mode? mode = null)
+        public void Reset(Mode mode = Mode.Classic)
         {
             X = MainForm.RectScreen.Width;
 
             table.Visible = false;
-
-            foreach (var ctrl in Controls)
-                if (ctrl is IReset)
-                    (ctrl as IReset).Reset(mode);
 
             foreach (var row in rowsSum)
                 row.Reset();

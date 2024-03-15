@@ -4,7 +4,7 @@
     {
         private readonly LabelMenu labelData;
 
-        public MenuStatistics(int width, int height, string data) : base(width, height, "Статистика", 0.04f * height)
+        public MenuStatistics(int width, int height, string data) : base("Статистика", width, height, 0.04f * height)
         {
             labelData = new LabelMenu(0.035f * Height);
             labelData.Text = data;

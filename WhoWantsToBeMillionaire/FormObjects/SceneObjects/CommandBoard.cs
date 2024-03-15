@@ -81,7 +81,7 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(buttonCanсel, 0, 2);
         }
 
-        public void Reset(Mode? mode = null)
+        public void Reset(Mode mode = Mode.Classic)
         {
             labelDialog.Text = string.Empty;
             labelDialog.Image = null;

@@ -38,12 +38,12 @@ namespace WhoWantsToBeMillionaire
                     e.Graphics.FillRectangle(brush, ClientRectangle);
         }
 
-        public async Task ShowSaver(bool isFirst)
+        public async Task ShowSaver(bool isFullVersion)
         {
             imageVisible = false;
             sideLogo = 0f;
 
-            Sound.Play(isFirst ? "Screensaver_Full.wav" : "Screensaver_Restart.wav");
+            Sound.Play(isFullVersion ? "Screensaver_Full.wav" : "Screensaver_Restart.wav");
 
             await ShowTransition(10);
 
@@ -54,7 +54,7 @@ namespace WhoWantsToBeMillionaire
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            await Task.Delay(isFirst ? 7000 : 2000);
+            await Task.Delay(isFullVersion ? 7000 : 2000);
 
             await ShowTransition(20);
         }

@@ -21,13 +21,14 @@ namespace WhoWantsToBeMillionaire
         {
             DirectionArrow = direction;
 
+            SizeMode = PictureBoxSizeMode.Zoom;
+            BackColor = Color.Transparent;
+
             image = ResourceManager.GetImage($"ButtonArrow_{direction}.png");
             imageClick = ResourceManager.GetImage($"ButtonArrow_{direction}_Click.png");
 
             OnMouseLeave(EventArgs.Empty);
         }
-
-        protected override void OnPaint(PaintEventArgs e) => e.Graphics.DrawImage(Image, ClientRectangle);
 
         protected override void OnMouseEnter(EventArgs e) => Image = imageClick;
 

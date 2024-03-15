@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -17,7 +18,7 @@ namespace WhoWantsToBeMillionaire
 
         public Mode SelectedMode { private set; get; }
 
-        public MenuMode(int width, int height) : base(width, height, "Выберите режим", 0.04f * height)
+        public MenuMode(int width, int height) : base("Выберите режим", width, height, 0.04f * height)
         {
             var modes = ResourceManager.GetDictionary("Modes.json");
 
@@ -38,7 +39,7 @@ namespace WhoWantsToBeMillionaire
             comboBox.SelectedIndex = 0;
         }
 
-        private void ModeChanged()
+        private void ModeChanged(object sender, EventArgs e)
         {
             SelectedMode = (Mode)comboBox.SelectedIndex;
 

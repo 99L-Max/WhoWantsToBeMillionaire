@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
@@ -7,7 +8,8 @@ namespace WhoWantsToBeMillionaire
     enum ContextMenuCommand
     {
         Back,
-        StartGame
+        StartGame,
+        ApplySettings
     }
 
     abstract class ContextMenu : PictureBox, IDisposable
@@ -19,13 +21,26 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventButtonClick(ContextMenuCommand command);
         public event EventButtonClick ButtonClick;
 
-        public ContextMenu(int width, int height, string title, float fontSize)
+        public ContextMenu(string title, int width, int height, float fontSize)
         {
             Size = new Size(width, height);
             Location = new Point((MainForm.RectScreen.Width - Width) >> 1, (MainForm.RectScreen.Height - Height) >> 1);
             BackColor = Color.Transparent;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            BackgroundImage = new Bitmap(ResourceManager.GetImage("Menu.png"), Size);
+
+            Image background = new Bitmap(width, height);
+            int border = 12;
+            Rectangle rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
+            Rectangle rectFill = new Rectangle(border, border, rectFrame.Width - 2 * border, rectFrame.Height - 2 * border);
+
+            using (Graphics g = Graphics.FromImage(background))
+            using (LinearGradientBrush brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))
+            using (LinearGradientBrush brushFill = new LinearGradientBrush(rectFill, Color.Navy, Color.Black, 90f))
+            {
+                g.FillRectangle(brushFrame, rectFrame);
+                g.FillRectangle(brushFill, rectFill);
+                BackgroundImageLayout = ImageLayout.Stretch;
+                BackgroundImage = background;
+            }
 
             table = new TableLayoutPanel();
             labelTitle = new LabelMenu(fontSize, ContentAlignment.MiddleCenter);

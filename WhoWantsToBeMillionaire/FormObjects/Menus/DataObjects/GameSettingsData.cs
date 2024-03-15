@@ -8,14 +8,15 @@ namespace WhoWantsToBeMillionaire
 {
     enum GameSettings
     {
+        Volume,
         ShowScreensaver,
         ShowOptionsSequentially,
-        Volume
+        ShowDescriptionHints
     }
 
     class GameSettingsData
     {
-        private readonly Dictionary<GameSettings, float> settings;
+        private readonly Dictionary<GameSettings, float> _settings;
 
         public GameSettingsData(string path)
         {
@@ -26,26 +27,32 @@ namespace WhoWantsToBeMillionaire
                 using (StreamReader reader = new StreamReader(path + @"\Settings.json"))
                 {
                     string jsonStr = reader.ReadToEnd();
-                    settings = JsonConvert.DeserializeObject<Dictionary<GameSettings, float>>(jsonStr);
+                    _settings = JsonConvert.DeserializeObject<Dictionary<GameSettings, float>>(jsonStr);
 
                     foreach (var key in keys)
-                        if (!settings.ContainsKey(key))
-                            settings.Add(key, 0f);
+                        if (!_settings.ContainsKey(key))
+                            _settings.Add(key, 0f);
                 }
             }
             catch (Exception)
             {
-                settings = keys.ToDictionary(k => k, v => 0f);
+                _settings = keys.ToDictionary(k => k, v => 1f);
             }
         }
 
-        public void Update(GameSettings key, float value) => settings[key] = value;
+        public GameSettingsData(Dictionary<GameSettings, float> settings)
+        {
+            _settings = settings;
+        }
 
-        public object GetSettings(GameSettings key) => settings[key];
+        public float GetSettings(GameSettings key) => _settings[key];
+
+        public void ApplyGlobal() =>
+            Sound.SetVolume(_settings[GameSettings.Volume] / 10f);
 
         public void Save(string pathSave)
         {
-            string data = JsonConvert.SerializeObject(settings);
+            string data = JsonConvert.SerializeObject(_settings);
             File.WriteAllText(pathSave + @"\Settings.json", data);
         }
     }

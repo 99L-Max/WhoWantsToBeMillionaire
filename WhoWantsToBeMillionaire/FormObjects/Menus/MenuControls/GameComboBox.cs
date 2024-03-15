@@ -12,7 +12,7 @@ namespace WhoWantsToBeMillionaire
         private readonly ButtonArrow leftArrow;
         private readonly ButtonArrow rightArrow;
 
-        public delegate void EventSelectedIndexChanged();
+        public delegate void EventSelectedIndexChanged(object sender, EventArgs e);
         public EventSelectedIndexChanged SelectedIndexChanged;
 
         public bool LoopedSwitch = true;
@@ -27,7 +27,7 @@ namespace WhoWantsToBeMillionaire
 
                     Text = items[selectedIndex];
 
-                    SelectedIndexChanged.Invoke();
+                    SelectedIndexChanged.Invoke(this, EventArgs.Empty);
                 }
             }
             get => selectedIndex;
@@ -60,7 +60,7 @@ namespace WhoWantsToBeMillionaire
         private void OnLeftClick(object sender, EventArgs e)
         {
             if (LoopedSwitch)
-                SelectedIndex = selectedIndex > 1 ? selectedIndex - 1 : items.Length - 1;
+                SelectedIndex = selectedIndex > 0 ? selectedIndex - 1 : items.Length - 1;
             else
                 SelectedIndex = Math.Max(0, selectedIndex - 1);
         }

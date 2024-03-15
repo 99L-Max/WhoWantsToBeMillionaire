@@ -82,11 +82,8 @@
     <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\MenuControls\GameCheckBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FormObjects\Menus\DataObjects\GameSettingsData.cs" />
-    <Compile Include="FormObjects\Menus\MenuControls\GameTrackBar.cs">
+    <Compile Include="FormObjects\SceneObjects\GameToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Interfaces\IGameSettings.cs" />
@@ -181,7 +178,7 @@
     <Compile Include="FormObjects\Screensaver.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\BitmapText.cs" />
+    <Compile Include="FormObjects\SceneObjects\TextBitmap.cs" />
     <Compile Include="ResourceProcessing\Sound.cs" />
     <Compile Include="FormObjects\SceneObjects\TableSums.cs">
       <SubType>Component</SubType>
@@ -200,6 +197,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Resources\SettingsValues\SettingsValues.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -592,6 +590,7 @@
     <EmbeddedResource Include="Resources\Dictionaries\MenuCommands.json" />
     <EmbeddedResource Include="Resources\Dictionaries\Modes.json" />
     <EmbeddedResource Include="Resources\Dictionaries\Settings.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\DescriptionHints.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -602,7 +601,7 @@
     <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Easy.wav" />
     <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Normal.wav" />
     <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Difficult.wav" />
-    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Ending.wav" />
+    <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Easy_Ending.wav" />
     <EmbeddedResource Include="Resources\Sounds\Answer_Correct_SaveSum.wav" />
     <EmbeddedResource Include="Resources\Sounds\Answer_DrumRoll.wav" />
     <EmbeddedResource Include="Resources\Sounds\Answer_Incorrect_Normal.wav" />
@@ -644,14 +643,14 @@
     <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_CorrectAnswer.txt" />
     <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_IncorrectAnswer.txt" />
     <EmbeddedResource Include="Resources\Textures\AudienceChart.png" />
-    <EmbeddedResource Include="Resources\Textures\Background_Amounts.png" />
+    <EmbeddedResource Include="Resources\Textures\Background_Sums.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Main.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Screensaver.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Blue.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Gray.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Green.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Orange.png" />
-    <EmbeddedResource Include="Resources\Textures\ButtonModeSelection.png" />
+    <EmbeddedResource Include="Resources\Textures\ComboBox.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonWire_Blue.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonWire_Gray.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonWire_Green.png" />
@@ -706,6 +705,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Textures\CheckBox_Checked.png" />
     <EmbeddedResource Include="Resources\Textures\CheckBox_Unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\Dialog.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

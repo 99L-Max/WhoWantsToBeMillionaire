@@ -12,6 +12,7 @@ namespace WhoWantsToBeMillionaire
         Dialogues,
         Dictionaries,
         Questions,
+        SettingsValues,
         Sounds,
         Sums,
         Textures

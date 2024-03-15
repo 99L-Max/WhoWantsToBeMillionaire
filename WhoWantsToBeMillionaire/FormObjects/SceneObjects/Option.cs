@@ -2,7 +2,7 @@
 
 namespace WhoWantsToBeMillionaire
 {
-    class Option : BitmapText
+    class Option : TextBitmap
     {
         private readonly StringFormat formatLetter;
         private readonly Rectangle rectText;

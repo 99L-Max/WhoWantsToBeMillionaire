@@ -2,7 +2,7 @@
 
 namespace WhoWantsToBeMillionaire
 {
-    class BitmapText
+    class TextBitmap
     {
         protected readonly Graphics g;
         protected readonly StringFormat formatText;
@@ -50,9 +50,9 @@ namespace WhoWantsToBeMillionaire
 
         public Bitmap ImageText { private set; get; }
 
-        public BitmapText(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
+        public TextBitmap(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
 
-        public BitmapText(Rectangle rectangle)
+        public TextBitmap(Rectangle rectangle)
         {
             Rectangle = rectangle;
             ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
