@@ -97,6 +97,7 @@ namespace WhoWantsToBeMillionaire
 
                 leftArrow.Dispose();
                 rightArrow.Dispose();
+                BackgroundImage?.Dispose();
             }
 
             base.Dispose(disposing);

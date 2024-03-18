@@ -147,7 +147,7 @@ namespace WhoWantsToBeMillionaire
 
         public void ShowHint()
         {
-            hiddenHints.Dequeue().Show();
+            hiddenHints.Dequeue().ShowIcon();
 
             int num = hints.Count - hiddenHints.Count;
 
@@ -157,7 +157,7 @@ namespace WhoWantsToBeMillionaire
         public void ShowAllHints()
         {
             while (hiddenHints.Count > 0)
-                hiddenHints.Dequeue().Show();
+                hiddenHints.Dequeue().ShowIcon();
         }
 
         public void SetSettings(GameSettingsData data)

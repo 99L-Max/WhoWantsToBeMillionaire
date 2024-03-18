@@ -47,10 +47,8 @@ namespace WhoWantsToBeMillionaire
             return string.Join("\n\n", attributes.Select(kv => $"{dict[kv.Key.ToString()]}: {String.Format("{0:#,0}", kv.Value)}"));
         }
 
-        public void Update(StatsAttribute key, int value = 1)
-        {
+        public void Update(StatsAttribute key, int value = 1) =>
             attributes[key] += value;
-        }
 
         public void Save(string pathSave)
         {

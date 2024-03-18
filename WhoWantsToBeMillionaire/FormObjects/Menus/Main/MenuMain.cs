@@ -72,9 +72,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        protected void OnButtonClick(object sender, EventArgs e)
-        {
+        protected void OnButtonClick(object sender, EventArgs e) =>
             ButtonClick.Invoke((sender as ButtonMainMenu).Command);
-        }
     }
 }

@@ -7,9 +7,9 @@ namespace WhoWantsToBeMillionaire
 {
     class PhoneTimer : MovingPictureBox, IDisposable
     {
-        private readonly Bitmap background;
-        private readonly Bitmap front;
-        private readonly Bitmap ring;
+        private readonly Image background;
+        private readonly Image front;
+        private readonly Image ring;
         private readonly Graphics g;
         private readonly Brush brush;
         private readonly Timer timer;
@@ -22,8 +22,8 @@ namespace WhoWantsToBeMillionaire
 
         public PhoneTimer(int side) : base(side, side)
         {
-            background = new Bitmap(ResourceManager.GetImage("PhoneTimer_Back.png"));
-            ring = new Bitmap(ResourceManager.GetImage("PhoneTimer_Front.png"));
+            background = ResourceManager.GetImage("PhoneTimer_Back.png");
+            ring = ResourceManager.GetImage("PhoneTimer_Front.png");
             front = new Bitmap(ring.Width, ring.Height);
             brush = new SolidBrush(Color.Transparent);
 

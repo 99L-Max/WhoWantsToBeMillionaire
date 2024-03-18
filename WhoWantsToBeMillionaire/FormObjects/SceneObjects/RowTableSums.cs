@@ -6,12 +6,12 @@ namespace WhoWantsToBeMillionaire
 {
     class RowTableSums : PictureBox
     {
-        private static readonly Bitmap background;
-        private static readonly Bitmap iconCircle;
-        private static readonly Bitmap iconRhomb;
+        private static readonly Image background;
+        private static readonly Image iconCircle;
+        private static readonly Image iconRhomb;
         private static readonly StringFormat stringFormat;
 
-        private readonly Bitmap image;
+        private readonly Image image;
 
         private bool isSelected;
         private bool iconVisible;
@@ -127,10 +127,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Reset()
         {
-            iconVisible = false;
-            isSaveSum = false;
-            isSelected = false;
-
+            iconVisible = isSaveSum = isSelected = false;
             BackgroundImage = null;
 
             Draw();

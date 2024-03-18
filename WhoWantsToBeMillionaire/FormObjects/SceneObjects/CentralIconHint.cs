@@ -10,7 +10,7 @@ namespace WhoWantsToBeMillionaire
 {
     class CentralIconHint : PictureBox
     {
-        private readonly Stack<Bitmap> icons;
+        private readonly Stack<Image> icons;
 
         public CentralIconHint()
         {
@@ -18,22 +18,21 @@ namespace WhoWantsToBeMillionaire
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
 
-            icons = new Stack<Bitmap>();
+            icons = new Stack<Image>();
         }
 
-        private async Task ShowAnimation(Bitmap icon, bool isShow, bool playSound)
+        private async Task ShowAnimation(Image icon, bool isShow, bool playSound)
         {
             if (playSound)
                 Sound.Play(isShow ? "CentralIcon_Show.wav" : "CentralIcon_Hide.wav");
 
             using (Stream stream = ResourceManager.GetStream("ShowCentralIcon.json", TypeResource.AnimationData))
             using (StreamReader reader = new StreamReader(stream))
-            using (Bitmap reverseSide = new Bitmap(ResourceManager.GetImage("ReverseSide_Hint.png")))
-            using (Bitmap image = new Bitmap(icon.Width, icon.Height))
+            using (Image reverseSide = ResourceManager.GetImage("ReverseSide_Hint.png"))
+            using (Image image = new Bitmap(icon.Width, icon.Height))
             using (Graphics g = Graphics.FromImage(image))
             {
-                string jsonText = reader.ReadToEnd();
-                (float, float, bool)[] data = JsonConvert.DeserializeObject<(float, float, bool)[]>(jsonText);
+                (float, float, bool)[] data = JsonConvert.DeserializeObject<(float, float, bool)[]>(reader.ReadToEnd());
 
                 if (!isShow)
                     Array.Reverse(data);
@@ -67,7 +66,7 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowIcon(TypeHint type, bool playSound)
         {
-            Bitmap icon = new Bitmap(ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
+            Image icon = ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png");
 
             await ShowAnimation(icon, true, playSound);
 
@@ -79,7 +78,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (icons.Count == 0) return;
 
-            Bitmap icon = icons.Pop();
+            Image icon = icons.Pop();
 
             BackgroundImage = icons.Count > 0 ? icons.Peek() : null;
 

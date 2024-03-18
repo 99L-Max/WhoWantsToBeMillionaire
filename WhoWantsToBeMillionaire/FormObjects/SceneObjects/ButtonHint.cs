@@ -26,9 +26,9 @@ namespace WhoWantsToBeMillionaire
 
     class ButtonHint : PictureBox, IDisposable
     {
-        private static readonly Bitmap focus;
+        private static readonly Image focus;
 
-        private readonly Bitmap image;
+        private readonly Image image;
 
         private GameToolTip toolTip = null;
         private bool isShown;
@@ -55,8 +55,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        static ButtonHint() =>
-            focus = new Bitmap(ResourceManager.GetImage("Focus_Hint.png"));
+        static ButtonHint() => focus = ResourceManager.GetImage("Focus_Hint.png");
 
         public ButtonHint(TypeHint type, string description, bool toolTipVisible)
         {
@@ -70,7 +69,7 @@ namespace WhoWantsToBeMillionaire
 
             Enabled = isShown = false;
 
-            image = new Bitmap(ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png"));
+            image = ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png");
         }
 
         private void SetStatus(StatusHint status, bool enabled)
@@ -80,7 +79,7 @@ namespace WhoWantsToBeMillionaire
 
             float proporsion = 0.75f;
 
-            using (Bitmap icon = new Bitmap(ResourceManager.GetImage($"Hint_{Type}_{Status}.png")))
+            using (Image icon = ResourceManager.GetImage($"Hint_{Type}_{Status}.png"))
             using (Graphics g = Graphics.FromImage(image))
             {
                 float width = image.Width * proporsion;
@@ -119,7 +118,7 @@ namespace WhoWantsToBeMillionaire
             BackgroundImage = null;
         }
 
-        public new async void Show()
+        public async void ShowIcon()
         {
             if (isShown) return;
 
@@ -127,8 +126,8 @@ namespace WhoWantsToBeMillionaire
 
             using (Stream stream = ResourceManager.GetStream("ShowHint.json", TypeResource.AnimationData))
             using (StreamReader reader = new StreamReader(stream))
-            using (Bitmap icon = new Bitmap(image))
-            using (Bitmap reverseSide = new Bitmap(ResourceManager.GetImage("ReverseSide_Hint.png")))
+            using (Image icon = new Bitmap(image))
+            using (Image reverseSide = ResourceManager.GetImage("ReverseSide_Hint.png"))
             using (Graphics g = Graphics.FromImage(image))
             {
                 (float, float, bool)[] aniData = JsonConvert.DeserializeObject<(float, float, bool)[]>(reader.ReadToEnd());

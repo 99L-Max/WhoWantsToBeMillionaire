@@ -100,7 +100,7 @@
     <Compile Include="FormObjects\Menus\MenuControls\ButtonArrow.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\ButtonEllipse.cs">
+    <Compile Include="FormObjects\SceneObjects\ButtonСapsule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\Menus\MenuControls\ButtonMainMenu.cs">
@@ -591,6 +591,7 @@
     <EmbeddedResource Include="Resources\Dictionaries\Modes.json" />
     <EmbeddedResource Include="Resources\Dictionaries\Settings.json" />
     <EmbeddedResource Include="Resources\Dictionaries\DescriptionHints.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\DescriptionModes.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -646,10 +647,10 @@
     <EmbeddedResource Include="Resources\Textures\Background_Sums.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Main.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Screensaver.png" />
-    <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Blue.png" />
-    <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Gray.png" />
-    <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Green.png" />
-    <EmbeddedResource Include="Resources\Textures\ButtonEllipse_Orange.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonCapsule_Blue.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonCapsule_Gray.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonCapsule_Green.png" />
+    <EmbeddedResource Include="Resources\Textures\ButtonCapsule_Orange.png" />
     <EmbeddedResource Include="Resources\Textures\ComboBox.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonWire_Blue.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonWire_Gray.png" />
@@ -679,7 +680,6 @@
     <EmbeddedResource Include="Resources\Textures\IconSum_Circle.png" />
     <EmbeddedResource Include="Resources\Textures\IconSum_Rhomb.png" />
     <EmbeddedResource Include="Resources\Textures\Logo.png" />
-    <EmbeddedResource Include="Resources\Textures\Menu.png" />
     <EmbeddedResource Include="Resources\Textures\PhoneTimer_Back.png" />
     <EmbeddedResource Include="Resources\Textures\PhoneTimer_Front.png" />
     <EmbeddedResource Include="Resources\Textures\Question.png" />
@@ -701,10 +701,6 @@
     <EmbeddedResource Include="Resources\Textures\ButtonArrow_Left_Click.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonArrow_Right.png" />
     <EmbeddedResource Include="Resources\Textures\ButtonArrow_Right_Click.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Textures\CheckBox_Checked.png" />
-    <EmbeddedResource Include="Resources\Textures\CheckBox_Unchecked.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Textures\Dialog.png" />

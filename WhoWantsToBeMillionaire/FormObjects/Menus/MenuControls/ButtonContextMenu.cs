@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class ButtonContextMenu : ButtonEllipse
+    class ButtonContextMenu : ButtonСapsule
     {
         public readonly ContextMenuCommand Command;
 

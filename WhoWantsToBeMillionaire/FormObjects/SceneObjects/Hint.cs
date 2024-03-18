@@ -11,10 +11,7 @@ namespace WhoWantsToBeMillionaire
 
         private readonly Random random;
 
-        public Hint()
-        {
-            random = new Random();
-        }
+        public Hint() => random = new Random();
 
         public Question ReduceOptions(Question question)
         {
@@ -105,7 +102,7 @@ namespace WhoWantsToBeMillionaire
             string[] phrases = ResourceManager.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
 
             result.Append(isCorrect ? phrases[(question.Number - 1) / 5] : phrases[random.Next(phrases.Length)]);
-            
+
             result.Replace("<ANSWER>", answer);
             result.Replace("<n>", "\n");
 

@@ -40,10 +40,8 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public GameSettingsData(Dictionary<GameSettings, float> settings)
-        {
+        public GameSettingsData(Dictionary<GameSettings, float> settings) =>
             _settings = settings;
-        }
 
         public float GetSettings(GameSettings key) => _settings[key];
 

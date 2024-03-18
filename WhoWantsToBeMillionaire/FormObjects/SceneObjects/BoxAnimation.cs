@@ -14,18 +14,18 @@ namespace WhoWantsToBeMillionaire
 
         private readonly Image image;
         private readonly Graphics g;
-        private readonly TextBitmap bitmapText;
+        private readonly TextBitmap textBitmap;
 
         public float SizeFont
         {
-            set => bitmapText.SizeFont = value;
+            set => textBitmap.SizeFont = value;
         }
 
         public BoxAnimation(int width, int height) : base(width, height)
         {
             image = new Bitmap(width, height);
             g = Graphics.FromImage(image);
-            bitmapText = new TextBitmap(width, height);
+            textBitmap = new TextBitmap(width, height);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -155,14 +155,14 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowText(string text)
         {
-            bitmapText.Text = text;
+            textBitmap.Text = text;
 
             var alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1));
 
             foreach (var a in alphas)
             {
-                bitmapText.Alpha = a;
-                g.DrawImage(bitmapText.ImageText, 0, 0, image.Width, image.Height);
+                textBitmap.Alpha = a;
+                g.DrawImage(textBitmap.ImageText, 0, 0, image.Width, image.Height);
 
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);

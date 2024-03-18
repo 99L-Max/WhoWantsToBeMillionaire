@@ -21,8 +21,8 @@ namespace WhoWantsToBeMillionaire
         private const int CountFramesAlphaChange = 6;
 
         private readonly Graphics g;
-        private readonly Bitmap image;
-        private readonly Bitmap wires;
+        private readonly Image image;
+        private readonly Image wires;
         private readonly TextBitmap textQuestion;
         private readonly Dictionary<Letter, Option> options;
         private readonly CentralIconHint iconHint;
@@ -41,82 +41,63 @@ namespace WhoWantsToBeMillionaire
 
         public BoxQuestion(int width, int height) : base(width, height)
         {
+            Rectangle rectQuestion = new Rectangle(0, 0, width, (int)(0.11f * width));
+            Size sizeOption = new Size((int)(0.45f * width), rectQuestion.Height >> 1);
+
             image = new Bitmap(width, height);
             wires = new Bitmap(width, height);
             options = new Dictionary<Letter, Option>();
             iconHint = new CentralIconHint();
             g = Graphics.FromImage(image);
             bitmapTexts = new List<TextBitmap>();
+            textQuestion = new TextBitmap(rectQuestion);
 
-            int opWidth = (int)(0.45f * width);
-
-            Bitmap qImage = (Bitmap)ResourceManager.GetImage("Question.png");
-            Bitmap opImage = (Bitmap)ResourceManager.GetImage("ButtonWire_Blue.png");
-
-            Rectangle qRectangle = new Rectangle(0, 0, width, qImage.Height * width / qImage.Width);
-            Size opSize = new Size(opWidth, opImage.Height * opWidth / opImage.Width);
-
-            textQuestion = new TextBitmap(qRectangle);
-            textQuestion.SizeFont = 0.32f * opSize.Height;
-
-            bitmapTexts.Add(textQuestion);
+            textQuestion.SizeFont = 0.32f * sizeOption.Height;
 
             Letter[] keys = Enum.GetValues(typeof(Letter)).Cast<Letter>().ToArray();
-
-            int dy = (int)(0.1f * opSize.Height);
-            int x, y;
-
-            Rectangle rect;
+            Rectangle rectOption = new Rectangle(new Point(), sizeOption);
             Option option;
+            int dy = (int)(0.1f * sizeOption.Height);
 
             for (int i = 0; i < keys.Length; i++)
             {
-                x = Width / 2 - (i & 1 ^ 1) * opSize.Width;
-                y = qRectangle.Height + i / 2 * (opSize.Height + dy) + dy;
+                rectOption.X = (Width >> 1) - (i & 1 ^ 1) * sizeOption.Width;
+                rectOption.Y = rectQuestion.Height + (i >> 1) * (sizeOption.Height + dy) + dy;
 
-                rect = new Rectangle(x, y, opSize.Width, opSize.Height);
-
-                option = new Option(rect, keys[i]);
-                option.SizeFont = 0.3f * opSize.Height;
+                option = new Option(rectOption, keys[i]);
+                option.SizeFont = 0.3f * sizeOption.Height;
                 options.Add(option.Letter, option);
-                bitmapTexts.Add(option);
             }
 
-            Bitmap background = new Bitmap(width, height);
+            bitmapTexts.Add(textQuestion);
+            bitmapTexts = bitmapTexts.Concat(options.Values).ToList();
 
-            using (Graphics g = Graphics.FromImage(background))
+            Image background = new Bitmap(width, height);
+
+            using (Graphics gBack = Graphics.FromImage(background))
+            using (Graphics gWire = Graphics.FromImage(wires))
+            using (Image wire = ResourceManager.GetImage("Wire.png"))
+            using (Image questionBack = ResourceManager.GetImage("Question.png"))
+            using (Image optionBack = ResourceManager.GetImage("ButtonWire_Blue.png"))
             {
-                g.DrawImage(qImage, qRectangle);
+                gBack.DrawImage(questionBack, rectQuestion);
 
                 foreach (var op in options.Values)
-                    g.DrawImage(opImage, op.Rectangle);
+                    gBack.DrawImage(optionBack, op.Rectangle);
 
                 BackgroundImage = background;
-            }
 
-            using (Graphics g = Graphics.FromImage(wires))
-            using (Bitmap wire = new Bitmap(ResourceManager.GetImage("Wire.png")))
-            {
-                y = 0;
+                foreach (var yWire in options.Values.Select(t => t.Rectangle.Y).Distinct())
+                    gWire.DrawImage(wire, 0, yWire, wires.Width, sizeOption.Height);
 
                 foreach (var op in options.Values)
-                    if (y != op.Rectangle.Y)
-                    {
-                        y = op.Rectangle.Y;
-                        g.DrawImage(wire, 0, y, wires.Width, op.Rectangle.Height);
-                    }
-
-                foreach (var op in options.Values)
-                    g.DrawImage(opImage, op.Rectangle);
+                    gWire.DrawImage(optionBack, op.Rectangle);
             }
 
-            qImage.Dispose();
-            opImage.Dispose();
-
-            int iconHeight = opSize.Height + dy;
+            int iconHeight = sizeOption.Height + dy;
 
             iconHint.Size = new Size((int)(1.6f * iconHeight), iconHeight);
-            iconHint.Location = new Point((width - iconHint.Width) / 2, qRectangle.Height + dy + opSize.Height / 2);
+            iconHint.Location = new Point((width - iconHint.Width) >> 1, rectQuestion.Height + dy + (sizeOption.Height >> 1));
             iconHint.Visible = false;
 
             Controls.Add(iconHint);
@@ -290,11 +271,11 @@ namespace WhoWantsToBeMillionaire
                 iconHint.Clear();
             }
 
-            using (Image mainImage = new Bitmap(image))
+            using (Image frame = new Bitmap(image))
                 for (int i = CountFramesAlphaChange - 1; i > 0; i--)
                 {
                     g.Clear(Color.Transparent);
-                    DrawFrame(mainImage, ClientRectangle, i, CountFramesAlphaChange);
+                    DrawFrame(frame, ClientRectangle, i, CountFramesAlphaChange);
 
                     Image = image;
                     await Task.Delay(MainForm.DeltaTime);
@@ -365,9 +346,7 @@ namespace WhoWantsToBeMillionaire
                 Sound.PlayBackground(soundName);
         }
 
-        public void SetSettings(GameSettingsData data)
-        {
+        public void SetSettings(GameSettingsData data) =>
             isSequentially = Convert.ToBoolean(data.GetSettings(GameSettings.ShowOptionsSequentially));
-        }
     }
 }

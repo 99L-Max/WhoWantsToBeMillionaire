@@ -5,48 +5,50 @@ namespace WhoWantsToBeMillionaire
     class ChartCollumn
     {
         private readonly int maxHeight;
-        private readonly int width;
         private readonly int yMax;
-        private readonly int index;
 
+        private Rectangle rectangle;
+        private Rectangle textRectangle;
         private float percent;
-        private float height;
-        private float dp;
+        private float dPercent;
 
-        public RectangleF LabelRectangleF { private set; get; }
+        public Rectangle Rectangle => rectangle;
 
-        public RectangleF RectangleF { private set; get; }
+        public Rectangle TextRectangle => textRectangle;
 
         public float Percent
         {
-            set 
+            set
             {
                 percent = value;
-                height = percent * maxHeight / 100;
-                RectangleF = new RectangleF((2 * index + 1) * width, yMax + maxHeight - height, width, height);
-                LabelRectangleF = new RectangleF(2 * index * width, RectangleF.Y - width, 3 * width, width);
+
+                rectangle.Height = (int)(percent * maxHeight / 100f);
+
+                rectangle.Y = yMax + maxHeight - rectangle.Height;
+                textRectangle.Y = Rectangle.Y - textRectangle.Height;
             }
             get => percent;
         }
 
         public ChartCollumn(int index, int width, int maxHeight, int yMax)
         {
-            this.index = index;
-            this.width = width;
             this.yMax = yMax;
             this.maxHeight = maxHeight;
+
+            rectangle = new Rectangle((2 * index + 1) * width, yMax + maxHeight, width, 0);
+            textRectangle = new Rectangle(2 * index * width, Rectangle.Y - width, 3 * width, width);
         }
 
-        public void SetChangePerсent(float dp) => this.dp = dp;
+        public void SetChangePerсent(float dp) => dPercent = dp;
 
         public void ChangePerсent()
         {
-            percent += dp;
+            percent += dPercent;
 
             if (percent > 100 || percent < 0)
             {
-                dp = -dp;
-                percent += dp;
+                dPercent = -dPercent;
+                percent += dPercent;
             }
 
             Percent = percent;

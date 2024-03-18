@@ -87,10 +87,11 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                comboBoxes.ForEach(c => { 
-                    c.SelectedIndexChanged -= UpdateSetting;
-                    c.Dispose(); 
-                });
+                comboBoxes.ForEach(c => c.SelectedIndexChanged -= UpdateSetting);
+
+                foreach (Control ctrl in table.Controls)
+                    if (ctrl is IDisposable)
+                        (ctrl as IDisposable).Dispose();
 
                 table.Controls.Clear();
             }

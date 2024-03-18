@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -119,13 +121,10 @@ namespace WhoWantsToBeMillionaire
 
         private void CloseContextMenu()
         {
-            if (contextMenu != null)
-            {
-                mainMenu.ButtonsVisible = true;
-                mainMenu.Controls.Remove(contextMenu);
-                contextMenu.ButtonClick -= OnContextMenuClick;
-                contextMenu.Dispose();
-            }
+            mainMenu.Controls.Remove(contextMenu);
+            mainMenu.ButtonsVisible = true;
+            contextMenu.ButtonClick -= OnContextMenuClick;
+            contextMenu.Dispose();
         }
 
         private async void GameOver(bool isRestart)
@@ -160,10 +159,8 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void UpdateStatistics(StatsAttribute attribute, int value)
-        {
+        private void UpdateStatistics(StatsAttribute attribute, int value) =>
             statisticsData.Update(attribute, value);
-        }
 
         public void SetSettings(GameSettingsData data)
         {
@@ -171,8 +168,25 @@ namespace WhoWantsToBeMillionaire
             scene.SetSettings(data);
         }
 
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (mainMenu.Controls.Contains(contextMenu))
+                { 
+                    CloseContextMenu();
+                }
+                else if (scene.MenuAllowed)
+                {
+                    mainMenu.Visible = !mainMenu.Visible;
+                    scene.Visible = !scene.Visible;
+                }
+            }
+        }
+
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
+            FileManager.CreateSaveDirectory();
             statisticsData.Save(FileManager.PathLocalAppData);
             settingsData.Save(FileManager.PathLocalAppData);
         }

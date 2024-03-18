@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class GameContol : PictureBox
+    abstract class GameContol : PictureBox
     {
         public GameContol(Size size)
         {

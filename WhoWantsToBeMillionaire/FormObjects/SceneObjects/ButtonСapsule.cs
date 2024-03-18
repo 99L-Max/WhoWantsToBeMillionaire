@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ThemeButtonEllipse
+    enum ThemeButtonCapsule
     {
         Blue,
         Orange,
@@ -15,11 +14,11 @@ namespace WhoWantsToBeMillionaire
         Gray
     }
 
-    class ButtonEllipse : PictureBox
+    class ButtonСapsule : PictureBox
     {
-        private static readonly ReadOnlyDictionary<ThemeButtonEllipse, Bitmap> imageButton;
+        private static readonly ReadOnlyDictionary<ThemeButtonCapsule, Image> imageButton;
 
-        private ThemeButtonEllipse theme;
+        private ThemeButtonCapsule theme;
         private Color foreColor;
 
         public new bool Enabled
@@ -28,7 +27,7 @@ namespace WhoWantsToBeMillionaire
             {
                 base.Enabled = value;
 
-                theme = value ? ThemeButtonEllipse.Blue : ThemeButtonEllipse.Gray;
+                theme = value ? ThemeButtonCapsule.Blue : ThemeButtonCapsule.Gray;
                 foreColor = value ? Color.White : Color.Black;
 
                 Invalidate();
@@ -36,24 +35,21 @@ namespace WhoWantsToBeMillionaire
             get => base.Enabled;
         }
 
-        static ButtonEllipse()
+        static ButtonСapsule()
         {
-            var img = new Dictionary<ThemeButtonEllipse, Bitmap>();
-
-            foreach (var key in Enum.GetValues(typeof(ThemeButtonEllipse)).Cast<ThemeButtonEllipse>())
-                img.Add(key, new Bitmap(ResourceManager.GetImage($"ButtonEllipse_{key}.png")));
-
-            imageButton = new ReadOnlyDictionary<ThemeButtonEllipse, Bitmap>(img);
+            var keys = Enum.GetValues(typeof(ThemeButtonCapsule)).Cast<ThemeButtonCapsule>();
+            var img = keys.ToDictionary(k => k, v => ResourceManager.GetImage($"ButtonCapsule_{v}.png"));
+            imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(img);
         }
 
-        protected ButtonEllipse()
+        protected ButtonСapsule()
         {
             BackColor = Color.Transparent;
             foreColor = Color.White;
-            theme = ThemeButtonEllipse.Blue;
+            theme = ThemeButtonCapsule.Blue;
         }
 
-        public ButtonEllipse(int width, int height) : this()
+        public ButtonСapsule(int width, int height) : this()
         {
             Size = new Size(width, height);
             Font = new Font("", 0.35f * height, FontStyle.Bold);
@@ -69,7 +65,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (Enabled)
             {
-                theme = ThemeButtonEllipse.Orange;
+                theme = ThemeButtonCapsule.Orange;
                 foreColor = Color.Black;
 
                 Invalidate();
@@ -80,7 +76,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (Enabled)
             {
-                theme = ThemeButtonEllipse.Blue;
+                theme = ThemeButtonCapsule.Blue;
                 foreColor = Color.White;
 
                 Invalidate();
@@ -91,16 +87,13 @@ namespace WhoWantsToBeMillionaire
         {
             if (Enabled)
             {
-                theme = ThemeButtonEllipse.Green;
+                theme = ThemeButtonCapsule.Green;
                 foreColor = Color.Black;
 
                 Invalidate();
             }
         }
 
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            OnMouseEnter(e);
-        }
+        protected override void OnMouseUp(MouseEventArgs e) => OnMouseEnter(e);
     }
 }

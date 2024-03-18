@@ -50,18 +50,15 @@ namespace WhoWantsToBeMillionaire
 
         protected override void DrawText()
         {
-            using (Graphics g = Graphics.FromImage(ImageText))
-            {
-                g.Clear(Color.Transparent);
+            g.Clear(Color.Transparent);
 
-                if (alpha > 0)
-                    using (Brush brustText = new SolidBrush(Color.FromArgb(alpha, foreColorText)))
-                    using (Brush brustLetter = new SolidBrush(Color.FromArgb(alpha, foreColorLetter)))
-                    {
-                        g.DrawString(text, font, brustText, rectText, formatText);
-                        g.DrawString($"{Letter}:", font, brustLetter, rectLetter, formatLetter);
-                    }
-            }
+            if (alpha > 0)
+                using (Brush brustText = new SolidBrush(Color.FromArgb(alpha, foreColorText)))
+                using (Brush brustLetter = new SolidBrush(Color.FromArgb(alpha, foreColorLetter)))
+                {
+                    g.DrawString(text, font, brustText, rectText, formatText);
+                    g.DrawString($"{Letter}:", font, brustLetter, rectLetter, formatLetter);
+                }
         }
     }
 }

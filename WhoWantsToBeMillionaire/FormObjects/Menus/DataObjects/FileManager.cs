@@ -7,14 +7,10 @@ namespace WhoWantsToBeMillionaire
     {
         public static readonly string PathLocalAppData;
 
-        static FileManager()
-        {
+        static FileManager() =>
             PathLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + $@"\{typeof(FileManager).Namespace}";
-        }
 
-        public static void CreateSaveDirectory()
-        {
+        public static void CreateSaveDirectory() =>
             Directory.CreateDirectory(PathLocalAppData);
-        }
     }
 }

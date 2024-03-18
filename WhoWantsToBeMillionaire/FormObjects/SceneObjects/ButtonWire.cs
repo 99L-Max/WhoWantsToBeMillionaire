@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -15,10 +14,10 @@ namespace WhoWantsToBeMillionaire
         Gray
     }
 
-    class ButtonWire : PictureBox
+    class ButtonWire : PictureBox, IDisposable
     {
-        private static readonly ReadOnlyDictionary<ThemeButtonWire, Bitmap> imageButton;
-        private static readonly Bitmap wire;
+        private static readonly ReadOnlyDictionary<ThemeButtonWire, Image> imageButton;
+        private static readonly Image wire;
 
         private readonly Label leftBarrier;
         private readonly Label rightBarrier;
@@ -44,13 +43,11 @@ namespace WhoWantsToBeMillionaire
 
         static ButtonWire()
         {
-            var img = new Dictionary<ThemeButtonWire, Bitmap>();
+            var keys = Enum.GetValues(typeof(ThemeButtonWire)).Cast<ThemeButtonWire>();
+            var img = keys.ToDictionary(k => k, v => ResourceManager.GetImage($"ButtonWire_{v}.png"));
 
-            foreach (var key in Enum.GetValues(typeof(ThemeButtonWire)).Cast<ThemeButtonWire>())
-                img.Add(key, new Bitmap(ResourceManager.GetImage($"ButtonWire_{key}.png")));
-
-            imageButton = new ReadOnlyDictionary<ThemeButtonWire, Bitmap>(img);
-            wire = new Bitmap(ResourceManager.GetImage("Wire.png"));
+            imageButton = new ReadOnlyDictionary<ThemeButtonWire, Image>(img);
+            wire = ResourceManager.GetImage("Wire.png");
         }
 
         public ButtonWire(float sizeFont)
@@ -69,8 +66,6 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(rightBarrier);
 
             SizeChanged += OnSizeChanged;
-
-            OnMouseLeave(EventArgs.Empty);
         }
 
         private void OnSizeChanged(object sender, EventArgs e)
@@ -90,7 +85,7 @@ namespace WhoWantsToBeMillionaire
             rectImage = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
             rectBackground = new Rectangle(0, y, Width, sizeRect.Height);
 
-            rightBarrier.Size = leftBarrier.Size = new Size((Width - rectImage.Width) / 2, Height);
+            rightBarrier.Size = leftBarrier.Size = new Size((Width - rectImage.Width) >> 1, Height);
             rightBarrier.Location = new Point(Width - rightBarrier.Width, 0);
         }
 
@@ -134,9 +129,19 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        protected override void OnMouseUp(MouseEventArgs e)
+        protected override void OnMouseUp(MouseEventArgs e) => OnMouseEnter(e);
+
+        protected override void Dispose(bool disposing)
         {
-            OnMouseEnter(e);
+            if (disposing)
+            {
+                SizeChanged -= OnSizeChanged;
+
+                leftBarrier.Dispose();
+                rightBarrier.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

@@ -42,8 +42,6 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                Image = null;
-
                 image.Dispose();
                 imageClick.Dispose();
             }

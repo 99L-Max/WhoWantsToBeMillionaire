@@ -48,7 +48,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public Bitmap ImageText { private set; get; }
+        public Image ImageText { private set; get; }
 
         public TextBitmap(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
 

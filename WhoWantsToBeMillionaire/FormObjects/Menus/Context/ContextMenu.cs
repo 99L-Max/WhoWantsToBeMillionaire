@@ -57,10 +57,8 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(table);
         }
 
-        protected void OnButtonClick(object sender, EventArgs e)
-        {
+        protected void OnButtonClick(object sender, EventArgs e) =>
             ButtonClick.Invoke((sender as ButtonContextMenu).Command);
-        }
 
         protected void SetControls(params Control[] controls)
         {

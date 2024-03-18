@@ -7,8 +7,6 @@ namespace WhoWantsToBeMillionaire
 {
     class GameToolTip : ToolTip, IDisposable
     {
-        public int Border { set; get; } = 3;
-
         public Size Size { set; get; }
 
         public float FontSize { set; get; }
@@ -28,8 +26,10 @@ namespace WhoWantsToBeMillionaire
 
         private void OnDraw(object sender, DrawToolTipEventArgs e)
         {
+            int border = 3;
+
             Rectangle rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
-            Rectangle rectFill = new Rectangle(Border, Border, rectFrame.Width - 2 * Border, rectFrame.Height - 2 * Border);
+            Rectangle rectFill = new Rectangle(border, border, rectFrame.Width - 2 * border, rectFrame.Height - 2 * border);
 
             using (Font font = new Font("", FontSize, FontStyle.Bold, GraphicsUnit.Point))
             using (LinearGradientBrush brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))

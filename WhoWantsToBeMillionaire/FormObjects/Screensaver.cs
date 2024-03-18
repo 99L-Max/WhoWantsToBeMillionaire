@@ -9,8 +9,8 @@ namespace WhoWantsToBeMillionaire
 {
     class Screensaver : PictureBox, IDisposable
     {
-        private readonly Bitmap background;
-        private readonly Bitmap logo;
+        private readonly Image background;
+        private readonly Image logo;
 
         private bool imageVisible;
         private float sideLogo;
@@ -22,7 +22,7 @@ namespace WhoWantsToBeMillionaire
             BackColor = Color.Transparent;
 
             background = new Bitmap(ResourceManager.GetImage("Background_Screensaver.png"), MainForm.RectScreen.Size);
-            logo = new Bitmap(ResourceManager.GetImage("Logo.png"));
+            logo = ResourceManager.GetImage("Logo.png");
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -43,6 +43,7 @@ namespace WhoWantsToBeMillionaire
             imageVisible = false;
             sideLogo = 0f;
 
+            Sound.StopAll();
             Sound.Play(isFullVersion ? "Screensaver_Full.wav" : "Screensaver_Restart.wav");
 
             await ShowTransition(10);

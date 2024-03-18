@@ -26,7 +26,9 @@ namespace WhoWantsToBeMillionaire
         TakeMoney,
         TakeMoney_Confirmation,
         TakeMoney_ShowPrize,
-        FinalQuestion
+        FinalQuestion,
+        Debug_FirstQuestion,
+        Debug_Next
     }
 
     enum SceneCancelCommand
@@ -39,7 +41,7 @@ namespace WhoWantsToBeMillionaire
     class Scene : GameContol, IReset, IGameSettings
     {
         private readonly Bitmap prizeImage;
-        private readonly ButtonEllipse buttonTakeMoney;
+        private readonly ButtonСapsule buttonTakeMoney;
         private readonly BoxAnimation boxAnimation;
         private readonly BoxQuestion boxQuestion;
         private readonly Host host;
@@ -61,6 +63,8 @@ namespace WhoWantsToBeMillionaire
 
         public Mode Mode { private set; get; } = Mode.Classic;
 
+        public bool MenuAllowed { private set; get; } = false;
+
         private bool ControlEnabled
         {
             set
@@ -79,7 +83,7 @@ namespace WhoWantsToBeMillionaire
             tableSums = new TableSums((int)(MainForm.RectScreen.Width * 0.3f), MainForm.RectScreen.Height);
             boxAnimation = new BoxAnimation(MainForm.RectScreen.Width - tableSums.Width, (int)(MainForm.RectScreen.Height * 0.36f));
             boxQuestion = new BoxQuestion(boxAnimation.Width, boxAnimation.Height);
-            buttonTakeMoney = new ButtonEllipse((int)(0.8f * tableSums.Width), (int)(0.05f * tableSums.Height));
+            buttonTakeMoney = new ButtonСapsule((int)(0.8f * tableSums.Width), (int)(0.05f * tableSums.Height));
             commandBoard = new CommandBoard(MainForm.RectScreen.Width - tableSums.Width, MainForm.RectScreen.Height - boxQuestion.Height);
             tableHints = new TableHints(tableSums.Width, (int)(tableSums.Height * 0.2f));
             hint = new Hint();
@@ -128,12 +132,14 @@ namespace WhoWantsToBeMillionaire
             foreach (var ctrl in resets)
                 ctrl.Reset(mode);
 
-            buttonTakeMoney.Visible = false;
-            boxQuestion.Visible = false;
+            buttonTakeMoney.Visible = boxQuestion.Visible = false;
+            MenuAllowed = false;
         }
 
         public async void Start()
         {
+            MenuAllowed = true;
+
             Sound.PlayBackground("Rules.wav");
 
             commandBoard.Command = Mode == Mode.Classic ? SceneCommand.Show_SaveSums : SceneCommand.Show_CountHints;
@@ -156,6 +162,8 @@ namespace WhoWantsToBeMillionaire
 
         public async void Restart()
         {
+            MenuAllowed = true;
+
             Sound.PlayBackground("Rules.wav");
 
             await tableSums.Show();
@@ -610,7 +618,44 @@ namespace WhoWantsToBeMillionaire
                     Sound.StopAll();
                     GameOver.Invoke(true);
                     break;
+
+                case SceneCommand.Debug_FirstQuestion:
+                    Sound.StopAll();
+                    tableSums.Clear();
+                    await ShowQuestion(1);
+                    Debug_SetQuestion(1, 1);
+                    break;
+
+                case SceneCommand.Debug_Next:
+                    int number = boxQuestion.Question.Number;
+                    int index = boxQuestion.Question.Index;
+
+                    try { Debug_SetQuestion(number, ++index); }
+                    catch (Exception)
+                    {
+                        try { Debug_SetQuestion(++number, 1); }
+                        catch 
+                        {
+                            commandBoard.Clear();
+                            commandBoard.Text = "Конец";
+                            commandBoard.Command = SceneCommand.Restart;
+                        }
+                    }
+                    break;
             }
+        }
+
+        private void Debug_SetQuestion(int number, int index)
+        {
+            ControlEnabled = false;
+
+            Question question = new Question(number, index);
+
+            boxQuestion.SetQuestion(question);
+            commandBoard.Text = $"{question.Explanation}\nПравильный ответ: {question.FullCorrect}\n№{number:d2}.{index:d2}";
+
+            commandBoard.Command = SceneCommand.Debug_Next;
+            commandBoard.ButtonCommandVisible = true;
         }
 
         private void OnCacnelClick(object sender, SceneCancelCommand command)
@@ -622,6 +667,7 @@ namespace WhoWantsToBeMillionaire
                     tableHints.ShowAllHints();
 
                     OnCommandClick(this, Mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum);
+                    //OnCommandClick(this, SceneCommand.Debug_FirstQuestion);
                     break;
 
                 case SceneCancelCommand.Cancel_TakingMoney:
@@ -630,6 +676,7 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCancelCommand.ExitToMainMenu:
+                    MenuAllowed = false;
                     GameOver.Invoke(false);
                     break;
             }

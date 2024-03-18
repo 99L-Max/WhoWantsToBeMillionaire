@@ -9,7 +9,7 @@ namespace WhoWantsToBeMillionaire
         private readonly LabelMenu labelDialog;
         private readonly ButtonWire buttonCommand;
         private readonly ButtonWire buttonCanсel;
-        private readonly Bitmap logo;
+        private readonly Image logo;
 
         public SceneCommand Command;
         public SceneCancelCommand CancelCommand;

@@ -22,12 +22,6 @@ namespace WhoWantsToBeMillionaire
             get => Location.X;
         }
 
-        public int Y
-        {
-            set => Location = new Point(Location.X, value);
-            get => Location.Y;
-        }
-
         public MovingPictureBox(int width, int height) : base(width, height) { }
 
         public async Task MoveX(int x, int countFrames)

@@ -69,6 +69,7 @@ namespace WhoWantsToBeMillionaire
         {
             X = MainForm.RectScreen.Width;
 
+            taskCanceled = true;
             table.Visible = false;
 
             foreach (var row in rowsSum)
