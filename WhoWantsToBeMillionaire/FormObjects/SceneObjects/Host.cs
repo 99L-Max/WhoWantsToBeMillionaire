@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
+using System.Text;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -20,85 +24,44 @@ namespace WhoWantsToBeMillionaire
         TakingMoney_AskAnswer,
         TakingMoney_CorrectAnswer,
         TakingMoney_IncorrectAnswer,
-        PlayerTakingMoney
+        PlayerTakingMoney,
+        PlayerTakingMoney_Zero
     }
 
     class Host
     {
-        public string Say(HostPhrases phrase, params string[] args)
+        private readonly JObject phrases;
+        private readonly Random random;
+
+        public Host()
         {
-            switch (phrase)
+            using (Stream stream = ResourceManager.GetStream("Host.json", TypeResource.Dialogues))
+            using (StreamReader reader = new StreamReader(stream))
             {
-                case HostPhrases.Rules:
-                    return
-                        $"Вам необходимо правильно ответить на {args[0]} вопросов из различных областей знаний. " +
-                        $"Каждый вопрос имеет 4 варианта ответа, из которых только один является верным.";
-
-                case HostPhrases.SaveSums:
-                    return $"Несгораемые суммы: {args[0]}.";
-
-                case HostPhrases.CountHints:
-                    return $"У Вас есть {args[0]}.";
-
-                case HostPhrases.AboutRestrictionsHints:
-                    return $"Но использовать можно только {args[0]} из них.";
-
-                case HostPhrases.AboutTakingMoney:
-                    return "До тех пор, пока Вы не дали ответ, можете забрать выигранные деньги.";
-
-                case HostPhrases.AboutFinalQuestion:
-                    return $"А теперь мы с Вами подошли к кульминационному моменту. " +
-                           $"Лишь немногие достигали наивысшую планку игры «Кто хочет стать миллионером?», " +
-                           $"а правильно отвечали на последний вопрос единицы. Последний рубеж!" +
-                           $"\n{args[0]}-й вопрос на {args[1]} рублей.";
-
-                case HostPhrases.SaveSumSelected:
-                    return $"{args[0]} рублей — несгораемая сумма!";
-
-                case HostPhrases.GameStart:
-                    return "И для Вас начинается игра «Кто хочет стать миллионером?»!!!";
-
-                case HostPhrases.AskSaveSum:
-                    return RandomPhrase("Host_AskSaveSum.txt");
-
-                case HostPhrases.SwitchQuestion_AskAnswer:
-                    return RandomPhrase("Host_SwitchQuestion_AskAnswer.txt");
-
-                case HostPhrases.SwitchQuestion_CorrectAnswer:
-                    return RandomPhrase("Host_SwitchQuestion_CorrectAnswer.txt").Replace("<NUMBER>", args[0]);
-
-                case HostPhrases.SwitchQuestion_IncorrectAnswer:
-                    return RandomPhrase("Host_SwitchQuestion_IncorrectAnswer.txt").Replace("<NUMBER>", args[0]);
-
-                case HostPhrases.TakingMoney_ClarifyDecision:
-                    return "Вы хотите забрать деньги?";
-
-                case HostPhrases.TakingMoney_AskAnswer:
-                    return RandomPhrase("Host_TakingMoney_AskAnswer.txt");
-
-                case HostPhrases.TakingMoney_CorrectAnswer:
-                    return RandomPhrase("Host_TakingMoney_CorrectAnswer.txt").Replace("<SUM>", args[0]);
-
-                case HostPhrases.TakingMoney_IncorrectAnswer:
-                    return RandomPhrase("Host_TakingMoney_IncorrectAnswer.txt");
-
-                case HostPhrases.PlayerTakingMoney:
-                    string answer = $"Игрок берёт деньги!\nВыигрыш нашего гостя сотавил {args[0]} рублей!";
-
-                    if (args[0] == "0")
-                        answer = "Забирать деньги на 1-м вопросе?.. Ваше право.\n" + answer;
-
-                    return answer;
+                phrases = JObject.Parse(reader.ReadToEnd());
+                random = new Random();
             }
-
-            return string.Empty;
         }
 
-        private string RandomPhrase(string fileName)
+        public string Say(HostPhrases phrase, params string[] args)
         {
-            string[] phrases = ResourceManager.GetString(fileName).Split(new string[] { "\n" }, StringSplitOptions.None);
+            JToken token = phrases[phrase.ToString()];
+            StringBuilder result = new StringBuilder();
 
-            return phrases[new Random().Next(phrases.Length)];
+            if (token.Type == JTokenType.String)
+            {
+                result.Append(token.Value<string>());
+            }
+            else
+            {
+                var array = JsonConvert.DeserializeObject<string[]>(token.ToString());
+                result.Append(array[random.Next(array.Length)]);
+            }
+
+            for (int i = 0; i < args.Length; i++)
+                result.Replace($"<ARG_{i}>", args[i]);
+
+            return result.ToString();
         }
     }
 }

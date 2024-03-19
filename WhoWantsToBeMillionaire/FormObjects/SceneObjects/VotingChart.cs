@@ -9,85 +9,89 @@ namespace WhoWantsToBeMillionaire
 {
     class VotingChart : MovingPictureBox, IDisposable
     {
-        private readonly Image image;
         private readonly Image imageColumn;
-        private readonly Graphics g;
-        private readonly Dictionary<Letter, ChartCollumn> columns;
+        private readonly Dictionary<Letter, ChartColumnPercent> columns;
+
+        private bool labelsVisible = false;
 
         public VotingChart(int width, int height) : base(width, height)
         {
+            var keys = Question.Letters;
+            var widthColumn = width / (2 * keys.Count() + 1);
+            var maxHeightColumn = (int)(0.7f * height);
+            var yDown = (int)(0.8f * height);
+
             BackgroundImage = ResourceManager.GetImage("AudienceChart.png");
-            Font = new Font("", 0.05f * BackgroundImage.Height);
-
+            Font = new Font("", 0.05f * height, FontStyle.Bold);
             imageColumn = ResourceManager.GetImage("ChartColumn.png");
-            image = new Bitmap(BackgroundImage.Width, BackgroundImage.Height);
-            g = Graphics.FromImage(image);
-
-            Letter[] keys = Enum.GetValues(typeof(Letter)).Cast<Letter>().ToArray();
-            int widthColumn = BackgroundImage.Width / (2 * keys.Length + 1);
-            columns = keys.ToDictionary(k => k, v => new ChartCollumn((int)v, widthColumn, 210, 45));
+            columns = keys.ToDictionary(k => k, v => new ChartColumnPercent((2 * (int)v + 1) * widthColumn, widthColumn, maxHeightColumn, yDown));
         }
 
-        private void DrawChart(bool percentsVisible)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            g.Clear(Color.Transparent);
+            e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
 
             foreach (var c in columns.Values)
-                g.DrawImage(imageColumn, c.Rectangle);
+                e.Graphics.DrawImage(imageColumn, c.Rectangle);
 
-            if (percentsVisible)
+            if (labelsVisible)
                 foreach (var c in columns.Values)
-                    TextRenderer.DrawText(g, $"{c.Percent}%", Font, c.TextRectangle, Color.White);
-
-            Image = image;
+                    TextRenderer.DrawText(e.Graphics, $"{c.Percent:f0}%", Font, c.RectangleLabel, Color.White);
         }
 
         public async Task ShowAnimationVote(int millisecond)
         {
             Sound.PlayBackground("Hint_AskAudience_Voting.wav");
 
-            int countFrames = millisecond / MainForm.DeltaTime;
-            Random random = new Random();
+            labelsVisible = false;
 
-            foreach (var c in columns.Values)
-            {
-                c.Percent = 0;
-                c.SetChangePerсent(random.Next(3, 8));
-            }
+            var countFrames = millisecond / MainForm.DeltaTime;
+            var random = new Random();
+            var dp = columns.Keys.ToDictionary(k => k, v => (float)random.NextDouble() * 7f + 3f);
 
             do
             {
-                foreach (var c in columns.Values)
-                    c.ChangePerсent();
+                foreach (var col in columns)
+                {
+                    col.Value.Percent += dp[col.Key];
 
-                DrawChart(false);
+                    if (col.Value.Percent < 0 || col.Value.Percent > 100)
+                    {
+                        dp[col.Key] = -dp[col.Key];
+                        col.Value.Percent += dp[col.Key];
+                    }
+                }
+
+                Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
             } while (--countFrames > 0);
         }
 
-        public async Task ShowPercents(int countFrames, Dictionary<Letter, float> percents)
+        public async Task ShowPercents(Dictionary<Letter, int> percents, int countFrames)
         {
             Sound.StopAll();
             Sound.Play("Hint_AskAudience_End.wav");
 
-            foreach (var c in columns.Values)
-                c.Percent = 0;
-            DrawChart(false);
+            foreach (var col in columns.Values)
+                col.Percent = 0;
 
-            Dictionary<Letter, float> dp = percents.ToDictionary(k => k.Key, v => v.Value / countFrames);
+            var dp = percents.ToDictionary(k => k.Key, v => (float)v.Value / countFrames);
 
             do
             {
                 foreach (var key in percents.Keys)
                     columns[key].Percent += dp[key];
-                DrawChart(false);
 
+                Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
             } while (--countFrames > 0);
 
-            foreach (var key in percents.Keys)
-                columns[key].Percent = percents[key];
-            DrawChart(true);
+            foreach (var p in percents)
+                columns[p.Key].Percent = p.Value;
+
+            labelsVisible = true;
+
+            Invalidate();
         }
 
         protected override void Dispose(bool disposing)
@@ -95,9 +99,6 @@ namespace WhoWantsToBeMillionaire
             if (disposing)
             {
                 BackgroundImage.Dispose();
-
-                g.Dispose();
-                image.Dispose();
                 imageColumn.Dispose();
             }
 

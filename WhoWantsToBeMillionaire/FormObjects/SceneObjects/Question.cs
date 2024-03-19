@@ -34,9 +34,11 @@ namespace WhoWantsToBeMillionaire
 
         public int CountOptions => Options.Values.Where(x => x != string.Empty).Count();
 
+        public static IEnumerable<Letter> Letters => Enum.GetValues(typeof(Letter)).Cast<Letter>();
+
         public Question(int number) : this(number, RandomIndex(number)) { }
 
-        public Question(int number, int index) : this(number, index, Enum.GetValues(typeof(Letter)).Cast<Letter>()) { }
+        public Question(int number, int index) : this(number, index, Letters) { }
 
         public Question(int number, int index, IEnumerable<Letter> letters)
         {

@@ -68,6 +68,7 @@
     <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,6 +84,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\Menus\DataObjects\GameSettingsData.cs" />
+    <Compile Include="FormObjects\SceneObjects\ChartColumnPercent.cs" />
     <Compile Include="FormObjects\SceneObjects\GameToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -136,7 +138,6 @@
     <Compile Include="FormObjects\SceneObjects\CentralIconHint.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\ChartCollumn.cs" />
     <Compile Include="FormObjects\Scene.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -592,6 +593,12 @@
     <EmbeddedResource Include="Resources\Dictionaries\Settings.json" />
     <EmbeddedResource Include="Resources\Dictionaries\DescriptionHints.json" />
     <EmbeddedResource Include="Resources\Dictionaries\DescriptionModes.json" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Correct.json" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Incorrect.json" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Correct.json" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog.json" />
+    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect.json" />
+    <EmbeddedResource Include="Resources\Dialogues\Host.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -631,18 +638,6 @@
     <EmbeddedResource Include="Resources\Sounds\Answer_Correct_Final.wav" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Correct.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Hint_AskHost_Incorrect.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Correct.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_AskAnswer.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_AskSaveSum.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_SwitchQuestion_AskAnswer.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_SwitchQuestion_CorrectAnswer.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_SwitchQuestion_IncorrectAnswer.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_CorrectAnswer.txt" />
-    <EmbeddedResource Include="Resources\Dialogues\Host_TakingMoney_IncorrectAnswer.txt" />
     <EmbeddedResource Include="Resources\Textures\AudienceChart.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Sums.png" />
     <EmbeddedResource Include="Resources\Textures\Background_Main.png" />

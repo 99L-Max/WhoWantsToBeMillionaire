@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -31,10 +32,11 @@ namespace WhoWantsToBeMillionaire
                 return Image.FromStream(stream);
         }
 
-        public static string GetString(string fileName)
+        public static string GetDialog(string fileName)
         {
-            using (StreamReader stream = new StreamReader(GetStream(fileName, TypeResource.Dialogues)))
-                return stream.ReadToEnd();
+            using (Stream stream = GetStream(fileName, TypeResource.Dialogues))
+            using (StreamReader reader = new StreamReader(stream))
+                 return reader.ReadToEnd();
         }
 
         public static Dictionary<string, string> GetDictionary(string fileName)

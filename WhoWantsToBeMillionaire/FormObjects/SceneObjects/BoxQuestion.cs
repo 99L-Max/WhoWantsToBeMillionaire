@@ -54,7 +54,7 @@ namespace WhoWantsToBeMillionaire
 
             textQuestion.SizeFont = 0.32f * sizeOption.Height;
 
-            Letter[] keys = Enum.GetValues(typeof(Letter)).Cast<Letter>().ToArray();
+            Letter[] keys = Question.Letters.ToArray();
             Rectangle rectOption = new Rectangle(new Point(), sizeOption);
             Option option;
             int dy = (int)(0.1f * sizeOption.Height);
