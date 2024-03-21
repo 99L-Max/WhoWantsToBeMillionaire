@@ -65,7 +65,7 @@ namespace WhoWantsToBeMillionaire
                 rectOption.X = (Width >> 1) - (i & 1 ^ 1) * sizeOption.Width;
                 rectOption.Y = rectQuestion.Height + (i >> 1) * (sizeOption.Height + dy) + dy;
 
-                option = new Option(rectOption, keys[i]);
+                option = new Option(keys[i], rectOption);
                 option.SizeFont = 0.3f * sizeOption.Height;
                 options.Add(option.Letter, option);
                 buttons.Add(option.Letter, new ButtonOption(option.Letter, option.Rectangle));
@@ -103,7 +103,7 @@ namespace WhoWantsToBeMillionaire
             iconHint.Visible = false;
 
             foreach (var f in buttons.Values)
-            { 
+            {
                 Controls.Add(f);
                 f.Click += OnOptionClick;
             }
