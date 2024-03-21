@@ -85,6 +85,9 @@
     </Compile>
     <Compile Include="FormObjects\Menus\DataObjects\GameSettingsData.cs" />
     <Compile Include="FormObjects\SceneObjects\ChartColumnPercent.cs" />
+    <Compile Include="FormObjects\SceneObjects\ButtonOption.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormObjects\SceneObjects\GameToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -700,6 +703,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Textures\Dialog.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\ButtonWire_Focused.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

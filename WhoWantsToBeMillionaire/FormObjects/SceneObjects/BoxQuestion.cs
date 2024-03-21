@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -25,6 +24,7 @@ namespace WhoWantsToBeMillionaire
         private readonly Image wires;
         private readonly TextBitmap textQuestion;
         private readonly Dictionary<Letter, Option> options;
+        private readonly Dictionary<Letter, ButtonOption> buttons;
         private readonly CentralIconHint iconHint;
         private readonly List<TextBitmap> bitmapTexts;
 
@@ -47,12 +47,13 @@ namespace WhoWantsToBeMillionaire
             image = new Bitmap(width, height);
             wires = new Bitmap(width, height);
             options = new Dictionary<Letter, Option>();
+            buttons = new Dictionary<Letter, ButtonOption>();
             iconHint = new CentralIconHint();
-            g = Graphics.FromImage(image);
             bitmapTexts = new List<TextBitmap>();
             textQuestion = new TextBitmap(rectQuestion);
+            g = Graphics.FromImage(image);
 
-            textQuestion.SizeFont = 0.32f * sizeOption.Height;
+            textQuestion.SizeFont = 0.35f * sizeOption.Height;
 
             Letter[] keys = Question.Letters.ToArray();
             Rectangle rectOption = new Rectangle(new Point(), sizeOption);
@@ -67,6 +68,7 @@ namespace WhoWantsToBeMillionaire
                 option = new Option(rectOption, keys[i]);
                 option.SizeFont = 0.3f * sizeOption.Height;
                 options.Add(option.Letter, option);
+                buttons.Add(option.Letter, new ButtonOption(option.Letter, option.Rectangle));
             }
 
             bitmapTexts.Add(textQuestion);
@@ -100,9 +102,13 @@ namespace WhoWantsToBeMillionaire
             iconHint.Location = new Point((width - iconHint.Width) >> 1, rectQuestion.Height + dy + (sizeOption.Height >> 1));
             iconHint.Visible = false;
 
-            Controls.Add(iconHint);
+            foreach (var f in buttons.Values)
+            { 
+                Controls.Add(f);
+                f.Click += OnOptionClick;
+            }
 
-            MouseUp += OnMouseUp;
+            Controls.Add(iconHint);
         }
 
         public void Reset(Mode mode = Mode.Classic)
@@ -141,6 +147,8 @@ namespace WhoWantsToBeMillionaire
             {
                 op.Text = question.Options[op.Letter];
                 op.Enabled = op.Text != string.Empty;
+
+                buttons[op.Letter].Visible = op.Enabled;
                 g.DrawImage(op.ImageText, op.Rectangle);
             }
 
@@ -195,19 +203,11 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void OnMouseUp(object sender, MouseEventArgs e)
-        {
-            foreach (var op in options.Values)
-                if (op.Enabled && op.Rectangle.Contains(e.X, e.Y))
-                {
-                    OnOptionClick(op.Letter);
-                    return;
-                }
-        }
-
-        private void OnOptionClick(Letter letter)
+        private void OnOptionClick(object sender, EventArgs e)
         {
             Enabled = false;
+
+            Letter letter = (sender as ButtonOption).Letter;
             SelectOption(letter);
 
             if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Usual || AnswerMode == AnswerMode.DoubleDips))
@@ -258,7 +258,7 @@ namespace WhoWantsToBeMillionaire
             Sound.Play($"Answer_Incorrect_{Question.Difficulty}.wav");
         }
 
-        public void ClickCorrect() => OnOptionClick(Question.Correct);
+        public void ClickCorrect() => OnOptionClick(buttons[Question.Correct], EventArgs.Empty);
 
         public async Task Clear()
         {

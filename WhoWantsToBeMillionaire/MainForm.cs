@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
