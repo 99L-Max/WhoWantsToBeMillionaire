@@ -96,6 +96,9 @@
     <Compile Include="FormObjects\Menus\MenuControls\LabelMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LabelDialog.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ResourceProcessing\LoopStream.cs" />
     <Compile Include="FormObjects\Menus\Context\MenuSettings.cs">
       <SubType>Component</SubType>

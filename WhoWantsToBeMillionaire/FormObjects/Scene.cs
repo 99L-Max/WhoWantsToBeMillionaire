@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -270,10 +271,8 @@ namespace WhoWantsToBeMillionaire
                     Sound.PlayBackground("Hint_PhoneFriend_Dialing.wav");
 
                     boxQuestion.Enabled = false;
+                    commandBoard.TextMode = TextMode.Dialog;
                     commandBoard.Command = SceneCommand.End_PhoneFriend;
-
-                    commandBoard.Reset();
-                    commandBoard.ContentAlignment = ContentAlignment.MiddleLeft;
 
                     timer = new PhoneTimer((int)(0.3f * commandBoard.Height));
                     timer.TimeUp += OnCommandClick;
@@ -287,7 +286,7 @@ namespace WhoWantsToBeMillionaire
                     foreach (var phrase in hint.PhoneFriendDialog(tableSums.NextSum))
                     {
                         commandBoard.AddText(phrase);
-                        await Task.Delay(2000);
+                        await Task.Delay(phrase.Length * 75);
                     }
 
                     await commandBoard.ShowMovingPictureBox(timer, 500, false);
@@ -351,7 +350,7 @@ namespace WhoWantsToBeMillionaire
 
         private void SaveSumSelected(int sum)
         {
-            commandBoard.Text = 
+            commandBoard.Text =
                 $"{host.Say(HostPhrases.SaveSumSelected, String.Format("{0:#,0}", sum))}\n" +
                 $"{host.Say(HostPhrases.GameStart)}";
 
@@ -473,8 +472,7 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.Show_SaveSums:
                     commandBoard.ButtonCommandEnabled = false;
                     commandBoard.Command = SceneCommand.Show_CountHints;
-
-                    commandBoard.Text = host.Say(HostPhrases.SaveSums, string.Join(", ", Array.ConvertAll(tableSums.SaveSums, x => string.Format("{0:#,0}", x))));
+                    commandBoard.Text = host.Say(HostPhrases.SaveSums, string.Join(", ", tableSums.SaveSums.Select(x => string.Format("{0:#,0}", x))));
 
                     await tableSums.ShowSaveSums();
 
@@ -533,7 +531,7 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.End_PhoneFriend:
                     commandBoard.Clear();
-                    commandBoard.ContentAlignment = ContentAlignment.MiddleCenter;
+                    commandBoard.TextMode = TextMode.Monologue;
 
                     timer.Stop();
                     timer.TimeUp -= OnCommandClick;
@@ -645,7 +643,7 @@ namespace WhoWantsToBeMillionaire
                     catch (Exception)
                     {
                         try { Debug_SetQuestion(++number, 1); }
-                        catch 
+                        catch
                         {
                             commandBoard.Clear();
                             commandBoard.Text = "Конец";

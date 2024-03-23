@@ -1,9 +1,12 @@
 ﻿using System.Drawing;
+using System.Text;
 
 namespace WhoWantsToBeMillionaire
 {
     class TextBitmap
     {
+        private readonly int lengthLine;
+
         protected readonly Graphics g;
         protected readonly StringFormat formatText;
 
@@ -27,10 +30,31 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                text = value;
+                if (value.Length > lengthLine)
+                {
+                    StringBuilder builder = new StringBuilder(value);
+                    int middle = value.Length >> 1;
+                    int index = middle;
 
-                if (alpha > 0)
-                    DrawText();
+                    for (int i = 0; i < middle; i++)
+                    {
+                        index += (i & 1) == 0 ? i : -i;
+
+                        if (builder[index] == ' ')
+                        {
+                            builder[index] = '\n';
+                            break;
+                        }
+                    }
+
+                    text = builder.ToString();
+                }
+                else
+                {
+                    text = value;
+                }
+
+                DrawText();
             }
 
             get => text;
@@ -52,8 +76,10 @@ namespace WhoWantsToBeMillionaire
 
         public TextBitmap(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
 
-        public TextBitmap(Rectangle rectangle)
+        public TextBitmap(Rectangle rectangle, int lengthLine = int.MaxValue)
         {
+            this.lengthLine = lengthLine;
+
             Rectangle = rectangle;
             ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
             formatText = new StringFormat();

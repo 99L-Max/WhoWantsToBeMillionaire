@@ -4,9 +4,15 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
+    enum TextMode
+    {
+        Monologue,
+        Dialog
+    }
+
     class CommandBoard : TableLayoutPanel, IReset
     {
-        private readonly LabelMenu labelDialog;
+        private readonly LabelDialog labelDialog;
         private readonly ButtonWire buttonCommand;
         private readonly ButtonWire buttonCanсel;
         private readonly Image logo;
@@ -19,6 +25,23 @@ namespace WhoWantsToBeMillionaire
 
         public event EventCommandClick CommandClick;
         public event EventCancelClick CancelClick;
+
+        public TextMode TextMode
+        {
+            set 
+            {
+                if (value == TextMode.Monologue)
+                {
+                    labelDialog.SetRatioText(0.8f, 0.8f);
+                    labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Center);
+                }
+                else
+                {
+                    labelDialog.SetRatioText(0.65f, 0.9f);
+                    labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Near);
+                }
+            }
+        }
 
         public new string Text
         {
@@ -49,11 +72,6 @@ namespace WhoWantsToBeMillionaire
             set => buttonCommand.Enabled = value;
         }
 
-        public ContentAlignment ContentAlignment
-        {
-            set => labelDialog.TextAlign = value;
-        }
-
         public CommandBoard(int width, int height)
         {
             Size = new Size(width, height);
@@ -61,7 +79,7 @@ namespace WhoWantsToBeMillionaire
             int sideLogo = (int)(0.6f * height);
             float fontSize = 0.035f * height;
 
-            labelDialog = new LabelMenu(0.032f * height, ContentAlignment.MiddleCenter);
+            labelDialog = new LabelDialog(0.032f * height);
             logo = new Bitmap(ResourceManager.GetImage("Logo.png"), sideLogo, sideLogo);
 
             buttonCommand = new ButtonWire(fontSize);
@@ -86,6 +104,7 @@ namespace WhoWantsToBeMillionaire
             labelDialog.Text = string.Empty;
             labelDialog.Image = null;
             buttonCommand.Visible = buttonCanсel.Visible = false;
+            TextMode = TextMode.Monologue;
 
             buttonCommand.Text = "Продолжить";
             buttonCanсel.Text = "Пропустить";

@@ -47,10 +47,9 @@ namespace WhoWantsToBeMillionaire
             image = new Bitmap(width, height);
             wires = new Bitmap(width, height);
             options = new Dictionary<Letter, Option>();
-            buttons = new Dictionary<Letter, ButtonOption>();
             iconHint = new CentralIconHint();
             bitmapTexts = new List<TextBitmap>();
-            textQuestion = new TextBitmap(rectQuestion);
+            textQuestion = new TextBitmap(rectQuestion, 64);
             g = Graphics.FromImage(image);
 
             textQuestion.SizeFont = 0.35f * sizeOption.Height;
@@ -68,11 +67,18 @@ namespace WhoWantsToBeMillionaire
                 option = new Option(keys[i], rectOption);
                 option.SizeFont = 0.3f * sizeOption.Height;
                 options.Add(option.Letter, option);
-                buttons.Add(option.Letter, new ButtonOption(option.Letter, option.Rectangle));
             }
 
             bitmapTexts.Add(textQuestion);
             bitmapTexts = bitmapTexts.Concat(options.Values).ToList();
+
+            buttons = options.ToDictionary(k => k.Key, v => new ButtonOption(v.Key, v.Value.Rectangle));
+
+            foreach (var b in buttons.Values)
+            {
+                Controls.Add(b);
+                b.Click += OnOptionClick;
+            }
 
             Image background = new Bitmap(width, height);
 
@@ -101,12 +107,6 @@ namespace WhoWantsToBeMillionaire
             iconHint.Size = new Size((int)(1.6f * iconHeight), iconHeight);
             iconHint.Location = new Point((width - iconHint.Width) >> 1, rectQuestion.Height + dy + (sizeOption.Height >> 1));
             iconHint.Visible = false;
-
-            foreach (var f in buttons.Values)
-            {
-                Controls.Add(f);
-                f.Click += OnOptionClick;
-            }
 
             Controls.Add(iconHint);
         }
@@ -331,6 +331,7 @@ namespace WhoWantsToBeMillionaire
         public async Task ShowCentralIcon(TypeHint hint, bool playSound)
         {
             iconHint.Visible = true;
+            iconHint.BringToFront();
             await iconHint.ShowIcon(hint, playSound);
         }
 

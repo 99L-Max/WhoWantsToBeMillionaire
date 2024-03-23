@@ -9,7 +9,9 @@ namespace WhoWantsToBeMillionaire
         private static readonly Image background;
         private static readonly Image iconCircle;
         private static readonly Image iconRhomb;
-        private static readonly StringFormat stringFormat;
+        private static readonly StringFormat format;
+        private static readonly Size sizeNumber;
+        private static readonly Size sizeSum;
 
         private readonly Image image;
 
@@ -71,7 +73,10 @@ namespace WhoWantsToBeMillionaire
             iconCircle = new Bitmap(ResourceManager.GetImage("IconSum_Circle.png"), height, height);
             iconRhomb = new Bitmap(ResourceManager.GetImage("IconSum_Rhomb.png"), height, height);
 
-            stringFormat = new StringFormat
+            sizeNumber = new Size((int)(0.18f * background.Width), background.Height);
+            sizeSum = new Size((int)(0.90f * background.Width), background.Height);
+
+            format = new StringFormat
             {
                 Alignment = StringAlignment.Far,
                 LineAlignment = StringAlignment.Center
@@ -83,14 +88,13 @@ namespace WhoWantsToBeMillionaire
             Number = number;
             Sum = sum;
 
+            image = new Bitmap(background.Width, background.Height);
+            isMouseEventsActive = false;
+
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
             Font = new Font("", 0.4f * background.Height, FontStyle.Bold);
             Dock = DockStyle.Fill;
-
-            image = new Bitmap(background.Width, background.Height);
-
-            isMouseEventsActive = false;
 
             Reset();
         }
@@ -99,27 +103,19 @@ namespace WhoWantsToBeMillionaire
         {
             using (Graphics g = Graphics.FromImage(image))
             {
-                Size sizeNum = new Size((int)(0.18f * background.Width), background.Height);
-                Size sizeSum = new Size((int)(0.90f * background.Width), background.Height);
-
-                Brush[] brushes = {
-                    new SolidBrush(Color.Black),
-                    new SolidBrush(isSaveSum ? Color.White : Color.Orange)
-                };
-
-                Point[] points = { new Point(2, 2), new Point() };
-
                 g.Clear(Color.Transparent);
+
+                Brush[] brushes = { Brushes.Black, isSaveSum ? Brushes.White : Brushes.Orange };
+                Point[] points = { new Point(2, 2), new Point() };
 
                 for (int i = 0; i < points.Length; i++)
                 {
-                    g.DrawString($"{Number}", Font, brushes[i], new RectangleF(points[i], sizeNum), stringFormat);
-                    g.DrawString(String.Format("{0:#,0}", Sum), Font, brushes[i], new RectangleF(points[i], sizeSum), stringFormat);
-                    brushes[i].Dispose();
+                    g.DrawString($"{Number}", Font, brushes[i], new Rectangle(points[i], sizeNumber), format);
+                    g.DrawString(String.Format("{0:#,0}", Sum), Font, brushes[i], new Rectangle(points[i], sizeSum), format);
                 }
 
                 if (iconVisible)
-                    g.DrawImage(isSelected ? iconCircle : iconRhomb, sizeNum.Width, 0);
+                    g.DrawImage(isSelected ? iconCircle : iconRhomb, sizeNumber.Width, 0, background.Height, background.Height);
 
                 Image = image;
             }

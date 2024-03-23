@@ -105,7 +105,7 @@ namespace WhoWantsToBeMillionaire
 
             var jString = ResourceManager.GetDialog(fileName);
             var phrases = JsonConvert.DeserializeObject<string[]>(jString);
-            var result = phrases[random.Next(phrases.Length)];
+            var result = phrases[isCorrect ? (int)question.Difficulty : random.Next(phrases.Length)];
 
             return result.Replace("<ANSWER>", answer);
         }
