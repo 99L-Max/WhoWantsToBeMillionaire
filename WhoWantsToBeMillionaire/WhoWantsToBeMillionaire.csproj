@@ -100,7 +100,7 @@
     <Compile Include="FormObjects\Menus\MenuControls\LabelMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LabelDialog.cs">
+    <Compile Include="FormObjects\SceneObjects\LabelDialog.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ResourceProcessing\LoopStream.cs" />
