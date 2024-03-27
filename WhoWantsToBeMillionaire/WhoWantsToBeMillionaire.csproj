@@ -80,6 +80,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormObjects\BoxAchievement.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormObjects\Menus\DataObjects\AchievementsData.cs" />
     <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -103,7 +107,6 @@
     <Compile Include="FormObjects\Menus\Context\MenuSettings.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\ReadOnlyRectangle.cs" />
     <Compile Include="FormObjects\SceneObjects\Hint.cs" />
     <Compile Include="FormObjects\Menus\MenuControls\ButtonArrow.cs">
       <SubType>Component</SubType>
@@ -156,7 +159,7 @@
     <Compile Include="FormObjects\Menus\Main\MenuMain.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\MovingPictureBox.cs">
+    <Compile Include="FormObjects\MovingPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\SceneObjects\Option.cs" />
@@ -605,6 +608,7 @@
     <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Dialog.json" />
     <EmbeddedResource Include="Resources\Dialogues\Hint_PhoneFriend_Incorrect.json" />
     <EmbeddedResource Include="Resources\Dialogues\Host.json" />
+    <EmbeddedResource Include="Resources\Dictionaries\Achievements.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -708,6 +712,26 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Textures\ButtonWire_Focused.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\Achievement_Millionaire.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\Achievement_AndToTalk.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_AudienceAward.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_DearComputer.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_DefectiveQuestion.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_ExcessiveСaution.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_IsPossible.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_Jubilee.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_Locked.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_MoneyNotBurn.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_NoOneWillKnow.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_NoOptions.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_StopGame.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_SuccessfulOutcome.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_TriumphReason.png" />
+    <EmbeddedResource Include="Resources\Textures\Achievement_WasTwoBecameFour.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

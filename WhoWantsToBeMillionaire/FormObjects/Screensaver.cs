@@ -21,7 +21,7 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.Transparent;
 
-            background = new Bitmap(ResourceManager.GetImage("Background_Screensaver.png"), MainForm.RectScreen.Size);
+            background = new Bitmap(ResourceManager.GetImage("Background_Screensaver.png"), MainForm.ScreenRectangle.Size);
             logo = ResourceManager.GetImage("Logo.png");
         }
 

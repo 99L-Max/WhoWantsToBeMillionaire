@@ -67,7 +67,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Reset(Mode mode = Mode.Classic)
         {
-            X = MainForm.RectScreen.Width;
+            X = MainForm.ScreenRectangle.Width;
 
             taskCanceled = true;
             table.Visible = false;
@@ -85,7 +85,7 @@ namespace WhoWantsToBeMillionaire
 
         public async new Task Show()
         {
-            await MoveX(MainForm.RectScreen.Width - Width, 600 / MainForm.DeltaTime);
+            await MoveX(MainForm.ScreenRectangle.Width - Width, 600 / MainForm.DeltaTime);
             table.Visible = true;
         }
 

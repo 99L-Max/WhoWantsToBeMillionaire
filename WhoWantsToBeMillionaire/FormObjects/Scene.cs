@@ -57,10 +57,12 @@ namespace WhoWantsToBeMillionaire
         private VotingChart chart;
 
         public delegate void EventGameOver(bool isRestart);
-        public delegate void EventStatisticsChanged(StatsAttribute key, int value = 1);
+        public delegate void EventStatisticsChanged(StatsAttribute attribute, int value = 1);
+        public delegate void EventAchievementСompleted(Achievement achievement);
 
-        public event EventStatisticsChanged StatisticsChanged;
         public event EventGameOver GameOver;
+        public event EventStatisticsChanged StatisticsChanged;
+        public event EventAchievementСompleted AchievementСompleted;
 
         public Mode Mode { private set; get; } = Mode.Classic;
 
@@ -85,20 +87,20 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public Scene() : base(MainForm.RectScreen.Size)
+        public Scene() : base(MainForm.ScreenRectangle.Size)
         {
             Dock = DockStyle.Fill;
 
             host = new Host();
-            tableSums = new TableSums((int)(MainForm.RectScreen.Width * 0.3f), MainForm.RectScreen.Height);
-            boxAnimation = new BoxAnimation(MainForm.RectScreen.Width - tableSums.Width, (int)(MainForm.RectScreen.Height * 0.36f));
+            tableSums = new TableSums((int)(MainForm.ScreenRectangle.Width * 0.3f), MainForm.ScreenRectangle.Height);
+            boxAnimation = new BoxAnimation(MainForm.ScreenRectangle.Width - tableSums.Width, (int)(MainForm.ScreenRectangle.Height * 0.36f));
             boxQuestion = new BoxQuestion(boxAnimation.Width, boxAnimation.Height);
             buttonTakeMoney = new ButtonСapsule((int)(0.8f * tableSums.Width), (int)(0.05f * tableSums.Height));
-            commandBoard = new CommandBoard(MainForm.RectScreen.Width - tableSums.Width, MainForm.RectScreen.Height - boxQuestion.Height);
+            commandBoard = new CommandBoard(MainForm.ScreenRectangle.Width - tableSums.Width, MainForm.ScreenRectangle.Height - boxQuestion.Height);
             tableHints = new TableHints(tableSums.Width, (int)(tableSums.Height * 0.2f));
             hint = new Hint();
 
-            boxAnimation.Location = boxQuestion.Location = new Point(0, MainForm.RectScreen.Height - boxQuestion.Height);
+            boxAnimation.Location = boxQuestion.Location = new Point(0, MainForm.ScreenRectangle.Height - boxQuestion.Height);
             buttonTakeMoney.Location = new Point((tableSums.Width - buttonTakeMoney.Width) / 2, tableSums.Height - 2 * buttonTakeMoney.Height);
 
             buttonTakeMoney.Text = "Забрать деньги";
@@ -265,6 +267,7 @@ namespace WhoWantsToBeMillionaire
                 case TypeHint.FiftyFifty:
                     Sound.Play("Hint_FiftyFifty.wav");
                     boxQuestion.SetQuestion(hint.ReduceOptions(boxQuestion.Question));
+                    AchievementСompleted.Invoke(Achievement.DearComputer);
                     break;
 
                 case TypeHint.PhoneFriend:

@@ -24,7 +24,7 @@ namespace WhoWantsToBeMillionaire
         public ContextMenu(string title, int width, int height, float fontSize)
         {
             Size = new Size(width, height);
-            Location = new Point((MainForm.RectScreen.Width - Width) >> 1, (MainForm.RectScreen.Height - Height) >> 1);
+            Location = new Point((MainForm.ScreenRectangle.Width - Width) >> 1, (MainForm.ScreenRectangle.Height - Height) >> 1);
             BackColor = Color.Transparent;
 
             Image background = new Bitmap(width, height);

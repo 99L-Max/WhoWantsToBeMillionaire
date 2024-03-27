@@ -44,7 +44,7 @@ namespace WhoWantsToBeMillionaire
                 if (ctrl is IDisposable)
                     (ctrl as IDisposable).Dispose();
 
-            int heightButton = (int)(0.08f * MainForm.RectScreen.Height);
+            int heightButton = (int)(0.08f * MainForm.ScreenRectangle.Height);
 
             table.Controls.Clear();
             table.ColumnStyles.Clear();
@@ -53,8 +53,8 @@ namespace WhoWantsToBeMillionaire
             table.RowCount = commands.Length;
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1f));
 
-            table.Size = new Size(MainForm.RectScreen.Width, heightButton * commands.Length);
-            table.Location = new Point((MainForm.RectScreen.Width - table.Width) >> 1, (MainForm.RectScreen.Height - table.Height) >> 1);
+            table.Size = new Size(MainForm.ScreenRectangle.Width, heightButton * commands.Length);
+            table.Location = new Point((MainForm.ScreenRectangle.Width - table.Width) >> 1, (MainForm.ScreenRectangle.Height - table.Height) >> 1);
 
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 

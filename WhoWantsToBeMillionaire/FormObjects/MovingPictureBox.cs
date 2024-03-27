@@ -22,6 +22,12 @@ namespace WhoWantsToBeMillionaire
             get => Location.X;
         }
 
+        public int Y
+        {
+            set => Location = new Point(Location.X, value);
+            get => Location.Y;
+        }
+
         public MovingPictureBox(int width, int height) : base(width, height) { }
 
         public async Task MoveX(int x, int countFrames)
@@ -35,6 +41,19 @@ namespace WhoWantsToBeMillionaire
             } while (--countFrames > 0);
 
             X = x;
+        }
+
+        public async Task MoveY(int y, int countFrames)
+        {
+            int dy = (y - Y) / countFrames;
+
+            do
+            {
+                Y += dy;
+                await Task.Delay(MainForm.DeltaTime);
+            } while (--countFrames > 0);
+
+            Y = y;
         }
     }
 }
