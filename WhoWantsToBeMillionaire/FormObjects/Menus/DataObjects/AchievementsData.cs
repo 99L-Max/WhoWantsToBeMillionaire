@@ -29,7 +29,7 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly Dictionary<Achievement, bool> achievements;
 
-        public Dictionary<Achievement, bool> Achievement => achievements.ToDictionary(k => k.Key, v => v.Value);
+        public Dictionary<Achievement, bool> Achievements => achievements.ToDictionary(k => k.Key, v => v.Value);
 
         public AchievementsData(string path)
         {

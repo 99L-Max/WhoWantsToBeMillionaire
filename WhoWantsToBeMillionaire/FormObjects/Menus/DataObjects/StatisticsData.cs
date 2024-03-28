@@ -44,7 +44,7 @@ namespace WhoWantsToBeMillionaire
         {
             var dict = ResourceManager.GetDictionary("Statistics.json");
 
-            return string.Join("\n\n", attributes.Select(at => $"{dict[at.Key.ToString()]}: {String.Format("{0:#,0}", at.Value)}"));
+            return string.Join("\n\n", attributes.Select(at => $"{dict[$"{at.Key}"]}: {String.Format("{0:#,0}", at.Value)}"));
         }
 
         public void Update(StatsAttribute key, int value = 1) =>

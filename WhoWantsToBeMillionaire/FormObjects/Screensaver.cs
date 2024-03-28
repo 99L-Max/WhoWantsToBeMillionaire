@@ -12,8 +12,8 @@ namespace WhoWantsToBeMillionaire
         private readonly Image background;
         private readonly Image logo;
 
+        private Rectangle logoRectangle;
         private bool imageVisible;
-        private float sideLogo;
         private int alpha;
 
         public Screensaver()
@@ -23,6 +23,7 @@ namespace WhoWantsToBeMillionaire
 
             background = new Bitmap(ResourceManager.GetImage("Background_Screensaver.png"), MainForm.ScreenRectangle.Size);
             logo = ResourceManager.GetImage("Logo.png");
+            logoRectangle = new Rectangle();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -30,7 +31,7 @@ namespace WhoWantsToBeMillionaire
             if (imageVisible)
             {
                 e.Graphics.DrawImage(background, ClientRectangle);
-                e.Graphics.DrawImage(logo, (ClientRectangle.Width - sideLogo) / 2f, (ClientRectangle.Height - sideLogo) / 2f, sideLogo, sideLogo);
+                e.Graphics.DrawImage(logo, logoRectangle);
             }
 
             if (alpha > 0)
@@ -40,8 +41,8 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowSaver(bool isFullVersion)
         {
+            int sizeLogo;
             imageVisible = false;
-            sideLogo = 0f;
 
             Sound.StopAll();
             Sound.Play(isFullVersion ? "Screensaver_Full.wav" : "Screensaver_Restart.wav");
@@ -50,7 +51,13 @@ namespace WhoWantsToBeMillionaire
 
             for (float i = 0.1f; i < 0.8f; i += 0.045f)
             {
-                sideLogo = i * Height;
+                sizeLogo = (int)(i * Height);
+
+                logoRectangle.X = (ClientRectangle.Width - sizeLogo) >> 1;
+                logoRectangle.Y = (ClientRectangle.Height - sizeLogo) >> 1;
+
+                logoRectangle.Width = logoRectangle.Height = sizeLogo;
+
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
             }

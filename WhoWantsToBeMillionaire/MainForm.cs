@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,7 +74,8 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case MainMenuCommand.Achievements:
-                    MessageBox.Show("Achievements");
+                    OpenContextMenu(new MenuAchievements(ScreenRectangle.Width / 3, ScreenRectangle.Height * 2 / 3, achievementsData.Achievements));
+
                     break;
 
                 case MainMenuCommand.Settings:
@@ -132,11 +132,11 @@ namespace WhoWantsToBeMillionaire
 
         private async void GameOver(bool isRestart)
         {
+            scene.Visible = false;
+            scene.Reset(scene.Mode);
+
             if (isRestart)
             {
-                scene.Visible = false;
-                scene.Reset(scene.Mode);
-
                 if (showScreenSaver)
                     await ShowScreenSaver(false);
 
@@ -145,7 +145,6 @@ namespace WhoWantsToBeMillionaire
             }
             else
             {
-                scene.Visible = false;
                 mainMenu.Visible = true;
             }
         }
@@ -183,7 +182,7 @@ namespace WhoWantsToBeMillionaire
                     Sound.Play("Achievement.wav");
 
                     await box.MoveY(count * box.Height, 250 / DeltaTime);
-                    await Task.Delay(3000);
+                    await Task.Delay(5000);
                     await box.MoveX(-box.Width, 250 / DeltaTime);
 
                     Controls.Remove(box);

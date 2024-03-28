@@ -9,9 +9,9 @@ namespace WhoWantsToBeMillionaire
         private static readonly Image background;
         private static readonly Image iconCircle;
         private static readonly Image iconRhomb;
-        private static readonly StringFormat format;
         private static readonly Size sizeNumber;
         private static readonly Size sizeSum;
+        private static readonly TextFormatFlags textFormatFlags;
 
         private readonly Image image;
 
@@ -75,12 +75,7 @@ namespace WhoWantsToBeMillionaire
 
             sizeNumber = new Size((int)(0.18f * background.Width), background.Height);
             sizeSum = new Size((int)(0.90f * background.Width), background.Height);
-
-            format = new StringFormat
-            {
-                Alignment = StringAlignment.Far,
-                LineAlignment = StringAlignment.Center
-            };
+            textFormatFlags = TextFormatFlags.Right | TextFormatFlags.VerticalCenter;
         }
 
         public RowTableSums(int number, int sum)
@@ -105,13 +100,13 @@ namespace WhoWantsToBeMillionaire
             {
                 g.Clear(Color.Transparent);
 
-                Brush[] brushes = { Brushes.Black, isSaveSum ? Brushes.White : Brushes.Orange };
+                Color[] colors = { Color.Black, isSaveSum ? Color.White : Color.Orange };
                 Point[] points = { new Point(2, 2), new Point() };
 
                 for (int i = 0; i < points.Length; i++)
                 {
-                    g.DrawString($"{Number}", Font, brushes[i], new Rectangle(points[i], sizeNumber), format);
-                    g.DrawString(String.Format("{0:#,0}", Sum), Font, brushes[i], new Rectangle(points[i], sizeSum), format);
+                    TextRenderer.DrawText(g, $"{Number}", Font, new Rectangle(points[i], sizeNumber), colors[i], textFormatFlags);
+                    TextRenderer.DrawText(g, String.Format("{0:#,0}", Sum), Font, new Rectangle(points[i], sizeSum), colors[i], textFormatFlags);
                 }
 
                 if (iconVisible)
@@ -126,6 +121,7 @@ namespace WhoWantsToBeMillionaire
             iconVisible = isSaveSum = isSelected = false;
             BackgroundImage = null;
 
+            RemoveMouseEvents();
             Draw();
         }
 

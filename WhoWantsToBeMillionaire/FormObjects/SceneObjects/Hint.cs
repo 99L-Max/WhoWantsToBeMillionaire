@@ -58,6 +58,12 @@ namespace WhoWantsToBeMillionaire
             return result.Select(s => $"- {s}\n");
         }
 
+        private Letter WrongLetter(Question question)
+        {
+            var wrongKeys = question.Options.Where(x => x.Key != question.Correct).Select(x => x.Key);
+            return wrongKeys.ElementAt(random.Next(wrongKeys.Count()));
+        }
+
         public IEnumerable<string> PhoneFriendDialog(string sum) =>
             GetDialog("Hint_PhoneFriend_Dialog.json", ("<SUM>", sum));
 
@@ -74,9 +80,7 @@ namespace WhoWantsToBeMillionaire
             }
             else
             {
-                var wrongKeys = question.Options.Where(x => x.Key != question.Correct).Select(x => x.Key);
-                var key = wrongKeys.ElementAt(random.Next(wrongKeys.Count()));
-                answer = question.FullOption(key);
+                answer = question.FullOption(WrongLetter(question));
                 fileName = "Hint_PhoneFriend_Incorrect.json";
             }
 
@@ -98,8 +102,7 @@ namespace WhoWantsToBeMillionaire
             }
             else
             {
-                Letter wrong = question.Options.Where(x => x.Key != question.Correct && x.Value != string.Empty).OrderBy(x => random.Next()).First().Key;
-                answer = question.FullOption(wrong);
+                answer = question.FullOption(WrongLetter(question));
                 fileName = "Hint_AskHost_Incorrect.json";
             }
 

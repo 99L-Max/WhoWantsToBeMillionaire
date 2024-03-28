@@ -83,7 +83,13 @@
     <Compile Include="FormObjects\BoxAchievement.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FormObjects\Menus\Context\MenuAchievements.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormObjects\Menus\DataObjects\AchievementsData.cs" />
+    <Compile Include="FormObjects\Menus\MenuControls\AchievementProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -169,7 +175,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\GameContol.cs">
+    <Compile Include="FormObjects\GameContol.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\SceneObjects\PhoneTimer.cs">
@@ -732,6 +738,10 @@
     <EmbeddedResource Include="Resources\Textures\Achievement_SuccessfulOutcome.png" />
     <EmbeddedResource Include="Resources\Textures\Achievement_TriumphReason.png" />
     <EmbeddedResource Include="Resources\Textures\Achievement_WasTwoBecameFour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\Medal_Empty.png" />
+    <EmbeddedResource Include="Resources\Textures\Medal_Granted.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

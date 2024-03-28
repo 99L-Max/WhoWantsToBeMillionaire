@@ -688,7 +688,6 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCancelCommand.ExitToMainMenu:
-                    MenuAllowed = false;
                     GameOver.Invoke(false);
                     break;
             }
