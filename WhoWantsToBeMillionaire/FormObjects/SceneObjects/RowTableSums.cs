@@ -88,7 +88,7 @@ namespace WhoWantsToBeMillionaire
 
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Font = new Font("", 0.4f * background.Height, FontStyle.Bold);
+            Font = new Font("", 0.5f * background.Height, FontStyle.Bold, GraphicsUnit.Pixel);
             Dock = DockStyle.Fill;
 
             Reset();

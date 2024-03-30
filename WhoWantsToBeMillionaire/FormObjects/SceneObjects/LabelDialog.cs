@@ -28,7 +28,7 @@ namespace WhoWantsToBeMillionaire
         public LabelDialog(float sizeFont)
         {
             Dock = DockStyle.Fill;
-            Font = new Font("", sizeFont, FontStyle.Regular);
+            Font = new Font("", sizeFont, GraphicsUnit.Pixel);
 
             textRectangle = frameRectangle = new Rectangle();
             format = new StringFormat();

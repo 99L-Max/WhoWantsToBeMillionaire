@@ -40,9 +40,8 @@ namespace WhoWantsToBeMillionaire
 
         public void SetCommands(params MainMenuCommand[] commands)
         {
-            foreach (var ctrl in table.Controls)
-                if (ctrl is IDisposable)
-                    (ctrl as IDisposable).Dispose();
+            foreach (Control ctrl in table.Controls)
+                ctrl.Dispose();
 
             int heightButton = (int)(0.08f * MainForm.ScreenRectangle.Height);
 
@@ -58,7 +57,7 @@ namespace WhoWantsToBeMillionaire
 
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 
-            float fontSize = 0.32f * heightButton;
+            float fontSize = 0.4f * heightButton;
             var dict = ResourceManager.GetDictionary("MenuCommands.json");
 
             for (int i = 0; i < buttons.Length; i++)

@@ -4,11 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum DirectionArrow
-    {
-        Left,
-        Right
-    }
+    enum DirectionArrow { Left, Right }
 
     class ButtonArrow : PictureBox, IDisposable
     {

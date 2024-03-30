@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -27,17 +28,18 @@ namespace WhoWantsToBeMillionaire
             Location = new Point((MainForm.ScreenRectangle.Width - Width) >> 1, (MainForm.ScreenRectangle.Height - Height) >> 1);
             BackColor = Color.Transparent;
 
-            Image background = new Bitmap(width, height);
-            int border = 12;
-            Rectangle rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
-            Rectangle rectFill = new Rectangle(border, border, rectFrame.Width - 2 * border, rectFrame.Height - 2 * border);
+            var border = 12;
+            var background = new Bitmap(width, height);
+            var rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
+            var rectFill = new Rectangle(border, border, rectFrame.Width - (border << 1), rectFrame.Height - (border << 1));
 
-            using (Graphics g = Graphics.FromImage(background))
-            using (LinearGradientBrush brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))
-            using (LinearGradientBrush brushFill = new LinearGradientBrush(rectFill, Color.Navy, Color.Black, 90f))
+            using (var g = Graphics.FromImage(background))
+            using (var brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))
+            using (var brushFill = new LinearGradientBrush(rectFill, Color.Navy, Color.Black, 90f))
             {
                 g.FillRectangle(brushFrame, rectFrame);
                 g.FillRectangle(brushFill, rectFill);
+
                 BackgroundImageLayout = ImageLayout.Stretch;
                 BackgroundImage = background;
             }
@@ -63,6 +65,7 @@ namespace WhoWantsToBeMillionaire
         protected void SetControls(params Control[] controls)
         {
             table.Controls.Clear();
+
             table.Controls.Add(labelTitle, 0, 0);
 
             for (int i = 0; i < controls.Length; i++)
@@ -74,7 +77,6 @@ namespace WhoWantsToBeMillionaire
         protected void SetHeights(params float[] heights)
         {
             table.RowStyles.Clear();
-            table.RowCount = table.Controls.Count;
 
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
 
@@ -82,6 +84,13 @@ namespace WhoWantsToBeMillionaire
                 table.RowStyles.Add(new RowStyle(SizeType.Percent, h));
 
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
+
+            foreach (var b in table.Controls.OfType<ButtonContextMenu>())
+            {
+                b.Dock = DockStyle.Fill;
+                b.Dock = DockStyle.None;
+                b.Anchor = AnchorStyles.None;
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -93,8 +102,7 @@ namespace WhoWantsToBeMillionaire
                     if (ctrl is ButtonContextMenu)
                         (ctrl as ButtonContextMenu).Click -= OnButtonClick;
 
-                    if (ctrl is IDisposable)
-                        (ctrl as IDisposable).Dispose();
+                    ctrl.Dispose();
                 }
 
                 table.Controls.Clear();

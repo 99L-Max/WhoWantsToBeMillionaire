@@ -35,7 +35,7 @@ namespace WhoWantsToBeMillionaire
 
         public GameComboBox(string[] items, float fontSize)
         {
-            Font = new Font("", fontSize);
+            Font = new Font("", fontSize, GraphicsUnit.Pixel);
             ForeColor = Color.White;
             Dock = DockStyle.Fill;
             TextAlign = ContentAlignment.MiddleCenter;

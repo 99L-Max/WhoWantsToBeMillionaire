@@ -16,7 +16,7 @@ namespace WhoWantsToBeMillionaire
 
         public Dictionary<GameSettings, float> SettingsData => settings.ToDictionary(k => k.Key, v => v.Value);
 
-        public MenuSettings(int width, int height, GameSettingsData data) : base("Настройки", width, height, 0.035f * height)
+        public MenuSettings(int width, int height, GameSettingsData data) : base("Настройки", width, height, 0.05f * height)
         {
             var keys = Enum.GetValues(typeof(GameSettings)).Cast<GameSettings>();
             settings = keys.ToDictionary(k => k, v => data.GetSettings(v));
@@ -30,7 +30,7 @@ namespace WhoWantsToBeMillionaire
 
             table.RowCount = table.Controls.Count;
 
-            float fontSize = 0.035f * height;
+            float fontSize = 0.04f * height;
             var dict = ResourceManager.GetDictionary("Settings.json");
 
             using (Stream stream = ResourceManager.GetStream("SettingsValues.json", TypeResource.SettingsValues))
@@ -62,7 +62,7 @@ namespace WhoWantsToBeMillionaire
                 }
             }
 
-            buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings, fontSize);
+            buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings, 0.05f * height);
             buttonSave.Text = "Применить";
             buttonSave.Click += OnButtonClick;
 

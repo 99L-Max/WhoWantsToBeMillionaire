@@ -14,26 +14,12 @@ namespace WhoWantsToBeMillionaire
         Gray
     }
 
-    class ButtonСapsule : PictureBox
+    class ButtonСapsule : PictureBox, IDisposable
     {
         private static readonly ReadOnlyDictionary<ThemeButtonCapsule, Image> imageButton;
 
-        private ThemeButtonCapsule theme;
-        private Color foreColor;
-
-        public new bool Enabled
-        {
-            set
-            {
-                base.Enabled = value;
-
-                theme = value ? ThemeButtonCapsule.Blue : ThemeButtonCapsule.Gray;
-                foreColor = value ? Color.White : Color.Black;
-
-                Invalidate();
-            }
-            get => base.Enabled;
-        }
+        private ThemeButtonCapsule _theme;
+        private Color _foreColor;
 
         static ButtonСapsule()
         {
@@ -45,55 +31,59 @@ namespace WhoWantsToBeMillionaire
         protected ButtonСapsule()
         {
             BackColor = Color.Transparent;
-            foreColor = Color.White;
-            theme = ThemeButtonCapsule.Blue;
+
+            _foreColor = Color.White;
+            _theme = ThemeButtonCapsule.Blue;
+
+            EnabledChanged += OnEnabledChanged;
         }
 
         public ButtonСapsule(int width, int height) : this()
         {
             Size = new Size(width, height);
-            Font = new Font("", 0.35f * height, FontStyle.Bold);
+            Font = new Font("", 0.5f * height, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(imageButton[theme], ClientRectangle);
-            TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, foreColor);
+            e.Graphics.DrawImage(imageButton[_theme], ClientRectangle);
+            TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, _foreColor);
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        private void SetImageAndForeColor(ThemeButtonCapsule theme, Color foreColor)
+        {
+            _theme = theme;
+            _foreColor = foreColor;
+
+            Invalidate();
+        }
+
+        protected override void OnMouseEnter(EventArgs e) =>
+            SetImageAndForeColor(ThemeButtonCapsule.Orange, Color.Black);
+
+        protected override void OnMouseLeave(EventArgs e) =>
+            SetImageAndForeColor(ThemeButtonCapsule.Blue, Color.White);
+
+        protected override void OnMouseDown(MouseEventArgs e) =>
+            SetImageAndForeColor(ThemeButtonCapsule.Green, Color.Black);
+
+        protected override void OnMouseUp(MouseEventArgs e) =>
+            SetImageAndForeColor(ThemeButtonCapsule.Orange, Color.Black);
+
+        private void OnEnabledChanged(object sender, EventArgs e)
         {
             if (Enabled)
-            {
-                theme = ThemeButtonCapsule.Orange;
-                foreColor = Color.Black;
-
-                Invalidate();
-            }
+                SetImageAndForeColor(ThemeButtonCapsule.Blue, Color.White);
+            else
+                SetImageAndForeColor(ThemeButtonCapsule.Gray, Color.Black);
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void Dispose(bool disposing)
         {
-            if (Enabled)
-            {
-                theme = ThemeButtonCapsule.Blue;
-                foreColor = Color.White;
+            if (disposing)
+                EnabledChanged -= OnEnabledChanged;
 
-                Invalidate();
-            }
+            base.Dispose(disposing);
         }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            if (Enabled)
-            {
-                theme = ThemeButtonCapsule.Green;
-                foreColor = Color.Black;
-
-                Invalidate();
-            }
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e) => OnMouseEnter(e);
     }
 }

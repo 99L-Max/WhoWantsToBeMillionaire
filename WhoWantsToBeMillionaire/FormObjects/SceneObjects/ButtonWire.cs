@@ -16,61 +16,76 @@ namespace WhoWantsToBeMillionaire
 
     class ButtonWire : PictureBox, IDisposable
     {
-        private static readonly ReadOnlyDictionary<ThemeButtonWire, Image> imageButton;
-        private static readonly Image wire;
+        private static readonly ReadOnlyDictionary<ThemeButtonWire, Image> _imageButton;
+        private static readonly Image _wire;
 
-        private readonly Label leftBarrier;
-        private readonly Label rightBarrier;
+        private readonly Label _leftBarrier;
+        private readonly Label _rightBarrier;
 
-        private Rectangle rectImage;
-        private Rectangle rectBackground;
-        private Color foreColor;
-        private ThemeButtonWire theme;
-
-        public new bool Enabled
-        {
-            set
-            {
-                base.Enabled = value;
-
-                theme = value ? ThemeButtonWire.Blue : ThemeButtonWire.Gray;
-                foreColor = value ? Color.White : Color.Black;
-
-                Invalidate();
-            }
-            get => base.Enabled;
-        }
+        private Rectangle _imageRectangle;
+        private Rectangle _backgroundRectangle;
+        private Color _foreColor;
+        private ThemeButtonWire _theme;
 
         static ButtonWire()
         {
             var keys = Enum.GetValues(typeof(ThemeButtonWire)).Cast<ThemeButtonWire>();
             var img = keys.ToDictionary(k => k, v => ResourceManager.GetImage($"ButtonWire_{v}.png"));
 
-            imageButton = new ReadOnlyDictionary<ThemeButtonWire, Image>(img);
-            wire = ResourceManager.GetImage("Wire.png");
+            _imageButton = new ReadOnlyDictionary<ThemeButtonWire, Image>(img);
+            _wire = ResourceManager.GetImage("Wire.png");
         }
 
         public ButtonWire(float sizeFont)
         {
             BackColor = Color.Transparent;
             Dock = DockStyle.Fill;
-            Font = new Font("", sizeFont, FontStyle.Bold);
+            Font = new Font("", sizeFont, FontStyle.Bold, GraphicsUnit.Pixel);
 
-            foreColor = Color.White;
-            theme = ThemeButtonWire.Blue;
+            _foreColor = Color.White;
+            _theme = ThemeButtonWire.Blue;
 
-            leftBarrier = new Label();
-            rightBarrier = new Label();
+            _leftBarrier = new Label();
+            _rightBarrier = new Label();
 
-            Controls.Add(leftBarrier);
-            Controls.Add(rightBarrier);
+            Controls.Add(_leftBarrier);
+            Controls.Add(_rightBarrier);
 
             SizeChanged += OnSizeChanged;
+            EnabledChanged += OnEnabledChanged;
         }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            e.Graphics.DrawImage(_wire, _backgroundRectangle);
+            e.Graphics.DrawImage(_imageButton[_theme], _imageRectangle);
+
+            TextRenderer.DrawText(e.Graphics, Text, Font, _imageRectangle, _foreColor);
+        }
+
+        private void SetImageAndForeColor(ThemeButtonWire theme, Color foreColor)
+        {
+            _theme = theme;
+            _foreColor = foreColor;
+
+            Invalidate();
+        }
+
+        protected override void OnMouseEnter(EventArgs e) =>
+            SetImageAndForeColor(ThemeButtonWire.Orange, Color.Black);
+
+        protected override void OnMouseLeave(EventArgs e) =>
+            SetImageAndForeColor(ThemeButtonWire.Blue, Color.White);
+
+        protected override void OnMouseDown(MouseEventArgs e) =>
+            SetImageAndForeColor(ThemeButtonWire.Green, Color.Black);
+
+        protected override void OnMouseUp(MouseEventArgs e) =>
+            SetImageAndForeColor(ThemeButtonWire.Orange, Color.Black);
 
         private void OnSizeChanged(object sender, EventArgs e)
         {
-            Size sizeImage = imageButton[ThemeButtonWire.Blue].Size;
+            Size sizeImage = _imageButton[ThemeButtonWire.Blue].Size;
 
             float wfactor = (float)sizeImage.Width / Width;
             float hfactor = (float)sizeImage.Height / Height;
@@ -82,63 +97,30 @@ namespace WhoWantsToBeMillionaire
             int x = (Width - sizeRect.Width) >> 1;
             int y = (Height - sizeRect.Height) >> 1;
 
-            rectImage = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
-            rectBackground = new Rectangle(0, y, Width, sizeRect.Height);
+            _imageRectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
+            _backgroundRectangle = new Rectangle(0, y, Width, sizeRect.Height);
 
-            rightBarrier.Size = leftBarrier.Size = new Size((Width - rectImage.Width) >> 1, Height);
-            rightBarrier.Location = new Point(Width - rightBarrier.Width, 0);
+            _rightBarrier.Size = _leftBarrier.Size = new Size((Width - _imageRectangle.Width) >> 1, Height);
+            _rightBarrier.Location = new Point(Width - _rightBarrier.Width, 0);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        private void OnEnabledChanged(object sender, EventArgs e)
         {
-            e.Graphics.DrawImage(wire, rectBackground);
-            e.Graphics.DrawImage(imageButton[theme], rectImage);
-            TextRenderer.DrawText(e.Graphics, Text, Font, rectImage, foreColor);
+            if(Enabled)
+                SetImageAndForeColor(ThemeButtonWire.Blue, Color.White);
+            else
+                SetImageAndForeColor(ThemeButtonWire.Gray, Color.Black);
         }
-
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            if (Enabled)
-            {
-                theme = ThemeButtonWire.Orange;
-                foreColor = Color.Black;
-
-                Invalidate();
-            }
-        }
-
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            if (Enabled)
-            {
-                theme = ThemeButtonWire.Blue;
-                foreColor = Color.White;
-
-                Invalidate();
-            }
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            if (Enabled)
-            {
-                theme = ThemeButtonWire.Green;
-                foreColor = Color.Black;
-
-                Invalidate();
-            }
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e) => OnMouseEnter(e);
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 SizeChanged -= OnSizeChanged;
+                EnabledChanged -= OnEnabledChanged;
 
-                leftBarrier.Dispose();
-                rightBarrier.Dispose();
+                _leftBarrier.Dispose();
+                _rightBarrier.Dispose();
             }
 
             base.Dispose(disposing);

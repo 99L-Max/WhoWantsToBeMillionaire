@@ -31,7 +31,7 @@ namespace WhoWantsToBeMillionaire
             Rectangle rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
             Rectangle rectFill = new Rectangle(border, border, rectFrame.Width - 2 * border, rectFrame.Height - 2 * border);
 
-            using (Font font = new Font("", FontSize, FontStyle.Bold, GraphicsUnit.Point))
+            using (Font font = new Font("", FontSize, FontStyle.Bold, GraphicsUnit.Pixel))
             using (LinearGradientBrush brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))
             using (LinearGradientBrush brushFill = new LinearGradientBrush(rectFill, Color.Navy, Color.Black, 90f))
             {

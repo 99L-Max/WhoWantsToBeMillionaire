@@ -52,7 +52,7 @@ namespace WhoWantsToBeMillionaire
             textQuestion = new TextBitmap(rectQuestion, 64);
             g = Graphics.FromImage(image);
 
-            textQuestion.SizeFont = 0.35f * sizeOption.Height;
+            textQuestion.SizeFont = 0.45f * sizeOption.Height;
 
             Letter[] keys = Question.Letters.ToArray();
             Rectangle rectOption = new Rectangle(new Point(), sizeOption);
@@ -65,7 +65,7 @@ namespace WhoWantsToBeMillionaire
                 rectOption.Y = rectQuestion.Height + (i >> 1) * (sizeOption.Height + dy) + dy;
 
                 option = new Option(keys[i], rectOption);
-                option.SizeFont = 0.3f * sizeOption.Height;
+                option.SizeFont = 0.4f * sizeOption.Height;
                 options.Add(option.Letter, option);
             }
 

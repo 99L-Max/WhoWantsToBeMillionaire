@@ -28,7 +28,7 @@ namespace WhoWantsToBeMillionaire
 
         public TextMode TextMode
         {
-            set 
+            set
             {
                 if (value == TextMode.Monologue)
                 {
@@ -52,34 +52,22 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public bool ButtonCommandVisible
-        {
-            set => buttonCommand.Visible = value;
-        }
+        public bool ButtonCommandVisible { set => buttonCommand.Visible = value; }
 
-        public bool ButtonCancelVisible
-        {
-            set => buttonCanсel.Visible = value;
-        }
+        public bool ButtonCancelVisible { set => buttonCanсel.Visible = value; }
 
-        public bool ButtonsVisible
-        {
-            set => buttonCommand.Visible = buttonCanсel.Visible = value;
-        }
+        public bool ButtonsVisible { set => buttonCommand.Visible = buttonCanсel.Visible = value; }
 
-        public bool ButtonCommandEnabled
-        {
-            set => buttonCommand.Enabled = value;
-        }
+        public bool ButtonCommandEnabled { set => buttonCommand.Enabled = value; }
 
         public CommandBoard(int width, int height)
         {
             Size = new Size(width, height);
 
             int sideLogo = (int)(0.6f * height);
-            float fontSize = 0.035f * height;
+            float fontSize = 0.045f * height;
 
-            labelDialog = new LabelDialog(0.032f * height);
+            labelDialog = new LabelDialog(0.04f * height);
             logo = new Bitmap(ResourceManager.GetImage("Logo.png"), sideLogo, sideLogo);
 
             buttonCommand = new ButtonWire(fontSize);

@@ -10,18 +10,6 @@ namespace WhoWantsToBeMillionaire
 
         private bool imageVisible;
 
-        private bool ImageVisible
-        {
-            set
-            {
-                if(imageVisible != value)
-                {
-                    imageVisible = value;
-                    Invalidate();
-                }
-            }
-        }
-
         public readonly Letter Letter;
 
         static ButtonOption() =>
@@ -40,8 +28,14 @@ namespace WhoWantsToBeMillionaire
                 e.Graphics.DrawImage(image, ClientRectangle);
         }
 
-        protected override void OnMouseEnter(EventArgs e) => ImageVisible = true;
+        private void ChangeImageVisible(bool visible)
+        {
+            imageVisible = visible;
+            Invalidate();
+        }
 
-        protected override void OnMouseLeave(EventArgs e) => ImageVisible = false;
+        protected override void OnMouseEnter(EventArgs e) => ChangeImageVisible(true);
+
+        protected override void OnMouseLeave(EventArgs e) => ChangeImageVisible(false);
     }
 }

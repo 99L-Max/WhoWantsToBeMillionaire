@@ -112,7 +112,7 @@ namespace WhoWantsToBeMillionaire
             {
                 int height = prizeImage.Width * img.Height / img.Width;
                 int y = (prizeImage.Height - height) >> 1;
-                boxAnimation.SizeFont = 0.42f * height;
+                boxAnimation.SizeFont = 0.6f * height;
 
                 g.DrawImage(img, 0, y, prizeImage.Width, height);
             }

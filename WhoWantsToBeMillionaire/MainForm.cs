@@ -74,7 +74,7 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case MainMenuCommand.Achievements:
-                    OpenContextMenu(new MenuAchievements(ScreenRectangle.Width / 3, ScreenRectangle.Height * 2 / 3, achievementsData.Achievements));
+                    OpenContextMenu(new MenuAchievements(ScreenRectangle.Width / 2, ScreenRectangle.Height * 3 / 4, achievementsData.Achievements));
 
                     break;
 
@@ -118,8 +118,8 @@ namespace WhoWantsToBeMillionaire
             contextMenu = menu;
             contextMenu.ButtonClick += OnContextMenuClick;
 
-            mainMenu.Controls.Add(contextMenu);
             mainMenu.ButtonsVisible = false;
+            mainMenu.Controls.Add(contextMenu);
         }
 
         private void CloseContextMenu()
@@ -199,7 +199,6 @@ namespace WhoWantsToBeMillionaire
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-            {
                 if (mainMenu.Controls.Contains(contextMenu))
                 {
                     CloseContextMenu();
@@ -209,7 +208,6 @@ namespace WhoWantsToBeMillionaire
                     mainMenu.Visible = !mainMenu.Visible;
                     scene.Visible = !scene.Visible;
                 }
-            }
         }
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)

@@ -9,7 +9,7 @@ namespace WhoWantsToBeMillionaire
         {
             ForeColor = Color.White;
             Dock = DockStyle.Fill;
-            Font = new Font("", fontSize, FontStyle.Bold);
+            Font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
             TextAlign = alignment;
         }
     }

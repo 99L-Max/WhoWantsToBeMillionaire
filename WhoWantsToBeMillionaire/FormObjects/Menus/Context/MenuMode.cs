@@ -21,12 +21,12 @@ namespace WhoWantsToBeMillionaire
 
         public Mode SelectedMode { private set; get; }
 
-        public MenuMode(int width, int height) : base("Выберите режим", width, height, 0.04f * height)
+        public MenuMode(int width, int height) : base("Выберите режим", width, height, 0.05f * height)
         {
             descriptions = ResourceManager.GetDictionary("DescriptionModes.json");
             var modes = ResourceManager.GetDictionary("Modes.json");
 
-            float fontSize = 0.04f * Height;
+            float fontSize = 0.05f * Height;
 
             labelDescriptionMode = new LabelMenu(fontSize);
             comboBox = new GameComboBox(modes.Values.ToArray(), fontSize);

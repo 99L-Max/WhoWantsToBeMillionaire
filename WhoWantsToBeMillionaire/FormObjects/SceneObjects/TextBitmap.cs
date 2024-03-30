@@ -21,7 +21,7 @@ namespace WhoWantsToBeMillionaire
             set
             {
                 font.Dispose();
-                font = new Font("", value);
+                font = new Font("", value, GraphicsUnit.Pixel);
                 DrawText();
             }
         }
@@ -83,7 +83,7 @@ namespace WhoWantsToBeMillionaire
             Rectangle = rectangle;
             ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
             formatText = new StringFormat();
-            font = new Font("", 0.25f * Rectangle.Height);
+            font = new Font("", 0.25f * Rectangle.Height, GraphicsUnit.Pixel);
             g = Graphics.FromImage(ImageText);
 
             formatText.Alignment = StringAlignment.Center;

@@ -22,7 +22,7 @@ namespace WhoWantsToBeMillionaire
             var yDown = (int)(0.8f * height);
 
             BackgroundImage = ResourceManager.GetImage("AudienceChart.png");
-            Font = new Font("", 0.05f * height, FontStyle.Bold);
+            Font = new Font("", 0.07f * height, FontStyle.Bold, GraphicsUnit.Pixel);
             imageColumn = ResourceManager.GetImage("ChartColumn.png");
             columns = keys.ToDictionary(k => k, v => new ChartColumnPercent((2 * (int)v + 1) * widthColumn, widthColumn, maxHeightColumn, yDown));
         }

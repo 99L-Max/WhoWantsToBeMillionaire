@@ -22,38 +22,45 @@ namespace WhoWantsToBeMillionaire
 
         public PhoneTimer(int side) : base(side, side)
         {
+            Font = new Font("", 0.45f * side, FontStyle.Bold, GraphicsUnit.Pixel);
+            ForeColor = Color.White;
+
             background = ResourceManager.GetImage("PhoneTimer_Back.png");
             ring = ResourceManager.GetImage("PhoneTimer_Front.png");
             front = new Bitmap(ring.Width, ring.Height);
             brush = new SolidBrush(Color.Transparent);
-
+            timer = new Timer();
             g = Graphics.FromImage(front);
+
             g.CompositingMode = CompositingMode.SourceCopy;
 
-            Font = new Font("", 0.35f * side, FontStyle.Bold);
-            ForeColor = Color.White;
-            maxSeconds = seconds = 30;
-
-            timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += TimerTick;
+
+            SetSeconds(maxSeconds = 30);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            g.DrawImage(ring, 0, 0);
-            g.FillPie(brush, 0, 0, ring.Width, ring.Height, -90, (maxSeconds - seconds) * 360 / maxSeconds);
-
             e.Graphics.DrawImage(background, ClientRectangle);
             e.Graphics.DrawImage(front, ClientRectangle);
 
             TextRenderer.DrawText(e.Graphics, $"{seconds}", Font, ClientRectangle, ForeColor);
         }
 
+        private void SetSeconds(int value)
+        {
+            seconds = value;
+
+            g.DrawImage(ring, 0, 0);
+            g.FillPie(brush, 0, 0, ring.Width, ring.Height, -90, (maxSeconds - seconds) * 360 / maxSeconds);
+
+            Invalidate();
+        }
+
         private void TimerTick(object sender, EventArgs e)
         {
-            seconds--;
-            Invalidate();
+            SetSeconds(seconds - 1);
 
             if (seconds <= 0)
             {

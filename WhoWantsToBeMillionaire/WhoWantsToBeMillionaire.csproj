@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormObjects\ArtistAchievements.cs" />
     <Compile Include="FormObjects\BoxAchievement.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -87,7 +88,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\Menus\DataObjects\AchievementsData.cs" />
-    <Compile Include="FormObjects\Menus\MenuControls\AchievementProgressBar.cs">
+    <Compile Include="FormObjects\Menus\MenuControls\GameVScrollBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormObjects\Menus\MenuControls\TableImages.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
