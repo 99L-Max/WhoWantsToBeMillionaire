@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -16,15 +17,15 @@ namespace WhoWantsToBeMillionaire
 
     class MenuMain : PictureBox
     {
-        private readonly TableLayoutPanel table;
+        private readonly TableLayoutPanel _table;
 
         public delegate void EventButtonClick(MainMenuCommand command);
         public event EventButtonClick ButtonClick;
 
         public bool ButtonsVisible
         {
-            set => table.Visible = value;
-            get => table.Visible;
+            set => _table.Visible = value;
+            get => _table.Visible;
         }
 
         public MenuMain()
@@ -32,33 +33,29 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.FromArgb(byte.MaxValue >> 1, Color.Black);
 
-            table = new TableLayoutPanel();
-            table.BackColor = Color.Transparent;
+            _table = new TableLayoutPanel();
+            _table.BackColor = Color.Transparent;
 
-            Controls.Add(table);
+            Controls.Add(_table);
         }
 
         public void SetCommands(params MainMenuCommand[] commands)
         {
-            foreach (Control ctrl in table.Controls)
+            foreach (Control ctrl in _table.Controls)
                 ctrl.Dispose();
 
             int heightButton = (int)(0.08f * MainForm.ScreenRectangle.Height);
 
-            table.Controls.Clear();
-            table.ColumnStyles.Clear();
-            table.RowStyles.Clear();
+            _table.Controls.Clear();
+            _table.RowStyles.Clear();
 
-            table.RowCount = commands.Length;
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1f));
-
-            table.Size = new Size(MainForm.ScreenRectangle.Width, heightButton * commands.Length);
-            table.Location = new Point((MainForm.ScreenRectangle.Width - table.Width) >> 1, (MainForm.ScreenRectangle.Height - table.Height) >> 1);
+            _table.Size = new Size(MainForm.ScreenRectangle.Width, heightButton * commands.Length);
+            _table.Location = new Point((MainForm.ScreenRectangle.Width - _table.Width) >> 1, (MainForm.ScreenRectangle.Height - _table.Height) >> 1);
 
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 
-            float fontSize = 0.4f * heightButton;
-            var dict = ResourceManager.GetDictionary("MenuCommands.json");
+            var fontSize = 0.4f * heightButton;
+            var dict = JsonManager.GetDictionary(Resources.Dictionary_MenuCommands);
 
             for (int i = 0; i < buttons.Length; i++)
             {
@@ -66,8 +63,8 @@ namespace WhoWantsToBeMillionaire
                 buttons[i].Text = dict[commands[i].ToString()];
                 buttons[i].Click += OnButtonClick;
 
-                table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
-                table.Controls.Add(buttons[i], 0, i);
+                _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
+                _table.Controls.Add(buttons[i], 0, i);
             }
         }
 

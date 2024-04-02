@@ -43,7 +43,8 @@ namespace WhoWantsToBeMillionaire
         public GameSettingsData(Dictionary<GameSettings, float> settings) =>
             _settings = settings;
 
-        public float GetSettings(GameSettings key) => _settings[key];
+        public float GetSettings(GameSettings key) =>
+            _settings[key];
 
         public void ApplyGlobal() =>
             Sound.SetVolume(_settings[GameSettings.Volume] / 10f);

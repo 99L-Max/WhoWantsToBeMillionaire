@@ -9,17 +9,16 @@ namespace WhoWantsToBeMillionaire
     class TableImages : PictureBox, IDisposable
     {
         private readonly List<Image> _images;
-        private readonly VScrollBar _bar;
+        private readonly GameScrollBar _bar;
         private readonly int _distanseRows;
 
         public TableImages(int distanseRows)
         {
             _images = new List<Image>();
-            _bar = new VScrollBar();
+            _bar = new GameScrollBar(ScrollOrientation.VerticalScroll);
             _distanseRows = distanseRows;
 
             _bar.Dock = DockStyle.Right;
-            _bar.LargeChange = 1;
             _bar.Scroll += OnScrollBarValueChanged;
 
             Controls.Add(_bar);

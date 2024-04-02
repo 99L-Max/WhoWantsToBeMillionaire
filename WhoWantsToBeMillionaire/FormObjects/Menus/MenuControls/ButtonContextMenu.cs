@@ -12,20 +12,23 @@ namespace WhoWantsToBeMillionaire
         {
             Command = cmd;
             Font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-
-            SizeChanged += OnSizeChanged;
         }
 
-        private void OnSizeChanged(object sender, EventArgs e)
+        public void AlignSize(float relativeWidth, float relativeHeight)
         {
-           Size sizeImage = new Size(6, 1);
-           
-           float wfactor = (float)sizeImage.Width / ClientRectangle.Width;
-           float hfactor = (float)sizeImage.Height / ClientRectangle.Height;
-           
-           float resizeFactor = Math.Max(wfactor, hfactor);
+            Dock = DockStyle.Fill;
+            Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
-            Size = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
+            SizeF ratio = new SizeF(relativeWidth, relativeHeight);
+
+            float wfactor = ratio.Width / ClientRectangle.Width;
+            float hfactor = ratio.Height / ClientRectangle.Height;
+
+            float resizeFactor = Math.Max(wfactor, hfactor);
+
+            Dock = DockStyle.None;
+            Anchor = AnchorStyles.None;
+            Size = new Size((int)(ratio.Width / resizeFactor), (int)(ratio.Height / resizeFactor));
         }
     }
 }

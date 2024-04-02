@@ -1,71 +1,66 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class MenuAchievements : ContextMenu, IDisposable
     {
-        private readonly TableImages table;
+        private readonly TableImages _table;
 
         public MenuAchievements(int width, int height, Dictionary<Achievement, bool> achievements) : base("Достижения", width, height, 0.05f * height)
         {
-            table = new TableImages((int)(0.05f * height));
-            table.Dock = DockStyle.Fill;
+            _table = new TableImages((int)(0.05f * height));
+            _table.Dock = DockStyle.Fill;
 
-            using (Stream stream = ResourceManager.GetStream("Achievements.json", TypeResource.Dictionaries))
-            using (StreamReader reader = new StreamReader(stream))
+            var dict = JsonManager.GetObject<Dictionary<string, (string, string)>>(Resources.Dictionary_Achievements);
+            var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
+            var granted = achievements.Where(x => x.Value);
+            var artist = new ArtistAchievements();
+            var image = artist.GetImageProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
+
+            string title, comment;
+
+            _table.Add(image);
+
+            foreach (var ach in granted)
             {
-                var dict = JsonConvert.DeserializeObject<Dictionary<string, (string, string)>>(reader.ReadToEnd());
-                var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
-                var granted = achievements.Where(x => x.Value);
-                var artist = new ArtistAchievements();
+                (title, comment) = dict[ach.Key.ToString()];
 
-                string title, comment;
-                Image image = artist.GetImageProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
+                using (Image icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{ach.Key}"))
+                    image = artist.GetImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
-                table.Add(image);
-
-                foreach (var ach in granted)
-                {
-                    (title, comment) = dict[ach.Key.ToString()];
-
-                    using (Image icon = ResourceManager.GetImage($"Achievement_{ach.Key}.png"))
-                        image = artist.GetImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
-
-                    table.Add(image);
-                }
-
-                if (granted.Count() != achievements.Count)
-                {
-                    var sizeText = new Size(sizeRow.Width, sizeRow.Height >> 1);
-                    table.AddText("Неполученные достижения", 0.3f * sizeRow.Height, sizeText, Color.White);
-
-                    using (Image icon = ResourceManager.GetImage($"Achievement_Locked.png"))
-                        foreach (var ach in achievements.Where(x => !x.Value))
-                        {
-                            (title, comment) = dict[ach.Key.ToString()];
-                            image = artist.GetImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
-
-                            table.Add(image);
-                        }
-                }
+                _table.Add(image);
             }
 
-            SetControls(table);
+            if (granted.Count() != achievements.Count)
+            {
+                var sizeText = new Size(sizeRow.Width, sizeRow.Height >> 1);
+                _table.AddText("Неполученные достижения", 0.3f * sizeRow.Height, sizeText, Color.White);
+
+                using (Image icon = Resources.Achievement_Locked)
+                    foreach (var ach in achievements.Where(x => !x.Value))
+                    {
+                        (title, comment) = dict[ach.Key.ToString()];
+                        image = artist.GetImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+
+                        _table.Add(image);
+                    }
+            }
+
+            SetControls(_table);
             SetHeights(6f);
 
-            table.DrawTable();
+            _table.DrawTable();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                table.Dispose();
+                _table.Dispose();
 
             base.Dispose(disposing);
         }

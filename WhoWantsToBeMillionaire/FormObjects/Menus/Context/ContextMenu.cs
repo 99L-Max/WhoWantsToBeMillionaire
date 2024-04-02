@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -15,9 +14,9 @@ namespace WhoWantsToBeMillionaire
 
     abstract class ContextMenu : PictureBox, IDisposable
     {
-        private readonly LabelMenu labelTitle;
-        private readonly ButtonContextMenu buttonBack;
-        private readonly TableLayoutPanel table;
+        private readonly LabelMenu _labelTitle;
+        private readonly ButtonContextMenu _buttonBack;
+        private readonly TableLayoutPanel _table;
 
         public delegate void EventButtonClick(ContextMenuCommand command);
         public event EventButtonClick ButtonClick;
@@ -44,19 +43,19 @@ namespace WhoWantsToBeMillionaire
                 BackgroundImage = background;
             }
 
-            table = new TableLayoutPanel();
-            labelTitle = new LabelMenu(fontSize, ContentAlignment.MiddleCenter);
-            buttonBack = new ButtonContextMenu(ContextMenuCommand.Back, fontSize);
+            _table = new TableLayoutPanel();
+            _labelTitle = new LabelMenu(fontSize, ContentAlignment.MiddleCenter);
+            _buttonBack = new ButtonContextMenu(ContextMenuCommand.Back, fontSize);
 
-            labelTitle.Text = title;
-            buttonBack.Text = "Назад";
+            _labelTitle.Text = title;
+            _buttonBack.Text = "Назад";
 
-            buttonBack.Click += OnButtonClick;
+            _buttonBack.Click += OnButtonClick;
 
-            table.Size = new Size((int)(0.9f * Width), (int)(0.9f * Height));
-            table.Location = new Point((Width - table.Width) >> 1, (Height - table.Height) >> 1);
+            _table.Size = new Size((int)(0.9f * Width), (int)(0.9f * Height));
+            _table.Location = new Point((Width - _table.Width) >> 1, (Height - _table.Height) >> 1);
 
-            Controls.Add(table);
+            Controls.Add(_table);
         }
 
         protected void OnButtonClick(object sender, EventArgs e) =>
@@ -64,40 +63,37 @@ namespace WhoWantsToBeMillionaire
 
         protected void SetControls(params Control[] controls)
         {
-            table.Controls.Clear();
+            _table.Controls.Clear();
 
-            table.Controls.Add(labelTitle, 0, 0);
+            _table.Controls.Add(_labelTitle, 0, 0);
 
             for (int i = 0; i < controls.Length; i++)
-                table.Controls.Add(controls[i], 0, i + 1);
+                _table.Controls.Add(controls[i], 0, i + 1);
 
-            table.Controls.Add(buttonBack, 0, controls.Length + 1);
+            _table.Controls.Add(_buttonBack, 0, controls.Length + 1);
         }
 
         protected void SetHeights(params float[] heights)
         {
-            table.RowStyles.Clear();
+            _table.RowStyles.Clear();
 
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
+            _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
 
             foreach (var h in heights)
-                table.RowStyles.Add(new RowStyle(SizeType.Percent, h));
+                _table.RowStyles.Add(new RowStyle(SizeType.Percent, h));
 
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
+            _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
 
-            foreach (var b in table.Controls.OfType<ButtonContextMenu>())
-            {
-                b.Dock = DockStyle.Fill;
-                b.Dock = DockStyle.None;
-                b.Anchor = AnchorStyles.None;
-            }
+            foreach (var ctrl in _table.Controls)
+                if (ctrl is ButtonContextMenu)
+                    (ctrl as ButtonContextMenu).AlignSize(6f, 1f);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (Control ctrl in table.Controls)
+                foreach (Control ctrl in _table.Controls)
                 {
                     if (ctrl is ButtonContextMenu)
                         (ctrl as ButtonContextMenu).Click -= OnButtonClick;
@@ -105,8 +101,8 @@ namespace WhoWantsToBeMillionaire
                     ctrl.Dispose();
                 }
 
-                table.Controls.Clear();
-                table.Dispose();
+                _table.Controls.Clear();
+                _table.Dispose();
 
                 BackgroundImage.Dispose();
             }

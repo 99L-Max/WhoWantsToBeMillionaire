@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -14,49 +15,48 @@ namespace WhoWantsToBeMillionaire
 
     class MenuMode : ContextMenu, IDisposable
     {
-        private readonly LabelMenu labelDescriptionMode;
-        private readonly GameComboBox comboBox;
-        private readonly ButtonContextMenu buttonStart;
-        private readonly Dictionary<string, string> descriptions;
+        private readonly LabelMenu _labelDescriptionMode;
+        private readonly GameComboBox _comboBox;
+        private readonly ButtonContextMenu _buttonStart;
+        private readonly Dictionary<string, string> _descriptions;
 
         public Mode SelectedMode { private set; get; }
 
         public MenuMode(int width, int height) : base("Выберите режим", width, height, 0.05f * height)
         {
-            descriptions = ResourceManager.GetDictionary("DescriptionModes.json");
-            var modes = ResourceManager.GetDictionary("Modes.json");
+            var modes = JsonManager.GetDictionary(Resources.Dictionary_Modes);
+            var fontSize = 0.05f * Height;
 
-            float fontSize = 0.05f * Height;
+            _descriptions = JsonManager.GetDictionary(Resources.Dictionary_DescriptionModes);
+            _labelDescriptionMode = new LabelMenu(fontSize);
+            _comboBox = new GameComboBox(modes.Values.ToArray(), fontSize);
+            _buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
 
-            labelDescriptionMode = new LabelMenu(fontSize);
-            comboBox = new GameComboBox(modes.Values.ToArray(), fontSize);
-            buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
+            _buttonStart.Text = "Старт";
 
-            buttonStart.Text = "Старт";
+            _comboBox.BackgroundImageLayout = ImageLayout.Stretch;
+            _comboBox.BackgroundImage = Resources.ComboBox;
 
-            comboBox.BackgroundImageLayout = ImageLayout.Stretch;
-            comboBox.BackgroundImage = ResourceManager.GetImage("ComboBox.png");
+            _buttonStart.Click += OnButtonClick;
+            _comboBox.SelectedIndexChanged += ModeChanged;
 
-            buttonStart.Click += OnButtonClick;
-            comboBox.SelectedIndexChanged += ModeChanged;
-
-            SetControls(comboBox, labelDescriptionMode, buttonStart);
+            SetControls(_comboBox, _labelDescriptionMode, _buttonStart);
             SetHeights(1f, 3f, 1f);
 
-            comboBox.SelectedIndex = 0;
+            _comboBox.SelectedIndex = 0;
         }
 
         private void ModeChanged(object sender, EventArgs e)
         {
-            SelectedMode = (Mode)comboBox.SelectedIndex;
-            labelDescriptionMode.Text = descriptions[SelectedMode.ToString()];
+            SelectedMode = (Mode)_comboBox.SelectedIndex;
+            _labelDescriptionMode.Text = _descriptions[SelectedMode.ToString()];
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                comboBox.SelectedIndexChanged -= ModeChanged;
+                _comboBox.SelectedIndexChanged -= ModeChanged;
             }
 
             base.Dispose(disposing);

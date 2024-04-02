@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -14,9 +15,9 @@ namespace WhoWantsToBeMillionaire
         Gray
     }
 
-    class ButtonСapsule : PictureBox, IDisposable
+    class ButtonСapsule : PictureBox
     {
-        private static readonly ReadOnlyDictionary<ThemeButtonCapsule, Image> imageButton;
+        private static readonly ReadOnlyDictionary<ThemeButtonCapsule, Image> s_imageButton;
 
         private ThemeButtonCapsule _theme;
         private Color _foreColor;
@@ -24,8 +25,8 @@ namespace WhoWantsToBeMillionaire
         static ButtonСapsule()
         {
             var keys = Enum.GetValues(typeof(ThemeButtonCapsule)).Cast<ThemeButtonCapsule>();
-            var img = keys.ToDictionary(k => k, v => ResourceManager.GetImage($"ButtonCapsule_{v}.png"));
-            imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(img);
+            var img = keys.ToDictionary(k => k, v => (Image)Resources.ResourceManager.GetObject($"ButtonCapsule_{v}"));
+            s_imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(img);
         }
 
         protected ButtonСapsule()
@@ -34,8 +35,6 @@ namespace WhoWantsToBeMillionaire
 
             _foreColor = Color.White;
             _theme = ThemeButtonCapsule.Blue;
-
-            EnabledChanged += OnEnabledChanged;
         }
 
         public ButtonСapsule(int width, int height) : this()
@@ -46,7 +45,7 @@ namespace WhoWantsToBeMillionaire
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(imageButton[_theme], ClientRectangle);
+            e.Graphics.DrawImage(s_imageButton[_theme], ClientRectangle);
             TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, _foreColor);
         }
 
@@ -70,20 +69,14 @@ namespace WhoWantsToBeMillionaire
         protected override void OnMouseUp(MouseEventArgs e) =>
             SetImageAndForeColor(ThemeButtonCapsule.Orange, Color.Black);
 
-        private void OnEnabledChanged(object sender, EventArgs e)
+        protected override void OnEnabledChanged(EventArgs e)
         {
+            base.OnEnabledChanged(e);
+
             if (Enabled)
                 SetImageAndForeColor(ThemeButtonCapsule.Blue, Color.White);
             else
                 SetImageAndForeColor(ThemeButtonCapsule.Gray, Color.Black);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                EnabledChanged -= OnEnabledChanged;
-
-            base.Dispose(disposing);
         }
     }
 }

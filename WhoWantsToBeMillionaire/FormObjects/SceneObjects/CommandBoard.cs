@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -12,10 +13,10 @@ namespace WhoWantsToBeMillionaire
 
     class CommandBoard : TableLayoutPanel, IReset
     {
-        private readonly LabelDialog labelDialog;
-        private readonly ButtonWire buttonCommand;
-        private readonly ButtonWire buttonCanсel;
-        private readonly Image logo;
+        private readonly LabelDialog _labelDialog;
+        private readonly ButtonWire _buttonCommand;
+        private readonly ButtonWire _buttonCanсel;
+        private readonly Image _logo;
 
         public SceneCommand Command;
         public SceneCancelCommand CancelCommand;
@@ -32,33 +33,26 @@ namespace WhoWantsToBeMillionaire
             {
                 if (value == TextMode.Monologue)
                 {
-                    labelDialog.SetRatioText(0.8f, 0.8f);
-                    labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Center);
+                    _labelDialog.SetRatioText(0.8f, 0.8f);
+                    _labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Center);
                 }
                 else
                 {
-                    labelDialog.SetRatioText(0.65f, 0.9f);
-                    labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Near);
+                    _labelDialog.SetRatioText(0.65f, 0.9f);
+                    _labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Near);
                 }
             }
         }
 
-        public new string Text
-        {
-            set
-            {
-                labelDialog.Image = null;
-                labelDialog.Text = value;
-            }
-        }
+        public new string Text { set { _labelDialog.Image = null; _labelDialog.Text = value; } }
 
-        public bool ButtonCommandVisible { set => buttonCommand.Visible = value; }
+        public bool ButtonCommandVisible { set => _buttonCommand.Visible = value; }
 
-        public bool ButtonCancelVisible { set => buttonCanсel.Visible = value; }
+        public bool ButtonCancelVisible { set => _buttonCanсel.Visible = value; }
 
-        public bool ButtonsVisible { set => buttonCommand.Visible = buttonCanсel.Visible = value; }
+        public bool ButtonsVisible { set => _buttonCommand.Visible = _buttonCanсel.Visible = value; }
 
-        public bool ButtonCommandEnabled { set => buttonCommand.Enabled = value; }
+        public bool ButtonCommandEnabled { set => _buttonCommand.Enabled = value; }
 
         public CommandBoard(int width, int height)
         {
@@ -67,14 +61,14 @@ namespace WhoWantsToBeMillionaire
             int sideLogo = (int)(0.6f * height);
             float fontSize = 0.045f * height;
 
-            labelDialog = new LabelDialog(0.04f * height);
-            logo = new Bitmap(ResourceManager.GetImage("Logo.png"), sideLogo, sideLogo);
+            _labelDialog = new LabelDialog(0.04f * height);
+            _logo = new Bitmap(Resources.Logo, sideLogo, sideLogo);
 
-            buttonCommand = new ButtonWire(fontSize);
-            buttonCanсel = new ButtonWire(fontSize);
+            _buttonCommand = new ButtonWire(fontSize);
+            _buttonCanсel = new ButtonWire(fontSize);
 
-            buttonCommand.Click += (s, e) => CommandClick.Invoke(this, Command);
-            buttonCanсel.Click += (s, e) => CancelClick.Invoke(this, CancelCommand);
+            _buttonCommand.Click += (s, e) => CommandClick.Invoke(this, Command);
+            _buttonCanсel.Click += (s, e) => CancelClick.Invoke(this, CancelCommand);
 
             RowCount = 3;
 
@@ -82,44 +76,46 @@ namespace WhoWantsToBeMillionaire
             RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
             RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
 
-            Controls.Add(labelDialog, 0, 0);
-            Controls.Add(buttonCommand, 0, 1);
-            Controls.Add(buttonCanсel, 0, 2);
+            Controls.Add(_labelDialog, 0, 0);
+            Controls.Add(_buttonCommand, 0, 1);
+            Controls.Add(_buttonCanсel, 0, 2);
         }
 
         public void Reset(Mode mode = Mode.Classic)
         {
-            labelDialog.Text = string.Empty;
-            labelDialog.Image = null;
-            buttonCommand.Visible = buttonCanсel.Visible = false;
-            TextMode = TextMode.Monologue;
+            _labelDialog.Text = string.Empty;
+            _labelDialog.Image = null;
+            _buttonCommand.Visible = _buttonCanсel.Visible = false;
 
-            buttonCommand.Text = "Продолжить";
-            buttonCanсel.Text = "Пропустить";
+            _buttonCommand.Text = "Продолжить";
+            _buttonCanсel.Text = "Пропустить";
+
+            TextMode = TextMode.Monologue;
         }
 
-        public void AddText(string text) => labelDialog.Text += text;
+        public void AddText(string text) => 
+            _labelDialog.Text += text;
 
         public void Clear()
         {
-            labelDialog.Text = string.Empty;
-            labelDialog.Image = logo;
-            buttonCommand.Visible = buttonCanсel.Visible = false;
+            _labelDialog.Text = string.Empty;
+            _labelDialog.Image = _logo;
+            _buttonCommand.Visible = _buttonCanсel.Visible = false;
 
-            buttonCommand.Text = "Продолжить";
-            buttonCanсel.Text = "Отмена";
+            _buttonCommand.Text = "Продолжить";
+            _buttonCanсel.Text = "Отмена";
         }
 
         public void AskTakingMoney(string text)
         {
             Command = SceneCommand.TakeMoney_Confirmation;
-            CancelCommand = SceneCancelCommand.Cancel_TakingMoney;
+            CancelCommand = SceneCancelCommand.CancelTakingMoney;
 
             Text = text;
             ButtonsVisible = true;
 
-            buttonCommand.Text = "Забрать деньги";
-            buttonCanсel.Text = "Продолжить игру";
+            _buttonCommand.Text = "Забрать деньги";
+            _buttonCanсel.Text = "Продолжить игру";
         }
 
         public void AskRestart()
@@ -127,30 +123,30 @@ namespace WhoWantsToBeMillionaire
             Command = SceneCommand.Restart;
             CancelCommand = SceneCancelCommand.ExitToMainMenu;
 
-            buttonCommand.Text = "Повторить игру";
-            buttonCanсel.Text = "Главное меню";
+            _buttonCommand.Text = "Повторить игру";
+            _buttonCanсel.Text = "Главное меню";
 
             ButtonsVisible = true;
         }
 
         public async Task ShowMovingPictureBox(MovingPictureBox box, int milliseconds, bool centering)
         {
-            box.Location = new Point(labelDialog.Width, centering ? (labelDialog.Height - box.Height) >> 1 : 0);
+            box.Location = new Point(_labelDialog.Width, centering ? (_labelDialog.Height - box.Height) >> 1 : 0);
 
-            labelDialog.Image = null;
-            labelDialog.Controls.Add(box);
+            _labelDialog.Image = null;
+            _labelDialog.Controls.Add(box);
 
-            int x = centering ? (labelDialog.Width - box.Width) >> 1 : labelDialog.Width - box.Width;
+            int x = centering ? (_labelDialog.Width - box.Width) >> 1 : _labelDialog.Width - box.Width;
 
             await box.MoveX(x, milliseconds / MainForm.DeltaTime);
         }
 
         public async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)
         {
-            if (labelDialog.Controls.Contains(box))
+            if (_labelDialog.Controls.Contains(box))
             {
-                await box.MoveX(labelDialog.Width, countFrames);
-                labelDialog.Controls.Remove(box);
+                await box.MoveX(_labelDialog.Width, countFrames);
+                _labelDialog.Controls.Remove(box);
             }
         }
     }

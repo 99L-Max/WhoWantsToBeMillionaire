@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -16,7 +17,7 @@ namespace WhoWantsToBeMillionaire
 
     class StatisticsData
     {
-        private readonly Dictionary<StatsAttribute, int> attributes;
+        private readonly Dictionary<StatsAttribute, int> _attributes;
 
         public StatisticsData(string path)
         {
@@ -27,32 +28,31 @@ namespace WhoWantsToBeMillionaire
                 using (StreamReader reader = new StreamReader(path + @"\Statistics.json"))
                 {
                     string jsonStr = reader.ReadToEnd();
-                    attributes = JsonConvert.DeserializeObject<Dictionary<StatsAttribute, int>>(jsonStr);
+                    _attributes = JsonConvert.DeserializeObject<Dictionary<StatsAttribute, int>>(jsonStr);
 
                     foreach (var key in keys)
-                        if (!attributes.ContainsKey(key))
-                            attributes.Add(key, 0);
+                        if (!_attributes.ContainsKey(key))
+                            _attributes.Add(key, 0);
                 }
             }
             catch (Exception)
             {
-                attributes = keys.ToDictionary(k => k, v => 0);
+                _attributes = keys.ToDictionary(k => k, v => 0);
             }
         }
 
         public override string ToString()
         {
-            var dict = ResourceManager.GetDictionary("Statistics.json");
-
-            return string.Join("\n\n", attributes.Select(at => $"{dict[$"{at.Key}"]}: {String.Format("{0:#,0}", at.Value)}"));
+            var dict = JsonManager.GetDictionary(Resources.Dictionary_Statistics);
+            return string.Join("\n\n", _attributes.Select(a => $"{dict[$"{a.Key}"]}: {String.Format("{0:#,0}", a.Value)}"));
         }
 
         public void Update(StatsAttribute key, int value = 1) =>
-            attributes[key] += value;
+            _attributes[key] += value;
 
         public void Save(string pathSave)
         {
-            string data = JsonConvert.SerializeObject(attributes);
+            string data = JsonConvert.SerializeObject(_attributes);
             File.WriteAllText(pathSave + @"\Statistics.json", data);
         }
     }

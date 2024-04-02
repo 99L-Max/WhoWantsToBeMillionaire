@@ -27,9 +27,10 @@ namespace WhoWantsToBeMillionaire
 
     class AchievementsData
     {
-        private readonly Dictionary<Achievement, bool> achievements;
+        private readonly Dictionary<Achievement, bool> _achievements;
 
-        public Dictionary<Achievement, bool> Achievements => achievements.ToDictionary(k => k.Key, v => v.Value);
+        public Dictionary<Achievement, bool> Achievements => 
+            _achievements.ToDictionary(k => k.Key, v => v.Value);
 
         public AchievementsData(string path)
         {
@@ -40,26 +41,28 @@ namespace WhoWantsToBeMillionaire
                 using (StreamReader reader = new StreamReader(path + @"\Achievements.json"))
                 {
                     string jsonStr = reader.ReadToEnd();
-                    achievements = JsonConvert.DeserializeObject<Dictionary<Achievement, bool>>(jsonStr);
+                    _achievements = JsonConvert.DeserializeObject<Dictionary<Achievement, bool>>(jsonStr);
 
                     foreach (var key in keys)
-                        if (!achievements.ContainsKey(key))
-                            achievements.Add(key, false);
+                        if (!_achievements.ContainsKey(key))
+                            _achievements.Add(key, false);
                 }
             }
             catch (Exception)
             {
-                achievements = keys.ToDictionary(k => k, v => false);
+                _achievements = keys.ToDictionary(k => k, v => false);
             }
         }
 
-        public bool CheckGranted(Achievement key) => achievements[key];
+        public bool CheckGranted(Achievement key) =>
+            _achievements[key];
 
-        public void Grant(Achievement key) => achievements[key] = true;
+        public void Grant(Achievement key) =>
+            _achievements[key] = true;
 
         public void Save(string pathSave)
         {
-            string data = JsonConvert.SerializeObject(achievements);
+            string data = JsonConvert.SerializeObject(_achievements);
             File.WriteAllText(pathSave + @"\Achievements.json", data);
         }
     }

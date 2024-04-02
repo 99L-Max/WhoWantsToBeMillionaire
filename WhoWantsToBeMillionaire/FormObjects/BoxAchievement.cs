@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -13,19 +12,17 @@ namespace WhoWantsToBeMillionaire
         {
             var image = new Bitmap(width, height);
 
-            using (Image icon = ResourceManager.GetImage($"Achievement_{achievement}.png"))
-            using (Graphics g = Graphics.FromImage(image))
-            using (LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, Color.FromArgb(64, 64, 64), Color.FromArgb(32, 32, 32), 90f))
-            using (Stream stream = ResourceManager.GetStream("Achievements.json", TypeResource.Dictionaries))
-            using (StreamReader reader = new StreamReader(stream))
+            using (var icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{achievement}"))
+            using (var g = Graphics.FromImage(image))
+            using (var brush = new LinearGradientBrush(ClientRectangle, Color.FromArgb(64, 64, 64), Color.FromArgb(32, 32, 32), 90f))
             {
-                var dict = JsonConvert.DeserializeObject<Dictionary<string, (string, string)>>(reader.ReadToEnd());
+                var dict = JsonManager.GetObject<Dictionary<string, (string, string)>>(Resources.Dictionary_Achievements);
                 var (title, comment) = dict[$"{achievement}"];
                 var artist = new ArtistAchievements();
 
                 g.FillRectangle(brush, ClientRectangle);
 
-                using (Image art = artist.GetImage(icon, title, comment, width, height))
+                using (var art = artist.GetImage(icon, title, comment, width, height))
                     g.DrawImage(art, ClientRectangle);
 
                 Image = image;

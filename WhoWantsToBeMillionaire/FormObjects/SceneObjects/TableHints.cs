@@ -2,34 +2,40 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class TableHints : GameContol, IReset, IGameSettings
     {
-        private List<ButtonHint> hints;
-        private Queue<ButtonHint> hiddenHints;
-        private int countUsedHints;
-        private bool toolTipVisible;
+        private List<ButtonHint> _hints;
+        private Queue<ButtonHint> _hiddenHints;
+        private int _countUsedHints;
+        private bool _toolTipVisible;
 
-        public int CountHints => hints.Count;
+        public int CountHints => 
+            _hints.Count;
 
-        public string DescriptionNextHint => hiddenHints.Peek().Description;
+        public string DescriptionNextHint => 
+            _hiddenHints.Peek().Description;
 
-        public bool AllHintsVisible => hiddenHints.Count == 0;
+        public bool AllHintsVisible => 
+            _hiddenHints.Count == 0;
 
         public string TextActiveHints
         {
             get
             {
-                int count = hints.Select(h => h.Enabled).Count();
+                int count = _hints.Select(h => h.Enabled).Count();
 
                 switch (count % 10)
                 {
                     default:
                         return $"{count} подсказок";
+
                     case 1:
                         return $"{count} подсказка";
+
                     case 2:
                     case 3:
                     case 4:
@@ -49,9 +55,9 @@ namespace WhoWantsToBeMillionaire
 
             Controls.Clear();
 
-            hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
+            _hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
 
-            countUsedHints = 0;
+            _countUsedHints = 0;
 
             int countColumns;
             TypeHint[] types;
@@ -74,29 +80,29 @@ namespace WhoWantsToBeMillionaire
                     break;
             }
 
-            int width = (int)(0.9f * Width / countColumns);
-            Size sizeHint = new Size(width, (int)(0.63f * width));
-            var dict = ResourceManager.GetDictionary("DescriptionHints.json");
+            var width = (int)(0.9f * Width / countColumns);
+            var sizeHint = new Size(width, (int)(0.63f * width));
+            var dict = JsonManager.GetDictionary(Resources.Dictionary_DescriptionHints);
 
-            hints = types.Select(t => new ButtonHint(t, dict[t.ToString()], toolTipVisible)).ToList();
-            hints.ForEach(h => h.Click += OnHintClick);
+            _hints = types.Select(t => new ButtonHint(t, dict[t.ToString()], _toolTipVisible)).ToList();
+            _hints.ForEach(h => h.Click += OnHintClick);
 
-            hiddenHints = new Queue<ButtonHint>(hints);
+            _hiddenHints = new Queue<ButtonHint>(_hints);
 
-            SetLocationsHints(new Queue<ButtonHint>(hints), sizeHint, countColumns);
+            SetLocationsHints(new Queue<ButtonHint>(_hints), sizeHint, countColumns);
         }
 
         private void OnHintClick(object sender, EventArgs e)
         {
             ButtonHint hint = sender as ButtonHint;
 
-            countUsedHints++;
+            _countUsedHints++;
 
             hint.Enabled = false;
             hint.Click -= OnHintClick;
 
-            if (countUsedHints >= Hint.MaxCountAllowedHints)
-                foreach (var h in hints.Where(x => x.Enabled))
+            if (_countUsedHints >= Hint.MaxCountAllowedHints)
+                foreach (var h in _hints.Where(x => x.Enabled))
                 {
                     h.Click -= OnHintClick;
                     h.Lock();
@@ -147,23 +153,26 @@ namespace WhoWantsToBeMillionaire
 
         public void ShowHint()
         {
-            hiddenHints.Dequeue().ShowIcon();
+            _hiddenHints.Dequeue().ShowIcon();
 
-            int num = hints.Count - hiddenHints.Count;
+            int num = _hints.Count - _hiddenHints.Count;
 
-            Sound.Play(num < 4 ? $"Rules_Hint{num}.wav" : $"CentralIcon_Show.wav");
+            if (num < 4)
+                Sound.Play($"Rules_Hint{num}");
+            else
+                Sound.Play(Properties.Resources.CentralIcon_Show);
         }
 
         public void ShowAllHints()
         {
-            while (hiddenHints.Count > 0)
-                hiddenHints.Dequeue().ShowIcon();
+            while (_hiddenHints.Count > 0)
+                _hiddenHints.Dequeue().ShowIcon();
         }
 
         public void SetSettings(GameSettingsData data)
         {
-            toolTipVisible = Convert.ToBoolean(data.GetSettings(GameSettings.ShowDescriptionHints));
-            hints?.ForEach(h => h.ToolTipVisible = toolTipVisible);
+            _toolTipVisible = Convert.ToBoolean(data.GetSettings(GameSettings.ShowDescriptionHints));
+            _hints?.ForEach(h => h.ToolTipVisible = _toolTipVisible);
         }
     }
 }

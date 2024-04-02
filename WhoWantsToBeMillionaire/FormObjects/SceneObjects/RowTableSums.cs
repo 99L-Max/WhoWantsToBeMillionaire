@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class RowTableSums : PictureBox
     {
-        private static readonly Image background;
-        private static readonly Image iconCircle;
-        private static readonly Image iconRhomb;
-        private static readonly Size sizeNumber;
-        private static readonly Size sizeSum;
-        private static readonly TextFormatFlags textFormatFlags;
+        private static readonly Image s_background;
+        private static readonly Image s_iconCircle;
+        private static readonly Image s_iconRhomb;
+        private static readonly Size s_sizeNumber;
+        private static readonly Size s_sizeSum;
+        private static readonly TextFormatFlags s_textFormatFlags;
 
-        private readonly Image image;
+        private readonly Image _image;
 
-        private bool isSelected;
-        private bool iconVisible;
-        private bool isSaveSum;
-        private bool isMouseEventsActive;
+        private bool _isSelected;
+        private bool _iconVisible;
+        private bool _isSaveSum;
+        private bool _isMouseEventsActive;
 
         public readonly int Number;
         public readonly int Sum;
@@ -27,55 +28,55 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                if (isSelected != value)
+                if (_isSelected != value)
                 {
-                    isSelected = value;
-                    BackgroundImage = isSelected ? background : null;
+                    _isSelected = value;
+                    BackgroundImage = _isSelected ? s_background : null;
 
-                    if (iconVisible)
+                    if (_iconVisible)
                         Draw();
                 }
             }
-            get => isSelected;
+            get => _isSelected;
         }
 
         public bool IconVisible
         {
             set
             {
-                if (iconVisible != value)
+                if (_iconVisible != value)
                 {
-                    iconVisible = value;
+                    _iconVisible = value;
                     Draw();
                 }
             }
-            get => iconVisible;
+            get => _iconVisible;
         }
 
         public bool IsSaveSum
         {
             set
             {
-                if (isSaveSum != value)
+                if (_isSaveSum != value)
                 {
-                    isSaveSum = value;
+                    _isSaveSum = value;
                     Draw();
                 }
             }
-            get => isSaveSum;
+            get => _isSaveSum;
         }
 
         static RowTableSums()
         {
             int height = 60;
 
-            background = new Bitmap(ResourceManager.GetImage("CurrentAmount.png"), 500, height);
-            iconCircle = new Bitmap(ResourceManager.GetImage("IconSum_Circle.png"), height, height);
-            iconRhomb = new Bitmap(ResourceManager.GetImage("IconSum_Rhomb.png"), height, height);
+            s_background = new Bitmap(Resources.CurrentAmount, 500, height);
+            s_iconCircle = new Bitmap(Resources.IconSum_Circle, height, height);
+            s_iconRhomb = new Bitmap(Resources.IconSum_Rhomb, height, height);
 
-            sizeNumber = new Size((int)(0.18f * background.Width), background.Height);
-            sizeSum = new Size((int)(0.90f * background.Width), background.Height);
-            textFormatFlags = TextFormatFlags.Right | TextFormatFlags.VerticalCenter;
+            s_sizeNumber = new Size((int)(0.18f * s_background.Width), s_background.Height);
+            s_sizeSum = new Size((int)(0.90f * s_background.Width), s_background.Height);
+            s_textFormatFlags = TextFormatFlags.Right | TextFormatFlags.VerticalCenter;
         }
 
         public RowTableSums(int number, int sum)
@@ -83,12 +84,12 @@ namespace WhoWantsToBeMillionaire
             Number = number;
             Sum = sum;
 
-            image = new Bitmap(background.Width, background.Height);
-            isMouseEventsActive = false;
+            _image = new Bitmap(s_background.Width, s_background.Height);
+            _isMouseEventsActive = false;
 
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Font = new Font("", 0.5f * background.Height, FontStyle.Bold, GraphicsUnit.Pixel);
+            Font = new Font("", 0.5f * s_background.Height, FontStyle.Bold, GraphicsUnit.Pixel);
             Dock = DockStyle.Fill;
 
             Reset();
@@ -96,29 +97,29 @@ namespace WhoWantsToBeMillionaire
 
         private void Draw()
         {
-            using (Graphics g = Graphics.FromImage(image))
+            using (Graphics g = Graphics.FromImage(_image))
             {
                 g.Clear(Color.Transparent);
 
-                Color[] colors = { Color.Black, isSaveSum ? Color.White : Color.Orange };
+                Color[] colors = { Color.Black, _isSaveSum ? Color.White : Color.Orange };
                 Point[] points = { new Point(2, 2), new Point() };
 
                 for (int i = 0; i < points.Length; i++)
                 {
-                    TextRenderer.DrawText(g, $"{Number}", Font, new Rectangle(points[i], sizeNumber), colors[i], textFormatFlags);
-                    TextRenderer.DrawText(g, String.Format("{0:#,0}", Sum), Font, new Rectangle(points[i], sizeSum), colors[i], textFormatFlags);
+                    TextRenderer.DrawText(g, $"{Number}", Font, new Rectangle(points[i], s_sizeNumber), colors[i], s_textFormatFlags);
+                    TextRenderer.DrawText(g, String.Format("{0:#,0}", Sum), Font, new Rectangle(points[i], s_sizeSum), colors[i], s_textFormatFlags);
                 }
 
-                if (iconVisible)
-                    g.DrawImage(isSelected ? iconCircle : iconRhomb, sizeNumber.Width, 0, background.Height, background.Height);
+                if (_iconVisible)
+                    g.DrawImage(_isSelected ? s_iconCircle : s_iconRhomb, s_sizeNumber.Width, 0, s_background.Height, s_background.Height);
 
-                Image = image;
+                Image = _image;
             }
         }
 
         public void Reset()
         {
-            iconVisible = isSaveSum = isSelected = false;
+            _iconVisible = _isSaveSum = _isSelected = false;
             BackgroundImage = null;
 
             RemoveMouseEvents();
@@ -127,9 +128,9 @@ namespace WhoWantsToBeMillionaire
 
         public void AddMouseEvents()
         {
-            if (!isMouseEventsActive)
+            if (!_isMouseEventsActive)
             {
-                isMouseEventsActive = true;
+                _isMouseEventsActive = true;
                 MouseEnter += OnRowMouseEnter;
                 MouseLeave += OnRowMouseLeave;
             }
@@ -137,16 +138,18 @@ namespace WhoWantsToBeMillionaire
 
         public void RemoveMouseEvents()
         {
-            if (isMouseEventsActive)
+            if (_isMouseEventsActive)
             {
-                isMouseEventsActive = false;
+                _isMouseEventsActive = false;
                 MouseEnter -= OnRowMouseEnter;
                 MouseLeave -= OnRowMouseLeave;
             }
         }
 
-        private void OnRowMouseLeave(object sender, EventArgs e) => IsSelected = false;
+        private void OnRowMouseLeave(object sender, EventArgs e) => 
+            IsSelected = false;
 
-        private void OnRowMouseEnter(object sender, EventArgs e) => IsSelected = true;
+        private void OnRowMouseEnter(object sender, EventArgs e) => 
+            IsSelected = true;
     }
 }

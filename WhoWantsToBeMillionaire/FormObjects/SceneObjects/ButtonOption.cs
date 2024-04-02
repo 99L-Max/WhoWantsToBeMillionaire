@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class ButtonOption : Label
     {
-        private static readonly Image image;
+        private static readonly Image s_image;
 
-        private bool imageVisible;
+        private bool _imageVisible;
 
         public readonly Letter Letter;
 
         static ButtonOption() =>
-            image = ResourceManager.GetImage("ButtonWire_Focused.png");
+            s_image = Resources.ButtonWire_Focused;
 
         public ButtonOption(Letter letter, Rectangle rectangle)
         {
@@ -24,18 +25,20 @@ namespace WhoWantsToBeMillionaire
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (imageVisible)
-                e.Graphics.DrawImage(image, ClientRectangle);
+            if (_imageVisible)
+                e.Graphics.DrawImage(s_image, ClientRectangle);
         }
 
         private void ChangeImageVisible(bool visible)
         {
-            imageVisible = visible;
+            _imageVisible = visible;
             Invalidate();
         }
 
-        protected override void OnMouseEnter(EventArgs e) => ChangeImageVisible(true);
+        protected override void OnMouseEnter(EventArgs e) => 
+            ChangeImageVisible(true);
 
-        protected override void OnMouseLeave(EventArgs e) => ChangeImageVisible(false);
+        protected override void OnMouseLeave(EventArgs e) => 
+            ChangeImageVisible(false);
     }
 }

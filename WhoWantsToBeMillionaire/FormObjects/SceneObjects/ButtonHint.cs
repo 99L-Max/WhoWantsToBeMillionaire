@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Drawing;
-using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -26,12 +27,12 @@ namespace WhoWantsToBeMillionaire
 
     class ButtonHint : PictureBox, IDisposable
     {
-        private static readonly Image focus;
+        private static readonly Image s_focus;
 
-        private readonly Image image;
+        private readonly Image _image;
 
-        private GameToolTip toolTip = null;
-        private bool isShown;
+        private GameToolTip _toolTip = null;
+        private bool _isShown;
 
         public readonly TypeHint Type;
         public readonly string Description;
@@ -42,20 +43,21 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                if (value && toolTip == null)
+                if (value && _toolTip == null)
                 {
-                    toolTip = new GameToolTip(350, 90, 14f);
-                    toolTip.SetToolTip(this, Description);
+                    _toolTip = new GameToolTip(350, 90, 14f);
+                    _toolTip.SetToolTip(this, Description);
                 }
                 else
                 {
-                    toolTip?.Dispose();
-                    toolTip = null;
+                    _toolTip?.Dispose();
+                    _toolTip = null;
                 }
             }
         }
 
-        static ButtonHint() => focus = ResourceManager.GetImage("Focus_Hint.png");
+        static ButtonHint() =>
+            s_focus = Resources.Focus_Hint;
 
         public ButtonHint(TypeHint type, string description, bool toolTipVisible)
         {
@@ -67,9 +69,9 @@ namespace WhoWantsToBeMillionaire
             SizeMode = PictureBoxSizeMode.Zoom;
             BackgroundImageLayout = ImageLayout.Zoom;
 
-            Enabled = isShown = false;
+            Enabled = _isShown = false;
 
-            image = ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png");
+            _image = (Image)Resources.ResourceManager.GetObject($"Hint_{type}_{StatusHint.Active}");
         }
 
         private void SetStatus(StatusHint status, bool enabled)
@@ -79,24 +81,26 @@ namespace WhoWantsToBeMillionaire
 
             float proporsion = 0.75f;
 
-            using (Image icon = ResourceManager.GetImage($"Hint_{Type}_{Status}.png"))
-            using (Graphics g = Graphics.FromImage(image))
+            using (Image icon = (Image)Resources.ResourceManager.GetObject($"Hint_{Type}_{Status}"))
+            using (Graphics g = Graphics.FromImage(_image))
             {
-                float width = image.Width * proporsion;
-                float height = image.Height * proporsion;
+                float width = _image.Width * proporsion;
+                float height = _image.Height * proporsion;
 
-                float x = (image.Width - width) / 2f;
-                float y = (image.Height - height) / 2f;
+                float x = (_image.Width - width) / 2f;
+                float y = (_image.Height - height) / 2f;
 
                 g.Clear(Color.Transparent);
                 g.DrawImage(icon, x, y, width, height);
-                Image = image;
+                Image = _image;
             }
         }
 
-        private void OnHintMouseLeave(object sender, EventArgs e) => BackgroundImage = null;
+        private void OnHintMouseLeave(object sender, EventArgs e) =>
+            BackgroundImage = null;
 
-        private void OnHintMouseEnter(object sender, EventArgs e) => BackgroundImage = focus;
+        private void OnHintMouseEnter(object sender, EventArgs e) =>
+            BackgroundImage = s_focus;
 
         private void OnHintClick(object sender, EventArgs e)
         {
@@ -120,37 +124,34 @@ namespace WhoWantsToBeMillionaire
 
         public async void ShowIcon()
         {
-            if (isShown) return;
+            if (_isShown) return;
 
-            isShown = true;
+            _isShown = true;
 
-            using (Stream stream = ResourceManager.GetStream("ShowHint.json", TypeResource.AnimationData))
-            using (StreamReader reader = new StreamReader(stream))
-            using (Image icon = new Bitmap(image))
-            using (Image reverseSide = ResourceManager.GetImage("ReverseSide_Hint.png"))
-            using (Graphics g = Graphics.FromImage(image))
+            using (Image icon = new Bitmap(_image))
+            using (Image reverseSide = Resources.ReverseSide_Hint)
+            using (Graphics g = Graphics.FromImage(_image))
             {
-                (float, float, bool)[] aniData = JsonConvert.DeserializeObject<(float, float, bool)[]>(reader.ReadToEnd());
+                var data = JsonManager.GetObject<(float, float, bool)[]>(Resources.AnimationData_ButtonHint);
 
-                float compression, proporsion;
                 bool isFront;
-
+                float compression, proporsion;
                 float x, y, width, height;
 
-                foreach (var data in aniData)
+                foreach (var el in data)
                 {
-                    (compression, proporsion, isFront) = data;
+                    (compression, proporsion, isFront) = el;
 
-                    width = image.Width * compression * proporsion;
-                    height = image.Height * proporsion;
+                    width = _image.Width * compression * proporsion;
+                    height = _image.Height * proporsion;
 
-                    x = (image.Width - width) / 2f;
-                    y = (image.Height - height) / 2f;
+                    x = (_image.Width - width) / 2f;
+                    y = (_image.Height - height) / 2f;
 
                     g.Clear(BackColor);
                     g.DrawImage(isFront ? icon : reverseSide, x, y, width, height);
 
-                    Image = image;
+                    Image = _image;
 
                     await Task.Delay(MainForm.DeltaTime);
                 }
@@ -169,8 +170,8 @@ namespace WhoWantsToBeMillionaire
             {
                 ClearMouseEvents();
 
-                image.Dispose();
-                toolTip?.Dispose();
+                _image.Dispose();
+                _toolTip?.Dispose();
             }
 
             base.Dispose(disposing);

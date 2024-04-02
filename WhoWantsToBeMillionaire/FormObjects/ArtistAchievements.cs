@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -15,9 +16,9 @@ namespace WhoWantsToBeMillionaire
 
             commentRectangle.Y += commentRectangle.Height;
 
-            using (Graphics g = Graphics.FromImage(image))
-            using (Font fontTitle = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
-            using (Font fontComment = new Font("", 0.18f * height, GraphicsUnit.Pixel))
+            using (var g = Graphics.FromImage(image))
+            using (var fontTitle = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (var fontComment = new Font("", 0.18f * height, GraphicsUnit.Pixel))
             {
                 g.DrawImage(icon, posIcon, posIcon, sizeIcon, sizeIcon);
 
@@ -36,9 +37,9 @@ namespace WhoWantsToBeMillionaire
 
             progressRectangle = RatioRectangle(progressRectangle, 0.95f, 0.3f);
 
-            using (Graphics g = Graphics.FromImage(image))
-            using (Image medal = ResourceManager.GetImage($"Medal_{(countGranted == countAchievements ? "Granted" : "Empty")}.png"))
-            using (Font font = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (var g = Graphics.FromImage(image))
+            using (var medal = countGranted == countAchievements ? Resources.Medal_Granted : Resources.Medal_Empty)
+            using (var font = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
             {
                 g.DrawImage(medal, 0, 0, image.Height, image.Height);
 

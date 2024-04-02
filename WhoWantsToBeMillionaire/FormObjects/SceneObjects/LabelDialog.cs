@@ -6,23 +6,25 @@ namespace WhoWantsToBeMillionaire
 {
     class LabelDialog : Label
     {
-        private readonly StringFormat format;
+        private readonly StringFormat _format;
 
-        private int border = 5;
-        private Rectangle textRectangle;
-        private Rectangle frameRectangle;
-        private Image backgroundText;
+        private int _border = 5;
+        private Rectangle _textRectangle;
+        private Rectangle _frameRectangle;
+        private Image _backgroundText;
 
         public int Border
         {
             set
             {
-                border = value;
-                SetBorder(value);
-                DrawBack();
+                if (_border != value)
+                {
+                    _border = value;
+                    SetBorder(value);
+                    DrawBack();
+                }
             }
-
-            get => border;
+            get => _border;
         }
 
         public LabelDialog(float sizeFont)
@@ -30,16 +32,16 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             Font = new Font("", sizeFont, GraphicsUnit.Pixel);
 
-            textRectangle = frameRectangle = new Rectangle();
-            format = new StringFormat();
+            _textRectangle = _frameRectangle = new Rectangle();
+            _format = new StringFormat();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             if (Text != string.Empty)
             {
-                e.Graphics.DrawImage(backgroundText, frameRectangle);
-                e.Graphics.DrawString(Text, Font, Brushes.White, textRectangle, format);
+                e.Graphics.DrawImage(_backgroundText, _frameRectangle);
+                e.Graphics.DrawString(Text, Font, Brushes.White, _textRectangle, _format);
             }
             else
             {
@@ -49,40 +51,40 @@ namespace WhoWantsToBeMillionaire
 
         public void SetAlignment(StringAlignment vertical, StringAlignment horizontal)
         {
-            format.LineAlignment = vertical;
-            format.Alignment = horizontal;
+            _format.LineAlignment = vertical;
+            _format.Alignment = horizontal;
         }
 
         public void SetRatioText(float ratioWidth, float ratioHeight)
         {
-            frameRectangle.Width = (int)(ClientRectangle.Width * ratioWidth);
-            frameRectangle.Height = (int)(ClientRectangle.Height * ratioHeight);
+            _frameRectangle.Width = (int)(ClientRectangle.Width * ratioWidth);
+            _frameRectangle.Height = (int)(ClientRectangle.Height * ratioHeight);
 
-            frameRectangle.X = (ClientRectangle.Width - frameRectangle.Width) >> 1;
-            frameRectangle.Y = (ClientRectangle.Height - frameRectangle.Height) >> 1;
+            _frameRectangle.X = (ClientRectangle.Width - _frameRectangle.Width) >> 1;
+            _frameRectangle.Y = (ClientRectangle.Height - _frameRectangle.Height) >> 1;
 
-            SetBorder(border);
+            SetBorder(_border);
             DrawBack();
         }
 
         private void SetBorder(int border)
         {
-            textRectangle.Width = frameRectangle.Width - (border << 1);
-            textRectangle.Height = frameRectangle.Height - (border << 1);
+            _textRectangle.Width = _frameRectangle.Width - (border << 1);
+            _textRectangle.Height = _frameRectangle.Height - (border << 1);
 
-            textRectangle.X = frameRectangle.X + border;
-            textRectangle.Y = frameRectangle.Y + border;
+            _textRectangle.X = _frameRectangle.X + border;
+            _textRectangle.Y = _frameRectangle.Y + border;
         }
 
         private void DrawBack()
         {
-            backgroundText?.Dispose();
-            backgroundText = new Bitmap(frameRectangle.Width, frameRectangle.Height);
+            _backgroundText?.Dispose();
+            _backgroundText = new Bitmap(_frameRectangle.Width, _frameRectangle.Height);
 
-            var frame = new Rectangle(0, 0, frameRectangle.Width, frameRectangle.Height);
-            var fill = new Rectangle(border, border, textRectangle.Width, textRectangle.Height);
+            var frame = new Rectangle(0, 0, _frameRectangle.Width, _frameRectangle.Height);
+            var fill = new Rectangle(_border, _border, _textRectangle.Width, _textRectangle.Height);
 
-            using (Graphics g = Graphics.FromImage(backgroundText))
+            using (Graphics g = Graphics.FromImage(_backgroundText))
             using (LinearGradientBrush brushFrame = new LinearGradientBrush(frame, Color.Gainsboro, Color.SlateGray, 45f))
             using (LinearGradientBrush brushFill = new LinearGradientBrush(fill, Color.Navy, Color.Black, 90f))
             {

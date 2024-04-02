@@ -2,20 +2,20 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class PhoneTimer : MovingPictureBox, IDisposable
     {
-        private readonly Image background;
-        private readonly Image front;
-        private readonly Image ring;
-        private readonly Graphics g;
-        private readonly Brush brush;
-        private readonly Timer timer;
-        private readonly int maxSeconds;
+        private readonly Image _image;
+        private readonly Image _ring;
+        private readonly Graphics _g;
+        private readonly Brush _brush;
+        private readonly Timer _timer;
+        private readonly int _maxSeconds;
 
-        private int seconds;
+        private int _seconds;
 
         public delegate void EventTimeUp(object sender, SceneCommand cmd);
         public event EventTimeUp TimeUp;
@@ -24,47 +24,47 @@ namespace WhoWantsToBeMillionaire
         {
             Font = new Font("", 0.45f * side, FontStyle.Bold, GraphicsUnit.Pixel);
             ForeColor = Color.White;
+            BackgroundImage = Resources.PhoneTimer_Back;
 
-            background = ResourceManager.GetImage("PhoneTimer_Back.png");
-            ring = ResourceManager.GetImage("PhoneTimer_Front.png");
-            front = new Bitmap(ring.Width, ring.Height);
-            brush = new SolidBrush(Color.Transparent);
-            timer = new Timer();
-            g = Graphics.FromImage(front);
+            _ring = Resources.PhoneTimer_Front;
+            _image = new Bitmap(_ring.Width, _ring.Height);
+            _brush = new SolidBrush(Color.Transparent);
+            _timer = new Timer();
+            _g = Graphics.FromImage(_image);
 
-            g.CompositingMode = CompositingMode.SourceCopy;
+            _g.CompositingMode = CompositingMode.SourceCopy;
 
-            timer.Interval = 1000;
-            timer.Tick += TimerTick;
+            _timer.Interval = 1000;
+            _timer.Tick += TimerTick;
 
-            SetSeconds(maxSeconds = 30);
+            SetSeconds(_maxSeconds = 30);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(background, ClientRectangle);
-            e.Graphics.DrawImage(front, ClientRectangle);
+            e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
+            e.Graphics.DrawImage(_image, ClientRectangle);
 
-            TextRenderer.DrawText(e.Graphics, $"{seconds}", Font, ClientRectangle, ForeColor);
+            TextRenderer.DrawText(e.Graphics, $"{_seconds}", Font, ClientRectangle, ForeColor);
         }
 
         private void SetSeconds(int value)
         {
-            seconds = value;
+            _seconds = value;
 
-            g.DrawImage(ring, 0, 0);
-            g.FillPie(brush, 0, 0, ring.Width, ring.Height, -90, (maxSeconds - seconds) * 360 / maxSeconds);
+            _g.DrawImage(_ring, 0, 0);
+            _g.FillPie(_brush, 0, 0, _ring.Width, _ring.Height, -90, (_maxSeconds - _seconds) * 360 / _maxSeconds);
 
             Invalidate();
         }
 
         private void TimerTick(object sender, EventArgs e)
         {
-            SetSeconds(seconds - 1);
+            SetSeconds(_seconds - 1);
 
-            if (seconds <= 0)
+            if (_seconds <= 0)
             {
-                timer.Stop();
+                _timer.Stop();
                 TimeUp.Invoke(this, SceneCommand.End_PhoneFriend);
             }
         }
@@ -72,25 +72,28 @@ namespace WhoWantsToBeMillionaire
         public void Start() 
         {
             Sound.StopAll();
-            Sound.Play("Hint_PhoneFriend_Timer.wav");
+            Sound.Play(Resources.Hint_PhoneFriend_Timer);
 
-            timer.Start(); 
+            _timer.Start(); 
         }
 
-        public void Stop() => timer.Stop();
+        public void Stop() => 
+            _timer.Stop();
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                timer.Tick -= TimerTick;
+                _timer.Tick -= TimerTick;
 
-                background.Dispose();
-                front.Dispose();
-                ring.Dispose();
-                g.Dispose();
-                brush.Dispose();
-                timer.Dispose();
+                BackgroundImage.Dispose();
+                Font.Dispose();
+
+                _image.Dispose();
+                _ring.Dispose();
+                _g.Dispose();
+                _brush.Dispose();
+                _timer.Dispose();
             }
 
             base.Dispose(disposing);

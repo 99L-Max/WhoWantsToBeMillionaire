@@ -3,8 +3,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -30,11 +30,14 @@ namespace WhoWantsToBeMillionaire
         public readonly Letter Correct;
         public readonly ReadOnlyDictionary<Letter, string> Options;
 
-        public string FullCorrect => FullOption(Correct);
+        public string FullCorrect =>
+            FullOption(Correct);
 
-        public int CountOptions => Options.Values.Where(x => x != string.Empty).Count();
+        public int CountOptions =>
+            Options.Values.Where(x => x != string.Empty).Count();
 
-        public static IEnumerable<Letter> Letters => Enum.GetValues(typeof(Letter)).Cast<Letter>();
+        public static IEnumerable<Letter> Letters =>
+            Enum.GetValues(typeof(Letter)).Cast<Letter>();
 
         public Question(int number) : this(number, RandomIndex(number)) { }
 
@@ -46,26 +49,23 @@ namespace WhoWantsToBeMillionaire
             Index = index;
             Difficulty = Number == MaxNumber ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
 
-            using (Stream stream = ResourceManager.GetStream($"Q{number:d2}V{index:d2}.json", TypeResource.Questions))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                JObject jObj = JObject.Parse(reader.ReadToEnd());
+            var array = (byte[])Resources.ResourceManager.GetObject($"Q{number:d2}V{index:d2}");
+            var jObj = JsonManager.GetObject(array);
 
-                Text = jObj["Question"].Value<string>();
-                Explanation = jObj["Explanation"].Value<string>();
-                Correct = (Letter)Enum.Parse(typeof(Letter), jObj["Correct"].Value<string>());
+            Text = jObj["Question"].Value<string>();
+            Explanation = jObj["Explanation"].Value<string>();
+            Correct = (Letter)Enum.Parse(typeof(Letter), jObj["Correct"].Value<string>());
 
-                if (!letters.Contains(Correct))
-                    letters.Append(Correct);
+            if (!letters.Contains(Correct))
+                letters.Append(Correct);
 
-                var options = JsonConvert.DeserializeObject<Dictionary<Letter, string>>(jObj["Options"].ToString());
+            var options = JsonConvert.DeserializeObject<Dictionary<Letter, string>>(jObj["Options"].ToString());
 
-                foreach (var key in options.Keys.ToArray())
-                    if (!letters.Contains(key))
-                        options[key] = string.Empty;
+            foreach (var key in options.Keys.ToArray())
+                if (!letters.Contains(key))
+                    options[key] = string.Empty;
 
-                Options = new ReadOnlyDictionary<Letter, string>(options);
-            }
+            Options = new ReadOnlyDictionary<Letter, string>(options);
         }
 
         public static int RandomIndex(int number) =>

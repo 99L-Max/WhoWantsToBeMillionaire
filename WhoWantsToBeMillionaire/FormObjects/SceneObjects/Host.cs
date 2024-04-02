@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.IO;
 using System.Text;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -30,22 +30,18 @@ namespace WhoWantsToBeMillionaire
 
     class Host
     {
-        private readonly JObject phrases;
-        private readonly Random random;
+        private readonly JObject _phrases;
+        private readonly Random _random;
 
         public Host()
         {
-            using (Stream stream = ResourceManager.GetStream("Host.json", TypeResource.Dialogues))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                phrases = JObject.Parse(reader.ReadToEnd());
-                random = new Random();
-            }
+            _phrases = JsonManager.GetObject(Resources.Dialog_Host);
+            _random = new Random();
         }
 
         public string Say(HostPhrases phrase, params string[] args)
         {
-            JToken token = phrases[phrase.ToString()];
+            JToken token = _phrases[phrase.ToString()];
             StringBuilder result = new StringBuilder();
 
             if (token.Type == JTokenType.String)
@@ -55,7 +51,7 @@ namespace WhoWantsToBeMillionaire
             else
             {
                 var array = JsonConvert.DeserializeObject<string[]>(token.ToString());
-                result.Append(array[random.Next(array.Length)]);
+                result.Append(array[_random.Next(array.Length)]);
             }
 
             for (int i = 0; i < args.Length; i++)

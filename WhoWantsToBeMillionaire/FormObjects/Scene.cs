@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -35,26 +36,26 @@ namespace WhoWantsToBeMillionaire
     enum SceneCancelCommand
     {
         SkipRules,
-        Cancel_TakingMoney,
+        CancelTakingMoney,
         ExitToMainMenu
     }
 
     class Scene : GameContol, IReset, IGameSettings
     {
-        private readonly Image prizeImage;
-        private readonly ButtonСapsule buttonTakeMoney;
-        private readonly BoxAnimation boxAnimation;
-        private readonly BoxQuestion boxQuestion;
-        private readonly Host host;
-        private readonly Hint hint;
-        private readonly CommandBoard commandBoard;
-        private readonly TableHints tableHints;
-        private readonly TableSums tableSums;
-        private readonly IReset[] resets;
-        private readonly IGameSettings[] settings;
+        private readonly Image _prizeImage;
+        private readonly ButtonСapsule _buttonTakeMoney;
+        private readonly BoxAnimation _boxAnimation;
+        private readonly BoxQuestion _boxQuestion;
+        private readonly Host _host;
+        private readonly Hint _hint;
+        private readonly CommandBoard _commandBoard;
+        private readonly TableHints _tableHints;
+        private readonly TableSums _tableSums;
+        private readonly IReset[] _resets;
+        private readonly IGameSettings[] _settings;
 
-        private PhoneTimer timer;
-        private VotingChart chart;
+        private PhoneTimer _timer;
+        private VotingChart _chart;
 
         public delegate void EventGameOver(bool isRestart);
         public delegate void EventStatisticsChanged(StatsAttribute attribute, int value = 1);
@@ -72,9 +73,9 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                buttonTakeMoney.Enabled = value;
-                boxQuestion.Enabled = value;
-                tableHints.Enabled = value;
+                _buttonTakeMoney.Enabled = value;
+                _boxQuestion.Enabled = value;
+                _tableHints.Enabled = value;
             }
         }
 
@@ -82,8 +83,8 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                boxQuestion.Visible = value;
-                boxAnimation.Visible = !value;
+                _boxQuestion.Visible = value;
+                _boxAnimation.Visible = !value;
             }
         }
 
@@ -91,58 +92,58 @@ namespace WhoWantsToBeMillionaire
         {
             Dock = DockStyle.Fill;
 
-            host = new Host();
-            tableSums = new TableSums((int)(MainForm.ScreenRectangle.Width * 0.3f), MainForm.ScreenRectangle.Height);
-            boxAnimation = new BoxAnimation(MainForm.ScreenRectangle.Width - tableSums.Width, (int)(MainForm.ScreenRectangle.Height * 0.36f));
-            boxQuestion = new BoxQuestion(boxAnimation.Width, boxAnimation.Height);
-            buttonTakeMoney = new ButtonСapsule((int)(0.8f * tableSums.Width), (int)(0.05f * tableSums.Height));
-            commandBoard = new CommandBoard(MainForm.ScreenRectangle.Width - tableSums.Width, MainForm.ScreenRectangle.Height - boxQuestion.Height);
-            tableHints = new TableHints(tableSums.Width, (int)(tableSums.Height * 0.2f));
-            hint = new Hint();
+            _host = new Host();
+            _tableSums = new TableSums((int)(MainForm.ScreenRectangle.Width * 0.3f), MainForm.ScreenRectangle.Height);
+            _boxAnimation = new BoxAnimation(MainForm.ScreenRectangle.Width - _tableSums.Width, (int)(MainForm.ScreenRectangle.Height * 0.36f));
+            _boxQuestion = new BoxQuestion(_boxAnimation.Width, _boxAnimation.Height);
+            _buttonTakeMoney = new ButtonСapsule((int)(0.8f * _tableSums.Width), (int)(0.05f * _tableSums.Height));
+            _commandBoard = new CommandBoard(MainForm.ScreenRectangle.Width - _tableSums.Width, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
+            _tableHints = new TableHints(_tableSums.Width, (int)(_tableSums.Height * 0.2f));
+            _hint = new Hint();
 
-            boxAnimation.Location = boxQuestion.Location = new Point(0, MainForm.ScreenRectangle.Height - boxQuestion.Height);
-            buttonTakeMoney.Location = new Point((tableSums.Width - buttonTakeMoney.Width) / 2, tableSums.Height - 2 * buttonTakeMoney.Height);
+            _boxAnimation.Location = _boxQuestion.Location = new Point(0, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
+            _buttonTakeMoney.Location = new Point((_tableSums.Width - _buttonTakeMoney.Width) / 2, _tableSums.Height - 2 * _buttonTakeMoney.Height);
 
-            buttonTakeMoney.Text = "Забрать деньги";
+            _buttonTakeMoney.Text = "Забрать деньги";
 
-            prizeImage = new Bitmap(boxAnimation.Width, boxAnimation.Height);
+            _prizeImage = new Bitmap(_boxAnimation.Width, _boxAnimation.Height);
 
-            using (Graphics g = Graphics.FromImage(prizeImage))
-            using (Image img = ResourceManager.GetImage("Question.png"))
+            using (Graphics g = Graphics.FromImage(_prizeImage))
+            using (Image img = Resources.Question)
             {
-                int height = prizeImage.Width * img.Height / img.Width;
-                int y = (prizeImage.Height - height) >> 1;
-                boxAnimation.SizeFont = 0.6f * height;
+                int height = _prizeImage.Width * img.Height / img.Width;
+                int y = (_prizeImage.Height - height) >> 1;
+                _boxAnimation.SizeFont = 0.6f * height;
 
-                g.DrawImage(img, 0, y, prizeImage.Width, height);
+                g.DrawImage(img, 0, y, _prizeImage.Width, height);
             }
 
-            commandBoard.CommandClick += OnCommandClick;
-            commandBoard.CancelClick += OnCacnelClick;
-            buttonTakeMoney.Click += OnTakeMoneyClick;
-            tableHints.HintClick += OnHintClick;
-            boxQuestion.OptionClick += OnOptionClick;
+            _commandBoard.CommandClick += OnCommandClick;
+            _commandBoard.CancelClick += OnCacnelClick;
+            _buttonTakeMoney.Click += OnTakeMoneyClick;
+            _tableHints.HintClick += OnHintClick;
+            _boxQuestion.OptionClick += OnOptionClick;
 
-            tableSums.Controls.Add(tableHints);
-            tableSums.Controls.Add(buttonTakeMoney);
+            _tableSums.Controls.Add(_tableHints);
+            _tableSums.Controls.Add(_buttonTakeMoney);
 
-            Controls.Add(tableSums);
-            Controls.Add(commandBoard);
-            Controls.Add(boxAnimation);
-            Controls.Add(boxQuestion);
+            Controls.Add(_tableSums);
+            Controls.Add(_commandBoard);
+            Controls.Add(_boxAnimation);
+            Controls.Add(_boxQuestion);
 
-            resets = new IReset[] { tableHints, tableSums, boxQuestion, boxAnimation, commandBoard };
-            settings = new IGameSettings[] { tableHints, boxQuestion };
+            _resets = new IReset[] { _tableHints, _tableSums, _boxQuestion, _boxAnimation, _commandBoard };
+            _settings = new IGameSettings[] { _tableHints, _boxQuestion };
         }
 
         public void Reset(Mode mode)
         {
             Mode = mode;
 
-            foreach (var ctrl in resets)
+            foreach (var ctrl in _resets)
                 ctrl.Reset(mode);
 
-            buttonTakeMoney.Visible = false;
+            _buttonTakeMoney.Visible = false;
             QuestionVisible = MenuAllowed = false;
         }
 
@@ -150,85 +151,85 @@ namespace WhoWantsToBeMillionaire
         {
             MenuAllowed = true;
 
-            Sound.PlayBackground("Rules.wav");
+            Sound.PlayBackground(Resources.Rules);
 
-            commandBoard.Command = Mode == Mode.Classic ? SceneCommand.Show_SaveSums : SceneCommand.Show_CountHints;
-            commandBoard.CancelCommand = SceneCancelCommand.SkipRules;
+            _commandBoard.Command = Mode == Mode.Classic ? SceneCommand.Show_SaveSums : SceneCommand.Show_CountHints;
+            _commandBoard.CancelCommand = SceneCancelCommand.SkipRules;
 
-            await tableSums.Show();
+            await _tableSums.Show();
 
-            tableHints.Visible = true;
-            commandBoard.ButtonCommandEnabled = false;
-            commandBoard.Text = host.Say(HostPhrases.Rules, Question.MaxNumber.ToString()); ;
+            _tableHints.Visible = true;
+            _commandBoard.ButtonCommandEnabled = false;
+            _commandBoard.Text = _host.Say(HostPhrases.Rules, Question.MaxNumber.ToString()); ;
 
             await Task.Delay(1000);
 
-            commandBoard.ButtonsVisible = true;
+            _commandBoard.ButtonsVisible = true;
 
-            await tableSums.ShowSums();
+            await _tableSums.ShowSums();
 
-            commandBoard.ButtonCommandEnabled = true;
+            _commandBoard.ButtonCommandEnabled = true;
         }
 
         public async void Restart()
         {
             MenuAllowed = true;
 
-            Sound.PlayBackground("Rules.wav");
+            Sound.PlayBackground(Resources.Rules);
 
-            await tableSums.Show();
+            await _tableSums.Show();
 
-            tableHints.Visible = true;
-            tableHints.ShowAllHints();
+            _tableHints.Visible = true;
+            _tableHints.ShowAllHints();
 
-            commandBoard.ButtonCommandVisible = true;
+            _commandBoard.ButtonCommandVisible = true;
 
             OnCommandClick(this, Mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum);
         }
 
         private async void OnOptionClick(Letter letter)
         {
-            string explanation = boxQuestion.Question.Explanation;
-            if (!boxQuestion.IsCorrectAnswer)
-                explanation += $"\nПравильный ответ: {boxQuestion.Question.FullCorrect}.";
+            string explanation = _boxQuestion.Question.Explanation;
+            if (!_boxQuestion.IsCorrectAnswer)
+                explanation += $"\nПравильный ответ: {_boxQuestion.Question.FullCorrect}.";
 
-            switch (boxQuestion.AnswerMode)
+            switch (_boxQuestion.AnswerMode)
             {
                 default:
                     ControlEnabled = false;
-                    StatisticsChanged.Invoke(boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers);
+                    StatisticsChanged.Invoke(_boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers);
 
-                    if (boxQuestion.IsCorrectAnswer && boxQuestion.Question.Number < Question.MaxNumber)
+                    if (_boxQuestion.IsCorrectAnswer && _boxQuestion.Question.Number < Question.MaxNumber)
                     {
-                        commandBoard.Command = SceneCommand.NextQuestion;
+                        _commandBoard.Command = SceneCommand.NextQuestion;
                     }
                     else
                     {
-                        buttonTakeMoney.Visible = false;
-                        commandBoard.Command = boxQuestion.IsCorrectAnswer ? SceneCommand.Victory : SceneCommand.Loss;
+                        _buttonTakeMoney.Visible = false;
+                        _commandBoard.Command = _boxQuestion.IsCorrectAnswer ? SceneCommand.Victory : SceneCommand.Loss;
                     }
 
-                    commandBoard.Text = explanation;
+                    _commandBoard.Text = explanation;
                     break;
 
                 case AnswerMode.DoubleDips:
-                    if (!boxQuestion.IsCorrectAnswer)
+                    if (!_boxQuestion.IsCorrectAnswer)
                     {
-                        boxQuestion.AnswerMode = AnswerMode.Usual;
+                        _boxQuestion.AnswerMode = AnswerMode.Usual;
                         await Task.Delay(3000);
 
                         Sound.StopAll();
-                        boxQuestion.LockOption(letter);
+                        _boxQuestion.LockOption(letter);
 
-                        if (boxQuestion.Question.CountOptions == 2)
+                        if (_boxQuestion.Question.CountOptions == 2)
                         {
                             await Task.Delay(3000);
-                            boxQuestion.ClickCorrect();
+                            _boxQuestion.ClickCorrect();
                         }
                         else
                         {
-                            boxQuestion.PlayBackgroundSound("Hint_DoubleDip.wav");
-                            boxQuestion.Enabled = true;
+                            _boxQuestion.PlayBackgroundSound(Resources.Hint_DoubleDip);
+                            _boxQuestion.Enabled = true;
                             return;
                         }
                     }
@@ -237,188 +238,188 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case AnswerMode.SwitchQuestion:
-                    commandBoard.Command = SceneCommand.SwitchQuestion;
+                    _commandBoard.Command = SceneCommand.SwitchQuestion;
 
-                    HostPhrases phrase1 = boxQuestion.IsCorrectAnswer ? HostPhrases.SwitchQuestion_CorrectAnswer : HostPhrases.SwitchQuestion_IncorrectAnswer;
+                    HostPhrases phrase1 = _boxQuestion.IsCorrectAnswer ? HostPhrases.SwitchQuestion_CorrectAnswer : HostPhrases.SwitchQuestion_IncorrectAnswer;
 
-                    commandBoard.Text = $"{explanation}\n{host.Say(phrase1, boxQuestion.Question.Number.ToString())}";
+                    _commandBoard.Text = $"{explanation}\n{_host.Say(phrase1, _boxQuestion.Question.Number.ToString())}";
                     break;
 
                 case AnswerMode.TakeMoney:
-                    commandBoard.Command = SceneCommand.TakeMoney_ShowPrize;
+                    _commandBoard.Command = SceneCommand.TakeMoney_ShowPrize;
 
-                    HostPhrases phrase2 = boxQuestion.IsCorrectAnswer ? HostPhrases.TakingMoney_CorrectAnswer : HostPhrases.TakingMoney_IncorrectAnswer;
+                    HostPhrases phrase2 = _boxQuestion.IsCorrectAnswer ? HostPhrases.TakingMoney_CorrectAnswer : HostPhrases.TakingMoney_IncorrectAnswer;
 
-                    commandBoard.Text = $"{explanation}\n{host.Say(phrase2, tableSums.NextSum.ToString())}";
+                    _commandBoard.Text = $"{explanation}\n{_host.Say(phrase2, _tableSums.NextSum.ToString())}";
                     break;
             }
 
-            commandBoard.ButtonCommandVisible = true;
+            _commandBoard.ButtonCommandVisible = true;
         }
 
         private async void OnHintClick(TypeHint type)
         {
             StatisticsChanged.Invoke(StatsAttribute.NumberHintsUsed);
 
-            buttonTakeMoney.Enabled = tableHints.Enabled = type == TypeHint.FiftyFifty;
+            _buttonTakeMoney.Enabled = _tableHints.Enabled = type == TypeHint.FiftyFifty;
 
             switch (type)
             {
                 case TypeHint.FiftyFifty:
-                    Sound.Play("Hint_FiftyFifty.wav");
-                    boxQuestion.SetQuestion(hint.ReduceOptions(boxQuestion.Question));
+                    Sound.Play(Resources.Hint_FiftyFifty);
+                    _boxQuestion.SetQuestion(_hint.ReduceOptions(_boxQuestion.Question));
                     AchievementСompleted.Invoke(Achievement.DearComputer);
                     break;
 
                 case TypeHint.PhoneFriend:
-                    Sound.PlayBackground("Hint_PhoneFriend_Dialing.wav");
+                    Sound.PlayBackground(Resources.Hint_PhoneFriend_Dialing);
 
-                    boxQuestion.Enabled = false;
-                    commandBoard.TextMode = TextMode.Dialog;
-                    commandBoard.Command = SceneCommand.End_PhoneFriend;
+                    _boxQuestion.Enabled = false;
+                    _commandBoard.TextMode = TextMode.Dialog;
+                    _commandBoard.Command = SceneCommand.End_PhoneFriend;
 
-                    timer = new PhoneTimer((int)(0.3f * commandBoard.Height));
-                    timer.TimeUp += OnCommandClick;
+                    _timer = new PhoneTimer((int)(0.3f * _commandBoard.Height));
+                    _timer.TimeUp += OnCommandClick;
 
                     await Task.Delay(2000);
 
-                    Sound.Play("Hint_PhoneFriend_Beeps.wav");
+                    Sound.Play(Resources.Hint_PhoneFriend_Beeps);
 
                     await Task.Delay(6000);
 
-                    foreach (var phrase in hint.PhoneFriendDialog(tableSums.NextSum))
+                    foreach (var phrase in _hint.PhoneFriendDialog(_tableSums.NextSum))
                     {
-                        commandBoard.AddText(phrase);
+                        _commandBoard.AddText(phrase);
                         await Task.Delay(phrase.Length * 75);
                     }
 
-                    await commandBoard.ShowMovingPictureBox(timer, 500, false);
+                    await _commandBoard.ShowMovingPictureBox(_timer, 500, false);
 
-                    commandBoard.Text = hint.PhoneFriendAnswer(boxQuestion.Question);
-                    timer.Start();
+                    _commandBoard.Text = _hint.PhoneFriendAnswer(_boxQuestion.Question);
+                    _timer.Start();
 
-                    commandBoard.ButtonCommandVisible = true;
+                    _commandBoard.ButtonCommandVisible = true;
                     break;
 
                 case TypeHint.AskAudience:
-                    Sound.PlayBackground("Hint_AskAudience_Begin.wav");
+                    Sound.PlayBackground(Resources.Hint_AskAudience_Begin);
 
-                    boxQuestion.Enabled = false;
-                    commandBoard.Command = SceneCommand.End_AskAudience;
+                    _boxQuestion.Enabled = false;
+                    _commandBoard.Command = SceneCommand.End_AskAudience;
 
-                    int heigth = (int)(0.7f * commandBoard.Height);
-                    chart = new VotingChart((int)(0.75f * heigth), heigth);
+                    int heigth = (int)(0.7f * _commandBoard.Height);
+                    _chart = new VotingChart((int)(0.75f * heigth), heigth);
 
-                    await commandBoard.ShowMovingPictureBox(chart, 500, true);
+                    await _commandBoard.ShowMovingPictureBox(_chart, 500, true);
                     await Task.Delay(3000);
-                    await chart.ShowAnimationVote(3000);
-                    await chart.ShowPercents(hint.PercentsAudience(boxQuestion.Question), 15);
+                    await _chart.ShowAnimationVote(3000);
+                    await _chart.ShowPercents(_hint.PercentsAudience(_boxQuestion.Question), 15);
 
-                    commandBoard.ButtonCommandVisible = true;
+                    _commandBoard.ButtonCommandVisible = true;
                     break;
 
                 case TypeHint.DoubleDip:
-                    boxQuestion.AnswerMode = AnswerMode.DoubleDips;
-                    boxQuestion.PlayBackgroundSound("Hint_DoubleDip.wav");
+                    _boxQuestion.AnswerMode = AnswerMode.DoubleDips;
+                    _boxQuestion.PlayBackgroundSound(Resources.Hint_DoubleDip);
 
-                    await boxQuestion.ShowCentralIcon(type, true);
+                    await _boxQuestion.ShowCentralIcon(type, true);
                     break;
 
                 case TypeHint.SwitchQuestion:
-                    boxQuestion.AnswerMode = AnswerMode.SwitchQuestion;
-                    commandBoard.Text = host.Say(HostPhrases.SwitchQuestion_AskAnswer);
+                    _boxQuestion.AnswerMode = AnswerMode.SwitchQuestion;
+                    _commandBoard.Text = _host.Say(HostPhrases.SwitchQuestion_AskAnswer);
 
-                    await boxQuestion.ShowCentralIcon(type, true);
+                    await _boxQuestion.ShowCentralIcon(type, true);
                     break;
 
                 case TypeHint.AskHost:
-                    boxQuestion.Enabled = false;
-                    boxQuestion.PlayBackgroundSound("Hint_AskHost.wav");
+                    _boxQuestion.Enabled = false;
+                    _boxQuestion.PlayBackgroundSound(Resources.Hint_AskHost);
 
-                    commandBoard.Text = hint.HostAnswer(boxQuestion.Question);
+                    _commandBoard.Text = _hint.HostAnswer(_boxQuestion.Question);
 
-                    await boxQuestion.ShowCentralIcon(type, true);
+                    await _boxQuestion.ShowCentralIcon(type, true);
 
-                    commandBoard.Command = SceneCommand.End_AskHost;
-                    commandBoard.ButtonCommandVisible = true;
+                    _commandBoard.Command = SceneCommand.End_AskHost;
+                    _commandBoard.ButtonCommandVisible = true;
                     break;
             }
         }
 
         private async Task RemoveMovingPictureBox(MovingPictureBox box, int milliseconds)
         {
-            await commandBoard.RemoveMovingPictureBox(box, milliseconds / MainForm.DeltaTime);
+            await _commandBoard.RemoveMovingPictureBox(box, milliseconds / MainForm.DeltaTime);
             box.Dispose();
         }
 
         private void SaveSumSelected(int sum)
         {
-            commandBoard.Text =
-                $"{host.Say(HostPhrases.SaveSumSelected, String.Format("{0:#,0}", sum))}\n" +
-                $"{host.Say(HostPhrases.GameStart)}";
+            _commandBoard.Text =
+                $"{_host.Say(HostPhrases.SaveSumSelected, String.Format("{0:#,0}", sum))}\n" +
+                $"{_host.Say(HostPhrases.GameStart)}";
 
-            tableSums.SaveSumSelected -= SaveSumSelected;
+            _tableSums.SaveSumSelected -= SaveSumSelected;
 
-            commandBoard.Command = SceneCommand.Start;
-            commandBoard.ButtonCommandVisible = true;
+            _commandBoard.Command = SceneCommand.Start;
+            _commandBoard.ButtonCommandVisible = true;
         }
 
         private void OnTakeMoneyClick(object sender, EventArgs e)
         {
             ControlEnabled = false;
-            commandBoard.AskTakingMoney(host.Say(HostPhrases.TakingMoney_ClarifyDecision));
+            _commandBoard.AskTakingMoney(_host.Say(HostPhrases.TakingMoney_ClarifyDecision));
         }
 
         private async Task ShowQuestion(int number)
         {
             QuestionVisible = false;
-            boxQuestion.SetQuestion(number);
+            _boxQuestion.SetQuestion(number);
 
-            if (boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
+            if (_boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
             {
-                if (boxQuestion.Question.Difficulty == DifficultyQuestion.Final)
+                if (_boxQuestion.Question.Difficulty == DifficultyQuestion.Final)
                 {
-                    Sound.Play("Start.wav");
+                    Sound.Play(Resources.Start);
                     await Task.Delay(5000);
                 }
                 else
                 {
-                    Sound.Play("Question_Next.wav");
+                    Sound.Play(Resources.Question_Next);
                     await Task.Delay(3000);
                 }
 
-                Sound.PlayBackground("Question_Reflections.wav");
+                Sound.PlayBackground(Resources.Question_Reflections);
             }
 
-            await boxAnimation.ShowImage(boxQuestion.BackgroundImage);
+            await _boxAnimation.ShowImage(_boxQuestion.BackgroundImage);
 
             QuestionVisible = true;
 
-            await boxQuestion.ShowQuestion();
+            await _boxQuestion.ShowQuestion();
 
             ControlEnabled = true;
         }
 
         private async Task ShowCorrectAndPrize(bool playSound, bool addDelay, bool updatePrize)
         {
-            commandBoard.Clear();
+            _commandBoard.Clear();
             Sound.StopAll();
 
-            await boxQuestion.ShowCorrect(playSound, addDelay, tableSums.NowSaveSum);
+            await _boxQuestion.ShowCorrect(playSound, addDelay, _tableSums.NowSaveSum);
 
-            if (boxQuestion.Question.Number == 5 && !tableSums.NowSaveSum)
-                Sound.Play("Answer_Correct_Easy_Ending.wav");
+            if (_boxQuestion.Question.Number == 5 && !_tableSums.NowSaveSum)
+                Sound.Play(Resources.Answer_Correct_Easy_Ending);
 
             if (updatePrize)
-                tableSums.Update(boxQuestion.IsCorrectAnswer);
+                _tableSums.Update(_boxQuestion.IsCorrectAnswer);
 
-            await boxQuestion.Clear();
+            await _boxQuestion.Clear();
             await Task.Delay(500);
 
             QuestionVisible = false;
 
-            await boxAnimation.ShowTransition(boxQuestion.BackgroundImage, prizeImage);
-            await boxAnimation.ShowText(tableSums.TextPrize);
+            await _boxAnimation.ShowTransition(_boxQuestion.BackgroundImage, _prizeImage);
+            await _boxAnimation.ShowText(_tableSums.TextPrize);
         }
 
         private async void OnCommandClick(object sender, SceneCommand command)
@@ -428,202 +429,202 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.NextQuestion:
                     int delay;
 
-                    if (!tableSums.NowSaveSum && boxQuestion.Question.Number == 5)
+                    if (!_tableSums.NowSaveSum && _boxQuestion.Question.Number == 5)
                         delay = 3500;
                     else
-                        delay = tableSums.NowSaveSum ? 7000 : 1500 + 500 * (int)boxQuestion.Question.Difficulty;
+                        delay = _tableSums.NowSaveSum ? 7000 : 1500 + 500 * (int)_boxQuestion.Question.Difficulty;
 
                     await ShowCorrectAndPrize(true, false, true);
                     await Task.Delay(delay);
-                    await boxAnimation.HideImage();
+                    await _boxAnimation.HideImage();
 
-                    if (boxQuestion.Question.Number + 1 < Question.MaxNumber)
+                    if (_boxQuestion.Question.Number + 1 < Question.MaxNumber)
                     {
                         await Task.Delay(1000);
-                        await ShowQuestion(boxQuestion.Question.Number + 1);
+                        await ShowQuestion(_boxQuestion.Question.Number + 1);
                     }
                     else
                     {
-                        commandBoard.Text = host.Say(HostPhrases.AboutFinalQuestion, Question.MaxNumber.ToString(), tableSums.NextSum);
-                        commandBoard.Command = SceneCommand.FinalQuestion;
-                        commandBoard.ButtonCommandVisible = true;
+                        _commandBoard.Text = _host.Say(HostPhrases.AboutFinalQuestion, Question.MaxNumber.ToString(), _tableSums.NextSum);
+                        _commandBoard.Command = SceneCommand.FinalQuestion;
+                        _commandBoard.ButtonCommandVisible = true;
                     }
                     break;
 
                 case SceneCommand.FinalQuestion:
-                    commandBoard.Clear();
+                    _commandBoard.Clear();
                     await ShowQuestion(Question.MaxNumber);
                     break;
 
                 case SceneCommand.Loss:
                     await ShowCorrectAndPrize(true, true, true);
 
-                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
-                    commandBoard.AskRestart();
+                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
+                    _commandBoard.AskRestart();
                     break;
 
                 case SceneCommand.Victory:
                     await ShowCorrectAndPrize(true, true, true);
 
-                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, tableSums.Prize);
+                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
 
                     await Task.Delay(16000);
 
-                    commandBoard.AskRestart();
+                    _commandBoard.AskRestart();
                     break;
 
                 case SceneCommand.Show_SaveSums:
-                    commandBoard.ButtonCommandEnabled = false;
-                    commandBoard.Command = SceneCommand.Show_CountHints;
-                    commandBoard.Text = host.Say(HostPhrases.SaveSums, string.Join(", ", tableSums.SaveSums.Select(x => string.Format("{0:#,0}", x))));
+                    _commandBoard.ButtonCommandEnabled = false;
+                    _commandBoard.Command = SceneCommand.Show_CountHints;
+                    _commandBoard.Text = _host.Say(HostPhrases.SaveSums, string.Join(", ", _tableSums.SaveSums.Select(x => string.Format("{0:#,0}", x))));
 
-                    await tableSums.ShowSaveSums();
+                    await _tableSums.ShowSaveSums();
 
-                    commandBoard.ButtonCommandEnabled = true;
+                    _commandBoard.ButtonCommandEnabled = true;
                     break;
 
                 case SceneCommand.Show_CountHints:
-                    commandBoard.Command = SceneCommand.Show_Hint;
-                    commandBoard.Text = host.Say(HostPhrases.CountHints, tableHints.TextActiveHints);
+                    _commandBoard.Command = SceneCommand.Show_Hint;
+                    _commandBoard.Text = _host.Say(HostPhrases.CountHints, _tableHints.TextActiveHints);
                     break;
 
                 case SceneCommand.Show_Hint:
-                    commandBoard.Text = tableHints.DescriptionNextHint;
-                    tableHints.ShowHint();
+                    _commandBoard.Text = _tableHints.DescriptionNextHint;
+                    _tableHints.ShowHint();
 
-                    if (tableHints.AllHintsVisible)
-                        commandBoard.Command = tableHints.CountHints > Hint.MaxCountAllowedHints ? SceneCommand.About_RestrictionsHints : SceneCommand.About_TakingMoney;
+                    if (_tableHints.AllHintsVisible)
+                        _commandBoard.Command = _tableHints.CountHints > Hint.MaxCountAllowedHints ? SceneCommand.About_RestrictionsHints : SceneCommand.About_TakingMoney;
                     break;
 
                 case SceneCommand.About_RestrictionsHints:
-                    commandBoard.Command = SceneCommand.About_TakingMoney;
-                    commandBoard.Text = host.Say(HostPhrases.AboutRestrictionsHints, Hint.MaxCountAllowedHints.ToString());
+                    _commandBoard.Command = SceneCommand.About_TakingMoney;
+                    _commandBoard.Text = _host.Say(HostPhrases.AboutRestrictionsHints, Hint.MaxCountAllowedHints.ToString());
                     break;
 
                 case SceneCommand.About_TakingMoney:
-                    commandBoard.Command = Mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum;
-                    commandBoard.Text = host.Say(HostPhrases.AboutTakingMoney);
+                    _commandBoard.Command = Mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum;
+                    _commandBoard.Text = _host.Say(HostPhrases.AboutTakingMoney);
                     break;
 
                 case SceneCommand.ChoosingSaveSum:
-                    commandBoard.ButtonsVisible = false;
-                    commandBoard.Text = host.Say(HostPhrases.AskSaveSum);
+                    _commandBoard.ButtonsVisible = false;
+                    _commandBoard.Text = _host.Say(HostPhrases.AskSaveSum);
 
-                    tableSums.SaveSumSelected += SaveSumSelected;
-                    tableSums.AddSelectionSaveSum();
+                    _tableSums.SaveSumSelected += SaveSumSelected;
+                    _tableSums.AddSelectionSaveSum();
                     break;
 
                 case SceneCommand.About_Starting:
-                    commandBoard.ButtonCancelVisible = false;
-                    commandBoard.Command = SceneCommand.Start;
-                    commandBoard.Text = host.Say(HostPhrases.GameStart);
+                    _commandBoard.ButtonCancelVisible = false;
+                    _commandBoard.Command = SceneCommand.Start;
+                    _commandBoard.Text = _host.Say(HostPhrases.GameStart);
                     break;
 
                 case SceneCommand.Start:
-                    commandBoard.Clear();
-                    tableSums.Clear();
+                    _commandBoard.Clear();
+                    _tableSums.Clear();
 
                     Sound.StopBackground();
-                    Sound.Play("Start.wav");
+                    Sound.Play(Resources.Start);
 
                     await Task.Delay(3000);
                     await ShowQuestion(1);
 
-                    buttonTakeMoney.Visible = true;
+                    _buttonTakeMoney.Visible = true;
                     break;
 
                 case SceneCommand.End_PhoneFriend:
-                    commandBoard.Clear();
-                    commandBoard.TextMode = TextMode.Monologue;
+                    _commandBoard.Clear();
+                    _commandBoard.TextMode = TextMode.Monologue;
 
-                    timer.Stop();
-                    timer.TimeUp -= OnCommandClick;
+                    _timer.Stop();
+                    _timer.TimeUp -= OnCommandClick;
 
                     if (sender is CommandBoard)
                     {
                         Sound.StopPeek();
-                        Sound.Play("Hint_PhoneFriend_End.wav");
+                        Sound.Play(Resources.Hint_PhoneFriend_End);
                     }
 
-                    boxQuestion.PlayBackgroundSound("Question_Reflections.wav");
+                    _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
                     await Task.Delay(2000);
-                    await RemoveMovingPictureBox(timer, 500);
+                    await RemoveMovingPictureBox(_timer, 500);
 
                     ControlEnabled = true;
                     break;
 
                 case SceneCommand.End_AskAudience:
-                    commandBoard.Clear();
+                    _commandBoard.Clear();
 
-                    boxQuestion.PlayBackgroundSound("Question_Reflections.wav");
+                    _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
-                    await RemoveMovingPictureBox(chart, 500);
+                    await RemoveMovingPictureBox(_chart, 500);
 
                     ControlEnabled = true;
                     break;
 
                 case SceneCommand.SwitchQuestion:
-                    commandBoard.Clear();
+                    _commandBoard.Clear();
 
                     int newIndex;
                     do
-                        newIndex = Question.RandomIndex(boxQuestion.Question.Number);
-                    while (newIndex == boxQuestion.Question.Index);
+                        newIndex = Question.RandomIndex(_boxQuestion.Question.Number);
+                    while (newIndex == _boxQuestion.Question.Index);
 
-                    await boxQuestion.ShowCorrect(false, true);
+                    await _boxQuestion.ShowCorrect(false, true);
                     await Task.Delay(3000);
-                    await boxQuestion.Clear();
+                    await _boxQuestion.Clear();
 
                     QuestionVisible = false;
 
-                    await boxAnimation.HideImage(boxQuestion.BackgroundImage);
-                    await boxAnimation.ShowImage(boxQuestion.BackgroundImage);
+                    await _boxAnimation.HideImage(_boxQuestion.BackgroundImage);
+                    await _boxAnimation.ShowImage(_boxQuestion.BackgroundImage);
 
                     QuestionVisible = true;
-                    boxQuestion.SetQuestion(boxQuestion.Question.Number, newIndex);
+                    _boxQuestion.SetQuestion(_boxQuestion.Question.Number, newIndex);
 
-                    await boxQuestion.ShowCentralIcon(TypeHint.SwitchQuestion, false);
-                    await boxQuestion.ShowQuestion();
+                    await _boxQuestion.ShowCentralIcon(TypeHint.SwitchQuestion, false);
+                    await _boxQuestion.ShowQuestion();
 
                     ControlEnabled = true;
                     break;
 
                 case SceneCommand.End_AskHost:
-                    commandBoard.Clear();
+                    _commandBoard.Clear();
 
-                    boxQuestion.PlayBackgroundSound("Question_Reflections.wav");
+                    _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
-                    await boxQuestion.HideCentralIcon(true);
+                    await _boxQuestion.HideCentralIcon(true);
 
                     ControlEnabled = true;
                     break;
 
                 case SceneCommand.TakeMoney_Confirmation:
-                    commandBoard.Command = SceneCommand.TakeMoney;
+                    _commandBoard.Command = SceneCommand.TakeMoney;
 
-                    buttonTakeMoney.Visible = false;
+                    _buttonTakeMoney.Visible = false;
 
-                    commandBoard.Clear();
-                    commandBoard.Text = host.Say(HostPhrases.PlayerTakingMoney, tableSums.TextPrize);
-                    commandBoard.ButtonCommandVisible = true;
+                    _commandBoard.Clear();
+                    _commandBoard.Text = _host.Say(HostPhrases.PlayerTakingMoney, _tableSums.TextPrize);
+                    _commandBoard.ButtonCommandVisible = true;
                     break;
 
                 case SceneCommand.TakeMoney:
-                    commandBoard.Clear();
+                    _commandBoard.Clear();
 
                     Sound.StopAll();
-                    Sound.Play("PlayerTakesMoney.wav");
+                    Sound.Play(Resources.PlayerTakesMoney);
                     await Task.Delay(7000);
 
-                    commandBoard.Text = host.Say(HostPhrases.TakingMoney_AskAnswer);
-                    boxQuestion.AnswerMode = AnswerMode.TakeMoney;
-                    boxQuestion.Enabled = true;
+                    _commandBoard.Text = _host.Say(HostPhrases.TakingMoney_AskAnswer);
+                    _boxQuestion.AnswerMode = AnswerMode.TakeMoney;
+                    _boxQuestion.Enabled = true;
                     break;
 
                 case SceneCommand.TakeMoney_ShowPrize:
                     await ShowCorrectAndPrize(false, true, false);
-                    commandBoard.AskRestart();
+                    _commandBoard.AskRestart();
                     break;
 
                 case SceneCommand.Restart:
@@ -633,14 +634,14 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.Debug_FirstQuestion:
                     Sound.StopAll();
-                    tableSums.Clear();
+                    _tableSums.Clear();
                     await ShowQuestion(1);
                     Debug_SetQuestion(1, 1);
                     break;
 
                 case SceneCommand.Debug_Next:
-                    int number = boxQuestion.Question.Number;
-                    int index = boxQuestion.Question.Index;
+                    int number = _boxQuestion.Question.Number;
+                    int index = _boxQuestion.Question.Index;
 
                     try { Debug_SetQuestion(number, ++index); }
                     catch (Exception)
@@ -648,9 +649,9 @@ namespace WhoWantsToBeMillionaire
                         try { Debug_SetQuestion(++number, 1); }
                         catch
                         {
-                            commandBoard.Clear();
-                            commandBoard.Text = "Конец";
-                            commandBoard.Command = SceneCommand.Restart;
+                            _commandBoard.Clear();
+                            _commandBoard.Text = "Конец";
+                            _commandBoard.Command = SceneCommand.Restart;
                         }
                     }
                     break;
@@ -663,11 +664,11 @@ namespace WhoWantsToBeMillionaire
 
             Question question = new Question(number, index);
 
-            boxQuestion.SetQuestion(question);
-            commandBoard.Text = $"{question.Explanation}\nПравильный ответ: {question.FullCorrect}\n№{number:d2}.{index:d2}";
+            _boxQuestion.SetQuestion(question);
+            _commandBoard.Text = $"{question.Explanation}\nПравильный ответ: {question.FullCorrect}\n№{number:d2}.{index:d2}";
 
-            commandBoard.Command = SceneCommand.Debug_Next;
-            commandBoard.ButtonCommandVisible = true;
+            _commandBoard.Command = SceneCommand.Debug_Next;
+            _commandBoard.ButtonCommandVisible = true;
         }
 
         private void OnCacnelClick(object sender, SceneCancelCommand command)
@@ -675,15 +676,15 @@ namespace WhoWantsToBeMillionaire
             switch (command)
             {
                 case SceneCancelCommand.SkipRules:
-                    tableSums.CancelTask();
-                    tableHints.ShowAllHints();
+                    _tableSums.CancelTask();
+                    _tableHints.ShowAllHints();
 
                     OnCommandClick(this, Mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum);
                     //OnCommandClick(this, SceneCommand.Debug_FirstQuestion);
                     break;
 
-                case SceneCancelCommand.Cancel_TakingMoney:
-                    commandBoard.Clear();
+                case SceneCancelCommand.CancelTakingMoney:
+                    _commandBoard.Clear();
                     ControlEnabled = true;
                     break;
 
@@ -695,7 +696,7 @@ namespace WhoWantsToBeMillionaire
 
         public void SetSettings(GameSettingsData data)
         {
-            foreach (var ctrl in settings)
+            foreach (var ctrl in _settings)
                 ctrl.SetSettings(data);
         }
     }

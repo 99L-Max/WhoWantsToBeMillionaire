@@ -6,11 +6,11 @@ namespace WhoWantsToBeMillionaire
 {
     class GameComboBox : Label, IDisposable
     {
-        private int selectedIndex = -1;
+        private readonly string[] _items;
+        private readonly ButtonArrow _leftArrow;
+        private readonly ButtonArrow _rightArrow;
 
-        private readonly string[] items;
-        private readonly ButtonArrow leftArrow;
-        private readonly ButtonArrow rightArrow;
+        private int _selectedIndex = -1;
 
         public delegate void EventSelectedIndexChanged(object sender, EventArgs e);
         public EventSelectedIndexChanged SelectedIndexChanged;
@@ -21,16 +21,16 @@ namespace WhoWantsToBeMillionaire
         {
             set
             {
-                if (selectedIndex != value)
+                if (_selectedIndex != value)
                 {
-                    selectedIndex = value;
+                    _selectedIndex = value;
 
-                    Text = items[selectedIndex];
+                    Text = _items[_selectedIndex];
 
                     SelectedIndexChanged.Invoke(this, EventArgs.Empty);
                 }
             }
-            get => selectedIndex;
+            get => _selectedIndex;
         }
 
         public GameComboBox(string[] items, float fontSize)
@@ -40,63 +40,60 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             TextAlign = ContentAlignment.MiddleCenter;
 
-            this.items = items;
+            _items = items;
 
-            leftArrow = new ButtonArrow(DirectionArrow.Left);
-            rightArrow = new ButtonArrow(DirectionArrow.Right);
+            _leftArrow = new ButtonArrow(DirectionArrow.Left);
+            _rightArrow = new ButtonArrow(DirectionArrow.Right);
 
-            Controls.Add(leftArrow);
-            Controls.Add(rightArrow);
+            _leftArrow.Click += OnLeftClick;
+            _rightArrow.Click += OnRightClick;
 
-            leftArrow.Click += OnLeftClick;
-            rightArrow.Click += OnRightClick;
+            _leftArrow.DoubleClick += OnLeftClick;
+            _rightArrow.DoubleClick += OnRightClick;
 
-            leftArrow.DoubleClick += OnLeftClick;
-            rightArrow.DoubleClick += OnRightClick;
-
-            SizeChanged += OnSizeChanged;
+            Controls.Add(_leftArrow);
+            Controls.Add(_rightArrow);
         }
 
         private void OnLeftClick(object sender, EventArgs e)
         {
             if (LoopedSwitch)
-                SelectedIndex = selectedIndex > 0 ? selectedIndex - 1 : items.Length - 1;
+                SelectedIndex = _selectedIndex > 0 ? _selectedIndex - 1 : _items.Length - 1;
             else
-                SelectedIndex = Math.Max(0, selectedIndex - 1);
+                SelectedIndex = Math.Max(0, _selectedIndex - 1);
         }
 
         private void OnRightClick(object sender, EventArgs e)
         {
             if (LoopedSwitch)
-                SelectedIndex = selectedIndex < items.Length - 1 ? selectedIndex + 1 : 0;
+                SelectedIndex = _selectedIndex < _items.Length - 1 ? _selectedIndex + 1 : 0;
             else
-                SelectedIndex = Math.Min(selectedIndex + 1, items.Length - 1);
+                SelectedIndex = Math.Min(_selectedIndex + 1, _items.Length - 1);
         }
 
-        private void OnSizeChanged(object sender, EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             int width = (int)(0.15f * ClientRectangle.Width);
             int height = ClientRectangle.Height;
 
-            leftArrow.Size = rightArrow.Size = new Size(width, height);
+            _leftArrow.Size = _rightArrow.Size = new Size(width, height);
 
-            rightArrow.Location = new Point(ClientRectangle.Width - width, 0);
+            _rightArrow.Location = new Point(ClientRectangle.Width - width, 0);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                leftArrow.Click -= OnLeftClick;
-                rightArrow.Click -= OnRightClick;
+                _leftArrow.Click -= OnLeftClick;
+                _rightArrow.Click -= OnRightClick;
 
-                leftArrow.DoubleClick -= OnLeftClick;
-                rightArrow.DoubleClick -= OnRightClick;
+                _leftArrow.DoubleClick -= OnLeftClick;
+                _rightArrow.DoubleClick -= OnRightClick;
 
-                SizeChanged -= OnSizeChanged;
+                _leftArrow.Dispose();
+                _rightArrow.Dispose();
 
-                leftArrow.Dispose();
-                rightArrow.Dispose();
                 BackgroundImage?.Dispose();
             }
 

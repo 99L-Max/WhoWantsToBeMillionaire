@@ -5,21 +5,21 @@ namespace WhoWantsToBeMillionaire
 {
     class LoopStream : WaveStream, IDisposable
     {
-        private readonly WaveStream sourceStream;
+        private readonly WaveStream _sourceStream;
 
-        public LoopStream(WaveStream sourceStream)
-        {
-            this.sourceStream = sourceStream;
-        }
+        public LoopStream(WaveStream sourceStream) =>
+            _sourceStream = sourceStream;
 
-        public override WaveFormat WaveFormat => sourceStream.WaveFormat;
+        public override WaveFormat WaveFormat => 
+            _sourceStream.WaveFormat;
 
-        public override long Length => sourceStream.Length;
+        public override long Length => 
+            _sourceStream.Length;
 
         public override long Position
         {
-            set { sourceStream.Position = value; }
-            get => sourceStream.Position;
+            set { _sourceStream.Position = value; }
+            get => _sourceStream.Position;
         }
 
         public override int Read(byte[] buffer, int offset, int count)
@@ -28,14 +28,14 @@ namespace WhoWantsToBeMillionaire
 
             while (totalBytesRead < count)
             {
-                int bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
+                int bytesRead = _sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
 
                 if (bytesRead == 0)
                 {
-                    if (sourceStream.Position == 0)
+                    if (_sourceStream.Position == 0)
                         break;
 
-                    sourceStream.Position = 0;
+                    _sourceStream.Position = 0;
                 }
 
                 totalBytesRead += bytesRead;
@@ -47,9 +47,7 @@ namespace WhoWantsToBeMillionaire
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                sourceStream.Dispose();
-            }
+                _sourceStream.Dispose();
 
             base.Dispose(disposing);
         }

@@ -117,4 +117,1487 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Achievement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\achievement.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Achievement_AndToTalk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_andtotalk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_AudienceAward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_audienceaward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_DearComputer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_dearcomputer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_DefectiveQuestion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_defectivequestion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_ExcessiveСaution" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_excessiveсaution.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_IsPossible" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_ispossible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_Jubilee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_jubilee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_Millionaire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_millionaire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_MoneyNotBurn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_moneynotburn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_NoOneWillKnow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_noonewillknow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_NoOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_nooptions.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_StopGame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_stopgame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_SuccessfulOutcome" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_successfuloutcome.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_TriumphReason" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_triumphreason.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Achievement_WasTwoBecameFour" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\achievement_wastwobecamefour.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AnimationData_ButtonHint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\animationdata\animationdata_buttonhint.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="AnimationData_CentralIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\animationdata\animationdata_centralicon.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Accepted" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_accepted.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_Difficult" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_correct_difficult.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_correct_easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_Easy_Ending" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_correct_easy_ending.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_Final" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_correct_final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_correct_normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_SaveSum" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_correct_savesum.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_DrumRoll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_drumroll.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Incorrect_Difficult" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_incorrect_difficult.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Incorrect_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_incorrect_easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Incorrect_Final" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_incorrect_final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Incorrect_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\answer_incorrect_normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="AudienceChart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\audiencechart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Background_Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\background_main.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Background_Screensaver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\background_screensaver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Background_Sums" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\background_sums.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonArrow_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonarrow_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonArrow_Left_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonarrow_left_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonArrow_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonarrow_right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonArrow_Right_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonarrow_right_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonCapsule_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttoncapsule_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonCapsule_Gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttoncapsule_gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonCapsule_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttoncapsule_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonCapsule_Orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttoncapsule_orange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonWire_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonwire_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonWire_Focused" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonwire_focused.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonWire_Gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonwire_gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonWire_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonwire_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonWire_Orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\buttonwire_orange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CentralIcon_Hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\centralicon_hide.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CentralIcon_Show" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\centralicon_show.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ChartColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\chartcolumn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ComboBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\combobox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CurrentAmount" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\currentamount.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dialog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\dialog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dialog_Hint_AskHost_Correct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dialogues\dialog_hint_askhost_correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dialog_Hint_AskHost_Incorrect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dialogues\dialog_hint_askhost_incorrect.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dialog_Hint_PhoneFriend_Correct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dialogues\dialog_hint_phonefriend_correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dialog_Hint_PhoneFriend_Dialog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dialogues\dialog_hint_phonefriend_dialog.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dialog_Hint_PhoneFriend_Incorrect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dialogues\dialog_hint_phonefriend_incorrect.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dialog_Host" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dialogues\dialog_host.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_Achievements" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_achievements.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_DescriptionHints" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_descriptionhints.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_DescriptionModes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_descriptionmodes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_MenuCommands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_menucommands.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_Modes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_modes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_settings.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Dictionary_Statistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dictionaries\dictionary_statistics.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Focus_Hint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\focus_hint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_AskAudience_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_askaudience_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_AskAudience_Begin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_askaudience_begin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_AskAudience_End" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_askaudience_end.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_AskAudience_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_askaudience_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_AskAudience_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_askaudience_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_AskAudience_Voting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_askaudience_voting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_AskHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_askhost.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_AskHost_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_askhost_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_AskHost_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_askhost_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_AskHost_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_askhost_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_DoubleDip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_doubledip.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_DoubleDip_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_doubledip_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_DoubleDip_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_doubledip_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_DoubleDip_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_doubledip_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_FiftyFifty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_fiftyfifty.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_FiftyFifty_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_fiftyfifty_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_FiftyFifty_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_fiftyfifty_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_FiftyFifty_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_fiftyfifty_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_PhoneFriend_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_phonefriend_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_PhoneFriend_Beeps" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_phonefriend_beeps.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_PhoneFriend_Dialing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_phonefriend_dialing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_PhoneFriend_End" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_phonefriend_end.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_PhoneFriend_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_phonefriend_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_PhoneFriend_Timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\hint_phonefriend_timer.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hint_PhoneFriend_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_phonefriend_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_SwitchQuestion_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_switchquestion_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_SwitchQuestion_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_switchquestion_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hint_SwitchQuestion_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\hint_switchquestion_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSum_Circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\iconsum_circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSum_Rhomb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\iconsum_rhomb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Medal_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\medal_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Medal_Granted" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\medal_granted.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhoneTimer_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\phonetimer_back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PhoneTimer_Front" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\phonetimer_front.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayerTakesMoney" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\playertakesmoney.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v26.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v27.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v28.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v29.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v30.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v31.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v32.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V33" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v33.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V34" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v34.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q01V35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q01v35.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v26.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v27.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v28.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v29.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v30.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v31.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v32.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V33" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v33.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V34" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v34.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q02V35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q02v35.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v26.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v27.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v28.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v29.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v30.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v31.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v32.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V33" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v33.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V34" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v34.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q03V35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q03v35.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v26.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v27.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v28.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v29.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q04V30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q04v30.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v26.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v27.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v28.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v29.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q05V30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q05v30.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v26.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v27.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v28.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v29.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q06V30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q06v30.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q07V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q07v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q08V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q08v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v21.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v22.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v23.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v24.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q09V25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q09v25.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q10V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q10v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q11V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q11v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v16.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v17.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v18.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v19.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q12V20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q12v20.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q13V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q13v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q14V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q14v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v02.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v03.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v04.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v05.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v06.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v07.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v08.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v09.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v10.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v11.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v13.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v14.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Q15V15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\questions\q15v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Question" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Question_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\question_next.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Question_Reflections" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\question_reflections.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReverseSide_Hint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\reverseside_hint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rules" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\rules.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Rules_Hint1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\rules_hint1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Rules_Hint2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\rules_hint2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Rules_Hint3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\rules_hint3.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SavaSumSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\savasumselected.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Screensaver_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\screensaver_full.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Screensaver_Restart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\screensaver_restart.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SettingsValues" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\settingsvalues\settingsvalues.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sounds\start.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Sums" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\sums\sums.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Wire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\textures\wire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -4,37 +4,37 @@ namespace WhoWantsToBeMillionaire
 {
     class ChartColumnPercent
     {
-        private readonly int maxHeight;
-        private readonly int yDown;
+        private readonly int _maxHeight;
+        private readonly int _yDown;
 
-        private float percent;
-        private Rectangle rectangle;
-        private Rectangle rectangleLabel;
+        private float _percent;
+        private Rectangle _rectangle;
+        private Rectangle _labelRectangle;
 
-        public Rectangle Rectangle => rectangle;
+        public Rectangle Rectangle => _rectangle;
 
-        public Rectangle RectangleLabel => rectangleLabel;
+        public Rectangle RectangleLabel => _labelRectangle;
 
         public ChartColumnPercent(int x, int width, int maxHeight, int yDown)
         {
-            this.maxHeight = maxHeight;
-            this.yDown = yDown;
+            _maxHeight = maxHeight;
+            _yDown = yDown;
 
-            rectangle = new Rectangle(x, yDown, width, 0);
-            rectangleLabel = new Rectangle(x - width, Rectangle.Y - width, 3 * width, width);
+            _rectangle = new Rectangle(x, yDown, width, 0);
+            _labelRectangle = new Rectangle(x - width, Rectangle.Y - width, 3 * width, width);
         }
 
         public float Percent
         {
             set
             {
-                percent = value;
-                rectangle.Height = (int)(value * maxHeight / 100f);
-                rectangle.Y = yDown - rectangle.Height;
-                rectangleLabel.Y = Rectangle.Y - rectangleLabel.Height;
+                _percent = value;
+                _rectangle.Height = (int)(value * _maxHeight / 100f);
+                _rectangle.Y = _yDown - _rectangle.Height;
+                _labelRectangle.Y = Rectangle.Y - _labelRectangle.Height;
             }
 
-            get => percent;
+            get => _percent;
         }
     }
 }

@@ -2,41 +2,41 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class Sound
     {
-        private static readonly List<WaveOut> sounds = new List<WaveOut>();
-        private static readonly WaveOut background = new WaveOut();
+        private static readonly List<WaveOut> s_sounds = new List<WaveOut>();
+        private static readonly WaveOut s_background = new WaveOut();
 
-        private static Stream streamBack;
-        private static WaveFileReader readerBack;
-        private static LoopStream loopStream;
+        private static float s_volume = 1f;
+        private static Stream s_streamBack;
+        private static WaveFileReader s_readerBack;
+        private static LoopStream s_loopStream;
 
-        private static float Volume = 1f;
+        static Sound() =>
+            s_background.Volume = s_volume;
 
-        static Sound()
+        public static void Play(string soundName) =>
+            Play(Resources.ResourceManager.GetStream(soundName));
+
+        public static void Play(UnmanagedMemoryStream stream)
         {
-            background.Volume = Volume;
-        }
-
-        public static void Play(string soundName)
-        {
-            Stream stream = ResourceManager.GetStream(soundName, TypeResource.Sounds);
             WaveFileReader reader = new WaveFileReader(stream);
             WaveOut waveOut = new WaveOut();
 
-            sounds.Add(waveOut);
+            s_sounds.Add(waveOut);
 
             waveOut.PlaybackStopped += Dispose;
-            waveOut.Volume = Volume;
+            waveOut.Volume = s_volume;
             waveOut.Init(reader);
             waveOut.Play();
 
             void Dispose(object sender, EventArgs e)
             {
-                sounds.Remove(waveOut);
+                s_sounds.Remove(waveOut);
                 waveOut.PlaybackStopped -= Dispose;
 
                 waveOut.Dispose();
@@ -45,42 +45,42 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public static void PlayBackground(string soundName)
+        public static void PlayBackground(UnmanagedMemoryStream stream)
         {
             StopBackground();
 
-            streamBack = ResourceManager.GetStream(soundName, TypeResource.Sounds);
-            readerBack = new WaveFileReader(streamBack);
-            loopStream = new LoopStream(readerBack);
+            s_streamBack = stream;
+            s_readerBack = new WaveFileReader(s_streamBack);
+            s_loopStream = new LoopStream(s_readerBack);
 
-            background.Init(loopStream);
-            background.Play();
+            s_background.Init(s_loopStream);
+            s_background.Play();
         }
 
         public static void StopPeek()
         {
-            if (sounds.Count > 0)
-                sounds[sounds.Count - 1].Stop();
+            if (s_sounds.Count > 0)
+                s_sounds[s_sounds.Count - 1].Stop();
         }
 
         public static void StopBackground()
         {
-            background?.Stop();
-            streamBack?.Dispose();
-            readerBack?.Dispose();
-            loopStream?.Dispose();
+            s_background?.Stop();
+            s_streamBack?.Dispose();
+            s_readerBack?.Dispose();
+            s_loopStream?.Dispose();
         }
 
         public static void StopAll()
         {
             StopBackground();
-            sounds.ForEach(s => s.Stop());
+            s_sounds.ForEach(s => s.Stop());
         }
 
         public static void SetVolume(float value)
         {
-            background.Volume = Volume = value;
-            sounds.ForEach(x => x.Volume = value);
+            s_background.Volume = s_volume = value;
+            s_sounds.ForEach(x => x.Volume = value);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     interface IReset
     {
-        void Reset(Mode mode = Mode.Classic);
+       void Reset(Mode mode = Mode.Classic);
     }
 }

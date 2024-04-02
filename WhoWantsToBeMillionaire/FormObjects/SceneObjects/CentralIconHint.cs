@@ -1,16 +1,15 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class CentralIconHint : PictureBox
     {
-        private readonly Stack<Image> icons;
+        private readonly Stack<Image> _icons;
 
         public CentralIconHint()
         {
@@ -18,28 +17,25 @@ namespace WhoWantsToBeMillionaire
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
 
-            icons = new Stack<Image>();
+            _icons = new Stack<Image>();
         }
 
         private async Task ShowAnimation(Image icon, bool isShow, bool playSound)
         {
             if (playSound)
-                Sound.Play(isShow ? "CentralIcon_Show.wav" : "CentralIcon_Hide.wav");
+                Sound.Play(isShow ? Resources.CentralIcon_Show : Resources.CentralIcon_Hide);
 
-            using (Stream stream = ResourceManager.GetStream("ShowCentralIcon.json", TypeResource.AnimationData))
-            using (StreamReader reader = new StreamReader(stream))
-            using (Image reverseSide = ResourceManager.GetImage("ReverseSide_Hint.png"))
+            using (Image reverseSide = Resources.ReverseSide_Hint)
             using (Image image = new Bitmap(icon.Width, icon.Height))
             using (Graphics g = Graphics.FromImage(image))
             {
-                (float, float, bool)[] data = JsonConvert.DeserializeObject<(float, float, bool)[]>(reader.ReadToEnd());
+                var data = JsonManager.GetObject<(float, float, bool)[]>(Resources.AnimationData_CentralIcon);
 
                 if (!isShow)
                     Array.Reverse(data);
 
-                float compression, proporsion;
                 bool isFront;
-
+                float compression, proporsion;
                 float x, y, width, height;
 
                 foreach (var el in data)
@@ -66,21 +62,21 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowIcon(TypeHint type, bool playSound)
         {
-            Image icon = ResourceManager.GetImage($"Hint_{type}_{StatusHint.Active}.png");
+            Image icon = (Image)Resources.ResourceManager.GetObject($"Hint_{type}_{StatusHint.Active}");
 
             await ShowAnimation(icon, true, playSound);
 
             BackgroundImage = icon;
-            icons.Push(icon);
+            _icons.Push(icon);
         }
 
         public async Task HideIcon(bool playSound)
         {
-            if (icons.Count == 0) return;
+            if (_icons.Count == 0) return;
 
-            Image icon = icons.Pop();
+            Image icon = _icons.Pop();
 
-            BackgroundImage = icons.Count > 0 ? icons.Peek() : null;
+            BackgroundImage = _icons.Count > 0 ? _icons.Peek() : null;
 
             await ShowAnimation(icon, false, playSound);
 
@@ -91,8 +87,8 @@ namespace WhoWantsToBeMillionaire
         {
             BackgroundImage = Image = null;
 
-            while (icons.Count > 0)
-                icons.Pop().Dispose();
+            while (_icons.Count > 0)
+                _icons.Pop().Dispose();
         }
     }
 }

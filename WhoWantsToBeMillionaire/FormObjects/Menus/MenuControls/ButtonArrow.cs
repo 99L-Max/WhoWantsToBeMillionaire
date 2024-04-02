@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -8,38 +9,41 @@ namespace WhoWantsToBeMillionaire
 
     class ButtonArrow : PictureBox, IDisposable
     {
-        private readonly Image image;
-        private readonly Image imageClick;
+        private readonly Image _image;
+        private readonly Image _imageClick;
 
         public readonly DirectionArrow DirectionArrow;
 
         public ButtonArrow(DirectionArrow direction)
         {
             DirectionArrow = direction;
-
             SizeMode = PictureBoxSizeMode.Zoom;
             BackColor = Color.Transparent;
 
-            image = ResourceManager.GetImage($"ButtonArrow_{direction}.png");
-            imageClick = ResourceManager.GetImage($"ButtonArrow_{direction}_Click.png");
+            _image = direction == DirectionArrow.Left ? Resources.ButtonArrow_Left : Resources.ButtonArrow_Right;
+            _imageClick = direction == DirectionArrow.Left ? Resources.ButtonArrow_Left_Click : Resources.ButtonArrow_Right_Click;
 
             OnMouseLeave(EventArgs.Empty);
         }
 
-        protected override void OnMouseEnter(EventArgs e) => Image = imageClick;
+        protected override void OnMouseEnter(EventArgs e) => 
+            Image = _imageClick;
 
-        protected override void OnMouseUp(MouseEventArgs e) => Image = imageClick;
+        protected override void OnMouseUp(MouseEventArgs e) => 
+            Image = _imageClick;
 
-        protected override void OnMouseDown(MouseEventArgs e) => Image = image;
+        protected override void OnMouseDown(MouseEventArgs e) => 
+            Image = _image;
 
-        protected override void OnMouseLeave(EventArgs e) => Image = image;
+        protected override void OnMouseLeave(EventArgs e) => 
+            Image = _image;
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                image.Dispose();
-                imageClick.Dispose();
+                _image.Dispose();
+                _imageClick.Dispose();
             }
 
             base.Dispose(disposing);

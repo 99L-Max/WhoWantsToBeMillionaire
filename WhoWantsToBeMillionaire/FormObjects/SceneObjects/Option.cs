@@ -4,60 +4,62 @@ namespace WhoWantsToBeMillionaire
 {
     class Option : TextBitmap
     {
-        private readonly StringFormat formatLetter;
-        private readonly Rectangle rectText;
-        private readonly Rectangle rectLetter;
+        private readonly StringFormat _letterFormat;
+        private readonly Rectangle _textRectangle;
+        private readonly Rectangle _letterRectangle;
 
-        private Color foreColorText;
-        private Color foreColorLetter;
+        private Color _textForeColor;
+        private Color _letterForeColor;
 
         public readonly Letter Letter;
 
-        public bool Enabled;
-        public bool Selected;
+        public bool Enabled { set; get; }
+
+        public bool Selected { set; get; }
 
         public Option(Letter letter, Rectangle rectangle) : base(rectangle)
         {
             Letter = letter;
 
-            rectLetter = new Rectangle(0, 0, (int)(0.15f * Rectangle.Width), Rectangle.Height);
-            rectText = new Rectangle(rectLetter.Width, 0, Rectangle.Width - rectLetter.Width, Rectangle.Height);
-            formatLetter = new StringFormat();
+            _letterRectangle = new Rectangle(0, 0, (int)(0.15f * Rectangle.Width), Rectangle.Height);
+            _textRectangle = new Rectangle(_letterRectangle.Width, 0, Rectangle.Width - _letterRectangle.Width, Rectangle.Height);
+            _letterFormat = new StringFormat();
 
-            formatText.Alignment = StringAlignment.Near;
-            formatText.LineAlignment = StringAlignment.Center;
+            _formatText.Alignment = StringAlignment.Near;
+            _formatText.LineAlignment = StringAlignment.Center;
 
-            formatLetter.Alignment = StringAlignment.Far;
-            formatLetter.LineAlignment = StringAlignment.Center;
+            _letterFormat.Alignment = StringAlignment.Far;
+            _letterFormat.LineAlignment = StringAlignment.Center;
         }
 
         public override void Reset()
         {
             Selected = false;
-            foreColorText = Color.White;
-            foreColorLetter = Color.Orange;
+
+            _textForeColor = Color.White;
+            _letterForeColor = Color.Orange;
 
             base.Reset();
         }
 
         public void SetForeColors(Color colorText, Color colorLetter)
         {
-            foreColorText = colorText;
-            foreColorLetter = colorLetter;
+            _textForeColor = colorText;
+            _letterForeColor = colorLetter;
 
             DrawText();
         }
 
         protected override void DrawText()
         {
-            g.Clear(Color.Transparent);
+            _g.Clear(Color.Transparent);
 
-            if (alpha > 0)
-                using (Brush brustText = new SolidBrush(Color.FromArgb(alpha, foreColorText)))
-                using (Brush brustLetter = new SolidBrush(Color.FromArgb(alpha, foreColorLetter)))
+            if (_alpha > 0)
+                using (Brush brustText = new SolidBrush(Color.FromArgb(_alpha, _textForeColor)))
+                using (Brush brustLetter = new SolidBrush(Color.FromArgb(_alpha, _letterForeColor)))
                 {
-                    g.DrawString(text, font, brustText, rectText, formatText);
-                    g.DrawString($"{Letter}:", font, brustLetter, rectLetter, formatLetter);
+                    _g.DrawString(_text, _font, brustText, _textRectangle, _formatText);
+                    _g.DrawString($"{Letter}:", _font, brustLetter, _letterRectangle, _letterFormat);
                 }
         }
     }

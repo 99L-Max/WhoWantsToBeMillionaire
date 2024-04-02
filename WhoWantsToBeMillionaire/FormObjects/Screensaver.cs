@@ -4,48 +4,49 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
     class Screensaver : PictureBox, IDisposable
     {
-        private readonly Image background;
-        private readonly Image logo;
+        private readonly Image _background;
+        private readonly Image _logo;
 
-        private Rectangle logoRectangle;
-        private bool imageVisible;
-        private int alpha;
+        private Rectangle _logoRectangle;
+        private bool _imageVisible;
+        private int _alpha;
 
         public Screensaver()
         {
             Dock = DockStyle.Fill;
             BackColor = Color.Transparent;
 
-            background = new Bitmap(ResourceManager.GetImage("Background_Screensaver.png"), MainForm.ScreenRectangle.Size);
-            logo = ResourceManager.GetImage("Logo.png");
-            logoRectangle = new Rectangle();
+            _background = new Bitmap(Resources.Background_Screensaver, MainForm.ScreenRectangle.Size);
+            _logo = Resources.Logo;
+            _logoRectangle = new Rectangle();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (imageVisible)
+            if (_imageVisible)
             {
-                e.Graphics.DrawImage(background, ClientRectangle);
-                e.Graphics.DrawImage(logo, logoRectangle);
+                e.Graphics.DrawImage(_background, ClientRectangle);
+                e.Graphics.DrawImage(_logo, _logoRectangle);
             }
 
-            if (alpha > 0)
-                using (Brush brush = new SolidBrush(Color.FromArgb(alpha, Color.White)))
+            if (_alpha > 0)
+                using (Brush brush = new SolidBrush(Color.FromArgb(_alpha, Color.White)))
                     e.Graphics.FillRectangle(brush, ClientRectangle);
         }
 
         public async Task ShowSaver(bool isFullVersion)
         {
             int sizeLogo;
-            imageVisible = false;
+            _imageVisible = false;
 
             Sound.StopAll();
-            Sound.Play(isFullVersion ? "Screensaver_Full.wav" : "Screensaver_Restart.wav");
+            Sound.Play(isFullVersion ? Resources.Screensaver_Full : Resources.Screensaver_Restart);
 
             await ShowTransition(10);
 
@@ -53,10 +54,10 @@ namespace WhoWantsToBeMillionaire
             {
                 sizeLogo = (int)(i * Height);
 
-                logoRectangle.X = (ClientRectangle.Width - sizeLogo) >> 1;
-                logoRectangle.Y = (ClientRectangle.Height - sizeLogo) >> 1;
+                _logoRectangle.X = (ClientRectangle.Width - sizeLogo) >> 1;
+                _logoRectangle.Y = (ClientRectangle.Height - sizeLogo) >> 1;
 
-                logoRectangle.Width = logoRectangle.Height = sizeLogo;
+                _logoRectangle.Width = _logoRectangle.Height = sizeLogo;
 
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
@@ -73,7 +74,7 @@ namespace WhoWantsToBeMillionaire
 
             await FillRectangles(alphas);
 
-            imageVisible = !imageVisible;
+            _imageVisible = !_imageVisible;
 
             await FillRectangles(alphas.Reverse());
         }
@@ -82,7 +83,7 @@ namespace WhoWantsToBeMillionaire
         {
             foreach (var a in alphas)
             {
-                alpha = a;
+                _alpha = a;
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
             }
@@ -92,8 +93,8 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                background.Dispose();
-                logo.Dispose();
+                _background.Dispose();
+                _logo.Dispose();
             }
 
             base.Dispose(disposing);

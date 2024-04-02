@@ -12,30 +12,25 @@ namespace WhoWantsToBeMillionaire
         private const int CountFramesAlphaChange = 6;
         private const int CountFramesResize = 6;
 
-        private readonly Image image;
-        private readonly Graphics g;
-        private readonly TextBitmap textBitmap;
+        private readonly Image _image;
+        private readonly Graphics _g;
+        private readonly TextBitmap _textBitmap;
 
-        public float SizeFont
-        {
-            set => textBitmap.SizeFont = value;
-        }
+        public float SizeFont { set => _textBitmap.SizeFont = value; }
 
         public BoxAnimation(int width, int height) : base(width, height)
         {
-            image = new Bitmap(width, height);
-            g = Graphics.FromImage(image);
-            textBitmap = new TextBitmap(width, height);
+            _image = new Bitmap(width, height);
+            _g = Graphics.FromImage(_image);
+            _textBitmap = new TextBitmap(width, height);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(image, ClientRectangle);
-        }
+        protected override void OnPaint(PaintEventArgs e) => 
+            e.Graphics.DrawImage(_image, ClientRectangle);
 
         public void Reset(Mode mode = Mode.Classic)
         {
-            g.Clear(Color.Transparent);
+            _g.Clear(Color.Transparent);
             Invalidate();
         }
 
@@ -47,14 +42,14 @@ namespace WhoWantsToBeMillionaire
 
             foreach (var share in shares)
             {
-                width = (int)(share * image.Width);
-                height = (int)(share * image.Height);
+                width = (int)(share * _image.Width);
+                height = (int)(share * _image.Height);
 
-                x = (image.Width - width) >> 1;
-                y = (image.Height - height) >> 1;
+                x = (_image.Width - width) >> 1;
+                y = (_image.Height - height) >> 1;
 
-                g.Clear(Color.Transparent);
-                g.DrawImage(img, x, y, width, height);
+                _g.Clear(Color.Transparent);
+                _g.DrawImage(img, x, y, width, height);
 
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
@@ -63,11 +58,11 @@ namespace WhoWantsToBeMillionaire
 
         private Rectangle ResizeRectangle(float share)
         {
-            int width = (int)(share * image.Width);
-            int height = (int)(share * image.Height);
+            int width = (int)(share * _image.Width);
+            int height = (int)(share * _image.Height);
 
-            int x = (image.Width - width) >> 1;
-            int y = (image.Height - height) >> 1;
+            int x = (_image.Width - width) >> 1;
+            int y = (_image.Height - height) >> 1;
 
             return new Rectangle(x, y, width, height);
         }
@@ -75,12 +70,12 @@ namespace WhoWantsToBeMillionaire
         private void DrawMovedResizedImage(Image img, Rectangle rect, int x)
         {
             rect.X += x;
-            g.DrawImage(img, rect);
+            _g.DrawImage(img, rect);
         }
 
         public async Task HideImage()
         {
-            using (Image img = new Bitmap(image))
+            using (Image img = new Bitmap(_image))
                 await HideImage(img);
         }
 
@@ -93,15 +88,15 @@ namespace WhoWantsToBeMillionaire
                     ColorMatrix matrix = new ColorMatrix { Matrix33 = (numAlpha + 1f) / CountFramesAlphaChange };
                     attribute.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                    g.Clear(Color.Transparent);
-                    g.DrawImage(img, ClientRectangle, 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, attribute);
+                    _g.Clear(Color.Transparent);
+                    _g.DrawImage(img, ClientRectangle, 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, attribute);
                 }
 
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);
             }
 
-            g.Clear(Color.Transparent);
+            _g.Clear(Color.Transparent);
             Invalidate();
         }
 
@@ -110,14 +105,14 @@ namespace WhoWantsToBeMillionaire
             float startShare = 0.9f;
             float finalShare = 1f;
 
-            int x0 = (int)(-1.5f * image.Width);
+            int x0 = (int)(-1.5f * _image.Width);
             var axis = Enumerable.Range(0, CountFramesMoving).Select(i => x0 - x0 / (CountFramesMoving - 1) * i);
 
             var rect = ResizeRectangle(startShare);
 
             foreach (var x in axis)
             {
-                g.Clear(Color.Transparent);
+                _g.Clear(Color.Transparent);
                 DrawMovedResizedImage(img, rect, x);
 
                 Invalidate();
@@ -132,7 +127,7 @@ namespace WhoWantsToBeMillionaire
             float startShare = 1f;
             float finalShare = 0.9f;
 
-            int x0 = (int)(-1.5f * image.Width);
+            int x0 = (int)(-1.5f * _image.Width);
             var axis = Enumerable.Range(0, CountFramesMoving).Select(i => x0 - x0 / (CountFramesMoving - 1) * i);
 
             var rect = ResizeRectangle(finalShare);
@@ -141,7 +136,7 @@ namespace WhoWantsToBeMillionaire
 
             foreach (var x in axis)
             {
-                g.Clear(Color.Transparent);
+                _g.Clear(Color.Transparent);
 
                 DrawMovedResizedImage(startImg, rect, x - x0);
                 DrawMovedResizedImage(finalImg, rect, x);
@@ -155,14 +150,14 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowText(string text)
         {
-            textBitmap.Text = text;
+            _textBitmap.Text = text;
 
             var alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue * x / (CountFramesAlphaChange - 1));
 
             foreach (var a in alphas)
             {
-                textBitmap.Alpha = a;
-                g.DrawImage(textBitmap.ImageText, 0, 0, image.Width, image.Height);
+                _textBitmap.Alpha = a;
+                _g.DrawImage(_textBitmap.ImageText, 0, 0, _image.Width, _image.Height);
 
                 Invalidate();
                 await Task.Delay(MainForm.DeltaTime);

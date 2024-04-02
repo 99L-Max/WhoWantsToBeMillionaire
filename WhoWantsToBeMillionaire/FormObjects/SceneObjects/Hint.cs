@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -9,26 +11,26 @@ namespace WhoWantsToBeMillionaire
     {
         public const int MaxCountAllowedHints = 4;
 
-        private readonly Random random;
+        private readonly Random _random = new Random();
 
-        public Hint() => random = new Random();
-
-        public Question ReduceOptions(Question question)
+        private Letter GetWrongLetter(Question question)
         {
-            var wrongKeys = question.Options.Keys.Where(k => k != question.Correct).ToList();
-            var secondKey = wrongKeys[random.Next(wrongKeys.Count)];
-            return new Question(question.Number, question.Index, new Letter[] { question.Correct, secondKey });
+            var wrongKeys = question.Options.Where(x => x.Key != question.Correct).Select(x => x.Key);
+            return wrongKeys.ElementAt(_random.Next(wrongKeys.Count()));
         }
+
+        public Question ReduceOptions(Question question) => 
+            new Question(question.Number, question.Index, new Letter[] { question.Correct, GetWrongLetter(question) });
 
         public Dictionary<Letter, int> PercentsAudience(Question question)
         {
-            var keys = question.Options.Where(x => x.Value != string.Empty).Select(x => x.Key).OrderBy(k => random.Next()).ToList();
+            var keys = question.Options.Where(x => x.Value != string.Empty).Select(x => x.Key).OrderBy(k => _random.Next()).ToList();
             var percents = new List<int>();
             var sum = 100;
 
             for (int i = 1; i < keys.Count; i++)
             {
-                percents.Add(random.Next(sum));
+                percents.Add(_random.Next(sum));
                 sum -= percents.Last();
             }
 
@@ -37,20 +39,19 @@ namespace WhoWantsToBeMillionaire
 
             keys.Remove(question.Correct);
 
-            if (random.NextDouble() <= -0.05 * question.Number + 1.25 || keys.Count == 2)
+            if (_random.NextDouble() <= -0.05 * question.Number + 1.25 || keys.Count == 2)
                 keys.Insert(0, question.Correct);
             else
-                keys.Insert(random.Next(keys.Count) + 1, question.Correct);
+                keys.Insert(_random.Next(keys.Count) + 1, question.Correct);
 
             return keys.Zip(percents, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
         }
 
-        private IEnumerable<string> GetDialog(string fileName, params (string, string)[] replace)
+        private IEnumerable<string> GetDialog(byte[] array, params (string, string)[] replace)
         {
-            var jString = ResourceManager.GetDialog(fileName);
-            var dialogues = JsonConvert.DeserializeObject<string[][]>(jString);
+            var dialogues = JsonManager.GetObject<string[][]>(array);
 
-            IEnumerable<string> result = dialogues[random.Next(dialogues.Length)];
+            IEnumerable<string> result = dialogues[_random.Next(dialogues.Length)];
 
             foreach (var el in replace)
                 result = result.Select(s => s.Replace(el.Item1, el.Item2));
@@ -58,57 +59,52 @@ namespace WhoWantsToBeMillionaire
             return result.Select(s => $"- {s}\n");
         }
 
-        private Letter WrongLetter(Question question)
-        {
-            var wrongKeys = question.Options.Where(x => x.Key != question.Correct).Select(x => x.Key);
-            return wrongKeys.ElementAt(random.Next(wrongKeys.Count()));
-        }
-
         public IEnumerable<string> PhoneFriendDialog(string sum) =>
-            GetDialog("Hint_PhoneFriend_Dialog.json", ("<SUM>", sum));
+            GetDialog(Resources.Dialog_Hint_PhoneFriend_Dialog, ("<SUM>", sum));
 
         public string PhoneFriendAnswer(Question question)
         {
-            string fileName, answer;
+            string answer;
+            byte[] array;
 
             var probability = -0.07 * question.Number + 1.28;
 
-            if (question.CountOptions == 2 || random.NextDouble() < probability)
+            if (question.CountOptions == 2 || _random.NextDouble() < probability)
             {
                 answer = question.FullCorrect;
-                fileName = "Hint_PhoneFriend_Correct.json";
+                array = Resources.Dialog_Hint_PhoneFriend_Correct;
             }
             else
             {
-                answer = question.FullOption(WrongLetter(question));
-                fileName = "Hint_PhoneFriend_Incorrect.json";
+                answer = question.FullOption(GetWrongLetter(question));
+                array = Resources.Dialog_Hint_PhoneFriend_Incorrect;
             }
 
-            var result = GetDialog(fileName, ("<QUESTION>", question.Text), ("<ANSWER>", answer));
+            var result = GetDialog(array, ("<QUESTION>", question.Text), ("<ANSWER>", answer));
             return string.Join(string.Empty, result);
         }
 
         public string HostAnswer(Question question)
         {
-            string fileName, answer;
+            string answer;
+            byte[] array;
 
             var b = question.CountOptions > 2 ? 1.25 : 1.5;
-            var isCorrect = random.NextDouble() < -0.05 * question.Number + b;
+            var isCorrect = _random.NextDouble() < -0.05 * question.Number + b;
 
             if (isCorrect)
             {
                 answer = question.FullCorrect;
-                fileName = "Hint_AskHost_Correct.json";
+                array = Resources.Dialog_Hint_AskHost_Correct;
             }
             else
             {
-                answer = question.FullOption(WrongLetter(question));
-                fileName = "Hint_AskHost_Incorrect.json";
+                answer = question.FullOption(GetWrongLetter(question));
+                array = Resources.Dialog_Hint_AskHost_Incorrect;
             }
 
-            var jString = ResourceManager.GetDialog(fileName);
-            var phrases = JsonConvert.DeserializeObject<string[]>(jString);
-            var result = phrases[isCorrect ? (int)question.Difficulty : random.Next(phrases.Length)];
+            var phrases = JsonManager.GetObject<string[]>(array);
+            var result = phrases[isCorrect ? (int)question.Difficulty : _random.Next(phrases.Length)];
 
             return result.Replace("<ANSWER>", answer);
         }
