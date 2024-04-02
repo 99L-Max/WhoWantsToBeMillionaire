@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    abstract class MovingPictureBox : GameContol
+    abstract class MovingControl : GameContol
     {
         protected override CreateParams CreateParams
         {
@@ -28,7 +28,7 @@ namespace WhoWantsToBeMillionaire
             get => Location.Y;
         }
 
-        public MovingPictureBox(int width, int height) : base(width, height) { }
+        public MovingControl(int width, int height) : base(width, height) { }
 
         public async Task MoveX(int x, int countFrames)
         {

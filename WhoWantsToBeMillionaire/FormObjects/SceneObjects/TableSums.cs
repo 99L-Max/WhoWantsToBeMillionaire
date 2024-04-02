@@ -1,18 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TableSums : MovingPictureBox, IReset
+    class TableSums : TableLayoutPanel, IReset
     {
-        private readonly TableLayoutPanel _table;
         private readonly RowTableSums[] _rowsSum;
 
         private bool _taskCanceled;
@@ -34,40 +30,31 @@ namespace WhoWantsToBeMillionaire
         public bool NowSaveSum =>
             _rowsSum[_numberQuestion - 1].IsSaveSum;
 
-        public TableSums(int width, int height) : base(width, height)
+        public TableSums()
         {
-            BackgroundImage = new Bitmap(Resources.Background_Sums, width, height);
-
             var sums = JsonManager.GetObject<int[]>(Resources.Sums);
-            var heightRow = (int)(height * 0.67f / sums.Length);
 
-            _table = new TableLayoutPanel();
             _rowsSum = new RowTableSums[sums.Length];
+            RowCount = sums.Length;
 
-            _table.Size = new Size((int)(0.8f * width), heightRow * sums.Length + 1);
-            _table.Location = new Point((Width - _table.Width) / 2, (int)(0.2f * height));
-            _table.RowCount = sums.Length;
+            int indexRow;
 
-            for (int i = 0; i < _table.RowCount; i++)
-                _table.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / _table.RowCount));
-
-            _table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
-
-            for (int i = sums.Length - 1; i > -1; i--)
+            for (int i = 0; i < RowCount; i++)
             {
-                _rowsSum[i] = new RowTableSums(i + 1, sums[i]);
-                _table.Controls.Add(_rowsSum[i], 0, sums.Length - _rowsSum[i].Number);
-            }
+                indexRow = RowCount - i - 1;
+                _rowsSum[indexRow] = new RowTableSums(indexRow + 1, sums[indexRow]);
 
-            Controls.Add(_table);
+                RowStyles.Add(new RowStyle(SizeType.Percent, 100f / RowCount));
+                Controls.Add(_rowsSum[indexRow], 0, i);
+            }
         }
+
+        protected override void OnSizeChanged(EventArgs e) =>
+            Height = Height / RowCount * RowCount + 1;
 
         public void Reset(Mode mode = Mode.Classic)
         {
-            X = MainForm.ScreenRectangle.Width;
-
             _taskCanceled = true;
-            _table.Visible = false;
 
             foreach (var row in _rowsSum)
                 row.Reset();
@@ -78,12 +65,6 @@ namespace WhoWantsToBeMillionaire
 
             _numberQuestion = 1;
             SetPrize(0);
-        }
-
-        public async new Task Show()
-        {
-            await MoveX(MainForm.ScreenRectangle.Width - Width, 600 / MainForm.DeltaTime);
-            _table.Visible = true;
         }
 
         private void SetPrize(int numberSum)

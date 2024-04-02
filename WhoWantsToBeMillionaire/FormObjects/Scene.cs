@@ -42,17 +42,16 @@ namespace WhoWantsToBeMillionaire
 
     class Scene : GameContol, IReset, IGameSettings
     {
-        private readonly Image _prizeImage;
         private readonly ButtonСapsule _buttonTakeMoney;
         private readonly BoxAnimation _boxAnimation;
         private readonly BoxQuestion _boxQuestion;
+        private readonly CommandBoard _commandBoard;
         private readonly Host _host;
         private readonly Hint _hint;
-        private readonly CommandBoard _commandBoard;
+        private readonly Image _prizeImage;
+        private readonly MovingTableControls _tableControls;
         private readonly TableHints _tableHints;
         private readonly TableSums _tableSums;
-        private readonly IReset[] _resets;
-        private readonly IGameSettings[] _settings;
 
         private PhoneTimer _timer;
         private VotingChart _chart;
@@ -93,20 +92,18 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
 
             _host = new Host();
-            _tableSums = new TableSums((int)(MainForm.ScreenRectangle.Width * 0.3f), MainForm.ScreenRectangle.Height);
-            _boxAnimation = new BoxAnimation(MainForm.ScreenRectangle.Width - _tableSums.Width, (int)(MainForm.ScreenRectangle.Height * 0.36f));
-            _boxQuestion = new BoxQuestion(_boxAnimation.Width, _boxAnimation.Height);
-            _buttonTakeMoney = new ButtonСapsule((int)(0.8f * _tableSums.Width), (int)(0.05f * _tableSums.Height));
-            _commandBoard = new CommandBoard(MainForm.ScreenRectangle.Width - _tableSums.Width, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
-            _tableHints = new TableHints(_tableSums.Width, (int)(_tableSums.Height * 0.2f));
+            _tableSums = new TableSums();
             _hint = new Hint();
+            _tableControls = new MovingTableControls((int)(MainForm.ScreenRectangle.Width * 0.3f), MainForm.ScreenRectangle.Height);
+            _boxAnimation = new BoxAnimation(MainForm.ScreenRectangle.Width - _tableControls.Width, (int)(MainForm.ScreenRectangle.Height * 0.36f));
+            _boxQuestion = new BoxQuestion(_boxAnimation.Width, _boxAnimation.Height);
+            _buttonTakeMoney = new ButtonСapsule((int)(0.8f * _tableControls.Width), (int)(0.05f * _tableControls.Height));
+            _commandBoard = new CommandBoard(MainForm.ScreenRectangle.Width - _tableControls.Width, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
+            _tableHints = new TableHints(_tableControls.Width, (int)(_tableControls.Height * 0.2f));
+            _prizeImage = new Bitmap(_boxAnimation.Width, _boxAnimation.Height);
 
             _boxAnimation.Location = _boxQuestion.Location = new Point(0, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
-            _buttonTakeMoney.Location = new Point((_tableSums.Width - _buttonTakeMoney.Width) / 2, _tableSums.Height - 2 * _buttonTakeMoney.Height);
-
             _buttonTakeMoney.Text = "Забрать деньги";
-
-            _prizeImage = new Bitmap(_boxAnimation.Width, _boxAnimation.Height);
 
             using (Graphics g = Graphics.FromImage(_prizeImage))
             using (Image img = Resources.Question)
@@ -124,26 +121,24 @@ namespace WhoWantsToBeMillionaire
             _tableHints.HintClick += OnHintClick;
             _boxQuestion.OptionClick += OnOptionClick;
 
-            _tableSums.Controls.Add(_tableHints);
-            _tableSums.Controls.Add(_buttonTakeMoney);
+            _tableControls.Add(_tableHints, 20f, 1f, 1f);
+            _tableControls.Add(_tableSums, 67f, 0.8f, 1f);
+            _tableControls.Add(_buttonTakeMoney, 13f, 0.7f, 0.4f);
 
-            Controls.Add(_tableSums);
+            Controls.Add(_tableControls);
             Controls.Add(_commandBoard);
             Controls.Add(_boxAnimation);
             Controls.Add(_boxQuestion);
-
-            _resets = new IReset[] { _tableHints, _tableSums, _boxQuestion, _boxAnimation, _commandBoard };
-            _settings = new IGameSettings[] { _tableHints, _boxQuestion };
         }
 
         public void Reset(Mode mode)
         {
             Mode = mode;
 
-            foreach (var ctrl in _resets)
-                ctrl.Reset(mode);
+            foreach (Control ctrl in Controls)
+                if (ctrl is IReset)
+                    (ctrl as IReset).Reset(mode);
 
-            _buttonTakeMoney.Visible = false;
             QuestionVisible = MenuAllowed = false;
         }
 
@@ -156,9 +151,9 @@ namespace WhoWantsToBeMillionaire
             _commandBoard.Command = Mode == Mode.Classic ? SceneCommand.Show_SaveSums : SceneCommand.Show_CountHints;
             _commandBoard.CancelCommand = SceneCancelCommand.SkipRules;
 
-            await _tableSums.Show();
+            await _tableControls.MoveX(MainForm.ScreenRectangle.Width - _tableControls.Width, 600 / MainForm.DeltaTime);
 
-            _tableHints.Visible = true;
+            _tableSums.Visible = _tableHints.Visible = true;
             _commandBoard.ButtonCommandEnabled = false;
             _commandBoard.Text = _host.Say(HostPhrases.Rules, Question.MaxNumber.ToString()); ;
 
@@ -177,9 +172,9 @@ namespace WhoWantsToBeMillionaire
 
             Sound.PlayBackground(Resources.Rules);
 
-            await _tableSums.Show();
+            await _tableControls.MoveX(MainForm.ScreenRectangle.Width - _tableControls.Width, 600 / MainForm.DeltaTime);
 
-            _tableHints.Visible = true;
+            _tableSums.Visible = _tableHints.Visible = true;
             _tableHints.ShowAllHints();
 
             _commandBoard.ButtonCommandVisible = true;
@@ -346,7 +341,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private async Task RemoveMovingPictureBox(MovingPictureBox box, int milliseconds)
+        private async Task RemoveMovingPictureBox(MovingControl box, int milliseconds)
         {
             await _commandBoard.RemoveMovingPictureBox(box, milliseconds / MainForm.DeltaTime);
             box.Dispose();
@@ -696,8 +691,9 @@ namespace WhoWantsToBeMillionaire
 
         public void SetSettings(GameSettingsData data)
         {
-            foreach (var ctrl in _settings)
-                ctrl.SetSettings(data);
+            foreach (Control ctrl in Controls)
+                if (ctrl is IGameSettings)
+                    (ctrl as IGameSettings).SetSettings(data);
         }
     }
 }

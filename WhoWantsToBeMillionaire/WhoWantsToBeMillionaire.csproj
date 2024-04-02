@@ -113,6 +113,9 @@
     <Compile Include="FormObjects\SceneObjects\LabelDialog.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FormObjects\SceneObjects\MovingTableControls.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ResourceProcessing\LoopStream.cs" />
     <Compile Include="FormObjects\Menus\Context\MenuSettings.cs">
       <SubType>Component</SubType>
@@ -169,7 +172,7 @@
     <Compile Include="FormObjects\Menus\Main\MenuMain.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\MovingPictureBox.cs">
+    <Compile Include="FormObjects\MovingControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\SceneObjects\Option.cs" />

@@ -129,7 +129,7 @@ namespace WhoWantsToBeMillionaire
             ButtonsVisible = true;
         }
 
-        public async Task ShowMovingPictureBox(MovingPictureBox box, int milliseconds, bool centering)
+        public async Task ShowMovingPictureBox(MovingControl box, int milliseconds, bool centering)
         {
             box.Location = new Point(_labelDialog.Width, centering ? (_labelDialog.Height - box.Height) >> 1 : 0);
 
@@ -141,7 +141,7 @@ namespace WhoWantsToBeMillionaire
             await box.MoveX(x, milliseconds / MainForm.DeltaTime);
         }
 
-        public async Task RemoveMovingPictureBox(MovingPictureBox box, int countFrames)
+        public async Task RemoveMovingPictureBox(MovingControl box, int countFrames)
         {
             if (_labelDialog.Controls.Contains(box))
             {

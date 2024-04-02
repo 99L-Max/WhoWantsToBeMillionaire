@@ -6,7 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class BoxAchievement : MovingPictureBox, IDisposable
+    class BoxAchievement : MovingControl, IDisposable
     {
         public BoxAchievement(Achievement achievement, int width, int height) : base(width, height)
         {

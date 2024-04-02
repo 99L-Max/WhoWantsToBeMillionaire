@@ -8,7 +8,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class VotingChart : MovingPictureBox, IDisposable
+    class VotingChart : MovingControl, IDisposable
     {
         private readonly Dictionary<Letter, ChartColumnPercent> _columns;
         private readonly Image _imageColumn;

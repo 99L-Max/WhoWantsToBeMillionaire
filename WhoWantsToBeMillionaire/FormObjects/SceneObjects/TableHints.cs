@@ -51,7 +51,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Reset(Mode mode = Mode.Classic)
         {
-            Visible = Enabled = false;
+            Enabled = false;
 
             Controls.Clear();
 

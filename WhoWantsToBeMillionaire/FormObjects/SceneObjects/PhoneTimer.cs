@@ -6,7 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class PhoneTimer : MovingPictureBox, IDisposable
+    class PhoneTimer : MovingControl, IDisposable
     {
         private readonly Image _image;
         private readonly Image _ring;
