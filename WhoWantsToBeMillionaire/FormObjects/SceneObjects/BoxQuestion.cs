@@ -116,6 +116,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Reset(Mode mode = Mode.Classic)
         {
+            _iconHint.Reset();
             _bitmapTexts.ForEach(t => t.Reset());
             Enabled = false;
             Image = null;

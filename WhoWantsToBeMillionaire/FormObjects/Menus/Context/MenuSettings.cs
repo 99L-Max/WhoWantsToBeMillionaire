@@ -29,21 +29,21 @@ namespace WhoWantsToBeMillionaire
             _table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20f));
 
             var fontSize = 0.04f * height;
-            var dict = JsonManager.GetDictionary(Resources.Dictionary_Settings);
-            var values = JsonManager.GetObject<Dictionary<string, string[]>>(Resources.Dictionary_Settings);
+            var dict = JsonManager.GetDictionary<GameSettings>(Resources.Dictionary_Settings);
+            var values = JsonManager.GetObject<Dictionary<GameSettings, string[]>>(Resources.SettingsValues);
             var i = 0;
 
             foreach (var key in keys)
             {
                 LabelMenu label = new LabelMenu(fontSize);
-                GameComboBox comboBox = new GameComboBox(values[key.ToString()], fontSize);
+                GameComboBox comboBox = new GameComboBox(values[key], fontSize);
 
                 comboBox.SelectedIndexChanged += UpdateSetting;
 
-                label.Text = dict[key.ToString()];
+                label.Text = dict[key];
                 comboBox.LoopedSwitch = key != GameSettings.Volume;
                 comboBox.Tag = key;
-                comboBox.SelectedIndex = (int)_settings[key];
+                comboBox.SelectedIndex = (int)(key != GameSettings.Volume ? _settings[key] : (_settings[key] * 10f));
 
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
                 _table.Controls.Add(label, 0, i);
@@ -81,8 +81,7 @@ namespace WhoWantsToBeMillionaire
                 _comboBoxes.ForEach(c => c.SelectedIndexChanged -= UpdateSetting);
 
                 foreach (Control ctrl in _table.Controls)
-                    if (ctrl is IDisposable)
-                        (ctrl as IDisposable).Dispose();
+                    ctrl.Dispose();
 
                 _table.Controls.Clear();
             }

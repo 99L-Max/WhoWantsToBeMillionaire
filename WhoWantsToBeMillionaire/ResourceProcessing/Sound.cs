@@ -19,15 +19,16 @@ namespace WhoWantsToBeMillionaire
         static Sound() =>
             s_background.Volume = s_volume;
 
-        public static void Play(string soundName) =>
-            Play(Resources.ResourceManager.GetStream(soundName));
+        public static void Play(string soundName, bool isSwitchable = true) =>
+            Play(Resources.ResourceManager.GetStream(soundName), isSwitchable);
 
-        public static void Play(UnmanagedMemoryStream stream)
+        public static void Play(UnmanagedMemoryStream stream, bool isSwitchable = true)
         {
             WaveFileReader reader = new WaveFileReader(stream);
             WaveOut waveOut = new WaveOut();
 
-            s_sounds.Add(waveOut);
+            if (isSwitchable)
+                s_sounds.Add(waveOut);
 
             waveOut.PlaybackStopped += Dispose;
             waveOut.Volume = s_volume;

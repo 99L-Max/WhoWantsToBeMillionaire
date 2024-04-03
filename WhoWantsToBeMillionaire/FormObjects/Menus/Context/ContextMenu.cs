@@ -9,7 +9,8 @@ namespace WhoWantsToBeMillionaire
     {
         Back,
         StartGame,
-        ApplySettings
+        ApplySettings,
+        Exit
     }
 
     abstract class ContextMenu : PictureBox, IDisposable

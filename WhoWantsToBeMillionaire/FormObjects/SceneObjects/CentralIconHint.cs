@@ -20,6 +20,12 @@ namespace WhoWantsToBeMillionaire
             _icons = new Stack<Image>();
         }
 
+        public void Reset()
+        {
+            Visible = false;
+            Clear();
+        }
+
         private async Task ShowAnimation(Image icon, bool isShow, bool playSound)
         {
             if (playSound)

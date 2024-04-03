@@ -28,9 +28,7 @@ namespace WhoWantsToBeMillionaire
         TakeMoney,
         TakeMoney_Confirmation,
         TakeMoney_ShowPrize,
-        FinalQuestion,
-        Debug_FirstQuestion,
-        Debug_Next
+        FinalQuestion
     }
 
     enum SceneCancelCommand
@@ -42,9 +40,9 @@ namespace WhoWantsToBeMillionaire
 
     class Scene : GameContol, IReset, IGameSettings
     {
-        private readonly ButtonСapsule _buttonTakeMoney;
         private readonly BoxAnimation _boxAnimation;
         private readonly BoxQuestion _boxQuestion;
+        private readonly ButtonСapsule _buttonTakeMoney;
         private readonly CommandBoard _commandBoard;
         private readonly Host _host;
         private readonly Hint _hint;
@@ -57,8 +55,8 @@ namespace WhoWantsToBeMillionaire
         private VotingChart _chart;
 
         public delegate void EventGameOver(bool isRestart);
-        public delegate void EventStatisticsChanged(StatsAttribute attribute, int value = 1);
         public delegate void EventAchievementСompleted(Achievement achievement);
+        public delegate void EventStatisticsChanged(StatsAttribute attribute, int value = 1);
 
         public event EventGameOver GameOver;
         public event EventStatisticsChanged StatisticsChanged;
@@ -216,6 +214,8 @@ namespace WhoWantsToBeMillionaire
                         Sound.StopAll();
                         _boxQuestion.LockOption(letter);
 
+                        AchievementСompleted.Invoke(Achievement.SuccessfulOutcome);
+
                         if (_boxQuestion.Question.CountOptions == 2)
                         {
                             await Task.Delay(3000);
@@ -309,6 +309,8 @@ namespace WhoWantsToBeMillionaire
                     await Task.Delay(3000);
                     await _chart.ShowAnimationVote(3000);
                     await _chart.ShowPercents(_hint.PercentsAudience(_boxQuestion.Question), 15);
+
+                    AchievementСompleted.Invoke(Achievement.AudienceAward);
 
                     _commandBoard.ButtonCommandVisible = true;
                     break;
@@ -429,6 +431,9 @@ namespace WhoWantsToBeMillionaire
                     else
                         delay = _tableSums.NowSaveSum ? 7000 : 1500 + 500 * (int)_boxQuestion.Question.Difficulty;
 
+                    if (_tableSums.NowSaveSum)
+                        AchievementСompleted.Invoke(Achievement.MoneyNotBurn);
+
                     await ShowCorrectAndPrize(true, false, true);
                     await Task.Delay(delay);
                     await _boxAnimation.HideImage();
@@ -452,18 +457,20 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCommand.Loss:
-                    await ShowCorrectAndPrize(true, true, true);
-
-                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
-                    _commandBoard.AskRestart();
-                    break;
-
                 case SceneCommand.Victory:
                     await ShowCorrectAndPrize(true, true, true);
 
                     StatisticsChanged.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
 
-                    await Task.Delay(16000);
+                    if (command == SceneCommand.Victory)
+                    {
+                        AchievementСompleted.Invoke(Achievement.Millionaire);
+
+                        if (_tableHints.CountUsedHints == 0)
+                            AchievementСompleted.Invoke(Achievement.TriumphReason);
+
+                        await Task.Delay(16000);
+                    }
 
                     _commandBoard.AskRestart();
                     break;
@@ -541,6 +548,8 @@ namespace WhoWantsToBeMillionaire
                         Sound.Play(Resources.Hint_PhoneFriend_End);
                     }
 
+                    AchievementСompleted.Invoke(Achievement.AndToTalk);
+
                     _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
                     await Task.Delay(2000);
@@ -563,6 +572,7 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Clear();
 
                     int newIndex;
+
                     do
                         newIndex = Question.RandomIndex(_boxQuestion.Question.Number);
                     while (newIndex == _boxQuestion.Question.Index);
@@ -571,10 +581,15 @@ namespace WhoWantsToBeMillionaire
                     await Task.Delay(3000);
                     await _boxQuestion.Clear();
 
+                    AchievementСompleted.Invoke(Achievement.DefectiveQuestion);
+
                     QuestionVisible = false;
 
                     await _boxAnimation.HideImage(_boxQuestion.BackgroundImage);
                     await _boxAnimation.ShowImage(_boxQuestion.BackgroundImage);
+
+                    if (_boxQuestion.Question.CountOptions == 2)
+                        AchievementСompleted.Invoke(Achievement.WasTwoBecameFour);
 
                     QuestionVisible = true;
                     _boxQuestion.SetQuestion(_boxQuestion.Question.Number, newIndex);
@@ -588,6 +603,8 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.End_AskHost:
                     _commandBoard.Clear();
 
+                    AchievementСompleted.Invoke(Achievement.NoOneWillKnow);
+
                     _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
                     await _boxQuestion.HideCentralIcon(true);
@@ -597,19 +614,22 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.TakeMoney_Confirmation:
                     _commandBoard.Command = SceneCommand.TakeMoney;
-
                     _buttonTakeMoney.Visible = false;
 
+                    var phrase = _tableSums.Prize > 0 ? HostPhrases.PlayerTakingMoney : HostPhrases.PlayerTakingMoney_Zero;
+
                     _commandBoard.Clear();
-                    _commandBoard.Text = _host.Say(HostPhrases.PlayerTakingMoney, _tableSums.TextPrize);
+                    _commandBoard.Text = _host.Say(phrase, _tableSums.TextPrize);
                     _commandBoard.ButtonCommandVisible = true;
                     break;
 
                 case SceneCommand.TakeMoney:
                     _commandBoard.Clear();
+                    StatisticsChanged.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
 
                     Sound.StopAll();
                     Sound.Play(Resources.PlayerTakesMoney);
+
                     await Task.Delay(7000);
 
                     _commandBoard.Text = _host.Say(HostPhrases.TakingMoney_AskAnswer);
@@ -619,6 +639,12 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.TakeMoney_ShowPrize:
                     await ShowCorrectAndPrize(false, true, false);
+
+                    if (_tableSums.Prize == 0)
+                        AchievementСompleted.Invoke(Achievement.IsPossible);
+
+                    AchievementСompleted.Invoke(Achievement.StopGame);
+
                     _commandBoard.AskRestart();
                     break;
 
@@ -626,44 +652,7 @@ namespace WhoWantsToBeMillionaire
                     Sound.StopAll();
                     GameOver.Invoke(true);
                     break;
-
-                case SceneCommand.Debug_FirstQuestion:
-                    Sound.StopAll();
-                    _tableSums.Clear();
-                    await ShowQuestion(1);
-                    Debug_SetQuestion(1, 1);
-                    break;
-
-                case SceneCommand.Debug_Next:
-                    int number = _boxQuestion.Question.Number;
-                    int index = _boxQuestion.Question.Index;
-
-                    try { Debug_SetQuestion(number, ++index); }
-                    catch (Exception)
-                    {
-                        try { Debug_SetQuestion(++number, 1); }
-                        catch
-                        {
-                            _commandBoard.Clear();
-                            _commandBoard.Text = "Конец";
-                            _commandBoard.Command = SceneCommand.Restart;
-                        }
-                    }
-                    break;
             }
-        }
-
-        private void Debug_SetQuestion(int number, int index)
-        {
-            ControlEnabled = false;
-
-            Question question = new Question(number, index);
-
-            _boxQuestion.SetQuestion(question);
-            _commandBoard.Text = $"{question.Explanation}\nПравильный ответ: {question.FullCorrect}\n№{number:d2}.{index:d2}";
-
-            _commandBoard.Command = SceneCommand.Debug_Next;
-            _commandBoard.ButtonCommandVisible = true;
         }
 
         private void OnCacnelClick(object sender, SceneCancelCommand command)
@@ -675,7 +664,6 @@ namespace WhoWantsToBeMillionaire
                     _tableHints.ShowAllHints();
 
                     OnCommandClick(this, Mode == Mode.Classic ? SceneCommand.About_Starting : SceneCommand.ChoosingSaveSum);
-                    //OnCommandClick(this, SceneCommand.Debug_FirstQuestion);
                     break;
 
                 case SceneCancelCommand.CancelTakingMoney:

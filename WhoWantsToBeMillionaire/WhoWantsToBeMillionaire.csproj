@@ -87,7 +87,10 @@
     <Compile Include="FormObjects\Menus\Context\MenuAchievements.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\DataObjects\AchievementsData.cs" />
+    <Compile Include="DataObjects\AchievementsData.cs" />
+    <Compile Include="FormObjects\Menus\Context\MenuExit.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormObjects\Menus\MenuControls\GameScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,7 +100,7 @@
     <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\DataObjects\GameSettingsData.cs" />
+    <Compile Include="DataObjects\GameSettingsData.cs" />
     <Compile Include="FormObjects\SceneObjects\ChartColumnPercent.cs" />
     <Compile Include="FormObjects\SceneObjects\ButtonOption.cs">
       <SubType>Component</SubType>
@@ -150,7 +153,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ResourceProcessing\FileManager.cs" />
-    <Compile Include="FormObjects\Menus\DataObjects\StatisticsData.cs" />
+    <Compile Include="DataObjects\StatisticsData.cs" />
     <Compile Include="FormObjects\Menus\Context\MenuStatistics.cs">
       <SubType>Component</SubType>
     </Compile>

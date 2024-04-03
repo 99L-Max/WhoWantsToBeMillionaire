@@ -63,7 +63,7 @@ namespace WhoWantsToBeMillionaire
             switch (cmd)
             {
                 default:
-                    Close();
+                    OpenContextMenu(new MenuExit(ScreenRectangle.Width / 3, ScreenRectangle.Height / 3));
                     break;
 
                 case MainMenuCommand.NewGame:
@@ -110,6 +110,10 @@ namespace WhoWantsToBeMillionaire
                     _settingsData = new GameSettingsData((_contextMenu as MenuSettings).SettingsData);
                     SetSettings(_settingsData);
                     CloseContextMenu();
+                    break;
+
+                case ContextMenuCommand.Exit:
+                    Close();
                     break;
             }
         }
@@ -162,8 +166,13 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void UpdateStatistics(StatsAttribute attribute, int value) =>
+        private void UpdateStatistics(StatsAttribute attribute, int value)
+        { 
             _statisticsData.Update(attribute, value);
+
+            if (_statisticsData.GetAttribute(StatsAttribute.TotalPrize) >= 10000000)
+                UpdateAchievements(Achievement.Jubilee);
+        }
 
         private async void UpdateAchievements(Achievement achievement)
         {
@@ -180,7 +189,7 @@ namespace WhoWantsToBeMillionaire
 
                     box.BringToFront();
 
-                    Sound.Play(Resources.Achievement);
+                    Sound.Play(Resources.Achievement, false);
 
                     await box.MoveY(count * box.Height, 250 / DeltaTime);
                     await Task.Delay(5000);

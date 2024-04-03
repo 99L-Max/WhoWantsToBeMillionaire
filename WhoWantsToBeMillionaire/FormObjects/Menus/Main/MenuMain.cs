@@ -55,12 +55,12 @@ namespace WhoWantsToBeMillionaire
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 
             var fontSize = 0.4f * heightButton;
-            var dict = JsonManager.GetDictionary(Resources.Dictionary_MenuCommands);
+            var dict = JsonManager.GetDictionary<MainMenuCommand>(Resources.Dictionary_MenuCommands);
 
             for (int i = 0; i < buttons.Length; i++)
             {
                 buttons[i] = new ButtonMainMenu(commands[i], fontSize);
-                buttons[i].Text = dict[commands[i].ToString()];
+                buttons[i].Text = dict[commands[i]];
                 buttons[i].Click += OnButtonClick;
 
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));

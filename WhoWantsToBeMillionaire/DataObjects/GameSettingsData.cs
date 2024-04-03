@@ -47,7 +47,7 @@ namespace WhoWantsToBeMillionaire
             _settings[key];
 
         public void ApplyGlobal() =>
-            Sound.SetVolume(_settings[GameSettings.Volume] / 10f);
+            Sound.SetVolume(_settings[GameSettings.Volume]);
 
         public void Save(string pathSave)
         {

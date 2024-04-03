@@ -10,16 +10,17 @@ namespace WhoWantsToBeMillionaire
     {
         private List<ButtonHint> _hints;
         private Queue<ButtonHint> _hiddenHints;
-        private int _countUsedHints;
         private bool _toolTipVisible;
+
+        public int CountUsedHints { private set; get; }
 
         public int CountHints => 
             _hints.Count;
 
-        public string DescriptionNextHint => 
+        public string DescriptionNextHint =>
             _hiddenHints.Peek().Description;
 
-        public bool AllHintsVisible => 
+        public bool AllHintsVisible =>
             _hiddenHints.Count == 0;
 
         public string TextActiveHints
@@ -57,7 +58,7 @@ namespace WhoWantsToBeMillionaire
 
             _hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
 
-            _countUsedHints = 0;
+            CountUsedHints = 0;
 
             int countColumns;
             TypeHint[] types;
@@ -82,9 +83,9 @@ namespace WhoWantsToBeMillionaire
 
             var width = (int)(0.9f * Width / countColumns);
             var sizeHint = new Size(width, (int)(0.63f * width));
-            var dict = JsonManager.GetDictionary(Resources.Dictionary_DescriptionHints);
+            var dict = JsonManager.GetDictionary<TypeHint>(Resources.Dictionary_DescriptionHints);
 
-            _hints = types.Select(t => new ButtonHint(t, dict[t.ToString()], _toolTipVisible)).ToList();
+            _hints = types.Select(t => new ButtonHint(t, dict[t], _toolTipVisible)).ToList();
             _hints.ForEach(h => h.Click += OnHintClick);
 
             _hiddenHints = new Queue<ButtonHint>(_hints);
@@ -96,12 +97,12 @@ namespace WhoWantsToBeMillionaire
         {
             ButtonHint hint = sender as ButtonHint;
 
-            _countUsedHints++;
+            CountUsedHints++;
 
             hint.Enabled = false;
             hint.Click -= OnHintClick;
 
-            if (_countUsedHints >= Hint.MaxCountAllowedHints)
+            if (CountUsedHints >= Hint.MaxCountAllowedHints)
                 foreach (var h in _hints.Where(x => x.Enabled))
                 {
                     h.Click -= OnHintClick;
