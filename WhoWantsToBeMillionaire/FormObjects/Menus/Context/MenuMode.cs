@@ -24,12 +24,12 @@ namespace WhoWantsToBeMillionaire
 
         public MenuMode(int width, int height) : base("Выберите режим", width, height, 0.05f * height)
         {
-            var modes = JsonManager.GetDictionary<Mode>(Resources.Dictionary_Modes);
+            var modes = JsonManager.GetDictionary<Mode, string>(Resources.Dictionary_Modes).ToDictionary(k => (float)k.Key, v => v.Value);
             var fontSize = 0.05f * Height;
 
-            _descriptions = JsonManager.GetDictionary<Mode>(Resources.Dictionary_DescriptionModes);
+            _descriptions = JsonManager.GetDictionary<Mode, string>(Resources.Dictionary_DescriptionModes);
             _labelDescriptionMode = new LabelMenu(fontSize);
-            _comboBox = new GameComboBox(modes.Values.ToArray(), fontSize);
+            _comboBox = new GameComboBox(modes, fontSize);
             _buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
 
             _buttonStart.Text = "Старт";
@@ -48,7 +48,7 @@ namespace WhoWantsToBeMillionaire
 
         private void ModeChanged(object sender, EventArgs e)
         {
-            SelectedMode = (Mode)_comboBox.SelectedIndex;
+            SelectedMode = (Mode)_comboBox.SelectedValue;
             _labelDescriptionMode.Text = _descriptions[SelectedMode];
         }
 

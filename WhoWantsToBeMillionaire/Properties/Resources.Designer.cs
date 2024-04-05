@@ -4928,9 +4928,39 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] SettingsValues {
+        internal static byte[] Settings_Default {
             get {
-                object obj = ResourceManager.GetObject("SettingsValues", resourceCulture);
+                object obj = ResourceManager.GetObject("Settings_Default", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Settings_Mode {
+            get {
+                object obj = ResourceManager.GetObject("Settings_Mode", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Settings_Sums {
+            get {
+                object obj = ResourceManager.GetObject("Settings_Sums", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Settings_Values {
+            get {
+                object obj = ResourceManager.GetObject("Settings_Values", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -4941,16 +4971,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.IO.UnmanagedMemoryStream Start {
             get {
                 return ResourceManager.GetStream("Start", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Sums {
-            get {
-                object obj = ResourceManager.GetObject("Sums", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

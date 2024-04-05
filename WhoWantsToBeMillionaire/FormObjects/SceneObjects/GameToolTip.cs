@@ -7,14 +7,13 @@ namespace WhoWantsToBeMillionaire
 {
     class GameToolTip : ToolTip, IDisposable
     {
-        public Size Size { set; get; }
-
-        public float FontSize { set; get; }
+        private readonly Font _font;
+        private readonly Rectangle _clientRectangle;
 
         public GameToolTip(int width, int height, float fontSize)
         {
-            Size = new Size(width, height);
-            FontSize = fontSize;
+            _clientRectangle = new Rectangle(0, 0, width, height);
+            _font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
 
             OwnerDraw = true;
             Popup += OnPopup;
@@ -22,22 +21,22 @@ namespace WhoWantsToBeMillionaire
         }
 
         private void OnPopup(object sender, PopupEventArgs e) =>
-            e.ToolTipSize = Size;
+            e.ToolTipSize = _clientRectangle.Size;
 
         private void OnDraw(object sender, DrawToolTipEventArgs e)
         {
-            int border = 3;
+            var border = 3;
+            var fillRectangle = new Rectangle(border, border, _clientRectangle.Width - (border << 1), _clientRectangle.Height - (border << 1));
 
-            Rectangle rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
-            Rectangle rectFill = new Rectangle(border, border, rectFrame.Width - 2 * border, rectFrame.Height - 2 * border);
-
-            using (Font font = new Font("", FontSize, FontStyle.Bold, GraphicsUnit.Pixel))
-            using (LinearGradientBrush brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))
-            using (LinearGradientBrush brushFill = new LinearGradientBrush(rectFill, Color.Navy, Color.Black, 90f))
+            using (var brushFrame = new LinearGradientBrush(_clientRectangle, Color.Gainsboro, Color.SlateGray, 45f))
+            using (var brushFill = new LinearGradientBrush(fillRectangle, Color.Navy, Color.Black, 90f))
+            using (var format = new StringFormat())
             {
-                e.Graphics.FillRectangle(brushFrame, rectFrame);
-                e.Graphics.FillRectangle(brushFill, rectFill);
-                e.Graphics.DrawString(e.ToolTipText, font, Brushes.White, rectFill);
+                format.Alignment = format.LineAlignment = StringAlignment.Center;
+
+                e.Graphics.FillRectangle(brushFrame, _clientRectangle);
+                e.Graphics.FillRectangle(brushFill, fillRectangle);
+                e.Graphics.DrawString(e.ToolTipText, _font, Brushes.White, fillRectangle, format);
             }
         }
 
@@ -45,6 +44,8 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
+                _font.Dispose();
+
                 Popup -= OnPopup;
                 Draw -= OnDraw;
             }

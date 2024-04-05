@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Drawing;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
@@ -31,7 +29,7 @@ namespace WhoWantsToBeMillionaire
 
         private readonly Image _image;
 
-        private GameToolTip _toolTip = null;
+        private GameToolTip _toolTip;
         private bool _isShown;
 
         public readonly TypeHint Type;
@@ -45,7 +43,7 @@ namespace WhoWantsToBeMillionaire
             {
                 if (value && _toolTip == null)
                 {
-                    _toolTip = new GameToolTip(350, 90, 14f);
+                    _toolTip = new GameToolTip(300, 120, 16f);
                     _toolTip.SetToolTip(this, Description);
                 }
                 else
@@ -59,17 +57,15 @@ namespace WhoWantsToBeMillionaire
         static ButtonHint() =>
             s_focus = Resources.Focus_Hint;
 
-        public ButtonHint(TypeHint type, string description, bool toolTipVisible)
+        public ButtonHint(TypeHint type, string description)
         {
             Type = type;
             Description = description;
-            ToolTipVisible = toolTipVisible;
+            Enabled = _isShown = false;
 
             BackColor = Color.Transparent;
             SizeMode = PictureBoxSizeMode.Zoom;
             BackgroundImageLayout = ImageLayout.Zoom;
-
-            Enabled = _isShown = false;
 
             _image = (Image)Resources.ResourceManager.GetObject($"Hint_{type}_{StatusHint.Active}");
         }
@@ -81,8 +77,8 @@ namespace WhoWantsToBeMillionaire
 
             float proporsion = 0.75f;
 
-            using (Image icon = (Image)Resources.ResourceManager.GetObject($"Hint_{Type}_{Status}"))
-            using (Graphics g = Graphics.FromImage(_image))
+            using (var icon = (Image)Resources.ResourceManager.GetObject($"Hint_{Type}_{Status}"))
+            using (var g = Graphics.FromImage(_image))
             {
                 float width = _image.Width * proporsion;
                 float height = _image.Height * proporsion;
@@ -96,31 +92,25 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void OnHintMouseLeave(object sender, EventArgs e) =>
+        protected override void OnMouseLeave(EventArgs e) =>
             BackgroundImage = null;
 
-        private void OnHintMouseEnter(object sender, EventArgs e) =>
+        protected override void OnMouseEnter(EventArgs e) =>
             BackgroundImage = s_focus;
 
-        private void OnHintClick(object sender, EventArgs e)
-        {
-            ClearMouseEvents();
+        protected override void OnClick(EventArgs e) =>
             SetStatus(StatusHint.Used, false);
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+
+            if (!Enabled)
+                OnMouseLeave(e);
         }
 
-        public void Lock()
-        {
-            ClearMouseEvents();
+        public void Lock() =>
             SetStatus(StatusHint.Locked, false);
-        }
-
-        private void ClearMouseEvents()
-        {
-            Click -= OnHintClick;
-            MouseEnter -= OnHintMouseEnter;
-            MouseLeave -= OnHintMouseLeave;
-            BackgroundImage = null;
-        }
 
         public async void ShowIcon()
         {
@@ -158,18 +148,12 @@ namespace WhoWantsToBeMillionaire
 
                 SetStatus(StatusHint.Active, true);
             }
-
-            MouseEnter += OnHintMouseEnter;
-            MouseLeave += OnHintMouseLeave;
-            Click += OnHintClick;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                ClearMouseEvents();
-
                 _image.Dispose();
                 _toolTip?.Dispose();
             }

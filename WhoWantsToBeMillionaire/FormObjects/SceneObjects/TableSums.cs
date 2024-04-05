@@ -32,7 +32,7 @@ namespace WhoWantsToBeMillionaire
 
         public TableSums()
         {
-            var sums = JsonManager.GetObject<int[]>(Resources.Sums);
+            var sums = JsonManager.GetObject<int[]>(Resources.Settings_Sums);
 
             _rowsSum = new RowTableSums[sums.Length];
             RowCount = sums.Length;
@@ -44,7 +44,7 @@ namespace WhoWantsToBeMillionaire
                 indexRow = RowCount - i - 1;
                 _rowsSum[indexRow] = new RowTableSums(indexRow + 1, sums[indexRow]);
 
-                RowStyles.Add(new RowStyle(SizeType.Percent, 100f / RowCount));
+                RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
                 Controls.Add(_rowsSum[indexRow], 0, i);
             }
         }

@@ -80,7 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormObjects\ArtistAchievements.cs" />
+    <Compile Include="ResourceProcessing\ArtistAchievements.cs" />
     <Compile Include="FormObjects\BoxAchievement.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -100,7 +100,7 @@
     <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataObjects\GameSettingsData.cs" />
+    <Compile Include="DataObjects\SettingsData.cs" />
     <Compile Include="FormObjects\SceneObjects\ChartColumnPercent.cs" />
     <Compile Include="FormObjects\SceneObjects\ButtonOption.cs">
       <SubType>Component</SubType>
@@ -223,7 +223,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Content Include="Resources\SettingsValues\SettingsValues.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -611,7 +610,7 @@
     <Content Include="Resources\Questions\Q15V13.json" />
     <Content Include="Resources\Questions\Q15V14.json" />
     <Content Include="Resources\Questions\Q15V15.json" />
-    <Content Include="Resources\Sums\Sums.json" />
+    <Content Include="Resources\Settings\Settings_Sums.json" />
     <Content Include="Resources\Dictionaries\Dictionary_Statistics.json" />
     <Content Include="Resources\Dictionaries\Dictionary_MenuCommands.json" />
     <Content Include="Resources\Dictionaries\Dictionary_Modes.json" />
@@ -625,6 +624,9 @@
     <Content Include="Resources\Dialogues\Dialog_Hint_PhoneFriend_Incorrect.json" />
     <Content Include="Resources\Dialogues\Dialog_Host.json" />
     <Content Include="Resources\Dictionaries\Dictionary_Achievements.json" />
+    <None Include="Resources\Settings\Settings_Default.json" />
+    <None Include="Resources\Settings\Settings_Mode.json" />
+    <None Include="Resources\Settings\Settings_Values.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

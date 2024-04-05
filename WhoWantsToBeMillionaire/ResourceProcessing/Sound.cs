@@ -19,8 +19,8 @@ namespace WhoWantsToBeMillionaire
         static Sound() =>
             s_background.Volume = s_volume;
 
-        public static void Play(string soundName, bool isSwitchable = true) =>
-            Play(Resources.ResourceManager.GetStream(soundName), isSwitchable);
+        public static void Play(string soundName, bool isTurnOff = true) =>
+            Play(Resources.ResourceManager.GetStream(soundName), isTurnOff);
 
         public static void Play(UnmanagedMemoryStream stream, bool isSwitchable = true)
         {

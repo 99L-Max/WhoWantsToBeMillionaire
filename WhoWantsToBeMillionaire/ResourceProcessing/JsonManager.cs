@@ -25,10 +25,10 @@ namespace WhoWantsToBeMillionaire
             return JObject.Parse(jString);
         }
 
-        public static Dictionary<T, string> GetDictionary<T>(byte[] array)
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(byte[] array)
         {
             var jString = Encoding.UTF8.GetString(array);
-            return JsonConvert.DeserializeObject<Dictionary<T, string>>(jString);
+            return JsonConvert.DeserializeObject<Dictionary<TKey, TValue>>(jString);
         }
 
         public static T GetObject<T>(byte[] array)

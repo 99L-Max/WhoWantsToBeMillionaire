@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using WhoWantsToBeMillionaire.Properties;
@@ -16,8 +15,8 @@ namespace WhoWantsToBeMillionaire
             using (var g = Graphics.FromImage(image))
             using (var brush = new LinearGradientBrush(ClientRectangle, Color.FromArgb(64, 64, 64), Color.FromArgb(32, 32, 32), 90f))
             {
-                var dict = JsonManager.GetObject<Dictionary<string, (string, string)>>(Resources.Dictionary_Achievements);
-                var (title, comment) = dict[$"{achievement}"];
+                var dict = JsonManager.GetDictionary<Achievement, (string, string)>(Resources.Dictionary_Achievements);
+                var (title, comment) = dict[achievement];
                 var artist = new ArtistAchievements();
 
                 g.FillRectangle(brush, ClientRectangle);

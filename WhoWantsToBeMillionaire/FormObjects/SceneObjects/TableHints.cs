@@ -14,7 +14,7 @@ namespace WhoWantsToBeMillionaire
 
         public int CountUsedHints { private set; get; }
 
-        public int CountHints => 
+        public int CountHints =>
             _hints.Count;
 
         public string DescriptionNextHint =>
@@ -53,44 +53,22 @@ namespace WhoWantsToBeMillionaire
         public void Reset(Mode mode = Mode.Classic)
         {
             Enabled = false;
-
+            CountUsedHints = 0;
             Controls.Clear();
 
-            _hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
-
-            CountUsedHints = 0;
-
-            int countColumns;
-            TypeHint[] types;
-
-            switch (mode)
-            {
-                default:
-                    types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience };
-                    countColumns = 3;
-                    break;
-
-                case Mode.Amateur:
-                    types = new TypeHint[] { TypeHint.FiftyFifty, TypeHint.PhoneFriend, TypeHint.AskAudience, TypeHint.DoubleDip };
-                    countColumns = 4;
-                    break;
-
-                case Mode.Advanced:
-                    types = new TypeHint[] { TypeHint.AskHost, TypeHint.FiftyFifty, TypeHint.DoubleDip, TypeHint.PhoneFriend, TypeHint.SwitchQuestion };
-                    countColumns = 3;
-                    break;
-            }
-
+            var countColumns = mode == Mode.Amateur ? 4 : 3;
+            var types = JsonManager.GetDictionary<Mode, TypeHint[]>(Resources.Settings_Mode)[mode];
             var width = (int)(0.9f * Width / countColumns);
             var sizeHint = new Size(width, (int)(0.63f * width));
-            var dict = JsonManager.GetDictionary<TypeHint>(Resources.Dictionary_DescriptionHints);
+            var descriptions = JsonManager.GetDictionary<TypeHint, string>(Resources.Dictionary_DescriptionHints);
 
-            _hints = types.Select(t => new ButtonHint(t, dict[t], _toolTipVisible)).ToList();
-            _hints.ForEach(h => h.Click += OnHintClick);
-
-            _hiddenHints = new Queue<ButtonHint>(_hints);
+            _hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
+            _hints = types.Select(t => new ButtonHint(t, descriptions[t])).ToList();
 
             SetLocationsHints(new Queue<ButtonHint>(_hints), sizeHint, countColumns);
+
+            _hints.ForEach(h => { h.Click += OnHintClick; h.ToolTipVisible = _toolTipVisible; });
+            _hiddenHints = new Queue<ButtonHint>(_hints);
         }
 
         private void OnHintClick(object sender, EventArgs e)
@@ -103,11 +81,12 @@ namespace WhoWantsToBeMillionaire
             hint.Click -= OnHintClick;
 
             if (CountUsedHints >= Hint.MaxCountAllowedHints)
-                foreach (var h in _hints.Where(x => x.Enabled))
-                {
-                    h.Click -= OnHintClick;
-                    h.Lock();
-                }
+                foreach (var h in _hints)
+                    if (h.Enabled)
+                    {
+                        h.Click -= OnHintClick;
+                        h.Lock();
+                    }
 
             HintClick.Invoke(hint.Type);
         }

@@ -225,7 +225,7 @@ namespace WhoWantsToBeMillionaire
             FileManager.CreateSaveDirectory();
             _settingsData.Save(FileManager.PathLocalAppData);
             _statisticsData.Save(FileManager.PathLocalAppData);
-            _achievementsData.Save(FileManager.PathLocalAppData);
+            //_achievementsData.Save(FileManager.PathLocalAppData);
         }
     }
 }

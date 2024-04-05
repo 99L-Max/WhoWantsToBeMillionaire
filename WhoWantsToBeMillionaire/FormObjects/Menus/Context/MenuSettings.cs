@@ -29,8 +29,8 @@ namespace WhoWantsToBeMillionaire
             _table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20f));
 
             var fontSize = 0.04f * height;
-            var dict = JsonManager.GetDictionary<GameSettings>(Resources.Dictionary_Settings);
-            var values = JsonManager.GetObject<Dictionary<GameSettings, string[]>>(Resources.SettingsValues);
+            var labels = JsonManager.GetDictionary<GameSettings, string>(Resources.Dictionary_Settings);
+            var values = JsonManager.GetDictionary<GameSettings, Dictionary<float, string>>(Resources.Settings_Values);
             var i = 0;
 
             foreach (var key in keys)
@@ -40,10 +40,10 @@ namespace WhoWantsToBeMillionaire
 
                 comboBox.SelectedIndexChanged += UpdateSetting;
 
-                label.Text = dict[key];
+                label.Text = labels[key];
                 comboBox.LoopedSwitch = key != GameSettings.Volume;
                 comboBox.Tag = key;
-                comboBox.SelectedIndex = (int)(key != GameSettings.Volume ? _settings[key] : (_settings[key] * 10f));
+                comboBox.SelectedValue = _settings[key];
 
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
                 _table.Controls.Add(label, 0, i);
@@ -65,13 +65,10 @@ namespace WhoWantsToBeMillionaire
         {
             var comboBox = sender as GameComboBox;
             var key = (GameSettings)comboBox.Tag;
-            _settings[key] = comboBox.SelectedIndex;
+            _settings[key] = comboBox.SelectedValue;
 
             if (key == GameSettings.Volume)
-            {
-                float volume = float.Parse(comboBox.Text) / 100f;
-                Sound.SetVolume(volume);
-            }
+                Sound.SetVolume(comboBox.SelectedValue);
         }
 
         protected override void Dispose(bool disposing)

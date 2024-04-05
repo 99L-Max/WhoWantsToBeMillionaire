@@ -16,7 +16,7 @@ namespace WhoWantsToBeMillionaire
             _table = new TableImages((int)(0.05f * height));
             _table.Dock = DockStyle.Fill;
 
-            var dict = JsonManager.GetObject<Dictionary<string, (string, string)>>(Resources.Dictionary_Achievements);
+            var dict = JsonManager.GetDictionary<string, (string, string)>(Resources.Dictionary_Achievements);
             var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
             var granted = achievements.Where(x => x.Value);
             var artist = new ArtistAchievements();

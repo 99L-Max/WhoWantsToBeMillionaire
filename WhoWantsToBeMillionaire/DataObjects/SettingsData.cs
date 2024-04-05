@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -20,23 +21,25 @@ namespace WhoWantsToBeMillionaire
 
         public GameSettingsData(string path)
         {
-            var keys = Enum.GetValues(typeof(GameSettings)).Cast<GameSettings>();
+            var defaultSettings = JsonManager.GetDictionary<GameSettings, float>(Resources.Settings_Default);
 
             try
             {
                 using (StreamReader reader = new StreamReader(path + @"\Settings.json"))
                 {
-                    string jsonStr = reader.ReadToEnd();
+                    var keys = Enum.GetValues(typeof(GameSettings)).Cast<GameSettings>();
+                    var jsonStr = reader.ReadToEnd();
+
                     _settings = JsonConvert.DeserializeObject<Dictionary<GameSettings, float>>(jsonStr);
 
                     foreach (var key in keys)
                         if (!_settings.ContainsKey(key))
-                            _settings.Add(key, 0f);
+                            _settings.Add(key, defaultSettings[key]);
                 }
             }
             catch (Exception)
             {
-                _settings = keys.ToDictionary(k => k, v => 1f);
+                _settings = defaultSettings;
             }
         }
 

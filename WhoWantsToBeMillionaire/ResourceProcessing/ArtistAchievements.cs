@@ -13,17 +13,18 @@ namespace WhoWantsToBeMillionaire
             var posIcon = (height - sizeIcon) >> 1;
             var titleRectangle = new Rectangle(height, posIcon, width - height, sizeIcon >> 1);
             var commentRectangle = titleRectangle;
+            var flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
             commentRectangle.Y += commentRectangle.Height;
 
             using (var g = Graphics.FromImage(image))
-            using (var fontTitle = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
-            using (var fontComment = new Font("", 0.18f * height, GraphicsUnit.Pixel))
+            using (var fontTitle = new Font("", 0.16f * height, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (var fontComment = new Font("", 0.16f * height, GraphicsUnit.Pixel))
             {
                 g.DrawImage(icon, posIcon, posIcon, sizeIcon, sizeIcon);
 
-                TextRenderer.DrawText(g, title, fontTitle, titleRectangle, Color.White, TextFormatFlags.Left);
-                TextRenderer.DrawText(g, comment, fontComment, commentRectangle, Color.White, TextFormatFlags.Left);
+                TextRenderer.DrawText(g, title, fontTitle, titleRectangle, Color.White, flags);
+                TextRenderer.DrawText(g, comment, fontComment, commentRectangle, Color.White, flags);
             }
 
             return image;

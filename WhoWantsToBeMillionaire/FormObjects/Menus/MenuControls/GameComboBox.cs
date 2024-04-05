@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class GameComboBox : Label, IDisposable
+    class GameComboBox : PictureBox, IDisposable
     {
-        private readonly string[] _items;
+        private readonly List<float> _values;
+        private readonly List<string> _texts;
         private readonly ButtonArrow _leftArrow;
         private readonly ButtonArrow _rightArrow;
 
@@ -15,7 +18,7 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventSelectedIndexChanged(object sender, EventArgs e);
         public EventSelectedIndexChanged SelectedIndexChanged;
 
-        public bool LoopedSwitch = true;
+        public bool LoopedSwitch { set; get; } = true;
 
         public int SelectedIndex
         {
@@ -25,7 +28,7 @@ namespace WhoWantsToBeMillionaire
                 {
                     _selectedIndex = value;
 
-                    Text = _items[_selectedIndex];
+                    Invalidate();
 
                     SelectedIndexChanged.Invoke(this, EventArgs.Empty);
                 }
@@ -33,14 +36,20 @@ namespace WhoWantsToBeMillionaire
             get => _selectedIndex;
         }
 
-        public GameComboBox(string[] items, float fontSize)
+        public float SelectedValue
+        {
+            set => SelectedIndex = _values.IndexOf(value);
+            get => _selectedIndex == -1 ? float.NaN : _values[_selectedIndex];
+        }
+
+        public GameComboBox(Dictionary<float, string> items, float fontSize)
         {
             Font = new Font("", fontSize, GraphicsUnit.Pixel);
             ForeColor = Color.White;
             Dock = DockStyle.Fill;
-            TextAlign = ContentAlignment.MiddleCenter;
 
-            _items = items;
+            _values = items.Keys.ToList();
+            _texts = items.Values.ToList();
 
             _leftArrow = new ButtonArrow(DirectionArrow.Left);
             _rightArrow = new ButtonArrow(DirectionArrow.Right);
@@ -51,14 +60,23 @@ namespace WhoWantsToBeMillionaire
             _leftArrow.DoubleClick += OnLeftClick;
             _rightArrow.DoubleClick += OnRightClick;
 
+            _leftArrow.Dock = DockStyle.Left;
+            _rightArrow.Dock = DockStyle.Right;
+
             Controls.Add(_leftArrow);
             Controls.Add(_rightArrow);
         }
 
+        protected override void OnPaint(PaintEventArgs e) =>
+            TextRenderer.DrawText(e.Graphics, _texts[_selectedIndex], Font, ClientRectangle, ForeColor);
+
+        protected override void OnSizeChanged(EventArgs e) =>
+            _leftArrow.Size = _rightArrow.Size = new Size((int)(0.15f * ClientRectangle.Width), ClientRectangle.Height);
+
         private void OnLeftClick(object sender, EventArgs e)
         {
             if (LoopedSwitch)
-                SelectedIndex = _selectedIndex > 0 ? _selectedIndex - 1 : _items.Length - 1;
+                SelectedIndex = _selectedIndex > 0 ? _selectedIndex - 1 : _values.Count - 1;
             else
                 SelectedIndex = Math.Max(0, _selectedIndex - 1);
         }
@@ -66,19 +84,9 @@ namespace WhoWantsToBeMillionaire
         private void OnRightClick(object sender, EventArgs e)
         {
             if (LoopedSwitch)
-                SelectedIndex = _selectedIndex < _items.Length - 1 ? _selectedIndex + 1 : 0;
+                SelectedIndex = _selectedIndex < _values.Count - 1 ? _selectedIndex + 1 : 0;
             else
-                SelectedIndex = Math.Min(_selectedIndex + 1, _items.Length - 1);
-        }
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            int width = (int)(0.15f * ClientRectangle.Width);
-            int height = ClientRectangle.Height;
-
-            _leftArrow.Size = _rightArrow.Size = new Size(width, height);
-
-            _rightArrow.Location = new Point(ClientRectangle.Width - width, 0);
+                SelectedIndex = Math.Min(_selectedIndex + 1, _values.Count - 1);
         }
 
         protected override void Dispose(bool disposing)
