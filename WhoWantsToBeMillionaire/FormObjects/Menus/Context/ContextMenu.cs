@@ -46,7 +46,7 @@ namespace WhoWantsToBeMillionaire
 
             _table = new TableLayoutPanel();
             _labelTitle = new LabelMenu(fontSize, ContentAlignment.MiddleCenter);
-            _buttonBack = new ButtonContextMenu(ContextMenuCommand.Back, fontSize);
+            _buttonBack = new ButtonContextMenu(ContextMenuCommand.Back);
 
             _labelTitle.Text = title;
             _buttonBack.Text = "Назад";

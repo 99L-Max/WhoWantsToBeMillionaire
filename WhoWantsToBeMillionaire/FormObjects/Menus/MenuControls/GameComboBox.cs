@@ -30,7 +30,7 @@ namespace WhoWantsToBeMillionaire
 
                     Invalidate();
 
-                    SelectedIndexChanged.Invoke(this, EventArgs.Empty);
+                    SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
             get => _selectedIndex;

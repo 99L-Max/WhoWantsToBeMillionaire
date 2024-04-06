@@ -80,6 +80,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormObjects\Menus\MenuControls\GameVScrollBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ResourceProcessing\ArtistAchievements.cs" />
     <Compile Include="FormObjects\BoxAchievement.cs">
       <SubType>Component</SubType>

@@ -50,7 +50,7 @@ namespace WhoWantsToBeMillionaire
             _mainMenu.ButtonClick += OnMainMenuClick;
             _scene.GameOver += GameOver;
             _scene.StatisticsChanged += UpdateStatistics;
-            _scene.AchievementСompleted += UpdateAchievements;
+            _scene.AchievementСompleted += GrantAchievement;
 
             Controls.Add(_scene);
             Controls.Add(_mainMenu);
@@ -145,8 +145,7 @@ namespace WhoWantsToBeMillionaire
                 if (_showScreenSaver)
                     await ShowScreenSaver(false);
 
-                _scene.Visible = true;
-                _scene.Restart();
+                _scene.Start(_scene.Visible = true);
             }
             else
             {
@@ -171,10 +170,10 @@ namespace WhoWantsToBeMillionaire
             _statisticsData.Update(attribute, value);
 
             if (_statisticsData.GetAttribute(StatsAttribute.TotalPrize) >= 10000000)
-                UpdateAchievements(Achievement.Jubilee);
+                GrantAchievement(Achievement.Jubilee);
         }
 
-        private async void UpdateAchievements(Achievement achievement)
+        private async void GrantAchievement(Achievement achievement)
         {
             if (!_achievementsData.CheckGranted(achievement))
             {

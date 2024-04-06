@@ -37,17 +37,19 @@ namespace WhoWantsToBeMillionaire
             s_wire = Resources.Wire;
         }
 
-        public ButtonWire(float sizeFont)
+        public ButtonWire()
         {
             BackColor = Color.Transparent;
             Dock = DockStyle.Fill;
-            Font = new Font("", sizeFont, FontStyle.Bold, GraphicsUnit.Pixel);
 
             _foreColor = Color.White;
             _theme = ThemeButtonWire.Blue;
 
             _leftBarrier = new Label();
             _rightBarrier = new Label();
+
+            _leftBarrier.Dock = DockStyle.Left;
+            _rightBarrier.Dock = DockStyle.Right;
 
             Controls.Add(_leftBarrier);
             Controls.Add(_rightBarrier);
@@ -92,14 +94,16 @@ namespace WhoWantsToBeMillionaire
 
             Size sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
 
-            int x = (ClientRectangle.Width - sizeRect.Width) >> 1;
-            int y = (ClientRectangle.Height - sizeRect.Height) >> 1;
+            int x = ClientRectangle.Width - sizeRect.Width >> 1;
+            int y = ClientRectangle.Height - sizeRect.Height >> 1;
 
             _imageRectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
             _backgroundRectangle = new Rectangle(0, y, ClientRectangle.Width, sizeRect.Height);
 
-            _rightBarrier.Size = _leftBarrier.Size = new Size((ClientRectangle.Width - _imageRectangle.Width) >> 1, ClientRectangle.Height);
-            _rightBarrier.Location = new Point(ClientRectangle.Width - _rightBarrier.ClientRectangle.Width, 0);
+            _rightBarrier.Size = _leftBarrier.Size = new Size(ClientRectangle.Width - _imageRectangle.Width >> 1, ClientRectangle.Height);
+
+            Font?.Dispose();
+            Font = new Font("", 0.45f * ClientRectangle.Height, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
         protected override void OnEnabledChanged(EventArgs e)

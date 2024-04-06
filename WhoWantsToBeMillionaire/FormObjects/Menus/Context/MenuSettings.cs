@@ -38,22 +38,23 @@ namespace WhoWantsToBeMillionaire
                 LabelMenu label = new LabelMenu(fontSize);
                 GameComboBox comboBox = new GameComboBox(values[key], fontSize);
 
-                comboBox.SelectedIndexChanged += UpdateSetting;
-
                 label.Text = labels[key];
+
                 comboBox.LoopedSwitch = key != GameSettings.Volume;
                 comboBox.Tag = key;
                 comboBox.SelectedValue = _settings[key];
+                comboBox.SelectedIndexChanged += UpdateSetting;
 
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
                 _table.Controls.Add(label, 0, i);
                 _table.Controls.Add(comboBox, 1, i);
 
                 _comboBoxes.Add(comboBox);
+
                 i++;
             }
 
-            _buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings, 0.05f * height);
+            _buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings);
             _buttonSave.Text = "Применить";
             _buttonSave.Click += OnButtonClick;
 

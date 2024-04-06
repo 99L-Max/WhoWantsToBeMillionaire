@@ -98,8 +98,11 @@ namespace WhoWantsToBeMillionaire
         protected override void OnMouseEnter(EventArgs e) =>
             BackgroundImage = s_focus;
 
-        protected override void OnClick(EventArgs e) =>
+        protected override void OnClick(EventArgs e)
+        { 
             SetStatus(StatusHint.Used, false);
+            base.OnClick(e);
+        }
 
         protected override void OnEnabledChanged(EventArgs e)
         {

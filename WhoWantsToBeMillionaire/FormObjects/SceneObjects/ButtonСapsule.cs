@@ -29,18 +29,12 @@ namespace WhoWantsToBeMillionaire
             s_imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(img);
         }
 
-        protected ButtonСapsule()
+        public ButtonСapsule()
         {
             BackColor = Color.Transparent;
 
             _foreColor = Color.White;
             _theme = ThemeButtonCapsule.Blue;
-        }
-
-        public ButtonСapsule(int width, int height) : this()
-        {
-            Size = new Size(width, height);
-            Font = new Font("", 0.5f * height, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -77,6 +71,14 @@ namespace WhoWantsToBeMillionaire
                 SetImageAndForeColor(ThemeButtonCapsule.Blue, Color.White);
             else
                 SetImageAndForeColor(ThemeButtonCapsule.Gray, Color.Black);
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            Font?.Dispose();
+            Font = new Font("", 0.45f * ClientRectangle.Height, FontStyle.Bold, GraphicsUnit.Pixel);
+
+            Invalidate();
         }
     }
 }

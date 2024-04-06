@@ -5,18 +5,6 @@ using System.Text;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum TypeResource
-    {
-        AnimationData,
-        Dialogues,
-        Dictionaries,
-        Questions,
-        SettingsValues,
-        Sounds,
-        Sums,
-        Textures
-    }
-
     static class JsonManager
     {
         public static JObject GetObject(byte[] array)

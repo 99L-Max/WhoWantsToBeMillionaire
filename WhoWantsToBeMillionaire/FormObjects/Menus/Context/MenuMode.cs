@@ -30,7 +30,7 @@ namespace WhoWantsToBeMillionaire
             _descriptions = JsonManager.GetDictionary<Mode, string>(Resources.Dictionary_DescriptionModes);
             _labelDescriptionMode = new LabelMenu(fontSize);
             _comboBox = new GameComboBox(modes, fontSize);
-            _buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame, fontSize);
+            _buttonStart = new ButtonContextMenu(ContextMenuCommand.StartGame);
 
             _buttonStart.Text = "Старт";
 

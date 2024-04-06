@@ -8,10 +8,9 @@ namespace WhoWantsToBeMillionaire
     {
         public readonly ContextMenuCommand Command;
 
-        public ButtonContextMenu(ContextMenuCommand cmd, float fontSize) : base()
+        public ButtonContextMenu(ContextMenuCommand cmd) : base()
         {
             Command = cmd;
-            Font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
         public void AlignSize(float relativeWidth, float relativeHeight)

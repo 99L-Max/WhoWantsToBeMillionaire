@@ -4,7 +4,7 @@
     {
         public readonly MainMenuCommand Command;
 
-        public ButtonMainMenu(MainMenuCommand cmd, float fontSize) : base(fontSize)
+        public ButtonMainMenu(MainMenuCommand cmd) : base()
         {
             Command = cmd;
         }

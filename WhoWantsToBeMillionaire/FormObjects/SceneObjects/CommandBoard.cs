@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
@@ -59,13 +60,12 @@ namespace WhoWantsToBeMillionaire
             Size = new Size(width, height);
 
             int sideLogo = (int)(0.6f * height);
-            float fontSize = 0.045f * height;
 
             _labelDialog = new LabelDialog(0.04f * height);
             _logo = new Bitmap(Resources.Logo, sideLogo, sideLogo);
 
-            _buttonCommand = new ButtonWire(fontSize);
-            _buttonCanсel = new ButtonWire(fontSize);
+            _buttonCommand = new ButtonWire();
+            _buttonCanсel = new ButtonWire();
 
             _buttonCommand.Click += (s, e) => CommandClick.Invoke(this, Command);
             _buttonCanсel.Click += (s, e) => CancelClick.Invoke(this, CancelCommand);
@@ -93,7 +93,7 @@ namespace WhoWantsToBeMillionaire
             TextMode = TextMode.Monologue;
         }
 
-        public void AddText(string text) => 
+        public void AddText(string text) =>
             _labelDialog.Text += text;
 
         public void Clear()
@@ -129,7 +129,7 @@ namespace WhoWantsToBeMillionaire
             ButtonsVisible = true;
         }
 
-        public async Task ShowMovingPictureBox(MovingControl box, int milliseconds, bool centering)
+        public async Task ShowMovingControl(MovingControl box, int milliseconds, bool centering)
         {
             box.Location = new Point(_labelDialog.Width, centering ? (_labelDialog.Height - box.Height) >> 1 : 0);
 
@@ -141,12 +141,17 @@ namespace WhoWantsToBeMillionaire
             await box.MoveX(x, milliseconds / MainForm.DeltaTime);
         }
 
-        public async Task RemoveMovingPictureBox(MovingControl box, int countFrames)
+        public async Task RemoveMovingControls(int countFrames)
         {
-            if (_labelDialog.Controls.Contains(box))
+            var list = _labelDialog.Controls.OfType<MovingControl>();
+
+            foreach (var box in list)
             {
                 await box.MoveX(_labelDialog.Width, countFrames);
+
                 _labelDialog.Controls.Remove(box);
+
+                box.Dispose();
             }
         }
     }
