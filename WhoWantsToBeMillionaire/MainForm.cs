@@ -10,16 +10,16 @@ namespace WhoWantsToBeMillionaire
     partial class MainForm : Form, IGameSettings
     {
         public const int DeltaTime = 40;
-        public static readonly Rectangle ScreenRectangle = Screen.PrimaryScreen.Bounds;
+        public static readonly Size ScreenSize = Screen.PrimaryScreen.Bounds.Size;
 
         private readonly Scene _scene;
         private readonly MenuMain _mainMenu;
         private readonly StatisticsData _statisticsData;
         private readonly AchievementsData _achievementsData;
 
+        private bool _showScreenSaver = true;
         private ContextMenu _contextMenu;
         private GameSettingsData _settingsData;
-        private bool _showScreenSaver = true;
 
         protected override CreateParams CreateParams
         {
@@ -35,7 +35,8 @@ namespace WhoWantsToBeMillionaire
         {
             InitializeComponent();
 
-            BackgroundImage = new Bitmap(Resources.Background_Main, ScreenRectangle.Size);
+            Cursor = new Cursor(Resources.Cursor.GetHicon());
+            BackgroundImage = new Bitmap(Resources.Background_Main, ScreenSize);
 
             _scene = new Scene();
             _mainMenu = new MenuMain();
@@ -50,7 +51,9 @@ namespace WhoWantsToBeMillionaire
             _mainMenu.ButtonClick += OnMainMenuClick;
             _scene.GameOver += GameOver;
             _scene.StatisticsChanged += UpdateStatistics;
-            _scene.AchievementСompleted += GrantAchievement;
+
+            if (!_achievementsData.AllGranted)
+                _scene.AchievementСompleted += GrantAchievement;
 
             Controls.Add(_scene);
             Controls.Add(_mainMenu);
@@ -63,24 +66,24 @@ namespace WhoWantsToBeMillionaire
             switch (cmd)
             {
                 default:
-                    OpenContextMenu(new MenuExit(ScreenRectangle.Width / 3, ScreenRectangle.Height / 3));
+                    OpenContextMenu(new MenuExit(ScreenSize.Width / 3, ScreenSize.Height / 3));
                     break;
 
                 case MainMenuCommand.NewGame:
-                    OpenContextMenu(new MenuMode(ScreenRectangle.Width / 3, ScreenRectangle.Height * 2 / 3));
+                    OpenContextMenu(new MenuMode(ScreenSize.Width / 3, ScreenSize.Height * 2 / 3));
                     break;
 
                 case MainMenuCommand.Statistics:
-                    OpenContextMenu(new MenuStatistics(ScreenRectangle.Width / 3, ScreenRectangle.Height * 2 / 3, _statisticsData.ToString()));
+                    OpenContextMenu(new MenuStatistics(ScreenSize.Width / 3, ScreenSize.Height * 2 / 3, _statisticsData.ToString()));
                     break;
 
                 case MainMenuCommand.Achievements:
-                    OpenContextMenu(new MenuAchievements(ScreenRectangle.Width / 2, ScreenRectangle.Height * 3 / 4, _achievementsData.Achievements));
+                    OpenContextMenu(new MenuAchievements(ScreenSize.Width / 2, ScreenSize.Height * 3 / 4, _achievementsData.Achievements));
 
                     break;
 
                 case MainMenuCommand.Settings:
-                    OpenContextMenu(new MenuSettings(ScreenRectangle.Width / 2, ScreenRectangle.Height * 2 / 3, _settingsData));
+                    OpenContextMenu(new MenuSettings(ScreenSize.Width / 2, ScreenSize.Height * 2 / 3, _settingsData));
                     break;
             }
         }
@@ -131,6 +134,10 @@ namespace WhoWantsToBeMillionaire
         {
             _mainMenu.Controls.Remove(_contextMenu);
             _mainMenu.ButtonsVisible = true;
+
+            if (_contextMenu is MenuSettings)
+                _settingsData.ApplyGlobal();
+
             _contextMenu.ButtonClick -= OnContextMenuClick;
             _contextMenu.Dispose();
         }
@@ -166,7 +173,7 @@ namespace WhoWantsToBeMillionaire
         }
 
         private void UpdateStatistics(StatsAttribute attribute, int value)
-        { 
+        {
             _statisticsData.Update(attribute, value);
 
             if (_statisticsData.GetAttribute(StatsAttribute.TotalPrize) >= 10000000)
@@ -178,6 +185,9 @@ namespace WhoWantsToBeMillionaire
             if (!_achievementsData.CheckGranted(achievement))
             {
                 _achievementsData.Grant(achievement);
+
+                if (_achievementsData.AllGranted)
+                    _scene.AchievementСompleted -= GrantAchievement;
 
                 int count = Controls.OfType<BoxAchievement>().Count();
 
@@ -224,7 +234,7 @@ namespace WhoWantsToBeMillionaire
             FileManager.CreateSaveDirectory();
             _settingsData.Save(FileManager.PathLocalAppData);
             _statisticsData.Save(FileManager.PathLocalAppData);
-            //_achievementsData.Save(FileManager.PathLocalAppData);
+            _achievementsData.Save(FileManager.PathLocalAppData);
         }
     }
 }

@@ -51,6 +51,9 @@ namespace WhoWantsToBeMillionaire
         private readonly TableHints _tableHints;
         private readonly TableSums _tableSums;
 
+        private PhoneTimer _timer;
+        private VotingChart _chart;
+
         public delegate void EventGameOver(bool isRestart);
         public delegate void EventAchievementСompleted(Achievement achievement);
         public delegate void EventStatisticsChanged(StatsAttribute attribute, int value = 1);
@@ -82,20 +85,22 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public Scene() : base(MainForm.ScreenRectangle.Size)
+        public Scene() : base(MainForm.ScreenSize)
         {
+            Dock = DockStyle.Fill;
+
             _host = new Host();
             _hint = new Hint();
             _tableSums = new TableSums();
             _buttonTakeMoney = new ButtonСapsule();
-            _tableControls = new MovingTableControls((int)(MainForm.ScreenRectangle.Width * 0.3f), MainForm.ScreenRectangle.Height);
-            _boxAnimation = new BoxAnimation(MainForm.ScreenRectangle.Width - _tableControls.Width, (int)(MainForm.ScreenRectangle.Height * 0.36f));
+            _tableControls = new MovingTableControls((int)(MainForm.ScreenSize.Width * 0.3f), MainForm.ScreenSize.Height);
+            _boxAnimation = new BoxAnimation(MainForm.ScreenSize.Width - _tableControls.Width, (int)(MainForm.ScreenSize.Height * 0.36f));
             _boxQuestion = new BoxQuestion(_boxAnimation.Width, _boxAnimation.Height);
-            _commandBoard = new CommandBoard(MainForm.ScreenRectangle.Width - _tableControls.Width, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
+            _commandBoard = new CommandBoard(MainForm.ScreenSize.Width - _tableControls.Width, MainForm.ScreenSize.Height - _boxQuestion.Height);
             _tableHints = new TableHints(_tableControls.Width, (int)(_tableControls.Height * 0.2f));
             _prizeImage = new Bitmap(_boxAnimation.Width, _boxAnimation.Height);
 
-            _boxAnimation.Location = _boxQuestion.Location = new Point(0, MainForm.ScreenRectangle.Height - _boxQuestion.Height);
+            _boxAnimation.Location = _boxQuestion.Location = new Point(0, MainForm.ScreenSize.Height - _boxQuestion.Height);
             _buttonTakeMoney.Text = "Забрать деньги";
 
             using (Graphics g = Graphics.FromImage(_prizeImage))
@@ -140,7 +145,7 @@ namespace WhoWantsToBeMillionaire
             MenuAllowed = true;
             Sound.PlayBackground(Resources.Rules);
 
-            await _tableControls.MoveX(MainForm.ScreenRectangle.Width - _tableControls.Width, 600 / MainForm.DeltaTime);
+            await _tableControls.MoveX(MainForm.ScreenSize.Width - _tableControls.Width, 600 / MainForm.DeltaTime);
 
             _tableSums.Visible = _tableHints.Visible = true;
 
@@ -264,8 +269,8 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.TextMode = TextMode.Dialog;
                     _commandBoard.Command = SceneCommand.End_PhoneFriend;
 
-                    var timer = new PhoneTimer((int)(0.3f * _commandBoard.Height));
-                    timer.TimeUp += OnCommandClick;
+                    _timer = new PhoneTimer((int)(0.3f * _commandBoard.Height));
+                    _timer.TimeUp += OnCommandClick;
 
                     await Task.Delay(2000);
 
@@ -276,13 +281,13 @@ namespace WhoWantsToBeMillionaire
                     foreach (var phrase in _hint.PhoneFriendDialog(_tableSums.NextSum))
                     {
                         _commandBoard.AddText(phrase);
-                        await Task.Delay(phrase.Length * 75);
+                        await Task.Delay(phrase.Where(x => x == ' ').Count() * 500);
                     }
 
-                    await _commandBoard.ShowMovingControl(timer, 500, false);
+                    await _commandBoard.ShowMovingControl(_timer, 500, false);
 
                     _commandBoard.Text = _hint.PhoneFriendAnswer(_boxQuestion.Question);
-                    timer.Start();
+                    _timer.Start();
 
                     _commandBoard.ButtonCommandVisible = true;
                     break;
@@ -294,12 +299,12 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Command = SceneCommand.End_AskAudience;
 
                     var heigth = (int)(0.7f * _commandBoard.Height);
-                    var chart = new VotingChart((int)(0.75f * heigth), heigth);
+                    _chart = new VotingChart((int)(0.75f * heigth), heigth);
 
-                    await _commandBoard.ShowMovingControl(chart, 500, true);
+                    await _commandBoard.ShowMovingControl(_chart, 500, true);
                     await Task.Delay(3000);
-                    await chart.ShowAnimationVote(3000);
-                    await chart.ShowPercents(_hint.PercentsAudience(_boxQuestion.Question), 15);
+                    await _chart.ShowAnimationVote(3000);
+                    await _chart.ShowPercents(_hint.PercentsAudience(_boxQuestion.Question), 15);
 
                     AchievementСompleted?.Invoke(Achievement.AudienceAward);
 
@@ -332,6 +337,12 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.ButtonCommandVisible = true;
                     break;
             }
+        }
+
+        private async Task RemoveMovingControl(MovingControl box, int milliseconds)
+        {
+            await _commandBoard.RemoveMovingControls(box, milliseconds / MainForm.DeltaTime);
+            box.Dispose();
         }
 
         private void SaveSumSelected(int sum)
@@ -524,25 +535,19 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Clear();
                     _commandBoard.TextMode = TextMode.Monologue;
 
-                    if (sender is PhoneTimer)
-                    {
-                        var timer = sender as PhoneTimer;
+                    _timer.Stop();
+                    _timer.TimeUp -= OnCommandClick;
 
-                        timer.Stop();
-                        timer.TimeUp -= OnCommandClick;
-                    }
-                    else
+                    if (sender is CommandBoard)
                     {
                         Sound.StopPeek();
                         Sound.Play(Resources.Hint_PhoneFriend_End);
                     }
 
-                    AchievementСompleted?.Invoke(Achievement.AndToTalk);
-
                     _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
                     await Task.Delay(2000);
-                    await _commandBoard.RemoveMovingControls(500 / MainForm.DeltaTime);
+                    await RemoveMovingControl(_timer, 500);
 
                     ControlEnabled = true;
                     break;
@@ -551,7 +556,7 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Clear();
                     _boxQuestion.PlayBackgroundSound(Resources.Question_Reflections);
 
-                    await _commandBoard.RemoveMovingControls(500 / MainForm.DeltaTime);
+                    await RemoveMovingControl(_chart, 500);
 
                     ControlEnabled = true;
                     break;
@@ -566,11 +571,10 @@ namespace WhoWantsToBeMillionaire
                     while (newIndex == _boxQuestion.Question.Index);
 
                     await _boxQuestion.ShowCorrect(false, true);
-                    await Task.Delay(3000);
+                    await Task.Delay(2000);
                     await _boxQuestion.Clear();
 
                     AchievementСompleted?.Invoke(Achievement.DefectiveQuestion);
-
                     QuestionVisible = false;
 
                     await _boxAnimation.HideImage(_boxQuestion.BackgroundImage);
@@ -628,10 +632,13 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.TakeMoney_ShowPrize:
                     await ShowCorrectAndPrize(false, true, false);
 
+                    AchievementСompleted?.Invoke(Achievement.StopGame);
+
                     if (_tableSums.Prize == 0)
                         AchievementСompleted?.Invoke(Achievement.IsPossible);
 
-                    AchievementСompleted?.Invoke(Achievement.StopGame);
+                    if(_tableSums.CheckSaveSum(_boxQuestion.Question.Number - 1))
+                        AchievementСompleted?.Invoke(Achievement.ExcessiveСaution);
 
                     _commandBoard.AskRestart();
                     break;

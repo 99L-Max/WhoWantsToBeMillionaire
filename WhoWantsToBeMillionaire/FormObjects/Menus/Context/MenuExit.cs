@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace WhoWantsToBeMillionaire
+﻿namespace WhoWantsToBeMillionaire
 {
-    class MenuExit : ContextMenu, IDisposable
+    class MenuExit : ContextMenu
     {
         private readonly ButtonContextMenu _buttonExit;
 
@@ -14,14 +12,6 @@ namespace WhoWantsToBeMillionaire
 
             SetControls(_buttonExit);
             SetHeights(1f);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                _buttonExit.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

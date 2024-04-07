@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
@@ -131,27 +130,22 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowMovingControl(MovingControl box, int milliseconds, bool centering)
         {
-            box.Location = new Point(_labelDialog.Width, centering ? (_labelDialog.Height - box.Height) >> 1 : 0);
+            box.Location = new Point(_labelDialog.Width, centering ? _labelDialog.Height - box.Height >> 1 : 0);
 
             _labelDialog.Image = null;
             _labelDialog.Controls.Add(box);
 
-            int x = centering ? (_labelDialog.Width - box.Width) >> 1 : _labelDialog.Width - box.Width;
+            int x = centering ? _labelDialog.Width - box.Width >> 1 : _labelDialog.Width - box.Width;
 
             await box.MoveX(x, milliseconds / MainForm.DeltaTime);
         }
 
-        public async Task RemoveMovingControls(int countFrames)
+        public async Task RemoveMovingControls(MovingControl box, int countFrames)
         {
-            var list = _labelDialog.Controls.OfType<MovingControl>();
-
-            foreach (var box in list)
+            if (_labelDialog.Controls.Contains(box))
             {
                 await box.MoveX(_labelDialog.Width, countFrames);
-
                 _labelDialog.Controls.Remove(box);
-
-                box.Dispose();
             }
         }
     }

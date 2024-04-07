@@ -22,12 +22,12 @@ namespace WhoWantsToBeMillionaire
         public static void Play(string soundName, bool isTurnOff = true) =>
             Play(Resources.ResourceManager.GetStream(soundName), isTurnOff);
 
-        public static void Play(UnmanagedMemoryStream stream, bool isSwitchable = true)
+        public static void Play(UnmanagedMemoryStream stream, bool isTurnOff = true)
         {
             WaveFileReader reader = new WaveFileReader(stream);
             WaveOut waveOut = new WaveOut();
 
-            if (isSwitchable)
+            if (isTurnOff)
                 s_sounds.Add(waveOut);
 
             waveOut.PlaybackStopped += Dispose;

@@ -5,7 +5,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class RowTableSums : PictureBox
+    class RowTableSums : PictureBox, IReset
     {
         private static readonly Image s_background;
         private static readonly Image s_iconCircle;
@@ -19,7 +19,7 @@ namespace WhoWantsToBeMillionaire
         private bool _isSelected;
         private bool _iconVisible;
         private bool _isSaveSum;
-        private bool _isMouseEventsActive;
+        private bool _isMouseEventsActive = false;
 
         public readonly int Number;
         public readonly int Sum;
@@ -85,14 +85,11 @@ namespace WhoWantsToBeMillionaire
             Sum = sum;
 
             _image = new Bitmap(s_background.Width, s_background.Height);
-            _isMouseEventsActive = false;
 
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
             Font = new Font("", 0.5f * s_background.Height, FontStyle.Bold, GraphicsUnit.Pixel);
             Dock = DockStyle.Fill;
-
-            Reset();
         }
 
         private void Draw()
@@ -117,7 +114,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void Reset()
+        public void Reset(Mode mode = Mode.Classic)
         {
             _iconVisible = _isSaveSum = _isSelected = false;
             BackgroundImage = null;
@@ -131,6 +128,7 @@ namespace WhoWantsToBeMillionaire
             if (!_isMouseEventsActive)
             {
                 _isMouseEventsActive = true;
+
                 MouseEnter += OnRowMouseEnter;
                 MouseLeave += OnRowMouseLeave;
             }
@@ -141,6 +139,7 @@ namespace WhoWantsToBeMillionaire
             if (_isMouseEventsActive)
             {
                 _isMouseEventsActive = false;
+
                 MouseEnter -= OnRowMouseEnter;
                 MouseLeave -= OnRowMouseLeave;
             }

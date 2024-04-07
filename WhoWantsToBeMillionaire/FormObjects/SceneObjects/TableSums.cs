@@ -11,8 +11,8 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly RowTableSums[] _rowsSum;
 
-        private bool _taskCanceled;
         private int _numberQuestion;
+        private bool _taskCanceled;
 
         public delegate void EventSaveSumSelected(int sum);
         public event EventSaveSumSelected SaveSumSelected;
@@ -45,58 +45,24 @@ namespace WhoWantsToBeMillionaire
                 _rowsSum[indexRow] = new RowTableSums(indexRow + 1, sums[indexRow]);
 
                 RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
-                Controls.Add(_rowsSum[indexRow], 0, i);
+                Controls.Add(_rowsSum[indexRow]);
             }
         }
 
         protected override void OnSizeChanged(EventArgs e) =>
             Height = Height / RowCount * RowCount + 1;
 
-        public void Reset(Mode mode = Mode.Classic)
-        {
-            _taskCanceled = true;
-
-            foreach (var row in _rowsSum)
-                row.Reset();
-
-            if (mode == Mode.Classic)
-                foreach (var row in _rowsSum)
-                    row.IsSaveSum = row.Number % 5 == 0;
-
-            _numberQuestion = 1;
-            SetPrize(0);
-        }
-
-        private void SetPrize(int numberSum)
+        private void SetPrize(int number)
         {
             try
             {
-                Prize = _rowsSum[numberSum - 1].Sum;
-                TextPrize = numberSum < _rowsSum.Length ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
+                Prize = _rowsSum[number - 1].Sum;
+                TextPrize = number < _rowsSum.Length ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
             }
             catch (IndexOutOfRangeException)
             {
                 Prize = 0;
                 TextPrize = "0";
-            }
-        }
-
-        public void SetSelectedSum(int number)
-        {
-            foreach (var row in _rowsSum)
-            {
-                row.IsSelected = row.Number == number;
-                row.IconVisible = row.Number <= number;
-            }
-        }
-
-        public void AddSelectionSaveSum()
-        {
-            foreach (var row in _rowsSum)
-            {
-                row.Reset();
-                row.AddMouseEvents();
-                row.Click += SelectSaveSum;
             }
         }
 
@@ -116,6 +82,46 @@ namespace WhoWantsToBeMillionaire
 
             Sound.Play(Resources.SavaSumSelected);
             SaveSumSelected.Invoke(saveSum.Sum);
+        }
+
+        public void Reset(Mode mode = Mode.Classic)
+        {
+            _taskCanceled = true;
+
+            foreach (var row in _rowsSum)
+            { 
+                row.Reset();
+                row.Click -= SelectSaveSum;
+            }
+
+            if (mode == Mode.Classic)
+                foreach (var row in _rowsSum)
+                    row.IsSaveSum = row.Number % 5 == 0;
+
+            _numberQuestion = 1;
+            SetPrize(0);
+        }
+
+        public bool CheckSaveSum(int number) => 
+            number > 0 && number <= Question.MaxNumber && _rowsSum[number - 1].IsSaveSum;
+
+        public void SetSelectedSum(int number)
+        {
+            foreach (var row in _rowsSum)
+            {
+                row.IsSelected = row.Number == number;
+                row.IconVisible = row.Number <= number;
+            }
+        }
+
+        public void AddSelectionSaveSum()
+        {
+            foreach (var row in _rowsSum)
+            {
+                row.Reset();
+                row.AddMouseEvents();
+                row.Click += SelectSaveSum;
+            }
         }
 
         public async Task ShowSums()

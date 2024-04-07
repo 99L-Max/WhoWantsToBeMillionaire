@@ -44,13 +44,13 @@ namespace WhoWantsToBeMillionaire
             foreach (Control ctrl in _table.Controls)
                 ctrl.Dispose();
 
-            int heightButton = (int)(0.08f * MainForm.ScreenRectangle.Height);
+            int heightButton = (int)(0.08f * MainForm.ScreenSize.Height);
 
             _table.Controls.Clear();
             _table.RowStyles.Clear();
 
-            _table.Size = new Size(MainForm.ScreenRectangle.Width, heightButton * commands.Length);
-            _table.Location = new Point((MainForm.ScreenRectangle.Width - _table.Width) >> 1, (MainForm.ScreenRectangle.Height - _table.Height) >> 1);
+            _table.Size = new Size(MainForm.ScreenSize.Width, heightButton * commands.Length);
+            _table.Location = new Point((MainForm.ScreenSize.Width - _table.Width) >> 1, (MainForm.ScreenSize.Height - _table.Height) >> 1);
 
             ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
 

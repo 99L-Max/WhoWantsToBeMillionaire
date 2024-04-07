@@ -22,7 +22,7 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.Transparent;
 
-            _background = new Bitmap(Resources.Background_Screensaver, MainForm.ScreenRectangle.Size);
+            _background = new Bitmap(Resources.Background_Screensaver, MainForm.ScreenSize);
             _logo = Resources.Logo;
             _logoRectangle = new Rectangle();
         }

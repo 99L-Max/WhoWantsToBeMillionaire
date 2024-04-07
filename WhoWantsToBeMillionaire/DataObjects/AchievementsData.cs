@@ -29,6 +29,9 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly Dictionary<Achievement, bool> _achievements;
 
+        public bool AllGranted => 
+            _achievements.Values.All(x => x);
+
         public Dictionary<Achievement, bool> Achievements =>
             _achievements.ToDictionary(k => k.Key, v => v.Value);
 

@@ -715,6 +715,7 @@
     <Content Include="Resources\Textures\ChartColumn.png" />
     <Content Include="Resources\Textures\ComboBox.png" />
     <Content Include="Resources\Textures\CurrentAmount.png" />
+    <Content Include="Resources\Textures\Cursor.png" />
     <Content Include="Resources\Textures\Dialog.png" />
     <Content Include="Resources\Textures\Focus_Hint.png" />
     <Content Include="Resources\Textures\Hint_AskAudience_Active.png" />

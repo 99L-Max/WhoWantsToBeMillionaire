@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,7 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class MenuAchievements : ContextMenu, IDisposable
+    class MenuAchievements : ContextMenu
     {
         private readonly TableImages _table;
 
@@ -55,14 +54,6 @@ namespace WhoWantsToBeMillionaire
             SetHeights(6f);
 
             _table.DrawTable();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                _table.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }
