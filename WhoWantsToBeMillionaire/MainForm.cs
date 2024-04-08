@@ -145,10 +145,11 @@ namespace WhoWantsToBeMillionaire
         private async void GameOver(bool isRestart)
         {
             _scene.Visible = false;
-            _scene.Reset(_scene.Mode);
 
             if (isRestart)
             {
+                _scene.Reset(_scene.Mode);
+
                 if (_showScreenSaver)
                     await ShowScreenSaver(false);
 
@@ -194,8 +195,8 @@ namespace WhoWantsToBeMillionaire
                 using (BoxAchievement box = new BoxAchievement(achievement, 280, 70))
                 {
                     box.Y = -box.Height;
-                    Controls.Add(box);
 
+                    Controls.Add(box);
                     box.BringToFront();
 
                     Sound.Play(Resources.Achievement, false);

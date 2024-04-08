@@ -32,6 +32,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
@@ -236,8 +240,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="icon.ico" />
     <Content Include="Resources\AnimationData\AnimationData_CentralIcon.json" />
     <Content Include="Resources\AnimationData\AnimationData_ButtonHint.json" />
+    <None Include="Resources\icon.ico" />
     <Content Include="Resources\Questions\Q01V01.json" />
     <Content Include="Resources\Questions\Q01V02.json" />
     <Content Include="Resources\Questions\Q01V03.json" />
