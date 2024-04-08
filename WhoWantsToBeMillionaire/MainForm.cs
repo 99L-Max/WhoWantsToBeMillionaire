@@ -13,7 +13,7 @@ namespace WhoWantsToBeMillionaire
         public static readonly Size ScreenSize = Screen.PrimaryScreen.Bounds.Size;
 
         private readonly Scene _scene;
-        private readonly MenuMain _mainMenu;
+        private readonly MenuMain _menuMain;
         private readonly StatisticsData _statisticsData;
         private readonly AchievementsData _achievementsData;
 
@@ -39,7 +39,7 @@ namespace WhoWantsToBeMillionaire
             BackgroundImage = new Bitmap(Resources.Background_Main, ScreenSize);
 
             _scene = new Scene();
-            _mainMenu = new MenuMain();
+            _menuMain = new MenuMain();
             _settingsData = new GameSettingsData(FileManager.PathLocalAppData);
             _statisticsData = new StatisticsData(FileManager.PathLocalAppData);
             _achievementsData = new AchievementsData(FileManager.PathLocalAppData);
@@ -48,7 +48,7 @@ namespace WhoWantsToBeMillionaire
             _settingsData.ApplyGlobal();
             _scene.Visible = false;
 
-            _mainMenu.ButtonClick += OnMainMenuClick;
+            _menuMain.ButtonClick += OnMainMenuClick;
             _scene.GameOver += GameOver;
             _scene.StatisticsChanged += UpdateStatistics;
 
@@ -56,17 +56,18 @@ namespace WhoWantsToBeMillionaire
                 _scene.AchievementСompleted += GrantAchievement;
 
             Controls.Add(_scene);
-            Controls.Add(_mainMenu);
+            Controls.Add(_menuMain);
 
-            _mainMenu.SetCommands(MainMenuCommand.NewGame, MainMenuCommand.Achievements, MainMenuCommand.Statistics, MainMenuCommand.Settings, MainMenuCommand.Exit);
+            _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.Continue).ToArray());
         }
 
         private void OnMainMenuClick(MainMenuCommand cmd)
         {
             switch (cmd)
             {
-                default:
-                    OpenContextMenu(new MenuExit(ScreenSize.Width / 3, ScreenSize.Height / 3));
+                case MainMenuCommand.Continue:
+                    _menuMain.Visible = false;
+                    _scene.Visible = true;
                     break;
 
                 case MainMenuCommand.NewGame:
@@ -85,6 +86,10 @@ namespace WhoWantsToBeMillionaire
                 case MainMenuCommand.Settings:
                     OpenContextMenu(new MenuSettings(ScreenSize.Width / 2, ScreenSize.Height * 2 / 3, _settingsData));
                     break;
+
+                default:
+                    OpenContextMenu(new MenuExit(ScreenSize.Width / 3, ScreenSize.Height / 3));
+                    break;
             }
         }
 
@@ -99,7 +104,9 @@ namespace WhoWantsToBeMillionaire
                 case ContextMenuCommand.StartGame:
                     _scene.Reset((_contextMenu as MenuMode).SelectedMode);
 
-                    _mainMenu.Visible = false;
+                    _menuMain.Visible = false;
+                    _menuMain.SetCommands(MenuMain.GetCommands);
+
                     CloseContextMenu();
 
                     if (_showScreenSaver)
@@ -126,14 +133,14 @@ namespace WhoWantsToBeMillionaire
             _contextMenu = menu;
             _contextMenu.ButtonClick += OnContextMenuClick;
 
-            _mainMenu.ButtonsVisible = false;
-            _mainMenu.Controls.Add(_contextMenu);
+            _menuMain.ButtonsVisible = false;
+            _menuMain.Controls.Add(_contextMenu);
         }
 
         private void CloseContextMenu()
         {
-            _mainMenu.Controls.Remove(_contextMenu);
-            _mainMenu.ButtonsVisible = true;
+            _menuMain.Controls.Remove(_contextMenu);
+            _menuMain.ButtonsVisible = true;
 
             if (_contextMenu is MenuSettings)
                 _settingsData.ApplyGlobal();
@@ -157,7 +164,8 @@ namespace WhoWantsToBeMillionaire
             }
             else
             {
-                _mainMenu.Visible = true;
+                _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.Continue).ToArray());
+                _menuMain.Visible = true;
             }
         }
 
@@ -219,13 +227,13 @@ namespace WhoWantsToBeMillionaire
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-                if (_mainMenu.Controls.Contains(_contextMenu))
+                if (_menuMain.Controls.Contains(_contextMenu))
                 {
                     CloseContextMenu();
                 }
                 else if (_scene.MenuAllowed)
                 {
-                    _mainMenu.Visible = !_mainMenu.Visible;
+                    _menuMain.Visible = !_menuMain.Visible;
                     _scene.Visible = !_scene.Visible;
                 }
         }

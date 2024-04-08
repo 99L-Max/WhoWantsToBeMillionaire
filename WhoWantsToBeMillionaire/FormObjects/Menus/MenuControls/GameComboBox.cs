@@ -18,7 +18,7 @@ namespace WhoWantsToBeMillionaire
         public delegate void EventSelectedIndexChanged(object sender, EventArgs e);
         public EventSelectedIndexChanged SelectedIndexChanged;
 
-        public bool LoopedSwitch { set; get; } = true;
+        public bool Looped { set; get; } = true;
 
         public int SelectedIndex
         {
@@ -75,7 +75,7 @@ namespace WhoWantsToBeMillionaire
 
         private void OnLeftClick(object sender, EventArgs e)
         {
-            if (LoopedSwitch)
+            if (Looped)
                 SelectedIndex = _selectedIndex > 0 ? _selectedIndex - 1 : _values.Count - 1;
             else
                 SelectedIndex = Math.Max(0, _selectedIndex - 1);
@@ -83,7 +83,7 @@ namespace WhoWantsToBeMillionaire
 
         private void OnRightClick(object sender, EventArgs e)
         {
-            if (LoopedSwitch)
+            if (Looped)
                 SelectedIndex = _selectedIndex < _values.Count - 1 ? _selectedIndex + 1 : 0;
             else
                 SelectedIndex = Math.Min(_selectedIndex + 1, _values.Count - 1);

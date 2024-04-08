@@ -30,10 +30,11 @@ namespace WhoWantsToBeMillionaire
         private readonly Image _image;
 
         private GameToolTip _toolTip;
-        private bool _isShown;
 
         public readonly TypeHint Type;
         public readonly string Description;
+
+        public bool IsShown { private set; get; }
 
         public StatusHint Status { private set; get; }
 
@@ -43,7 +44,7 @@ namespace WhoWantsToBeMillionaire
             {
                 if (value && _toolTip == null)
                 {
-                    _toolTip = new GameToolTip(300, 120, 16f);
+                    _toolTip = new GameToolTip(300, 120, 3, 16f);
                     _toolTip.SetToolTip(this, Description);
                 }
                 else
@@ -61,7 +62,7 @@ namespace WhoWantsToBeMillionaire
         {
             Type = type;
             Description = description;
-            Enabled = _isShown = false;
+            Enabled = IsShown = false;
 
             BackColor = Color.Transparent;
             SizeMode = PictureBoxSizeMode.Zoom;
@@ -99,7 +100,7 @@ namespace WhoWantsToBeMillionaire
             BackgroundImage = s_focus;
 
         protected override void OnClick(EventArgs e)
-        { 
+        {
             SetStatus(StatusHint.Used, false);
             base.OnClick(e);
         }
@@ -117,9 +118,9 @@ namespace WhoWantsToBeMillionaire
 
         public async void ShowIcon()
         {
-            if (_isShown) return;
+            if (IsShown) return;
 
-            _isShown = true;
+            IsShown = true;
 
             using (Image icon = new Bitmap(_image))
             using (Image reverseSide = Resources.ReverseSide_Hint)

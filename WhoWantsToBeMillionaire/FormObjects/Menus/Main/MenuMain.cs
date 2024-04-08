@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -7,11 +9,11 @@ namespace WhoWantsToBeMillionaire
 {
     enum MainMenuCommand
     {
-        NewGame,
         Continue,
+        NewGame,
         Achievements,
-        Settings,
         Statistics,
+        Settings,
         Exit
     }
 
@@ -27,6 +29,9 @@ namespace WhoWantsToBeMillionaire
             set => _table.Visible = value;
             get => _table.Visible;
         }
+
+        public static MainMenuCommand[] GetCommands =>
+            Enum.GetValues(typeof(MainMenuCommand)).Cast<MainMenuCommand>().ToArray();
 
         public MenuMain()
         {
@@ -50,10 +55,9 @@ namespace WhoWantsToBeMillionaire
             _table.RowStyles.Clear();
 
             _table.Size = new Size(MainForm.ScreenSize.Width, heightButton * commands.Length);
-            _table.Location = new Point((MainForm.ScreenSize.Width - _table.Width) >> 1, (MainForm.ScreenSize.Height - _table.Height) >> 1);
+            _table.Location = new Point(MainForm.ScreenSize.Width - _table.Width >> 1, MainForm.ScreenSize.Height - _table.Height >> 1);
 
-            ButtonMainMenu[] buttons = new ButtonMainMenu[commands.Length];
-
+            var buttons = new ButtonMainMenu[commands.Length];
             var dict = JsonManager.GetDictionary<MainMenuCommand, string>(Resources.Dictionary_MenuCommands);
 
             for (int i = 0; i < buttons.Length; i++)

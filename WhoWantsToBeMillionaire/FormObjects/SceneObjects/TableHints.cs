@@ -9,8 +9,8 @@ namespace WhoWantsToBeMillionaire
     class TableHints : GameContol, IReset, IGameSettings
     {
         private List<ButtonHint> _hints;
-        private Queue<ButtonHint> _hiddenHints;
         private bool _toolTipVisible;
+        private int _countShownHints;
 
         public int CountUsedHints { private set; get; }
 
@@ -18,10 +18,10 @@ namespace WhoWantsToBeMillionaire
             _hints.Count;
 
         public string DescriptionNextHint =>
-            _hiddenHints.Peek().Description;
+            _hints[_countShownHints].Description;
 
-        public bool AllHintsVisible =>
-            _hiddenHints.Count == 0;
+        public bool AllHintsShown =>
+            _hints.All(x => x.IsShown);
 
         public string TextActiveHints
         {
@@ -53,7 +53,7 @@ namespace WhoWantsToBeMillionaire
         public void Reset(Mode mode = Mode.Classic)
         {
             Enabled = false;
-            CountUsedHints = 0;
+            CountUsedHints = _countShownHints = 0;
             Controls.Clear();
 
             var countColumns = mode == Mode.Amateur ? 4 : 3;
@@ -68,19 +68,16 @@ namespace WhoWantsToBeMillionaire
             SetLocationsHints(new Queue<ButtonHint>(_hints), sizeHint, countColumns);
 
             _hints.ForEach(h => { h.Click += OnHintClick; h.ToolTipVisible = _toolTipVisible; });
-            _hiddenHints = new Queue<ButtonHint>(_hints);
         }
 
         private void OnHintClick(object sender, EventArgs e)
         {
             ButtonHint hint = sender as ButtonHint;
 
-            CountUsedHints++;
-
             hint.Enabled = false;
             hint.Click -= OnHintClick;
 
-            if (CountUsedHints >= Hint.MaxCountAllowedHints)
+            if (++CountUsedHints >= Hint.MaxCountAllowedHints)
                 foreach (var h in _hints)
                     if (h.Enabled)
                     {
@@ -95,8 +92,8 @@ namespace WhoWantsToBeMillionaire
         {
             int countRows = (int)Math.Ceiling((float)hints.Count / countColumns);
 
-            int x0 = (Size.Width - sizeHint.Width * countColumns) >> 1;
-            int y0 = (Size.Height - sizeHint.Height * countRows) >> 1;
+            int x0 = Size.Width - sizeHint.Width * countColumns >> 1;
+            int y0 = Size.Height - sizeHint.Height * countRows >> 1;
 
             int y;
 
@@ -113,7 +110,7 @@ namespace WhoWantsToBeMillionaire
                 else
                 {
                     queue = hints;
-                    x0 = (Size.Width - sizeHint.Width * queue.Count) >> 1;
+                    x0 = Size.Width - sizeHint.Width * queue.Count >> 1;
                 }
 
                 y = y0 + row * sizeHint.Height;
@@ -133,21 +130,16 @@ namespace WhoWantsToBeMillionaire
 
         public void ShowHint()
         {
-            _hiddenHints.Dequeue().ShowIcon();
+            _hints[_countShownHints++].ShowIcon();
 
-            int num = _hints.Count - _hiddenHints.Count;
-
-            if (num < 4)
-                Sound.Play($"Rules_Hint{num}");
+            if (_countShownHints < 4)
+                Sound.Play($"Rules_Hint{_countShownHints}");
             else
-                Sound.Play(Properties.Resources.CentralIcon_Show);
+                Sound.Play(Resources.CentralIcon_Show);
         }
 
-        public void ShowAllHints()
-        {
-            while (_hiddenHints.Count > 0)
-                _hiddenHints.Dequeue().ShowIcon();
-        }
+        public void ShowAllHints() =>
+            _hints.ForEach(h => h.ShowIcon());
 
         public void SetSettings(GameSettingsData data)
         {

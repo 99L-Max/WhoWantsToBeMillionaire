@@ -33,12 +33,12 @@ namespace WhoWantsToBeMillionaire
             {
                 if (value == TextMode.Monologue)
                 {
-                    _labelDialog.SetRatioText(0.8f, 0.8f);
+                    _labelDialog.SetRatioTextArea(0.8f, 0.8f);
                     _labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Center);
                 }
                 else
                 {
-                    _labelDialog.SetRatioText(0.65f, 0.9f);
+                    _labelDialog.SetRatioTextArea(0.65f, 0.9f);
                     _labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Near);
                 }
             }
@@ -57,6 +57,7 @@ namespace WhoWantsToBeMillionaire
         public CommandBoard(int width, int height)
         {
             Size = new Size(width, height);
+            BackColor = Color.Transparent;
 
             int sideLogo = (int)(0.6f * height);
 

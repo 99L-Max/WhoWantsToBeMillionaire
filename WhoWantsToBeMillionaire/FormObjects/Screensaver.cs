@@ -54,8 +54,8 @@ namespace WhoWantsToBeMillionaire
             {
                 sizeLogo = (int)(i * Height);
 
-                _logoRectangle.X = (ClientRectangle.Width - sizeLogo) >> 1;
-                _logoRectangle.Y = (ClientRectangle.Height - sizeLogo) >> 1;
+                _logoRectangle.X = ClientRectangle.Width - sizeLogo >> 1;
+                _logoRectangle.Y = ClientRectangle.Height - sizeLogo >> 1;
 
                 _logoRectangle.Width = _logoRectangle.Height = sizeLogo;
 

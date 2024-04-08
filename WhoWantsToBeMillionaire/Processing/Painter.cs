@@ -1,12 +1,39 @@
 ﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class ArtistAchievements
+    class Painter
     {
-        public Image GetImage(Image icon, string title, string comment, int width, int height)
+        public Rectangle ResizeRectangle(Rectangle rectangle, float ratioWidth, float ratioHeight)
+        {
+            var result = rectangle;
+
+            result.Width = (int)(ratioWidth * rectangle.Width);
+            result.Height = (int)(ratioHeight * rectangle.Height);
+
+            result.X = (rectangle.Width - result.Width >> 1) + rectangle.X;
+            result.Y = (rectangle.Height - result.Height >> 1) + rectangle.Y;
+
+            return result;
+        }
+
+        public Rectangle ResizeRectangle(Rectangle rectangle, int border)
+        {
+            var result = rectangle;
+
+            result.Width = rectangle.Width - (border << 1);
+            result.Height = rectangle.Height - (border << 1);
+
+            result.X = (rectangle.Width - result.Width >> 1) + rectangle.X;
+            result.Y = (rectangle.Height - result.Height >> 1) + rectangle.Y;
+
+            return result;
+        }
+
+        public Image GetAchievementImage(Image icon, string title, string comment, int width, int height)
         {
             var image = new Bitmap(width, height);
             var sizeIcon = (int)(0.7f * height);
@@ -30,13 +57,13 @@ namespace WhoWantsToBeMillionaire
             return image;
         }
 
-        public Image GetImageProgress(int countGranted, int countAchievements, int width, int height)
+        public Image GetAchievementProgress(int countGranted, int countAchievements, int width, int height)
         {
             var image = new Bitmap(width, height);
             var textRectangle = new Rectangle(image.Height, 0, image.Width - image.Height, image.Height >> 1);
             var progressRectangle = new Rectangle(image.Height, image.Height >> 1, image.Width - image.Height, image.Height >> 1);
 
-            progressRectangle = RatioRectangle(progressRectangle, 0.95f, 0.3f);
+            progressRectangle = ResizeRectangle(progressRectangle, 0.95f, 0.3f);
 
             using (var g = Graphics.FromImage(image))
             using (var medal = countGranted == countAchievements ? Resources.Medal_Granted : Resources.Medal_Empty)
@@ -56,17 +83,21 @@ namespace WhoWantsToBeMillionaire
             return image;
         }
 
-        private Rectangle RatioRectangle(Rectangle rectangle, float ratioWidth, float ratioHeight)
+        public Image GetFilledPanel(Size size, int border, Color colorBack1, Color colorBack2, float angleBack, Color colorFront1, Color colorFront2, float angleFront)
         {
-            var result = rectangle;
+            var image = new Bitmap(size.Width, size.Height);
+            var rectFrame = new Rectangle(new Point(), size);
+            var rectFill = new Rectangle(border, border, rectFrame.Width - (border << 1), rectFrame.Height - (border << 1));
 
-            result.Width = (int)(ratioWidth * rectangle.Width);
-            result.Height = (int)(ratioHeight * rectangle.Height);
+            using (var g = Graphics.FromImage(image))
+            using (var brushFrame = new LinearGradientBrush(rectFrame, colorBack1, colorBack2, angleBack))
+            using (var brushFill = new LinearGradientBrush(rectFill, colorFront1, colorFront2, angleFront))
+            {
+                g.FillRectangle(brushFrame, rectFrame);
+                g.FillRectangle(brushFill, rectFill);
+            }
 
-            result.X = (rectangle.Width - result.Width >> 1) + rectangle.X;
-            result.Y = (rectangle.Height - result.Height >> 1) + rectangle.Y;
-
-            return result;
+            return image;
         }
     }
 }

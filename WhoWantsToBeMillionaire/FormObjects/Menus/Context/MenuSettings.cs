@@ -40,7 +40,7 @@ namespace WhoWantsToBeMillionaire
 
                 label.Text = labels[key];
 
-                comboBox.LoopedSwitch = key != GameSettings.Volume;
+                comboBox.Looped = key != GameSettings.Volume;
                 comboBox.Tag = key;
                 comboBox.SelectedValue = _settings[key];
                 comboBox.SelectedIndexChanged += UpdateSetting;

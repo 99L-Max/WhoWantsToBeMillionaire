@@ -17,11 +17,11 @@ namespace WhoWantsToBeMillionaire
             {
                 var dict = JsonManager.GetDictionary<Achievement, (string, string)>(Resources.Dictionary_Achievements);
                 var (title, comment) = dict[achievement];
-                var artist = new ArtistAchievements();
+                var artist = new Painter();
 
                 g.FillRectangle(brush, ClientRectangle);
 
-                using (var art = artist.GetImage(icon, title, comment, width, height))
+                using (var art = artist.GetAchievementImage(icon, title, comment, width, height))
                     g.DrawImage(art, ClientRectangle);
 
                 Image = image;

@@ -490,7 +490,7 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Text = _tableHints.DescriptionNextHint;
                     _tableHints.ShowHint();
 
-                    if (_tableHints.AllHintsVisible)
+                    if (_tableHints.AllHintsShown)
                         _commandBoard.Command = _tableHints.CountHints > Hint.MaxCountAllowedHints ? SceneCommand.About_RestrictionsHints : SceneCommand.About_TakingMoney;
                     break;
 
@@ -637,7 +637,7 @@ namespace WhoWantsToBeMillionaire
                     if (_tableSums.Prize == 0)
                         AchievementСompleted?.Invoke(Achievement.IsPossible);
 
-                    if(_tableSums.CheckSaveSum(_boxQuestion.Question.Number - 1))
+                    if (_tableSums.CheckSaveSum(_boxQuestion.Question.Number - 1))
                         AchievementСompleted?.Invoke(Achievement.ExcessiveСaution);
 
                     _commandBoard.AskRestart();

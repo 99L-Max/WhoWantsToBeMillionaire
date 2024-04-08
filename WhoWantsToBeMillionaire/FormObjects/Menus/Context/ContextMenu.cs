@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
@@ -25,24 +24,10 @@ namespace WhoWantsToBeMillionaire
         public ContextMenu(string title, int width, int height, float fontSize)
         {
             Size = new Size(width, height);
-            Location = new Point((MainForm.ScreenSize.Width - Width) >> 1, (MainForm.ScreenSize.Height - Height) >> 1);
+            Location = new Point(MainForm.ScreenSize.Width - Width >> 1, MainForm.ScreenSize.Height - Height >> 1);
             BackColor = Color.Transparent;
-
-            var border = 12;
-            var background = new Bitmap(width, height);
-            var rectFrame = new Rectangle(0, 0, Size.Width, Size.Height);
-            var rectFill = new Rectangle(border, border, rectFrame.Width - (border << 1), rectFrame.Height - (border << 1));
-
-            using (var g = Graphics.FromImage(background))
-            using (var brushFrame = new LinearGradientBrush(rectFrame, Color.Gainsboro, Color.SlateGray, 45f))
-            using (var brushFill = new LinearGradientBrush(rectFill, Color.Navy, Color.Black, 90f))
-            {
-                g.FillRectangle(brushFrame, rectFrame);
-                g.FillRectangle(brushFill, rectFill);
-
-                BackgroundImageLayout = ImageLayout.Stretch;
-                BackgroundImage = background;
-            }
+            BackgroundImageLayout = ImageLayout.Stretch;
+            BackgroundImage = new Painter().GetFilledPanel(Size, 12, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f);
 
             _table = new TableLayoutPanel();
             _labelTitle = new LabelMenu(fontSize, ContentAlignment.MiddleCenter);
@@ -54,7 +39,7 @@ namespace WhoWantsToBeMillionaire
             _buttonBack.Click += OnButtonClick;
 
             _table.Size = new Size((int)(0.9f * Width), (int)(0.9f * Height));
-            _table.Location = new Point((Width - _table.Width) >> 1, (Height - _table.Height) >> 1);
+            _table.Location = new Point(Width - _table.Width >> 1, Height - _table.Height >> 1);
 
             Controls.Add(_table);
         }

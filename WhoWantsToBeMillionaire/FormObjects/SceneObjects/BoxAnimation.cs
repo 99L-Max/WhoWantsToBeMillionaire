@@ -45,8 +45,8 @@ namespace WhoWantsToBeMillionaire
                 width = (int)(share * _image.Width);
                 height = (int)(share * _image.Height);
 
-                x = (_image.Width - width) >> 1;
-                y = (_image.Height - height) >> 1;
+                x = _image.Width - width >> 1;
+                y = _image.Height - height >> 1;
 
                 _g.Clear(Color.Transparent);
                 _g.DrawImage(img, x, y, width, height);
@@ -61,8 +61,8 @@ namespace WhoWantsToBeMillionaire
             int width = (int)(share * _image.Width);
             int height = (int)(share * _image.Height);
 
-            int x = (_image.Width - width) >> 1;
-            int y = (_image.Height - height) >> 1;
+            int x = _image.Width - width >> 1;
+            int y = _image.Height - height >> 1;
 
             return new Rectangle(x, y, width, height);
         }
