@@ -44,6 +44,7 @@ namespace WhoWantsToBeMillionaire
             if (disposing)
             {
                 _font.Dispose();
+                _background.Dispose();
 
                 Popup -= OnPopup;
                 Draw -= OnDraw;

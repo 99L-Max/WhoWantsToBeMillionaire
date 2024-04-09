@@ -64,10 +64,9 @@ namespace WhoWantsToBeMillionaire
 
             _hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
             _hints = types.Select(t => new ButtonHint(t, descriptions[t])).ToList();
-
-            SetLocationsHints(new Queue<ButtonHint>(_hints), sizeHint, countColumns);
-
             _hints.ForEach(h => { h.Click += OnHintClick; h.ToolTipVisible = _toolTipVisible; });
+
+            SetBoundsHints(new List<ButtonHint>(_hints), sizeHint, countColumns);
         }
 
         private void OnHintClick(object sender, EventArgs e)
@@ -88,43 +87,40 @@ namespace WhoWantsToBeMillionaire
             HintClick.Invoke(hint.Type);
         }
 
-        private void SetLocationsHints(Queue<ButtonHint> hints, Size sizeHint, int countColumns)
+        private void SetBoundsHints(IEnumerable<ButtonHint> hints, Size hintSize, int columnCount)
         {
-            int countRows = (int)Math.Ceiling((float)hints.Count / countColumns);
+            var rowCount = (int)Math.Ceiling((float)hints.Count() / columnCount);
+            var rowRectangle = new Rectangle();
 
-            int x0 = Size.Width - sizeHint.Width * countColumns >> 1;
-            int y0 = Size.Height - sizeHint.Height * countRows >> 1;
+            rowRectangle.Width = hintSize.Width * columnCount;
+            rowRectangle.Height = hintSize.Height;
 
-            int y;
+            rowRectangle.X = Size.Width - rowRectangle.Width >> 1;
+            rowRectangle.Y = Size.Height - hintSize.Height * rowCount >> 1;
 
-            Queue<ButtonHint> queue = new Queue<ButtonHint>();
-            ButtonHint hint;
+            int countInRow, rowX0;
+            IEnumerable<ButtonHint> listRow;
+            ButtonHint button;
 
-            for (int row = 0; row < countRows; row++)
+            for (int row = 0; row < rowCount; row++)
             {
-                if (hints.Count >= countColumns)
+                countInRow = Math.Min(columnCount, hints.Count());
+
+                listRow = hints.Take(countInRow);
+                hints = hints.Skip(countInRow);
+
+                for (int i = 0; i < listRow.Count(); i++)
                 {
-                    for (int i = 0; i < countColumns; i++)
-                        queue.Enqueue(hints.Dequeue());
+                    button = listRow.ElementAt(i);
+                    rowX0 = (rowRectangle.Width - hintSize.Width * listRow.Count() >> 1) + rowRectangle.X;
+
+                    button.Location = new Point(rowX0 + i * hintSize.Width, rowRectangle.Y);
+                    button.Size = hintSize;
+
+                    Controls.Add(button);
                 }
-                else
-                {
-                    queue = hints;
-                    x0 = Size.Width - sizeHint.Width * queue.Count >> 1;
-                }
 
-                y = y0 + row * sizeHint.Height;
-                int count = queue.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    hint = queue.Dequeue();
-
-                    hint.Location = new Point(x0 + i * sizeHint.Width, y);
-                    hint.Size = sizeHint;
-
-                    Controls.Add(hint);
-                }
+                rowRectangle.Y += rowRectangle.Height;
             }
         }
 

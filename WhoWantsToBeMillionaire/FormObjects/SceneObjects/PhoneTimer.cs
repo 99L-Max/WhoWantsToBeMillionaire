@@ -35,7 +35,7 @@ namespace WhoWantsToBeMillionaire
             _g.CompositingMode = CompositingMode.SourceCopy;
 
             _timer.Interval = 1000;
-            _timer.Tick += TimerTick;
+            _timer.Tick += OnTimerTick;
 
             SetSeconds(_maxSeconds = 30);
         }
@@ -58,7 +58,7 @@ namespace WhoWantsToBeMillionaire
             Invalidate();
         }
 
-        private void TimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, EventArgs e)
         {
             SetSeconds(_seconds - 1);
 
@@ -84,7 +84,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                _timer.Tick -= TimerTick;
+                _timer.Tick -= OnTimerTick;
 
                 BackgroundImage.Dispose();
                 Font.Dispose();

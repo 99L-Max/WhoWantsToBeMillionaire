@@ -21,7 +21,7 @@ namespace WhoWantsToBeMillionaire
             _yDown = yDown;
 
             _rectangle = new Rectangle(x, yDown, width, 0);
-            _labelRectangle = new Rectangle(x - width, Rectangle.Y - width, 3 * width, width);
+            _labelRectangle = new Rectangle(x - width, _rectangle.Y - width, 3 * width, width);
         }
 
         public float Percent
@@ -31,7 +31,7 @@ namespace WhoWantsToBeMillionaire
                 _percent = value;
                 _rectangle.Height = (int)(value * _maxHeight / 100f);
                 _rectangle.Y = _yDown - _rectangle.Height;
-                _labelRectangle.Y = Rectangle.Y - _labelRectangle.Height;
+                _labelRectangle.Y = _rectangle.Y - _labelRectangle.Height;
             }
 
             get => _percent;

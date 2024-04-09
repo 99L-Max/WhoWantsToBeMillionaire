@@ -278,7 +278,7 @@ namespace WhoWantsToBeMillionaire
 
                     await Task.Delay(6000);
 
-                    foreach (var phrase in _hint.PhoneFriendDialog(_tableSums.NextSum))
+                    foreach (var phrase in _hint.GetFriendDialog(_tableSums.NextSum))
                     {
                         _commandBoard.AddText(phrase);
                         await Task.Delay(phrase.Where(x => x == ' ').Count() * 500);
@@ -286,7 +286,7 @@ namespace WhoWantsToBeMillionaire
 
                     await _commandBoard.ShowMovingControl(_timer, 500, false);
 
-                    _commandBoard.Text = _hint.PhoneFriendAnswer(_boxQuestion.Question);
+                    _commandBoard.Text = _hint.GetFriendAnswer(_boxQuestion.Question);
                     _timer.Start();
 
                     _commandBoard.ButtonCommandVisible = true;
@@ -304,7 +304,7 @@ namespace WhoWantsToBeMillionaire
                     await _commandBoard.ShowMovingControl(_chart, 500, true);
                     await Task.Delay(3000);
                     await _chart.ShowAnimationVote(3000);
-                    await _chart.ShowPercents(_hint.PercentsAudience(_boxQuestion.Question), 15);
+                    await _chart.ShowPercents(_hint.GetPercentsAudience(_boxQuestion.Question), 15);
 
                     AchievementСompleted?.Invoke(Achievement.AudienceAward);
 
@@ -329,7 +329,7 @@ namespace WhoWantsToBeMillionaire
                     _boxQuestion.Enabled = false;
                     _boxQuestion.PlayBackgroundSound(Resources.Hint_AskHost);
 
-                    _commandBoard.Text = _hint.HostAnswer(_boxQuestion.Question);
+                    _commandBoard.Text = _hint.GetHostAnswer(_boxQuestion.Question);
 
                     await _boxQuestion.ShowCentralIcon(type, true);
 

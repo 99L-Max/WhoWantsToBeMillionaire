@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
@@ -22,7 +20,7 @@ namespace WhoWantsToBeMillionaire
         public Question ReduceOptions(Question question) => 
             new Question(question.Number, question.Index, new Letter[] { question.Correct, GetWrongLetter(question) });
 
-        public Dictionary<Letter, int> PercentsAudience(Question question)
+        public Dictionary<Letter, int> GetPercentsAudience(Question question)
         {
             var keys = question.Options.Where(x => x.Value != string.Empty).Select(x => x.Key).OrderBy(k => _random.Next()).ToList();
             var percents = new List<int>();
@@ -59,10 +57,10 @@ namespace WhoWantsToBeMillionaire
             return result.Select(s => $"- {s}\n");
         }
 
-        public IEnumerable<string> PhoneFriendDialog(string sum) =>
+        public IEnumerable<string> GetFriendDialog(string sum) =>
             GetDialog(Resources.Dialog_Hint_PhoneFriend_Dialog, ("<SUM>", sum));
 
-        public string PhoneFriendAnswer(Question question)
+        public string GetFriendAnswer(Question question)
         {
             string answer;
             byte[] array;
@@ -84,13 +82,14 @@ namespace WhoWantsToBeMillionaire
             return string.Join(string.Empty, result);
         }
 
-        public string HostAnswer(Question question)
+        public string GetHostAnswer(Question question)
         {
             string answer;
             byte[] array;
 
             var b = question.CountOptions > 2 ? 1.25 : 1.5;
-            var isCorrect = _random.NextDouble() < -0.05 * question.Number + b;
+            var probability = -0.05 * question.Number + b;
+            var isCorrect = _random.NextDouble() < probability;
 
             if (isCorrect)
             {

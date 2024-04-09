@@ -31,10 +31,11 @@ namespace WhoWantsToBeMillionaire
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    BackgroundImage = _isSelected ? s_background : null;
 
                     if (_iconVisible)
-                        Draw();
+                        DrawImage();
+
+                    Invalidate();
                 }
             }
             get => _isSelected;
@@ -47,7 +48,9 @@ namespace WhoWantsToBeMillionaire
                 if (_iconVisible != value)
                 {
                     _iconVisible = value;
-                    Draw();
+
+                    DrawImage();
+                    Invalidate();
                 }
             }
             get => _iconVisible;
@@ -60,7 +63,9 @@ namespace WhoWantsToBeMillionaire
                 if (_isSaveSum != value)
                 {
                     _isSaveSum = value;
-                    Draw();
+
+                    DrawImage();
+                    Invalidate();
                 }
             }
             get => _isSaveSum;
@@ -83,16 +88,21 @@ namespace WhoWantsToBeMillionaire
         {
             Number = number;
             Sum = sum;
-
-            _image = new Bitmap(s_background.Width, s_background.Height);
-
-            BackgroundImageLayout = ImageLayout.Stretch;
-            SizeMode = PictureBoxSizeMode.StretchImage;
             Font = new Font("", 0.5f * s_background.Height, FontStyle.Bold, GraphicsUnit.Pixel);
             Dock = DockStyle.Fill;
+
+            _image = new Bitmap(s_background.Width, s_background.Height);
         }
 
-        private void Draw()
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (_isSelected)
+                e.Graphics.DrawImage(s_background, ClientRectangle);
+
+            e.Graphics.DrawImage(_image, ClientRectangle);
+        }
+
+        private void DrawImage()
         {
             using (Graphics g = Graphics.FromImage(_image))
             {
@@ -109,18 +119,16 @@ namespace WhoWantsToBeMillionaire
 
                 if (_iconVisible)
                     g.DrawImage(_isSelected ? s_iconCircle : s_iconRhomb, s_sizeNumber.Width, 0, s_background.Height, s_background.Height);
-
-                Image = _image;
             }
         }
 
         public void Reset(Mode mode = Mode.Classic)
         {
             _iconVisible = _isSaveSum = _isSelected = false;
-            BackgroundImage = null;
 
             RemoveMouseEvents();
-            Draw();
+            DrawImage();
+            Invalidate();
         }
 
         public void AddMouseEvents()

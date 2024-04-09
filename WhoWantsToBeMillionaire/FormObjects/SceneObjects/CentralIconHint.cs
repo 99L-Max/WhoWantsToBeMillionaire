@@ -14,8 +14,8 @@ namespace WhoWantsToBeMillionaire
         public CentralIconHint()
         {
             BackColor = Color.Transparent;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            SizeMode = PictureBoxSizeMode.StretchImage;
+            BackgroundImageLayout = ImageLayout.Zoom;
+            SizeMode = PictureBoxSizeMode.Zoom;
 
             _icons = new Stack<Image>();
         }
