@@ -16,7 +16,7 @@ namespace WhoWantsToBeMillionaire
         TakeMoney
     }
 
-    class BoxQuestion : GameContol, IReset, IGameSettings
+    class BoxQuestion : GameContol, IReset, ISetSettings
     {
         private const int CountFramesAlphaChange = 6;
 

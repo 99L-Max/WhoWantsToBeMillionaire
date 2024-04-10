@@ -1,6 +1,6 @@
 ﻿namespace WhoWantsToBeMillionaire
 {
-    interface IGameSettings
+    interface ISetSettings
     {
         void SetSettings(GameSettingsData data);
     }

@@ -4,7 +4,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class MovingTableControls : MovingControl, IReset, IGameSettings
+    class MovingTableControls : MovingControl, IReset, ISetSettings
     {
         private float _percentsHeights = 0f;
 
@@ -44,8 +44,8 @@ namespace WhoWantsToBeMillionaire
         public void SetSettings(GameSettingsData data)
         {
             foreach (Control ctrl in Controls)
-                if (ctrl is IGameSettings)
-                    (ctrl as IGameSettings).SetSettings(data);
+                if (ctrl is ISetSettings)
+                    (ctrl as ISetSettings).SetSettings(data);
         }
     }
 }

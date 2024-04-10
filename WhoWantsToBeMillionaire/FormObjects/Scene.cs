@@ -39,7 +39,7 @@ namespace WhoWantsToBeMillionaire
         ExitToMainMenu
     }
 
-    class Scene : GameContol, IReset, IGameSettings
+    class Scene : GameContol, IReset, ISetSettings
     {
         private readonly BoxAnimation _boxAnimation;
         private readonly BoxQuestion _boxQuestion;
@@ -295,13 +295,14 @@ namespace WhoWantsToBeMillionaire
                     _boxQuestion.Enabled = false;
                     _commandBoard.Command = SceneCommand.End_AskAudience;
 
+                    var percents = _hint.GetPercentsAudience(_boxQuestion.Question);
                     var heigth = (int)(0.7f * _commandBoard.Height);
                     _chart = new VotingChart((int)(0.75f * heigth), heigth);
 
                     await _commandBoard.ShowMovingControl(_chart, 500, true);
                     await Task.Delay(3000);
                     await _chart.ShowAnimationVote(3000);
-                    await _chart.ShowPercents(_hint.GetPercentsAudience(_boxQuestion.Question), 15);
+                    await _chart.ShowPercents(percents, 15);
 
                     AchievementСompleted?.Invoke(Achievement.AudienceAward);
 
@@ -680,8 +681,8 @@ namespace WhoWantsToBeMillionaire
         public void SetSettings(GameSettingsData data)
         {
             foreach (Control ctrl in Controls)
-                if (ctrl is IGameSettings)
-                    (ctrl as IGameSettings).SetSettings(data);
+                if (ctrl is ISetSettings)
+                    (ctrl as ISetSettings).SetSettings(data);
         }
     }
 }

@@ -118,7 +118,7 @@
     <Compile Include="FormObjects\SceneObjects\GameToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Interfaces\IGameSettings.cs" />
+    <Compile Include="Interfaces\ISetSettings.cs" />
     <Compile Include="Interfaces\IReset.cs" />
     <Compile Include="FormObjects\Menus\MenuControls\LabelMenu.cs">
       <SubType>Component</SubType>

@@ -6,7 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TableHints : GameContol, IReset, IGameSettings
+    class TableHints : GameContol, IReset, ISetSettings
     {
         private List<ButtonHint> _hints;
         private bool _toolTipVisible;

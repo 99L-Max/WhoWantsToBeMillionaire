@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Threading.Tasks;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
@@ -26,6 +27,13 @@ namespace WhoWantsToBeMillionaire
 
                 Image = image;
             }
+        }
+
+        public async Task ShowAchievement(int y, int countFrames, int delay)
+        {
+            await MoveY(y, countFrames);
+            await Task.Delay(delay);
+            await MoveX(-Width, countFrames);
         }
 
         protected override void Dispose(bool disposing)

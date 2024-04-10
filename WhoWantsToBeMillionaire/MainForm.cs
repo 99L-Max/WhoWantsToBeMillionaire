@@ -7,7 +7,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    partial class MainForm : Form, IGameSettings
+    partial class MainForm : Form, ISetSettings
     {
         public const int DeltaTime = 40;
         public static readonly Size ScreenSize = Screen.PrimaryScreen.Bounds.Size;
@@ -198,20 +198,19 @@ namespace WhoWantsToBeMillionaire
                 if (_achievementsData.AllGranted)
                     _scene.AchievementСompleted -= GrantAchievement;
 
-                int count = Controls.OfType<BoxAchievement>().Count();
+                var countBoxes = Controls.OfType<BoxAchievement>().Count();
 
                 using (BoxAchievement box = new BoxAchievement(achievement, 280, 70))
                 {
                     box.Y = -box.Height;
 
                     Controls.Add(box);
+
                     box.BringToFront();
 
                     Sound.Play(Resources.Achievement, false);
 
-                    await box.MoveY(count * box.Height, 250 / DeltaTime);
-                    await Task.Delay(5000);
-                    await box.MoveX(-box.Width, 250 / DeltaTime);
+                    await box.ShowAchievement(countBoxes * box.Height, 250 / DeltaTime, 5000);
 
                     Controls.Remove(box);
                 }
