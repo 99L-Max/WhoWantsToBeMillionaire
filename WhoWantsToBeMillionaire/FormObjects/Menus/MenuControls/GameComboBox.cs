@@ -15,8 +15,7 @@ namespace WhoWantsToBeMillionaire
 
         private int _selectedIndex = -1;
 
-        public delegate void EventSelectedIndexChanged(object sender, EventArgs e);
-        public EventSelectedIndexChanged SelectedIndexChanged;
+        public Action<object, EventArgs> SelectedIndexChanged;
 
         public bool Looped { set; get; } = true;
 

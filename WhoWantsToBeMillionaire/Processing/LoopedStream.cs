@@ -10,15 +10,15 @@ namespace WhoWantsToBeMillionaire
         public LoopStream(WaveStream sourceStream) =>
             _sourceStream = sourceStream;
 
-        public override WaveFormat WaveFormat => 
+        public override WaveFormat WaveFormat =>
             _sourceStream.WaveFormat;
 
-        public override long Length => 
+        public override long Length =>
             _sourceStream.Length;
 
         public override long Position
         {
-            set { _sourceStream.Position = value; }
+            set => _sourceStream.Position = value;
             get => _sourceStream.Position;
         }
 

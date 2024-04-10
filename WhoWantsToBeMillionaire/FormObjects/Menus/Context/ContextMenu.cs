@@ -18,8 +18,7 @@ namespace WhoWantsToBeMillionaire
         private readonly ButtonContextMenu _buttonBack;
         private readonly TableLayoutPanel _table;
 
-        public delegate void EventButtonClick(ContextMenuCommand command);
-        public event EventButtonClick ButtonClick;
+        public Action<ContextMenuCommand> ButtonClick;
 
         public ContextMenu(string title, int width, int height, float fontSize)
         {

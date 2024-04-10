@@ -31,9 +31,9 @@ namespace WhoWantsToBeMillionaire
             if (playSound)
                 Sound.Play(isShow ? Resources.CentralIcon_Show : Resources.CentralIcon_Hide);
 
-            using (Image reverseSide = Resources.ReverseSide_Hint)
-            using (Image image = new Bitmap(icon.Width, icon.Height))
-            using (Graphics g = Graphics.FromImage(image))
+            using (var reverseSide = Resources.ReverseSide_Hint)
+            using (var image = new Bitmap(icon.Width, icon.Height))
+            using (var g = Graphics.FromImage(image))
             {
                 var data = JsonManager.GetObject<(float, float, bool)[]>(Resources.AnimationData_CentralIcon);
 
@@ -68,7 +68,7 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowIcon(TypeHint type, bool playSound)
         {
-            Image icon = (Image)Resources.ResourceManager.GetObject($"Hint_{type}_{StatusHint.Active}");
+            var icon = (Image)Resources.ResourceManager.GetObject($"Hint_{type}_{StatusHint.Active}");
 
             await ShowAnimation(icon, true, playSound);
 
@@ -80,7 +80,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (_icons.Count == 0) return;
 
-            Image icon = _icons.Pop();
+            var icon = _icons.Pop();
 
             BackgroundImage = _icons.Count > 0 ? _icons.Peek() : null;
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -21,8 +20,7 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly TableLayoutPanel _table;
 
-        public delegate void EventButtonClick(MainMenuCommand command);
-        public event EventButtonClick ButtonClick;
+        public Action<MainMenuCommand> ButtonClick;
 
         public bool ButtonsVisible
         {
@@ -38,8 +36,7 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.FromArgb(byte.MaxValue >> 1, Color.Black);
 
-            _table = new TableLayoutPanel();
-            _table.BackColor = Color.Transparent;
+            _table = new TableLayoutPanel { BackColor = Color.Transparent };
 
             Controls.Add(_table);
         }
@@ -62,8 +59,7 @@ namespace WhoWantsToBeMillionaire
 
             for (int i = 0; i < buttons.Length; i++)
             {
-                buttons[i] = new ButtonMainMenu(commands[i]);
-                buttons[i].Text = dict[commands[i]];
+                buttons[i] = new ButtonMainMenu(commands[i]) { Text = dict[commands[i]] };
                 buttons[i].Click += OnButtonClick;
 
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));

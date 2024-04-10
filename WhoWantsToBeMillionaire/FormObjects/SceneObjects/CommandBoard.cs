@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
@@ -21,11 +22,8 @@ namespace WhoWantsToBeMillionaire
         public SceneCommand Command;
         public SceneCancelCommand CancelCommand;
 
-        public delegate void EventCommandClick(object sender, SceneCommand command);
-        public delegate void EventCancelClick(object sender, SceneCancelCommand command);
-
-        public event EventCommandClick CommandClick;
-        public event EventCancelClick CancelClick;
+        public Action<object, SceneCommand> CommandClick;
+        public Action<object, SceneCancelCommand> CancelClick;
 
         public TextMode TextMode
         {

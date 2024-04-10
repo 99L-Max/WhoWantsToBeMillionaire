@@ -89,6 +89,7 @@
     <Compile Include="FormObjects\Scene.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Processing\LoopedStream.cs" />
     <Compile Include="Processing\Painter.cs" />
     <Compile Include="FormObjects\BoxAchievement.cs">
       <SubType>Component</SubType>
@@ -128,7 +129,6 @@
     <Compile Include="FormObjects\SceneObjects\MovingTableControls.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Processing\LoopStream.cs" />
     <Compile Include="FormObjects\Menus\Context\MenuSettings.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -197,6 +197,7 @@
     <Compile Include="FormObjects\SceneObjects\PhoneTimer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Processing\Sound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormObjects\SceneObjects\Question.cs" />
@@ -211,7 +212,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormObjects\SceneObjects\TextBitmap.cs" />
-    <Compile Include="Processing\Sound.cs" />
     <Compile Include="FormObjects\SceneObjects\TableSums.cs">
       <SubType>Component</SubType>
     </Compile>

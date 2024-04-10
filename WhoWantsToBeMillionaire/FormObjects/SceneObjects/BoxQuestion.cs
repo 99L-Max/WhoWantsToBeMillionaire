@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WhoWantsToBeMillionaire.Properties;
@@ -32,8 +31,7 @@ namespace WhoWantsToBeMillionaire
 
         private bool _isSequentially = true;
 
-        public delegate void EventOptionClick(Letter letter);
-        public event EventOptionClick OptionClick;
+        public Action<Letter> OptionClick;
 
         public AnswerMode AnswerMode { set; get; }
 
@@ -219,7 +217,7 @@ namespace WhoWantsToBeMillionaire
             if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Usual || AnswerMode == AnswerMode.DoubleDips))
             {
                 Sound.Play(Resources.Answer_Accepted);
-                Sound.PlayBackground(Resources.Answer_DrumRoll);
+                Sound.PlayLooped(Resources.Answer_DrumRoll);
             }
 
             OptionClick.Invoke(letter);
@@ -346,12 +344,6 @@ namespace WhoWantsToBeMillionaire
         {
             await _iconHint.HideIcon(playSound);
             _iconHint.Visible = _iconHint.BackgroundImage != null;
-        }
-
-        public void PlayBackgroundSound(UnmanagedMemoryStream stream)
-        {
-            if (Question.Difficulty != DifficultyQuestion.Easy)
-                Sound.PlayBackground(stream);
         }
 
         public void SetSettings(GameSettingsData data) =>

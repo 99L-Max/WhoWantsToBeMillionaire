@@ -56,7 +56,7 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowAnimationVote(int millisecond)
         {
-            Sound.PlayBackground(Resources.Hint_AskAudience_Voting);
+            Sound.PlayLooped(Resources.Hint_AskAudience_Voting);
 
             labelsVisible = false;
 

@@ -12,6 +12,8 @@ namespace WhoWantsToBeMillionaire
         private bool _toolTipVisible;
         private int _countShownHints;
 
+        public Action<TypeHint> HintClick;
+
         public int CountUsedHints { private set; get; }
 
         public int CountHints =>
@@ -45,8 +47,6 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public delegate void EventHintClick(TypeHint type);
-        public event EventHintClick HintClick;
 
         public TableHints(int width, int height) : base(width, height) { }
 
@@ -90,10 +90,11 @@ namespace WhoWantsToBeMillionaire
         private void SetBoundsHints(IEnumerable<ButtonHint> hints, Size hintSize, int columnCount)
         {
             var rowCount = (int)Math.Ceiling((float)hints.Count() / columnCount);
-            var rowRectangle = new Rectangle();
-
-            rowRectangle.Width = hintSize.Width * columnCount;
-            rowRectangle.Height = hintSize.Height;
+            var rowRectangle = new Rectangle
+            {
+                Width = hintSize.Width * columnCount,
+                Height = hintSize.Height
+            };
 
             rowRectangle.X = Size.Width - rowRectangle.Width >> 1;
             rowRectangle.Y = Size.Height - hintSize.Height * rowCount >> 1;

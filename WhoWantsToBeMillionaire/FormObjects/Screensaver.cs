@@ -13,9 +13,9 @@ namespace WhoWantsToBeMillionaire
         private readonly Image _background;
         private readonly Image _logo;
 
-        private Rectangle _logoRectangle;
         private bool _imageVisible;
         private int _alpha;
+        private Rectangle _logoRectangle;
 
         public Screensaver()
         {
@@ -45,7 +45,6 @@ namespace WhoWantsToBeMillionaire
             int sizeLogo;
             _imageVisible = false;
 
-            Sound.StopAll();
             Sound.Play(isFullVersion ? Resources.Screensaver_Full : Resources.Screensaver_Restart);
 
             await ShowTransition(10);

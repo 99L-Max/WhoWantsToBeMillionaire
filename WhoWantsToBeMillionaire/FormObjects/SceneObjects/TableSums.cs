@@ -14,8 +14,7 @@ namespace WhoWantsToBeMillionaire
         private int _numberQuestion;
         private bool _taskCanceled;
 
-        public delegate void EventSaveSumSelected(int sum);
-        public event EventSaveSumSelected SaveSumSelected;
+        public Action<int> SaveSumSelected;
 
         public int Prize { private set; get; }
 

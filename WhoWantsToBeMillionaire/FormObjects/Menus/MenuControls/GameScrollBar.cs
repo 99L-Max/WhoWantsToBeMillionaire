@@ -14,7 +14,7 @@ namespace WhoWantsToBeMillionaire
         private Rectangle _thumbRectangle;
 
         public readonly ScrollOrientation Orientation;
-        public event ScrollEventHandler Scroll;
+        public ScrollEventHandler Scroll;
 
         public int Value
         {

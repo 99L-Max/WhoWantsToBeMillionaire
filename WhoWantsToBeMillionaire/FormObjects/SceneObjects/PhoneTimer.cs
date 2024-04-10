@@ -17,8 +17,7 @@ namespace WhoWantsToBeMillionaire
 
         private int _seconds;
 
-        public delegate void EventTimeUp(object sender, SceneCommand cmd);
-        public event EventTimeUp TimeUp;
+        public Action<object, SceneCommand> TimeUp;
 
         public PhoneTimer(int side) : base(side, side)
         {
@@ -69,15 +68,15 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void Start() 
+        public void Start()
         {
             Sound.StopAll();
             Sound.Play(Resources.Hint_PhoneFriend_Timer);
 
-            _timer.Start(); 
+            _timer.Start();
         }
 
-        public void Stop() => 
+        public void Stop() =>
             _timer.Stop();
 
         protected override void Dispose(bool disposing)
