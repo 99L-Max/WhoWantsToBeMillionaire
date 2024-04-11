@@ -24,8 +24,8 @@ namespace WhoWantsToBeMillionaire
 
         public bool ButtonsVisible
         {
-            set => _table.Visible = value;
             get => _table.Visible;
+            set => _table.Visible = value;
         }
 
         public static MainMenuCommand[] GetCommands =>
@@ -36,7 +36,8 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.FromArgb(byte.MaxValue >> 1, Color.Black);
 
-            _table = new TableLayoutPanel { BackColor = Color.Transparent };
+            _table = new TableLayoutPanel();
+            _table.BackColor = Color.Transparent;
 
             Controls.Add(_table);
         }

@@ -83,6 +83,7 @@ namespace WhoWantsToBeMillionaire
         {
             _labelDialog.Text = string.Empty;
             _labelDialog.Image = null;
+            _labelDialog.Controls.Clear();
             _buttonCommand.Visible = _buttonCanсel.Visible = false;
 
             _buttonCommand.Text = "Продолжить";

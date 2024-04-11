@@ -67,7 +67,7 @@ namespace WhoWantsToBeMillionaire
 
         private void SelectSaveSum(object sender, EventArgs e)
         {
-            RowTableSums saveSum = sender as RowTableSums;
+            var saveSum = sender as RowTableSums;
 
             SetSelectedSum(saveSum.Number);
 

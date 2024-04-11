@@ -55,10 +55,11 @@ namespace WhoWantsToBeMillionaire
             _textQuestion.SizeFont = 0.45f * sizeOption.Height;
             _textQuestion.LengthLine = 64;
 
-            Letter[] keys = Question.Letters.ToArray();
-            Rectangle rectOption = new Rectangle(new Point(), sizeOption);
+            var keys = Question.Letters.ToArray();
+            var rectOption = new Rectangle(new Point(), sizeOption);
+            var dy = (int)(0.1f * sizeOption.Height);
+
             Option option;
-            int dy = (int)(0.1f * sizeOption.Height);
 
             for (int i = 0; i < keys.Length; i++)
             {
@@ -81,13 +82,13 @@ namespace WhoWantsToBeMillionaire
                 b.Click += OnOptionClick;
             }
 
-            Image background = new Bitmap(width, height);
+            var background = new Bitmap(width, height);
 
-            using (Graphics gBack = Graphics.FromImage(background))
-            using (Graphics gWire = Graphics.FromImage(_wires))
-            using (Image wire = Resources.Wire)
-            using (Image questionBack = Resources.Question)
-            using (Image optionBack = Resources.ButtonWire_Blue)
+            using (var gBack = Graphics.FromImage(background))
+            using (var gWire = Graphics.FromImage(_wires))
+            using (var wire = Resources.Wire)
+            using (var questionBack = Resources.Question)
+            using (var optionBack = Resources.ButtonWire_Blue)
             {
                 gBack.DrawImage(questionBack, rectQuestion);
 

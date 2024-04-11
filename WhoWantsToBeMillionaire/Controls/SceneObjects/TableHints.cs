@@ -71,7 +71,7 @@ namespace WhoWantsToBeMillionaire
 
         private void OnHintClick(object sender, EventArgs e)
         {
-            ButtonHint hint = sender as ButtonHint;
+            var hint = sender as ButtonHint;
 
             hint.Enabled = false;
             hint.Click -= OnHintClick;

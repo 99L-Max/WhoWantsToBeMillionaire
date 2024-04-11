@@ -18,6 +18,7 @@ namespace WhoWantsToBeMillionaire
 
         public int Value
         {
+            get => _value;
             set
             {
                 if (_value != value)
@@ -33,19 +34,18 @@ namespace WhoWantsToBeMillionaire
                     Invalidate();
                 }
             }
-            get => _value;
         }
 
         public int Maximum
         {
-            set { _maximum = value; SetThumbRectangle(); Invalidate(); }
             get => _maximum;
+            set { _maximum = value; SetThumbRectangle(); Invalidate(); }
         }
 
         public int ThumbSize
         {
-            set { _thumbSize = value; SetThumbRectangle(); Invalidate(); }
             get => _thumbSize;
+            set { _thumbSize = value; SetThumbRectangle(); Invalidate(); }
         }
 
         public GameScrollBar(ScrollOrientation orientation)

@@ -28,9 +28,9 @@ namespace WhoWantsToBeMillionaire
                 using (StreamReader reader = new StreamReader(path + @"\Settings.json"))
                 {
                     var keys = Enum.GetValues(typeof(GameSettings)).Cast<GameSettings>();
-                    var jsonStr = reader.ReadToEnd();
+                    var jString = reader.ReadToEnd();
 
-                    _settings = JsonConvert.DeserializeObject<Dictionary<GameSettings, float>>(jsonStr);
+                    _settings = JsonConvert.DeserializeObject<Dictionary<GameSettings, float>>(jString);
 
                     foreach (var key in keys)
                         if (!_settings.ContainsKey(key))
@@ -54,7 +54,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Save(string pathSave)
         {
-            string data = JsonConvert.SerializeObject(_settings);
+            var data = JsonConvert.SerializeObject(_settings);
             File.WriteAllText(pathSave + @"\Settings.json", data);
         }
     }

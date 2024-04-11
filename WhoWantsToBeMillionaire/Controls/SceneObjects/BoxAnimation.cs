@@ -102,10 +102,10 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowImage(Image img)
         {
-            float startShare = 0.9f;
-            float finalShare = 1f;
+            var startShare = 0.9f;
+            var finalShare = 1f;
 
-            int x0 = (int)(-1.5f * _image.Width);
+            var x0 = (int)(-1.5f * _image.Width);
             var axis = Enumerable.Range(0, CountFramesMoving).Select(i => x0 - x0 / (CountFramesMoving - 1) * i);
 
             var rect = ResizeRectangle(startShare);
@@ -124,10 +124,10 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowTransition(Image startImg, Image finalImg)
         {
-            float startShare = 1f;
-            float finalShare = 0.9f;
+            var startShare = 1f;
+            var finalShare = 0.9f;
 
-            int x0 = (int)(-1.5f * _image.Width);
+            var x0 = (int)(-1.5f * _image.Width);
             var axis = Enumerable.Range(0, CountFramesMoving).Select(i => x0 - x0 / (CountFramesMoving - 1) * i);
 
             var rect = ResizeRectangle(finalShare);

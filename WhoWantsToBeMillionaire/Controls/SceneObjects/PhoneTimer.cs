@@ -85,14 +85,14 @@ namespace WhoWantsToBeMillionaire
             {
                 _timer.Tick -= OnTimerTick;
 
-                BackgroundImage.Dispose();
-                Font.Dispose();
-
                 _image.Dispose();
                 _ring.Dispose();
                 _g.Dispose();
                 _brush.Dispose();
                 _timer.Dispose();
+
+                BackgroundImage.Dispose();
+                Font.Dispose();
             }
 
             base.Dispose(disposing);

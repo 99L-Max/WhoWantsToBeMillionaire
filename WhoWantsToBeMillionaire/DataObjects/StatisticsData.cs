@@ -27,8 +27,8 @@ namespace WhoWantsToBeMillionaire
             {
                 using (StreamReader reader = new StreamReader(path + @"\Statistics.json"))
                 {
-                    string jsonStr = reader.ReadToEnd();
-                    _attributes = JsonConvert.DeserializeObject<Dictionary<StatsAttribute, int>>(jsonStr);
+                    var jString = reader.ReadToEnd();
+                    _attributes = JsonConvert.DeserializeObject<Dictionary<StatsAttribute, int>>(jString);
 
                     foreach (var key in keys)
                         if (!_attributes.ContainsKey(key))
@@ -55,7 +55,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Save(string pathSave)
         {
-            string data = JsonConvert.SerializeObject(_attributes);
+            var data = JsonConvert.SerializeObject(_attributes);
             File.WriteAllText(pathSave + @"\Statistics.json", data);
         }
     }

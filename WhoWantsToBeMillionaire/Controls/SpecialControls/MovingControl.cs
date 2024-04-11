@@ -18,14 +18,14 @@ namespace WhoWantsToBeMillionaire
 
         public int X
         {
-            set => Location = new Point(value, Location.Y);
             get => Location.X;
+            set => Location = new Point(value, Location.Y);
         }
 
         public int Y
         {
-            set => Location = new Point(Location.X, value);
             get => Location.Y;
+            set => Location = new Point(Location.X, value);
         }
 
         public MovingControl(int width, int height) : base(width, height) { }

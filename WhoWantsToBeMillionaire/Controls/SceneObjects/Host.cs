@@ -41,8 +41,8 @@ namespace WhoWantsToBeMillionaire
 
         public string Say(HostPhrases phrase, params string[] args)
         {
-            JToken token = _phrases[phrase.ToString()];
-            StringBuilder result = new StringBuilder();
+            var token = _phrases[phrase.ToString()];
+            var result = new StringBuilder();
 
             if (token.Type == JTokenType.String)
             {

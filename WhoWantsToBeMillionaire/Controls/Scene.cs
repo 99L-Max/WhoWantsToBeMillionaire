@@ -100,8 +100,8 @@ namespace WhoWantsToBeMillionaire
             _boxAnimation.Location = _boxQuestion.Location = new Point(0, MainForm.ScreenSize.Height - _boxQuestion.Height);
             _buttonTakeMoney.Text = "Забрать деньги";
 
-            using (Graphics g = Graphics.FromImage(_prizeImage))
-            using (Image img = Resources.Question)
+            using (var g = Graphics.FromImage(_prizeImage))
+            using (var img = Resources.Question)
             {
                 int height = _prizeImage.Width * img.Height / img.Width;
                 int y = _prizeImage.Height - height >> 1;
@@ -278,7 +278,7 @@ namespace WhoWantsToBeMillionaire
                     foreach (var phrase in _hint.GetFriendDialog(_tableSums.NextSum))
                     {
                         _commandBoard.AddText(phrase);
-                        await Task.Delay(phrase.Where(x => x == ' ').Count() * 500);
+                        await Task.Delay(2000);
                     }
 
                     await _commandBoard.ShowMovingControl(_timer, 500, false);
@@ -297,6 +297,7 @@ namespace WhoWantsToBeMillionaire
 
                     var percents = _hint.GetPercentsAudience(_boxQuestion.Question);
                     var heigth = (int)(0.7f * _commandBoard.Height);
+
                     _chart = new VotingChart((int)(0.75f * heigth), heigth);
 
                     await _commandBoard.ShowMovingControl(_chart, 500, true);

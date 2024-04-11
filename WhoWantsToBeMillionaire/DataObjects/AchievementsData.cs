@@ -41,10 +41,10 @@ namespace WhoWantsToBeMillionaire
 
             try
             {
-                using (StreamReader reader = new StreamReader(path + @"\Achievements.json"))
+                using (var reader = new StreamReader(path + @"\Achievements.json"))
                 {
-                    string jsonStr = reader.ReadToEnd();
-                    _achievements = JsonConvert.DeserializeObject<Dictionary<Achievement, bool>>(jsonStr);
+                    var jString = reader.ReadToEnd();
+                    _achievements = JsonConvert.DeserializeObject<Dictionary<Achievement, bool>>(jString);
 
                     foreach (var key in keys)
                         if (!_achievements.ContainsKey(key))
@@ -65,7 +65,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Save(string pathSave)
         {
-            string data = JsonConvert.SerializeObject(_achievements);
+            var data = JsonConvert.SerializeObject(_achievements);
             File.WriteAllText(pathSave + @"\Achievements.json", data);
         }
     }

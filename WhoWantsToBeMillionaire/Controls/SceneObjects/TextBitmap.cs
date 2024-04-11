@@ -29,12 +29,13 @@ namespace WhoWantsToBeMillionaire
 
         public string Text
         {
-            set { _text = FormatText(value); DrawText(); }
             get => _text;
+            set { _text = FormatText(value); DrawText(); }
         }
 
         public int Alpha
         {
+            get => _alpha;
             set
             {
                 if (_alpha != value)
@@ -43,13 +44,12 @@ namespace WhoWantsToBeMillionaire
                     DrawText();
                 }
             }
-            get => _alpha;
         }
 
         public int LengthLine
         {
-            set { _lengthLine = value; DrawText(); }
             get => _lengthLine;
+            set { _lengthLine = value; DrawText(); }
         }
 
         public Image ImageText { private set; get; }
@@ -73,9 +73,9 @@ namespace WhoWantsToBeMillionaire
         {
             if (text.Length > _lengthLine)
             {
-                StringBuilder builder = new StringBuilder(text);
-                int middle = text.Length >> 1;
-                int index = middle;
+                var builder = new StringBuilder(text);
+                var middle = text.Length >> 1;
+                var index = middle;
 
                 for (int i = 0; i < middle; i++)
                 {

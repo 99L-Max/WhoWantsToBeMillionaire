@@ -36,7 +36,7 @@ namespace WhoWantsToBeMillionaire
             var image = new Bitmap(ClientRectangle.Width, height);
             var y = 0;
 
-            using (Graphics g = Graphics.FromImage(image))
+            using (var g = Graphics.FromImage(image))
                 foreach (var img in _images)
                 {
                     g.DrawImage(img, 0, y, img.Width, img.Height);
@@ -52,10 +52,10 @@ namespace WhoWantsToBeMillionaire
 
         public void AddText(string text, float fontSize, Size size, Color color, TextFormatFlags flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter)
         {
-            Image image = new Bitmap(size.Width, size.Height);
+            var image = new Bitmap(size.Width, size.Height);
 
-            using (Graphics g = Graphics.FromImage(image))
-            using (Font font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (var g = Graphics.FromImage(image))
+            using (var font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel))
             {
                 TextRenderer.DrawText(g, text, font, new Rectangle(0, 0, image.Width, image.Height), color, flags);
                 _images.Add(image);

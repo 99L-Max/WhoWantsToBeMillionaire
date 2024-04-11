@@ -83,139 +83,141 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormObjects\Menus\MenuControls\GameVScrollBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FormObjects\Scene.cs">
+    <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Processing\LoopedStream.cs" />
     <Compile Include="Processing\Painter.cs" />
-    <Compile Include="FormObjects\BoxAchievement.cs">
+    <Compile Include="Controls\BoxAchievement.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\Context\MenuAchievements.cs">
+    <Compile Include="Controls\Menus\Context\MenuAchievements.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataObjects\AchievementsData.cs" />
-    <Compile Include="FormObjects\Menus\Context\MenuExit.cs">
+    <Compile Include="Controls\Menus\Context\MenuExit.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\MenuControls\GameScrollBar.cs">
+    <Compile Include="Controls\Menus\MenuControls\GameScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\MenuControls\TableImages.cs">
+    <Compile Include="Controls\Menus\MenuControls\TableImages.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\BoxAnimation.cs">
+    <Compile Include="Controls\SceneObjects\BoxAnimation.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataObjects\SettingsData.cs" />
-    <Compile Include="FormObjects\SceneObjects\ChartColumnPercent.cs" />
-    <Compile Include="FormObjects\SceneObjects\ButtonOption.cs">
+    <Compile Include="Controls\SceneObjects\ChartColumnPercent.cs" />
+    <Compile Include="Controls\SceneObjects\ButtonOption.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\GameToolTip.cs">
+    <Compile Include="Controls\SceneObjects\GameToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Interfaces\ISetSettings.cs" />
     <Compile Include="Interfaces\IReset.cs" />
-    <Compile Include="FormObjects\Menus\MenuControls\LabelMenu.cs">
+    <Compile Include="Controls\Menus\MenuControls\LabelMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\LabelDialog.cs">
+    <Compile Include="Controls\SceneObjects\LabelDialog.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\MovingTableControls.cs">
+    <Compile Include="Controls\SceneObjects\MovingTableControls.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\Context\MenuSettings.cs">
+    <Compile Include="Controls\Menus\Context\MenuSettings.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\Hint.cs" />
-    <Compile Include="FormObjects\Menus\MenuControls\ButtonArrow.cs">
+    <Compile Include="Controls\SceneObjects\Hint.cs" />
+    <Compile Include="Controls\Menus\MenuControls\ButtonArrow.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\ButtonСapsule.cs">
+    <Compile Include="Controls\SpecialControls\ButtonСapsule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\MenuControls\ButtonMainMenu.cs">
+    <Compile Include="Controls\Menus\MenuControls\ButtonMainMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\ButtonWire.cs">
+    <Compile Include="Controls\SpecialControls\ButtonWire.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\MenuControls\GameComboBox.cs">
+    <Compile Include="Controls\Menus\MenuControls\GameComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\Context\ContextMenu.cs">
+    <Compile Include="Controls\Menus\Context\ContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\MenuControls\ButtonContextMenu.cs">
+    <Compile Include="Controls\Menus\MenuControls\ButtonContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\Host.cs" />
-    <Compile Include="FormObjects\Menus\Context\MenuMode.cs">
+    <Compile Include="Controls\SceneObjects\Host.cs" />
+    <Compile Include="Controls\Menus\Context\MenuMode.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\BoxQuestion.cs">
+    <Compile Include="Controls\SceneObjects\BoxQuestion.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Processing\FileManager.cs" />
     <Compile Include="DataObjects\StatisticsData.cs" />
-    <Compile Include="FormObjects\Menus\Context\MenuStatistics.cs">
+    <Compile Include="Controls\Menus\Context\MenuStatistics.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\VotingChart.cs">
+    <Compile Include="Controls\SceneObjects\VotingChart.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\CentralIconHint.cs">
+    <Compile Include="Controls\SceneObjects\CentralIconHint.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\ButtonHint.cs">
+    <Compile Include="Controls\SceneObjects\ButtonHint.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\TableHints.cs">
+    <Compile Include="Controls\SceneObjects\TableHints.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Menus\Main\MenuMain.cs">
+    <Compile Include="Controls\Menus\Main\MenuMain.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\MovingControl.cs">
+    <Compile Include="Controls\SpecialControls\MovingControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\Option.cs" />
+    <Compile Include="Controls\SceneObjects\Option.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormObjects\GameContol.cs">
+    <Compile Include="Controls\SpecialControls\GameContol.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\PhoneTimer.cs">
+    <Compile Include="Controls\SceneObjects\PhoneTimer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Processing\Sound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FormObjects\SceneObjects\Question.cs" />
+    <Compile Include="Controls\SceneObjects\Question.cs" />
     <Compile Include="Processing\JsonManager.cs" />
-    <Compile Include="FormObjects\SceneObjects\RowTableSums.cs">
+    <Compile Include="Controls\SceneObjects\RowTableSums.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\CommandBoard.cs">
+    <Compile Include="Controls\SceneObjects\CommandBoard.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\Screensaver.cs">
+    <Compile Include="Controls\Screensaver.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormObjects\SceneObjects\TextBitmap.cs" />
-    <Compile Include="FormObjects\SceneObjects\TableSums.cs">
+    <Compile Include="Controls\SceneObjects\TextBitmap.cs" />
+    <Compile Include="Controls\SceneObjects\TableSums.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_Draft.cs" />
+    <Compile Include="Controls\Scene.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="Controls\Scene.resx">
+      <DependentUpon>Scene.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

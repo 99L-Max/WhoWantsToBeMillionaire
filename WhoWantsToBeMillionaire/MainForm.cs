@@ -105,7 +105,7 @@ namespace WhoWantsToBeMillionaire
                     _scene.Reset((_contextMenu as MenuMode).SelectedMode);
 
                     _menuMain.Visible = false;
-                    _menuMain.SetCommands(MenuMain.GetCommands);
+                    _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.NewGame).ToArray());
 
                     CloseContextMenu();
 
@@ -174,10 +174,12 @@ namespace WhoWantsToBeMillionaire
             using (Screensaver saver = new Screensaver())
             {
                 Controls.Add(saver);
+                Cursor.Hide();
 
                 await saver.ShowSaver(isFullVersion);
 
                 Controls.Remove(saver);
+                Cursor.Show();
             }
         }
 

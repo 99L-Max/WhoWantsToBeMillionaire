@@ -122,9 +122,9 @@ namespace WhoWantsToBeMillionaire
 
             IsShown = true;
 
-            using (Image icon = new Bitmap(_image))
-            using (Image reverseSide = Resources.ReverseSide_Hint)
-            using (Graphics g = Graphics.FromImage(_image))
+            using (var icon = new Bitmap(_image))
+            using (var reverseSide = Resources.ReverseSide_Hint)
+            using (var g = Graphics.FromImage(_image))
             {
                 var data = JsonManager.GetObject<(float, float, bool)[]>(Resources.AnimationData_ButtonHint);
 

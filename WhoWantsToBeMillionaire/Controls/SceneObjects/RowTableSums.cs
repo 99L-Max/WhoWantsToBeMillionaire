@@ -26,6 +26,7 @@ namespace WhoWantsToBeMillionaire
 
         public bool IsSelected
         {
+            get => _isSelected;
             set
             {
                 if (_isSelected != value)
@@ -38,11 +39,11 @@ namespace WhoWantsToBeMillionaire
                     Invalidate();
                 }
             }
-            get => _isSelected;
         }
 
         public bool IconVisible
         {
+            get => _iconVisible;
             set
             {
                 if (_iconVisible != value)
@@ -53,11 +54,11 @@ namespace WhoWantsToBeMillionaire
                     Invalidate();
                 }
             }
-            get => _iconVisible;
         }
 
         public bool IsSaveSum
         {
+            get => _isSaveSum;
             set
             {
                 if (_isSaveSum != value)
@@ -68,7 +69,6 @@ namespace WhoWantsToBeMillionaire
                     Invalidate();
                 }
             }
-            get => _isSaveSum;
         }
 
         static RowTableSums()

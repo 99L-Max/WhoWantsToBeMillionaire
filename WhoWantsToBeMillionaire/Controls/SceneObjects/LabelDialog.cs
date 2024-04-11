@@ -15,6 +15,7 @@ namespace WhoWantsToBeMillionaire
 
         public int Border
         {
+            get => _border;
             set
             {
                 if (_border != value)
@@ -24,7 +25,6 @@ namespace WhoWantsToBeMillionaire
                     DrawBack();
                 }
             }
-            get => _border;
         }
 
         public LabelDialog(float sizeFont)

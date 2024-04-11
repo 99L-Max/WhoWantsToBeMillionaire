@@ -17,8 +17,8 @@ namespace WhoWantsToBeMillionaire
 
             var dict = JsonManager.GetDictionary<string, (string, string)>(Resources.Dictionary_Achievements);
             var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
-            var granted = achievements.Where(x => x.Value);
             var artist = new Painter();
+            var granted = achievements.Where(x => x.Value);
             var image = artist.GetAchievementProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
 
             string title, comment;
@@ -29,7 +29,7 @@ namespace WhoWantsToBeMillionaire
             {
                 (title, comment) = dict[ach.Key.ToString()];
 
-                using (Image icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{ach.Key}"))
+                using (var icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{ach.Key}"))
                     image = artist.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
                 _table.Add(image);
@@ -40,7 +40,7 @@ namespace WhoWantsToBeMillionaire
                 var sizeText = new Size(sizeRow.Width, sizeRow.Height >> 1);
                 _table.AddText("Неполученные достижения", 0.3f * sizeRow.Height, sizeText, Color.White);
 
-                using (Image icon = Resources.Achievement_Locked)
+                using (var icon = Resources.Achievement_Locked)
                     foreach (var ach in achievements.Where(x => !x.Value))
                     {
                         (title, comment) = dict[ach.Key.ToString()];

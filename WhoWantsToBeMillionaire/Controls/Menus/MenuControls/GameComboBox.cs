@@ -17,10 +17,11 @@ namespace WhoWantsToBeMillionaire
 
         public Action<object, EventArgs> SelectedIndexChanged;
 
-        public bool Looped { set; get; } = true;
+        public bool Looped { get; set; } = true;
 
         public int SelectedIndex
         {
+            get => _selectedIndex;
             set
             {
                 if (_selectedIndex != value)
@@ -32,13 +33,12 @@ namespace WhoWantsToBeMillionaire
                     SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
-            get => _selectedIndex;
         }
 
         public float SelectedValue
         {
-            set => SelectedIndex = _values.IndexOf(value);
             get => _selectedIndex == -1 ? float.NaN : _values[_selectedIndex];
+            set => SelectedIndex = _values.IndexOf(value);
         }
 
         public GameComboBox(Dictionary<float, string> items, float fontSize)
