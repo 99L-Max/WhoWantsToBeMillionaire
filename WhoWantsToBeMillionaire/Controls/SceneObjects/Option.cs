@@ -13,9 +13,7 @@ namespace WhoWantsToBeMillionaire
 
         public readonly Letter Letter;
 
-        public bool Enabled { set; get; }
-
-        public bool Selected { set; get; }
+        public bool Selected { get; set; }
 
         public Option(Letter letter, Rectangle rectangle) : base(rectangle)
         {

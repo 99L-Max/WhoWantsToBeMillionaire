@@ -151,9 +151,8 @@ namespace WhoWantsToBeMillionaire
             foreach (var op in _options.Values)
             {
                 op.Text = question.Options[op.Letter];
-                op.Enabled = op.Text != string.Empty;
 
-                _buttons[op.Letter].Visible = op.Enabled;
+                _buttons[op.Letter].Visible = op.Text != string.Empty;
                 _g.DrawImage(op.ImageText, op.Rectangle);
             }
 
@@ -251,7 +250,7 @@ namespace WhoWantsToBeMillionaire
             Option option = _options[letter];
 
             option.SetForeColors(Color.FromArgb(32, 32, 32), Color.DimGray);
-            option.Selected = option.Enabled = false;
+            option.Selected = _buttons[option.Letter].Visible = false;
 
             using (Image lockedOption = Resources.ButtonWire_Gray)
                 _g.DrawImage(lockedOption, option.Rectangle);
