@@ -101,6 +101,7 @@
     <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\SpecialObjects\ImageAlpha.cs" />
     <Compile Include="Processing\LoopedStream.cs" />
     <Compile Include="Processing\Painter.cs" />
     <Compile Include="Controls\BoxAchievement.cs">
@@ -223,7 +224,7 @@
     <Compile Include="Controls\Screensaver.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\TextBitmap.cs" />
+    <Compile Include="Controls\SpecialObjects\ImageAlphaText.cs" />
     <Compile Include="Controls\SceneObjects\TableSums.cs">
       <SubType>Component</SubType>
     </Compile>

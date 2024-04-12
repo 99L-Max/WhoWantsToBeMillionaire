@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,18 +13,18 @@ namespace WhoWantsToBeMillionaire
 
         private readonly Image _image;
         private readonly Graphics _g;
-        private readonly TextBitmap _textBitmap;
+        private readonly ImageAlphaText _textBitmap;
 
         public BoxAnimation(int width, int height) : base(width, height)
         {
             _image = new Bitmap(width, height);
             _g = Graphics.FromImage(_image);
-            _textBitmap = new TextBitmap(width, height);
+            _textBitmap = new ImageAlphaText(width, height);
         }
 
         public float SizeFont { set => _textBitmap.SizeFont = value; }
 
-        protected override void OnPaint(PaintEventArgs e) => 
+        protected override void OnPaint(PaintEventArgs e) =>
             e.Graphics.DrawImage(_image, ClientRectangle);
 
         public void Reset(Mode mode = Mode.Classic)
@@ -81,19 +80,20 @@ namespace WhoWantsToBeMillionaire
 
         public async Task HideImage(Image img)
         {
-            for (int numAlpha = CountFramesAlphaChange - 1; numAlpha > 0; numAlpha--)
+            var alphas = Enumerable.Range(0, CountFramesAlphaChange).Select(x => byte.MaxValue - byte.MaxValue * x / (CountFramesAlphaChange - 1));
+
+            using (ImageAlpha frame = new ImageAlpha(img))
             {
-                using (ImageAttributes attribute = new ImageAttributes())
+                foreach (var a in alphas)
                 {
-                    ColorMatrix matrix = new ColorMatrix { Matrix33 = (numAlpha + 1f) / CountFramesAlphaChange };
-                    attribute.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+                    frame.Alpha = a;
 
                     _g.Clear(Color.Transparent);
-                    _g.DrawImage(img, ClientRectangle, 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, attribute);
-                }
+                    _g.DrawImage(frame.Image, ClientRectangle);
 
-                Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                    Invalidate();
+                    await Task.Delay(MainForm.DeltaTime);
+                }
             }
 
             _g.Clear(Color.Transparent);

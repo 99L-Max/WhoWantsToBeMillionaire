@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Text;
 
 namespace WhoWantsToBeMillionaire
 {
-    class TextBitmap
+    class ImageAlphaText : IDisposable
     {
         private int _lengthLine = int.MaxValue;
 
@@ -16,7 +17,20 @@ namespace WhoWantsToBeMillionaire
 
         public readonly Rectangle Rectangle;
 
-        public TextBitmap(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
+        public ImageAlphaText(Rectangle rectangle)
+        {
+            Rectangle = rectangle;
+            ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
+
+            _formatText = new StringFormat();
+            _font = new Font("", 0.25f * Rectangle.Height, GraphicsUnit.Pixel);
+            _g = Graphics.FromImage(ImageText);
+
+            _formatText.Alignment = StringAlignment.Center;
+            _formatText.LineAlignment = StringAlignment.Center;
+        }
+
+        public ImageAlphaText(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
 
         public Image ImageText { get; private set; }
 
@@ -43,17 +57,13 @@ namespace WhoWantsToBeMillionaire
             set => SetLengthLine(value);
         }
 
-        public TextBitmap(Rectangle rectangle)
+        public virtual void Dispose()
         {
-            Rectangle = rectangle;
-            ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
+            _g.Dispose();
+            _formatText.Dispose();
+            _font.Dispose();
 
-            _formatText = new StringFormat();
-            _font = new Font("", 0.25f * Rectangle.Height, GraphicsUnit.Pixel);
-            _g = Graphics.FromImage(ImageText);
-
-            _formatText.Alignment = StringAlignment.Center;
-            _formatText.LineAlignment = StringAlignment.Center;
+            ImageText.Dispose();
         }
 
         private void SetAlpha(int alpha)

@@ -2,7 +2,7 @@
 
 namespace WhoWantsToBeMillionaire
 {
-    class Option : TextBitmap
+    class Option : ImageAlphaText
     {
         private readonly Rectangle _textRectangle;
         private readonly Rectangle _letterRectangle;
@@ -28,6 +28,12 @@ namespace WhoWantsToBeMillionaire
 
             _letterFormat.Alignment = StringAlignment.Far;
             _letterFormat.LineAlignment = StringAlignment.Center;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _letterFormat.Dispose();
         }
 
         public override void Reset()

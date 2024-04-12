@@ -596,8 +596,8 @@ namespace WhoWantsToBeMillionaire
                     if (_boxQuestion.Question.CountOptions == 2)
                         AchievementСompleted?.Invoke(Achievement.WasTwoBecameFour);
 
-                    QuestionVisible = true;
                     _boxQuestion.SetQuestion(_boxQuestion.Question.Number, newIndex);
+                    QuestionVisible = true;
 
                     await _boxQuestion.ShowCentralIcon(TypeHint.SwitchQuestion, false);
                     await _boxQuestion.ShowQuestion();
