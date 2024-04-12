@@ -43,8 +43,29 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_table);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (Control ctrl in _table.Controls)
+                {
+                    if (ctrl is ButtonContextMenu)
+                        (ctrl as ButtonContextMenu).Click -= OnButtonClick;
+
+                    ctrl.Dispose();
+                }
+
+                _table.Controls.Clear();
+                _table.Dispose();
+
+                BackgroundImage.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected void OnButtonClick(object sender, EventArgs e) =>
-            ButtonClick.Invoke((sender as ButtonContextMenu).Command);
+            ButtonClick?.Invoke((sender as ButtonContextMenu).Command);
 
         protected void SetControls(params Control[] controls)
         {
@@ -72,27 +93,6 @@ namespace WhoWantsToBeMillionaire
             foreach (var ctrl in _table.Controls)
                 if (ctrl is ButtonContextMenu)
                     (ctrl as ButtonContextMenu).AlignSize(6f, 1f);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                foreach (Control ctrl in _table.Controls)
-                {
-                    if (ctrl is ButtonContextMenu)
-                        (ctrl as ButtonContextMenu).Click -= OnButtonClick;
-
-                    ctrl.Dispose();
-                }
-
-                _table.Controls.Clear();
-                _table.Dispose();
-
-                BackgroundImage.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

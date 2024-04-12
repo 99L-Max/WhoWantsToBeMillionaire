@@ -24,11 +24,31 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_bar);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _bar.Scroll -= OnScrollBarValueChanged;
+                _bar.Dispose();
+
+                _images.ForEach(x => x.Dispose());
+                _images.Clear();
+
+                Image?.Dispose();
+                BackgroundImage?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         private void OnScrollBarValueChanged(object sender, ScrollEventArgs e) =>
             Invalidate();
 
         protected override void OnPaint(PaintEventArgs e) =>
             e.Graphics.DrawImage(Image, 0, (ClientRectangle.Height - Image.Height) * _bar.Value / _bar.Maximum);
+
+        protected override void OnMouseWheel(MouseEventArgs e) =>
+            _bar.ChangeValue(e.Delta > 0 ? -5 : 5);
 
         public void DrawTable()
         {
@@ -60,23 +80,6 @@ namespace WhoWantsToBeMillionaire
                 TextRenderer.DrawText(g, text, font, new Rectangle(0, 0, image.Width, image.Height), color, flags);
                 _images.Add(image);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _bar.Scroll -= OnScrollBarValueChanged;
-                _bar.Dispose();
-
-                _images.ForEach(x => x.Dispose());
-                _images.Clear();
-
-                Image?.Dispose();
-                BackgroundImage?.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

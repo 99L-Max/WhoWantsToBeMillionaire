@@ -55,6 +55,17 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_rightBarrier);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _leftBarrier.Dispose();
+                _rightBarrier.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawImage(s_wire, _backgroundRectangle);
@@ -114,17 +125,6 @@ namespace WhoWantsToBeMillionaire
                 SetStyle(ThemeButtonWire.Blue, Color.White);
             else
                 SetStyle(ThemeButtonWire.Gray, Color.Black);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _leftBarrier.Dispose();
-                _rightBarrier.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

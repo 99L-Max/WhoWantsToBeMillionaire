@@ -18,8 +18,8 @@ namespace WhoWantsToBeMillionaire
 
         public override long Position
         {
-            set => _sourceStream.Position = value;
             get => _sourceStream.Position;
+            set => _sourceStream.Position = value;
         }
 
         public override int Read(byte[] buffer, int offset, int count)

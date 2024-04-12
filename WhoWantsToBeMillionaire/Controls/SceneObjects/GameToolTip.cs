@@ -25,20 +25,6 @@ namespace WhoWantsToBeMillionaire
             Draw += OnDraw;
         }
 
-        private void OnPopup(object sender, PopupEventArgs e) =>
-            e.ToolTipSize = _clientRectangle.Size;
-
-        private void OnDraw(object sender, DrawToolTipEventArgs e)
-        {
-            using (var format = new StringFormat())
-            {
-                format.Alignment = format.LineAlignment = StringAlignment.Center;
-
-                e.Graphics.DrawImage(_background, _clientRectangle);
-                e.Graphics.DrawString(e.ToolTipText, _font, Brushes.White, _textRectangle, format);
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -51,6 +37,20 @@ namespace WhoWantsToBeMillionaire
             }
 
             base.Dispose(disposing);
+        }
+
+        private void OnPopup(object sender, PopupEventArgs e) =>
+            e.ToolTipSize = _clientRectangle.Size;
+
+        private void OnDraw(object sender, DrawToolTipEventArgs e)
+        {
+            using (var format = new StringFormat())
+            {
+                format.Alignment = format.LineAlignment = StringAlignment.Center;
+
+                e.Graphics.DrawImage(_background, _clientRectangle);
+                e.Graphics.DrawString(e.ToolTipText, _font, Brushes.White, _textRectangle, format);
+            }
         }
     }
 }

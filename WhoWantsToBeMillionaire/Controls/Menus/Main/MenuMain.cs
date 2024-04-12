@@ -22,15 +22,6 @@ namespace WhoWantsToBeMillionaire
 
         public Action<MainMenuCommand> ButtonClick;
 
-        public bool ButtonsVisible
-        {
-            get => _table.Visible;
-            set => _table.Visible = value;
-        }
-
-        public static MainMenuCommand[] GetCommands =>
-            Enum.GetValues(typeof(MainMenuCommand)).Cast<MainMenuCommand>().ToArray();
-
         public MenuMain()
         {
             Dock = DockStyle.Fill;
@@ -42,12 +33,21 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_table);
         }
 
+        public bool ButtonsVisible
+        {
+            get => _table.Visible;
+            set => _table.Visible = value;
+        }
+
+        public static MainMenuCommand[] GetCommands =>
+            Enum.GetValues(typeof(MainMenuCommand)).Cast<MainMenuCommand>().ToArray();
+
         public void SetCommands(params MainMenuCommand[] commands)
         {
             foreach (Control ctrl in _table.Controls)
                 ctrl.Dispose();
 
-            int heightButton = (int)(0.08f * MainForm.ScreenSize.Height);
+            var heightButton = (int)(0.08f * MainForm.ScreenSize.Height);
 
             _table.Controls.Clear();
             _table.RowStyles.Clear();
@@ -69,6 +69,6 @@ namespace WhoWantsToBeMillionaire
         }
 
         protected void OnButtonClick(object sender, EventArgs e) =>
-            ButtonClick.Invoke((sender as ButtonMainMenu).Command);
+            ButtonClick?.Invoke((sender as ButtonMainMenu).Command);
     }
 }

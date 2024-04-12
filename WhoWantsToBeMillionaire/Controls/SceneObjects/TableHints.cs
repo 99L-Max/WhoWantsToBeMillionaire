@@ -14,7 +14,7 @@ namespace WhoWantsToBeMillionaire
 
         public Action<TypeHint> HintClick;
 
-        public int CountUsedHints { private set; get; }
+        public int CountUsedHints { get; private set; }
 
         public int CountHints =>
             _hints.Count;
@@ -47,7 +47,6 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-
         public TableHints(int width, int height) : base(width, height) { }
 
         public void Reset(Mode mode = Mode.Classic)
@@ -67,24 +66,6 @@ namespace WhoWantsToBeMillionaire
             _hints.ForEach(h => { h.Click += OnHintClick; h.ToolTipVisible = _toolTipVisible; });
 
             SetBoundsHints(new List<ButtonHint>(_hints), sizeHint, countColumns);
-        }
-
-        private void OnHintClick(object sender, EventArgs e)
-        {
-            var hint = sender as ButtonHint;
-
-            hint.Enabled = false;
-            hint.Click -= OnHintClick;
-
-            if (++CountUsedHints >= Hint.MaxCountAllowedHints)
-                foreach (var h in _hints)
-                    if (h.Enabled)
-                    {
-                        h.Click -= OnHintClick;
-                        h.Lock();
-                    }
-
-            HintClick.Invoke(hint.Type);
         }
 
         private void SetBoundsHints(IEnumerable<ButtonHint> hints, Size hintSize, int columnCount)
@@ -125,6 +106,30 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
+        public void SetSettings(GameSettingsData data)
+        {
+            _toolTipVisible = Convert.ToBoolean(data.GetSettings(GameSettings.ShowDescriptionHints));
+            _hints?.ForEach(h => h.ToolTipVisible = _toolTipVisible);
+        }
+
+        private void OnHintClick(object sender, EventArgs e)
+        {
+            var hint = sender as ButtonHint;
+
+            hint.Enabled = false;
+            hint.Click -= OnHintClick;
+
+            if (++CountUsedHints >= Hint.MaxCountAllowedHints)
+                foreach (var h in _hints)
+                    if (h.Enabled)
+                    {
+                        h.Click -= OnHintClick;
+                        h.Lock();
+                    }
+
+            HintClick?.Invoke(hint.Type);
+        }
+
         public void ShowHint()
         {
             _hints[_countShownHints++].ShowIcon();
@@ -137,11 +142,5 @@ namespace WhoWantsToBeMillionaire
 
         public void ShowAllHints() =>
             _hints.ForEach(h => h.ShowIcon());
-
-        public void SetSettings(GameSettingsData data)
-        {
-            _toolTipVisible = Convert.ToBoolean(data.GetSettings(GameSettings.ShowDescriptionHints));
-            _hints?.ForEach(h => h.ToolTipVisible = _toolTipVisible);
-        }
     }
 }

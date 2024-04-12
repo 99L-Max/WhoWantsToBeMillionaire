@@ -16,45 +16,32 @@ namespace WhoWantsToBeMillionaire
 
         public readonly Rectangle Rectangle;
 
+        public TextBitmap(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
+
+        public Image ImageText { get; private set; }
+
         public float SizeFont
         {
-            set
-            {
-                _font.Dispose();
-                _font = new Font("", value, GraphicsUnit.Pixel);
-
-                DrawText();
-            }
+            set => SetFont(value);
         }
 
         public string Text
         {
             get => _text;
-            set { _text = FormatText(value); DrawText(); }
+            set => SetText(value);
         }
 
         public int Alpha
         {
             get => _alpha;
-            set
-            {
-                if (_alpha != value)
-                {
-                    _alpha = value;
-                    DrawText();
-                }
-            }
+            set => SetAlpha(value);
         }
 
         public int LengthLine
         {
             get => _lengthLine;
-            set { _lengthLine = value; DrawText(); }
+            set => SetLengthLine(value);
         }
-
-        public Image ImageText { private set; get; }
-
-        public TextBitmap(int width, int height) : this(new Rectangle(0, 0, width, height)) { }
 
         public TextBitmap(Rectangle rectangle)
         {
@@ -69,7 +56,33 @@ namespace WhoWantsToBeMillionaire
             _formatText.LineAlignment = StringAlignment.Center;
         }
 
-        private string FormatText(string text)
+        private void SetAlpha(int alpha)
+        {
+            if (_alpha != alpha)
+            {
+                _alpha = alpha;
+                DrawText();
+            }
+        }
+
+        private void SetFont(float fontSize)
+        {
+            _font.Dispose();
+            _font = new Font("", fontSize, GraphicsUnit.Pixel);
+
+            DrawText();
+        }
+
+        private void SetLengthLine(int lengthLine)
+        {
+            if (_lengthLine != lengthLine)
+            {
+                _lengthLine = lengthLine;
+                DrawText();
+            }
+        }
+
+        private void SetText(string text)
         {
             if (text.Length > _lengthLine)
             {
@@ -88,10 +101,14 @@ namespace WhoWantsToBeMillionaire
                     }
                 }
 
-                return builder.ToString();
+                _text = builder.ToString();
+            }
+            else
+            {
+                _text = text;
             }
 
-            return text;
+            DrawText();
         }
 
         protected virtual void DrawText()

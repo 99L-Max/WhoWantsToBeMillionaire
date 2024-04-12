@@ -16,14 +16,14 @@ namespace WhoWantsToBeMillionaire
         private readonly Graphics _g;
         private readonly TextBitmap _textBitmap;
 
-        public float SizeFont { set => _textBitmap.SizeFont = value; }
-
         public BoxAnimation(int width, int height) : base(width, height)
         {
             _image = new Bitmap(width, height);
             _g = Graphics.FromImage(_image);
             _textBitmap = new TextBitmap(width, height);
         }
+
+        public float SizeFont { set => _textBitmap.SizeFont = value; }
 
         protected override void OnPaint(PaintEventArgs e) => 
             e.Graphics.DrawImage(_image, ClientRectangle);

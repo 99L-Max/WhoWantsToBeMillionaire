@@ -4,9 +4,9 @@ namespace WhoWantsToBeMillionaire
 {
     class Option : TextBitmap
     {
-        private readonly StringFormat _letterFormat;
         private readonly Rectangle _textRectangle;
         private readonly Rectangle _letterRectangle;
+        private readonly StringFormat _letterFormat;
 
         private Color _textForeColor;
         private Color _letterForeColor;

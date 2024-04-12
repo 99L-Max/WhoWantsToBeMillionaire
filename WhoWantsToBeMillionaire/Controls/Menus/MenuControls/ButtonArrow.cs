@@ -26,6 +26,17 @@ namespace WhoWantsToBeMillionaire
             OnMouseLeave(EventArgs.Empty);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _image.Dispose();
+                _imageClick.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected override void OnMouseEnter(EventArgs e) => 
             Image = _imageClick;
 
@@ -37,16 +48,5 @@ namespace WhoWantsToBeMillionaire
 
         protected override void OnMouseLeave(EventArgs e) => 
             Image = _image;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _image.Dispose();
-                _imageClick.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
     }
 }

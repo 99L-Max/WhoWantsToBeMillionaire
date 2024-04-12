@@ -39,6 +39,25 @@ namespace WhoWantsToBeMillionaire
             SetSeconds(_maxSeconds = 30);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _timer.Tick -= OnTimerTick;
+
+                _image.Dispose();
+                _ring.Dispose();
+                _g.Dispose();
+                _brush.Dispose();
+                _timer.Dispose();
+
+                BackgroundImage.Dispose();
+                Font.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
@@ -64,7 +83,7 @@ namespace WhoWantsToBeMillionaire
             if (_seconds <= 0)
             {
                 _timer.Stop();
-                TimeUp.Invoke(this, SceneCommand.End_PhoneFriend);
+                TimeUp?.Invoke(this, SceneCommand.End_PhoneFriend);
             }
         }
 
@@ -78,24 +97,5 @@ namespace WhoWantsToBeMillionaire
 
         public void Stop() =>
             _timer.Stop();
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _timer.Tick -= OnTimerTick;
-
-                _image.Dispose();
-                _ring.Dispose();
-                _g.Dispose();
-                _brush.Dispose();
-                _timer.Dispose();
-
-                BackgroundImage.Dispose();
-                Font.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
     }
 }

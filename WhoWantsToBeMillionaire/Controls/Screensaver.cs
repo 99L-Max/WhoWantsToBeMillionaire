@@ -27,6 +27,17 @@ namespace WhoWantsToBeMillionaire
             _logoRectangle = new Rectangle();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _background.Dispose();
+                _logo.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             if (_imageVisible)
@@ -38,6 +49,27 @@ namespace WhoWantsToBeMillionaire
             if (_alpha > 0)
                 using (Brush brush = new SolidBrush(Color.FromArgb(_alpha, Color.White)))
                     e.Graphics.FillRectangle(brush, ClientRectangle);
+        }
+
+        private async Task ShowTransition(int countFrames)
+        {
+            var alphas = Enumerable.Range(0, countFrames).Select(a => byte.MaxValue * a / (countFrames - 1));
+
+            await FillRectangles(alphas);
+
+            _imageVisible = !_imageVisible;
+
+            await FillRectangles(alphas.Reverse());
+        }
+
+        private async Task FillRectangles(IEnumerable<int> alphas)
+        {
+            foreach (var a in alphas)
+            {
+                _alpha = a;
+                Invalidate();
+                await Task.Delay(MainForm.DeltaTime);
+            }
         }
 
         public async Task ShowSaver(bool isFullVersion)
@@ -65,38 +97,6 @@ namespace WhoWantsToBeMillionaire
             await Task.Delay(isFullVersion ? 7000 : 2000);
 
             await ShowTransition(20);
-        }
-
-        private async Task ShowTransition(int countFrames)
-        {
-            var alphas = Enumerable.Range(0, countFrames).Select(a => byte.MaxValue * a / (countFrames - 1));
-
-            await FillRectangles(alphas);
-
-            _imageVisible = !_imageVisible;
-
-            await FillRectangles(alphas.Reverse());
-        }
-
-        private async Task FillRectangles(IEnumerable<int> alphas)
-        {
-            foreach (var a in alphas)
-            {
-                _alpha = a;
-                Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _background.Dispose();
-                _logo.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

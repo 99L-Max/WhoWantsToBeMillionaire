@@ -30,15 +30,6 @@ namespace WhoWantsToBeMillionaire
         public readonly Letter Correct;
         public readonly ReadOnlyDictionary<Letter, string> Options;
 
-        public string FullCorrect =>
-            FullOption(Correct);
-
-        public int CountOptions =>
-            Options.Values.Where(x => x != string.Empty).Count();
-
-        public static IEnumerable<Letter> Letters =>
-            Enum.GetValues(typeof(Letter)).Cast<Letter>();
-
         public Question(int number) : this(number, RandomIndex(number)) { }
 
         public Question(int number, int index) : this(number, index, Letters) { }
@@ -67,6 +58,15 @@ namespace WhoWantsToBeMillionaire
 
             Options = new ReadOnlyDictionary<Letter, string>(options);
         }
+
+        public string FullCorrect =>
+            FullOption(Correct);
+
+        public int CountOptions =>
+            Options.Values.Where(x => x != string.Empty).Count();
+
+        public static IEnumerable<Letter> Letters =>
+            Enum.GetValues(typeof(Letter)).Cast<Letter>();
 
         public static int RandomIndex(int number) =>
             new Random().Next(35 - (number - 1) / 3 * 5) + 1;

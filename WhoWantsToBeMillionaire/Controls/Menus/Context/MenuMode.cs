@@ -20,8 +20,6 @@ namespace WhoWantsToBeMillionaire
         private readonly ButtonContextMenu _buttonStart;
         private readonly Dictionary<Mode, string> _descriptions;
 
-        public Mode SelectedMode { private set; get; }
-
         public MenuMode(int width, int height) : base("Выберите режим", width, height, 0.05f * height)
         {
             var modes = JsonManager.GetDictionary<Mode, string>(Resources.Dictionary_Modes).ToDictionary(k => (float)k.Key, v => v.Value);
@@ -46,11 +44,7 @@ namespace WhoWantsToBeMillionaire
             _comboBox.SelectedIndex = 0;
         }
 
-        private void ModeChanged(object sender, EventArgs e)
-        {
-            SelectedMode = (Mode)_comboBox.SelectedValue;
-            _labelDescriptionMode.Text = _descriptions[SelectedMode];
-        }
+        public Mode SelectedMode { get; private set; }
 
         protected override void Dispose(bool disposing)
         {
@@ -58,6 +52,12 @@ namespace WhoWantsToBeMillionaire
                 _comboBox.SelectedIndexChanged -= ModeChanged;
 
             base.Dispose(disposing);
+        }
+
+        private void ModeChanged(object sender, EventArgs e)
+        {
+            SelectedMode = (Mode)_comboBox.SelectedValue;
+            _labelDescriptionMode.Text = _descriptions[SelectedMode];
         }
     }
 }

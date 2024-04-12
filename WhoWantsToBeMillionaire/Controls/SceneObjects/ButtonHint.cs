@@ -34,27 +34,6 @@ namespace WhoWantsToBeMillionaire
         public readonly TypeHint Type;
         public readonly string Description;
 
-        public bool IsShown { private set; get; }
-
-        public StatusHint Status { private set; get; }
-
-        public bool ToolTipVisible
-        {
-            set
-            {
-                if (value && _toolTip == null)
-                {
-                    _toolTip = new GameToolTip(300, 120, 3, 16f);
-                    _toolTip.SetToolTip(this, Description);
-                }
-                else
-                {
-                    _toolTip?.Dispose();
-                    _toolTip = null;
-                }
-            }
-        }
-
         static ButtonHint() =>
             s_focus = Resources.Focus_Hint;
 
@@ -69,6 +48,40 @@ namespace WhoWantsToBeMillionaire
             BackgroundImageLayout = ImageLayout.Zoom;
 
             _image = (Image)Resources.ResourceManager.GetObject($"Hint_{type}_{StatusHint.Active}");
+        }
+
+        public bool IsShown { get; private set; }
+
+        public StatusHint Status { get; private set; }
+
+        public bool ToolTipVisible
+        {
+            set => SetToolTipVisible(value);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _image.Dispose();
+                _toolTip?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void SetToolTipVisible(bool visible)
+        {
+            if (visible && _toolTip == null)
+            {
+                _toolTip = new GameToolTip(300, 120, 3, 16f);
+                _toolTip.SetToolTip(this, Description);
+            }
+            else
+            {
+                _toolTip?.Dispose();
+                _toolTip = null;
+            }
         }
 
         private void SetStatus(StatusHint status, bool enabled)
@@ -89,6 +102,7 @@ namespace WhoWantsToBeMillionaire
 
                 g.Clear(Color.Transparent);
                 g.DrawImage(icon, x, y, width, height);
+
                 Image = _image;
             }
         }
@@ -112,9 +126,6 @@ namespace WhoWantsToBeMillionaire
             if (!Enabled)
                 OnMouseLeave(e);
         }
-
-        public void Lock() =>
-            SetStatus(StatusHint.Locked, false);
 
         public async void ShowIcon()
         {
@@ -154,15 +165,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _image.Dispose();
-                _toolTip?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
+        public void Lock() =>
+            SetStatus(StatusHint.Locked, false);
     }
 }

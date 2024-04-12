@@ -21,16 +21,6 @@ namespace WhoWantsToBeMillionaire
         private ContextMenu _contextMenu;
         private GameSettingsData _settingsData;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                base.CreateParams.ExStyle |= 0x02000000;
-                return cp;
-            }
-        }
-
         public MainForm()
         {
             InitializeComponent();
@@ -59,6 +49,16 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_menuMain);
 
             _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.Continue).ToArray());
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                base.CreateParams.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
 
         private void OnMainMenuClick(MainMenuCommand cmd)

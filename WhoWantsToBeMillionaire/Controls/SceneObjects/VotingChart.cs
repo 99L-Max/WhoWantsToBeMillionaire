@@ -15,8 +15,6 @@ namespace WhoWantsToBeMillionaire
         private readonly Image _image;
         private readonly Graphics _g;
 
-        private bool labelsVisible = false;
-
         public VotingChart(int width, int height) : base(width, height)
         {
             var keys = Question.Letters;
@@ -34,13 +32,28 @@ namespace WhoWantsToBeMillionaire
             _columns = keys.ToDictionary(k => k, v => new ChartColumnPercent((2 * (int)v + 1) * widthColumn, widthColumn, maxHeightColumn, yDown));
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _g.Dispose();
+                _image.Dispose();
+                _imageColumn.Dispose();
+
+                BackgroundImage.Dispose();
+                Font.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
             e.Graphics.DrawImage(_image, ClientRectangle);
         }
 
-        private void DrawChart()
+        private void DrawChart(bool labelsVisible)
         {
             _g.Clear(Color.Transparent);
 
@@ -57,8 +70,6 @@ namespace WhoWantsToBeMillionaire
         public async Task ShowAnimationVote(int millisecond)
         {
             Sound.PlayLooped(Resources.Hint_AskAudience_Voting);
-
-            labelsVisible = false;
 
             var countFrames = millisecond / MainForm.DeltaTime;
             var random = new Random();
@@ -77,7 +88,7 @@ namespace WhoWantsToBeMillionaire
                     }
                 }
 
-                DrawChart();
+                DrawChart(false);
                 await Task.Delay(MainForm.DeltaTime);
             } while (--countFrames > 0);
         }
@@ -97,31 +108,14 @@ namespace WhoWantsToBeMillionaire
                 foreach (var key in percents.Keys)
                     _columns[key].Percent += dp[key];
 
-                DrawChart();
+                DrawChart(false);
                 await Task.Delay(MainForm.DeltaTime);
             } while (--countFrames > 0);
 
             foreach (var p in percents)
                 _columns[p.Key].Percent = p.Value;
 
-            labelsVisible = true;
-
-            DrawChart();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _g.Dispose();
-                _image.Dispose();
-                _imageColumn.Dispose();
-
-                BackgroundImage.Dispose();
-                Font.Dispose();
-            }
-
-            base.Dispose(disposing);
+            DrawChart(true);
         }
     }
 }

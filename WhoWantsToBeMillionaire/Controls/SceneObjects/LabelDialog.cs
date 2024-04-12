@@ -13,20 +13,6 @@ namespace WhoWantsToBeMillionaire
         private Rectangle _frameRectangle;
         private Image _backgroundText;
 
-        public int Border
-        {
-            get => _border;
-            set
-            {
-                if (_border != value)
-                {
-                    _border = value;
-                    _textRectangle = _painter.ResizeRectangle(_frameRectangle, _border);
-                    DrawBack();
-                }
-            }
-        }
-
         public LabelDialog(float sizeFont)
         {
             Dock = DockStyle.Fill;
@@ -35,6 +21,12 @@ namespace WhoWantsToBeMillionaire
             _textRectangle = _frameRectangle = new Rectangle();
             _format = new StringFormat();
             _painter = new Painter();
+        }
+
+        public int Border
+        {
+            get => _border;
+            set => SetBorder(value);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -47,6 +39,17 @@ namespace WhoWantsToBeMillionaire
             else
             {
                 base.OnPaint(e);
+            }
+        }
+
+        private void SetBorder(int border)
+        {
+            if (_border != border)
+            {
+                _border = border;
+                _textRectangle = _painter.ResizeRectangle(_frameRectangle, _border);
+
+                DrawBack();
             }
         }
 

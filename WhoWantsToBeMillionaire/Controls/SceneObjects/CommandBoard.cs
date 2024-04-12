@@ -25,6 +25,33 @@ namespace WhoWantsToBeMillionaire
         public Action<object, SceneCommand> CommandClick;
         public Action<object, SceneCancelCommand> CancelClick;
 
+        public CommandBoard(int width, int height)
+        {
+            Size = new Size(width, height);
+            BackColor = Color.Transparent;
+
+            int sideLogo = (int)(0.6f * height);
+
+            _labelDialog = new LabelDialog(0.04f * height);
+            _logo = new Bitmap(Resources.Logo, sideLogo, sideLogo);
+
+            _buttonCommand = new ButtonWire();
+            _buttonCanсel = new ButtonWire();
+
+            _buttonCommand.Click += (s, e) => CommandClick?.Invoke(this, Command);
+            _buttonCanсel.Click += (s, e) => CancelClick?.Invoke(this, CancelCommand);
+
+            RowCount = 3;
+
+            RowStyles.Add(new RowStyle(SizeType.Percent, 8f));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
+
+            Controls.Add(_labelDialog, 0, 0);
+            Controls.Add(_buttonCommand, 0, 1);
+            Controls.Add(_buttonCanсel, 0, 2);
+        }
+
         public TextMode TextMode
         {
             set
@@ -42,7 +69,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public new string Text { set { _labelDialog.Image = null; _labelDialog.Text = value; } }
+        public new string Text { set => _labelDialog.Text = value; }
 
         public bool ButtonCommandVisible { set => _buttonCommand.Visible = value; }
 
@@ -51,33 +78,6 @@ namespace WhoWantsToBeMillionaire
         public bool ButtonsVisible { set => _buttonCommand.Visible = _buttonCanсel.Visible = value; }
 
         public bool ButtonCommandEnabled { set => _buttonCommand.Enabled = value; }
-
-        public CommandBoard(int width, int height)
-        {
-            Size = new Size(width, height);
-            BackColor = Color.Transparent;
-
-            int sideLogo = (int)(0.6f * height);
-
-            _labelDialog = new LabelDialog(0.04f * height);
-            _logo = new Bitmap(Resources.Logo, sideLogo, sideLogo);
-
-            _buttonCommand = new ButtonWire();
-            _buttonCanсel = new ButtonWire();
-
-            _buttonCommand.Click += (s, e) => CommandClick.Invoke(this, Command);
-            _buttonCanсel.Click += (s, e) => CancelClick.Invoke(this, CancelCommand);
-
-            RowCount = 3;
-
-            RowStyles.Add(new RowStyle(SizeType.Percent, 8f));
-            RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
-            RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
-
-            Controls.Add(_labelDialog, 0, 0);
-            Controls.Add(_buttonCommand, 0, 1);
-            Controls.Add(_buttonCanсel, 0, 2);
-        }
 
         public void Reset(Mode mode = Mode.Classic)
         {

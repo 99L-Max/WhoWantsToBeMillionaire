@@ -11,10 +11,6 @@ namespace WhoWantsToBeMillionaire
         private Rectangle _rectangle;
         private Rectangle _labelRectangle;
 
-        public Rectangle Rectangle => _rectangle;
-
-        public Rectangle RectangleLabel => _labelRectangle;
-
         public ChartColumnPercent(int x, int width, int maxHeight, int yDown)
         {
             _maxHeight = maxHeight;
@@ -24,8 +20,16 @@ namespace WhoWantsToBeMillionaire
             _labelRectangle = new Rectangle(x - width, _rectangle.Y - width, 3 * width, width);
         }
 
+        public Rectangle Rectangle => 
+            _rectangle;
+
+        public Rectangle RectangleLabel => 
+            _labelRectangle;
+
         public float Percent
         {
+            get => _percent;
+
             set
             {
                 _percent = value;
@@ -33,8 +37,6 @@ namespace WhoWantsToBeMillionaire
                 _rectangle.Y = _yDown - _rectangle.Height;
                 _labelRectangle.Y = _rectangle.Y - _labelRectangle.Height;
             }
-
-            get => _percent;
         }
     }
 }

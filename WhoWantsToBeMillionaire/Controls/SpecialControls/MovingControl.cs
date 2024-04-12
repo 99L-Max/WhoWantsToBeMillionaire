@@ -6,6 +6,8 @@ namespace WhoWantsToBeMillionaire
 {
     abstract class MovingControl : GameContol
     {
+        public MovingControl(int width, int height) : base(width, height) { }
+
         protected override CreateParams CreateParams
         {
             get
@@ -27,8 +29,6 @@ namespace WhoWantsToBeMillionaire
             get => Location.Y;
             set => Location = new Point(Location.X, value);
         }
-
-        public MovingControl(int width, int height) : base(width, height) { }
 
         public async Task MoveX(int x, int countFrames)
         {

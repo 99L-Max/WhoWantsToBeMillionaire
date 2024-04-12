@@ -19,19 +19,22 @@ namespace WhoWantsToBeMillionaire
         public MenuSettings(int width, int height, GameSettingsData data) : base("Настройки", width, height, 0.05f * height)
         {
             var keys = Enum.GetValues(typeof(GameSettings)).Cast<GameSettings>();
+            var fontSize = 0.04f * height;
+            var labels = JsonManager.GetDictionary<GameSettings, string>(Resources.Dictionary_Settings);
+            var values = JsonManager.GetDictionary<GameSettings, Dictionary<float, string>>(Resources.Settings_Values);
+            var i = 0;
+
             _settings = keys.ToDictionary(k => k, v => data.GetSettings(v));
 
             _table = new TableLayoutPanel();
             _table.Dock = DockStyle.Fill;
             _table.RowCount = keys.Count();
-
             _table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80f));
             _table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20f));
 
-            var fontSize = 0.04f * height;
-            var labels = JsonManager.GetDictionary<GameSettings, string>(Resources.Dictionary_Settings);
-            var values = JsonManager.GetDictionary<GameSettings, Dictionary<float, string>>(Resources.Settings_Values);
-            var i = 0;
+            _buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings);
+            _buttonSave.Text = "Применить";
+            _buttonSave.Click += OnButtonClick;
 
             foreach (var key in keys)
             {
@@ -54,22 +57,8 @@ namespace WhoWantsToBeMillionaire
                 i++;
             }
 
-            _buttonSave = new ButtonContextMenu(ContextMenuCommand.ApplySettings);
-            _buttonSave.Text = "Применить";
-            _buttonSave.Click += OnButtonClick;
-
             SetControls(_table, _buttonSave);
             SetHeights(_table.RowCount, 1f);
-        }
-
-        private void UpdateSetting(object sender, EventArgs e)
-        {
-            var comboBox = sender as GameComboBox;
-            var key = (GameSettings)comboBox.Tag;
-            _settings[key] = comboBox.SelectedValue;
-
-            if (key == GameSettings.Volume)
-                Sound.SetVolume(comboBox.SelectedValue);
         }
 
         protected override void Dispose(bool disposing)
@@ -85,6 +74,16 @@ namespace WhoWantsToBeMillionaire
             }
 
             base.Dispose(disposing);
+        }
+
+        private void UpdateSetting(object sender, EventArgs e)
+        {
+            var comboBox = sender as GameComboBox;
+            var key = (GameSettings)comboBox.Tag;
+            _settings[key] = comboBox.SelectedValue;
+
+            if (key == GameSettings.Volume)
+                Sound.SetVolume(comboBox.SelectedValue);
         }
     }
 }

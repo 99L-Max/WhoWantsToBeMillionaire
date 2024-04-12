@@ -24,53 +24,6 @@ namespace WhoWantsToBeMillionaire
         public readonly int Number;
         public readonly int Sum;
 
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-
-                    if (_iconVisible)
-                        DrawImage();
-
-                    Invalidate();
-                }
-            }
-        }
-
-        public bool IconVisible
-        {
-            get => _iconVisible;
-            set
-            {
-                if (_iconVisible != value)
-                {
-                    _iconVisible = value;
-
-                    DrawImage();
-                    Invalidate();
-                }
-            }
-        }
-
-        public bool IsSaveSum
-        {
-            get => _isSaveSum;
-            set
-            {
-                if (_isSaveSum != value)
-                {
-                    _isSaveSum = value;
-
-                    DrawImage();
-                    Invalidate();
-                }
-            }
-        }
-
         static RowTableSums()
         {
             int height = 60;
@@ -92,6 +45,46 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
 
             _image = new Bitmap(s_background.Width, s_background.Height);
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetBoolFlag(ref _isSelected, value);
+
+        }
+
+        public bool IconVisible
+        {
+            get => _iconVisible;
+            set => SetBoolFlag(ref _iconVisible, value);
+
+        }
+
+        public bool IsSaveSum
+        {
+            get => _isSaveSum;
+            set => SetBoolFlag(ref _isSaveSum, value);
+        }
+
+        public void Reset(Mode mode = Mode.Classic)
+        {
+            _iconVisible = _isSaveSum = _isSelected = false;
+
+            RemoveMouseEvents();
+            DrawImage();
+            Invalidate();
+        }
+
+        private void SetBoolFlag(ref bool field, bool value)
+        {
+            if (field != value)
+            {
+                field = value;
+
+                DrawImage();
+                Invalidate();
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -120,15 +113,6 @@ namespace WhoWantsToBeMillionaire
                 if (_iconVisible)
                     g.DrawImage(_isSelected ? s_iconCircle : s_iconRhomb, s_sizeNumber.Width, 0, s_background.Height, s_background.Height);
             }
-        }
-
-        public void Reset(Mode mode = Mode.Classic)
-        {
-            _iconVisible = _isSaveSum = _isSelected = false;
-
-            RemoveMouseEvents();
-            DrawImage();
-            Invalidate();
         }
 
         public void AddMouseEvents()

@@ -12,17 +12,16 @@ namespace WhoWantsToBeMillionaire
 
         public MenuAchievements(int width, int height, Dictionary<Achievement, bool> achievements) : base("Достижения", width, height, 0.05f * height)
         {
-            _table = new TableImages((int)(0.05f * height));
-            _table.Dock = DockStyle.Fill;
-
             var dict = JsonManager.GetDictionary<string, (string, string)>(Resources.Dictionary_Achievements);
             var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
-            var artist = new Painter();
+            var painter = new Painter();
             var granted = achievements.Where(x => x.Value);
-            var image = artist.GetAchievementProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
+            var image = painter.GetAchievementProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
 
             string title, comment;
 
+            _table = new TableImages((int)(0.05f * height));
+            _table.Dock = DockStyle.Fill;
             _table.Add(image);
 
             foreach (var ach in granted)
@@ -30,7 +29,7 @@ namespace WhoWantsToBeMillionaire
                 (title, comment) = dict[ach.Key.ToString()];
 
                 using (var icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{ach.Key}"))
-                    image = artist.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+                    image = painter.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
                 _table.Add(image);
             }
@@ -44,7 +43,7 @@ namespace WhoWantsToBeMillionaire
                     foreach (var ach in achievements.Where(x => !x.Value))
                     {
                         (title, comment) = dict[ach.Key.ToString()];
-                        image = artist.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+                        image = painter.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
                         _table.Add(image);
                     }

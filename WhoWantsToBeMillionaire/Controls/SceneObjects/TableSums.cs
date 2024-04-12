@@ -16,9 +16,9 @@ namespace WhoWantsToBeMillionaire
 
         public Action<int> SaveSumSelected;
 
-        public int Prize { private set; get; }
+        public int Prize { get; private set; }
 
-        public string TextPrize { private set; get; }
+        public string TextPrize { get; private set; }
 
         public string NextSum =>
             string.Format("{0:#,0}", _rowsSum[Math.Min(_numberQuestion - 1, _rowsSum.Length - 1)].Sum);
@@ -80,7 +80,7 @@ namespace WhoWantsToBeMillionaire
             _rowsSum[_rowsSum.Length - 1].IsSaveSum = saveSum.IsSaveSum = true;
 
             Sound.Play(Resources.SavaSumSelected);
-            SaveSumSelected.Invoke(saveSum.Sum);
+            SaveSumSelected?.Invoke(saveSum.Sum);
         }
 
         public void Reset(Mode mode = Mode.Classic)

@@ -29,12 +29,6 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly Dictionary<Achievement, bool> _achievements;
 
-        public bool AllGranted => 
-            _achievements.Values.All(x => x);
-
-        public Dictionary<Achievement, bool> Achievements =>
-            _achievements.ToDictionary(k => k.Key, v => v.Value);
-
         public AchievementsData(string path)
         {
             var keys = Enum.GetValues(typeof(Achievement)).Cast<Achievement>();
@@ -56,6 +50,12 @@ namespace WhoWantsToBeMillionaire
                 _achievements = keys.ToDictionary(k => k, v => false);
             }
         }
+
+        public bool AllGranted => 
+            _achievements.Values.All(x => x);
+
+        public Dictionary<Achievement, bool> Achievements =>
+            _achievements.ToDictionary(k => k.Key, v => v.Value);
 
         public bool CheckGranted(Achievement key) =>
             _achievements[key];

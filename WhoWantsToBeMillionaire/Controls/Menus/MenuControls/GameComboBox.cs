@@ -17,30 +17,6 @@ namespace WhoWantsToBeMillionaire
 
         public Action<object, EventArgs> SelectedIndexChanged;
 
-        public bool Looped { get; set; } = true;
-
-        public int SelectedIndex
-        {
-            get => _selectedIndex;
-            set
-            {
-                if (_selectedIndex != value)
-                {
-                    _selectedIndex = value;
-
-                    Invalidate();
-
-                    SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
-                }
-            }
-        }
-
-        public float SelectedValue
-        {
-            get => _selectedIndex == -1 ? float.NaN : _values[_selectedIndex];
-            set => SelectedIndex = _values.IndexOf(value);
-        }
-
         public GameComboBox(Dictionary<float, string> items, float fontSize)
         {
             Font = new Font("", fontSize, GraphicsUnit.Pixel);
@@ -64,6 +40,30 @@ namespace WhoWantsToBeMillionaire
 
             Controls.Add(_leftArrow);
             Controls.Add(_rightArrow);
+        }
+
+        public bool Looped { get; set; } = true;
+
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set
+            {
+                if (_selectedIndex != value)
+                {
+                    _selectedIndex = value;
+
+                    Invalidate();
+
+                    SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        public float SelectedValue
+        {
+            get => _selectedIndex == -1 ? float.NaN : _values[_selectedIndex];
+            set => SelectedIndex = _values.IndexOf(value);
         }
 
         protected override void OnPaint(PaintEventArgs e) =>

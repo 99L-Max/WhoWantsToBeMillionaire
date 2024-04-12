@@ -29,13 +29,6 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public async Task ShowAchievement(int y, int countFrames, int delay)
-        {
-            await MoveY(y, countFrames);
-            await Task.Delay(delay);
-            await MoveX(-Width, countFrames);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -45,6 +38,13 @@ namespace WhoWantsToBeMillionaire
             }
 
             base.Dispose(disposing);
+        }
+
+        public async Task ShowAchievement(int y, int countFrames, int delay)
+        {
+            await MoveY(y, countFrames);
+            await Task.Delay(delay);
+            await MoveX(-Width, countFrames);
         }
     }
 }
