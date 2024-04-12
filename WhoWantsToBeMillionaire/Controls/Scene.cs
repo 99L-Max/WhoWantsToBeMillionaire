@@ -129,12 +129,11 @@ namespace WhoWantsToBeMillionaire
         public void Reset(Mode mode)
         {
             Mode = mode;
+            QuestionVisible = MenuAllowed = false;
 
             foreach (Control ctrl in Controls)
                 if (ctrl is IReset)
                     (ctrl as IReset).Reset(mode);
-
-            QuestionVisible = MenuAllowed = false;
         }
 
         public void SetSettings(GameSettingsData data)
@@ -262,7 +261,10 @@ namespace WhoWantsToBeMillionaire
             {
                 case TypeHint.FiftyFifty:
                     Sound.Play(Resources.Hint_FiftyFifty);
-                    _boxQuestion.SetQuestion(_hint.ReduceOptions(_boxQuestion.Question));
+                    Question q = _boxQuestion.Question;
+
+                    _boxQuestion.SetQuestion(new Question(q.Number, q.Index, q.Seed, 2));
+
                     AchievementСompleted?.Invoke(Achievement.DearComputer);
                     break;
 

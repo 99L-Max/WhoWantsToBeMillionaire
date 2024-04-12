@@ -17,9 +17,6 @@ namespace WhoWantsToBeMillionaire
             return wrongKeys.ElementAt(_random.Next(wrongKeys.Count()));
         }
 
-        public Question ReduceOptions(Question question) => 
-            new Question(question.Number, question.Index, new Letter[] { question.Correct, GetWrongLetter(question) });
-
         public Dictionary<Letter, int> GetPercentsAudience(Question question)
         {
             var keys = question.Options.Where(x => x.Value != string.Empty).Select(x => x.Key).OrderBy(k => _random.Next()).ToList();

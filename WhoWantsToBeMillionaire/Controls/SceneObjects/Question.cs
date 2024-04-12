@@ -22,41 +22,44 @@ namespace WhoWantsToBeMillionaire
     {
         public const int MaxNumber = 15;
 
+        private static readonly Random s_random;
+
+        public readonly int Seed;
         public readonly int Number;
         public readonly int Index;
-        public readonly DifficultyQuestion Difficulty;
         public readonly string Text;
         public readonly string Explanation;
         public readonly Letter Correct;
+        public readonly DifficultyQuestion Difficulty;
         public readonly ReadOnlyDictionary<Letter, string> Options;
 
-        public Question(int number) : this(number, RandomIndex(number)) { }
+        static Question() =>
+            s_random = new Random();
 
-        public Question(int number, int index) : this(number, index, Letters) { }
+        public Question(int number) : this(number, RandomIndex(number), s_random.Next(), 4) { }
 
-        public Question(int number, int index, IEnumerable<Letter> letters)
+        public Question(int number, int index) : this(number, index, s_random.Next(), 4) { }
+
+        public Question(int number, int index, int seed, int countOptions)
         {
+            var array = (byte[])Resources.ResourceManager.GetObject($"Q{number:d2}V{index:d2}");
+            var jObj = JsonManager.GetObject(array);
+            var random = new Random(seed);
+            var letters = Letters.OrderBy(x => random.Next()).ToArray();
+            var options = JsonConvert.DeserializeObject<string[]>(jObj["Options"].ToString());
+            var dict = new Dictionary<Letter, string>();
+
+            for (int i = 0; i < letters.Length; i++)
+                dict.Add(letters[i], i < countOptions ? options[i] : string.Empty);
+
+            Seed = seed;
             Number = number;
             Index = index;
             Difficulty = Number == MaxNumber ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
-
-            var array = (byte[])Resources.ResourceManager.GetObject($"Q{number:d2}V{index:d2}");
-            var jObj = JsonManager.GetObject(array);
-
             Text = jObj["Question"].Value<string>();
             Explanation = jObj["Explanation"].Value<string>();
-            Correct = (Letter)Enum.Parse(typeof(Letter), jObj["Correct"].Value<string>());
-
-            if (!letters.Contains(Correct))
-                letters.Append(Correct);
-
-            var options = JsonConvert.DeserializeObject<Dictionary<Letter, string>>(jObj["Options"].ToString());
-
-            foreach (var key in options.Keys.ToArray())
-                if (!letters.Contains(key))
-                    options[key] = string.Empty;
-
-            Options = new ReadOnlyDictionary<Letter, string>(options);
+            Options = new ReadOnlyDictionary<Letter, string>(dict);
+            Correct = letters[0];
         }
 
         public string FullCorrect =>
@@ -69,7 +72,7 @@ namespace WhoWantsToBeMillionaire
             Enum.GetValues(typeof(Letter)).Cast<Letter>();
 
         public static int RandomIndex(int number) =>
-            new Random().Next(35 - (number - 1) / 3 * 5) + 1;
+            s_random.Next(35 - (number - 1) / 3 * 5) + 1;
 
         public string FullOption(Letter key) =>
             $"«{key}: {Options[key]}»";
