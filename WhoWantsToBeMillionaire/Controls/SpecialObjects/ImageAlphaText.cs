@@ -13,6 +13,7 @@ namespace WhoWantsToBeMillionaire
 
         protected int _alpha;
         protected string _text;
+        protected Color _foreColor;
         protected Font _font;
 
         public readonly Rectangle Rectangle;
@@ -22,6 +23,7 @@ namespace WhoWantsToBeMillionaire
             Rectangle = rectangle;
             ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
 
+            _foreColor = Color.White;
             _formatText = new StringFormat();
             _font = new Font("", 0.25f * Rectangle.Height, GraphicsUnit.Pixel);
             _g = Graphics.FromImage(ImageText);
@@ -34,15 +36,21 @@ namespace WhoWantsToBeMillionaire
 
         public Image ImageText { get; private set; }
 
-        public float SizeFont
-        {
-            set => SetFont(value);
-        }
-
         public string Text
         {
             get => _text;
             set => SetText(value);
+        }
+
+        public Font Font
+        {
+            set => SetFont(value);
+        }
+
+        public Color ForeColor
+        {
+            get => _foreColor;
+            set => SetForeColor(value);
         }
 
         public int Alpha
@@ -75,12 +83,21 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void SetFont(float fontSize)
+        private void SetFont(Font font)
         {
-            _font.Dispose();
-            _font = new Font("", fontSize, GraphicsUnit.Pixel);
+            _font?.Dispose();
+            _font = font;
 
             DrawText();
+        }
+
+        private void SetForeColor(Color foreColor)
+        {
+            if (_foreColor != foreColor)
+            {
+                _foreColor = foreColor;
+                DrawText();
+            }
         }
 
         private void SetLengthLine(int lengthLine)
@@ -126,7 +143,7 @@ namespace WhoWantsToBeMillionaire
             _g.Clear(Color.Transparent);
 
             if (_alpha > 0)
-                using (Brush brush = new SolidBrush(Color.FromArgb(_alpha, Color.White)))
+                using (Brush brush = new SolidBrush(Color.FromArgb(_alpha, _foreColor)))
                     _g.DrawString(_text, _font, brush, Rectangle, _formatText);
         }
 

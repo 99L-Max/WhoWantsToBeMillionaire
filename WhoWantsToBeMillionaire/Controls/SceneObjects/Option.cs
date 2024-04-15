@@ -8,7 +8,6 @@ namespace WhoWantsToBeMillionaire
         private readonly Rectangle _letterRectangle;
         private readonly StringFormat _letterFormat;
 
-        private Color _textForeColor;
         private Color _letterForeColor;
 
         public readonly Letter Letter;
@@ -40,7 +39,7 @@ namespace WhoWantsToBeMillionaire
         {
             Selected = false;
 
-            _textForeColor = Color.White;
+            _foreColor = Color.White;
             _letterForeColor = Color.Orange;
 
             base.Reset();
@@ -48,7 +47,7 @@ namespace WhoWantsToBeMillionaire
 
         public void SetForeColors(Color colorText, Color colorLetter)
         {
-            _textForeColor = colorText;
+            _foreColor = colorText;
             _letterForeColor = colorLetter;
 
             DrawText();
@@ -59,7 +58,7 @@ namespace WhoWantsToBeMillionaire
             _g.Clear(Color.Transparent);
 
             if (_alpha > 0)
-                using (Brush brustText = new SolidBrush(Color.FromArgb(_alpha, _textForeColor)))
+                using (Brush brustText = new SolidBrush(Color.FromArgb(_alpha, _foreColor)))
                 using (Brush brustLetter = new SolidBrush(Color.FromArgb(_alpha, _letterForeColor)))
                 {
                     _g.DrawString(_text, _font, brustText, _textRectangle, _formatText);

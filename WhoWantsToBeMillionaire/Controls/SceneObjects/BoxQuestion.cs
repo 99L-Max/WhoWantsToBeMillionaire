@@ -56,7 +56,7 @@ namespace WhoWantsToBeMillionaire
             _iconHint.Location = new Point((width - _iconHint.Width) >> 1, questionRectangle.Height + dy + (optionSize.Height >> 1));
             _iconHint.Visible = false;
 
-            _textQuestion.SizeFont = 0.45f * optionSize.Height;
+            _textQuestion.Font = new Font("", 0.45f * optionSize.Height, GraphicsUnit.Pixel);
             _textQuestion.LengthLine = 64;
 
             for (int i = 0; i < keys.Length; i++)
@@ -65,7 +65,7 @@ namespace WhoWantsToBeMillionaire
                 optionRectangle.Y = questionRectangle.Height + (i >> 1) * (optionSize.Height + dy) + dy;
 
                 option = new Option(keys[i], optionRectangle);
-                option.SizeFont = 0.4f * optionSize.Height;
+                option.Font = new Font("", 0.4f * optionSize.Height, GraphicsUnit.Pixel);
 
                 _options.Add(option.Letter, option);
             }

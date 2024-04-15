@@ -82,7 +82,7 @@ namespace WhoWantsToBeMillionaire
             {
                 int height = _prizeImage.Width * img.Height / img.Width;
                 int y = _prizeImage.Height - height >> 1;
-                _boxAnimation.SizeFont = 0.6f * height;
+                _boxAnimation.Font = new Font("", 0.6f * height, GraphicsUnit.Pixel);
 
                 g.DrawImage(img, 0, y, _prizeImage.Width, height);
             }
@@ -103,7 +103,7 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_boxQuestion);
         }
 
-        public Mode Mode { get; private set;} = Mode.Classic;
+        public Mode Mode { get; private set; } = Mode.Classic;
 
         public bool MenuAllowed { get; private set; } = false;
 

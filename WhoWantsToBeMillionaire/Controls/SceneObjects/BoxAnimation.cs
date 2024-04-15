@@ -22,7 +22,10 @@ namespace WhoWantsToBeMillionaire
             _textBitmap = new ImageAlphaText(width, height);
         }
 
-        public float SizeFont { set => _textBitmap.SizeFont = value; }
+        public new Font Font 
+        { 
+            set => _textBitmap.Font = value; 
+        }
 
         protected override void OnPaint(PaintEventArgs e) =>
             e.Graphics.DrawImage(_image, ClientRectangle);
