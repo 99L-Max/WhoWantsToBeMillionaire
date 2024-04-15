@@ -4,7 +4,6 @@ namespace WhoWantsToBeMillionaire
 {
     class Option : ImageAlphaText
     {
-        private readonly Rectangle _textRectangle;
         private readonly Rectangle _letterRectangle;
         private readonly StringFormat _letterFormat;
 
@@ -18,8 +17,8 @@ namespace WhoWantsToBeMillionaire
         {
             Letter = letter;
 
-            _letterRectangle = new Rectangle(0, 0, (int)(0.15f * Rectangle.Width), Rectangle.Height);
-            _textRectangle = new Rectangle(_letterRectangle.Width, 0, Rectangle.Width - _letterRectangle.Width, Rectangle.Height);
+            _letterRectangle = new Rectangle(0, 0, (int)(0.15f * PositionRectangle.Width), PositionRectangle.Height);
+            _textRectangle = new Rectangle(_letterRectangle.Width, 0, PositionRectangle.Width - _letterRectangle.Width, PositionRectangle.Height);
             _letterFormat = new StringFormat();
 
             _formatText.Alignment = StringAlignment.Near;

@@ -14,18 +14,20 @@ namespace WhoWantsToBeMillionaire
         protected int _alpha;
         protected string _text;
         protected Color _foreColor;
+        protected Rectangle _textRectangle;
         protected Font _font;
 
-        public readonly Rectangle Rectangle;
+        public readonly Rectangle PositionRectangle;
 
-        public ImageAlphaText(Rectangle rectangle)
+        public ImageAlphaText(Rectangle positionRectangle)
         {
-            Rectangle = rectangle;
-            ImageText = new Bitmap(Rectangle.Width, Rectangle.Height);
+            PositionRectangle = positionRectangle;
+            ImageText = new Bitmap(PositionRectangle.Width, PositionRectangle.Height);
 
             _foreColor = Color.White;
+            _textRectangle = new Rectangle(0, 0, PositionRectangle.Width, PositionRectangle.Height);
             _formatText = new StringFormat();
-            _font = new Font("", 0.25f * Rectangle.Height, GraphicsUnit.Pixel);
+            _font = new Font("", 0.25f * PositionRectangle.Height, GraphicsUnit.Pixel);
             _g = Graphics.FromImage(ImageText);
 
             _formatText.Alignment = StringAlignment.Center;
@@ -144,7 +146,7 @@ namespace WhoWantsToBeMillionaire
 
             if (_alpha > 0)
                 using (Brush brush = new SolidBrush(Color.FromArgb(_alpha, _foreColor)))
-                    _g.DrawString(_text, _font, brush, Rectangle, _formatText);
+                    _g.DrawString(_text, _font, brush, _textRectangle, _formatText);
         }
 
         public virtual void Reset()

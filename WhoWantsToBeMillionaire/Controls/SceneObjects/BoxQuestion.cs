@@ -73,7 +73,7 @@ namespace WhoWantsToBeMillionaire
             _imageAlphaTexts.Add(_textQuestion);
             _imageAlphaTexts = _imageAlphaTexts.Concat(_options.Values).ToList();
 
-            _buttons = _options.ToDictionary(k => k.Key, v => new ButtonOption(v.Key, v.Value.Rectangle));
+            _buttons = _options.ToDictionary(k => k.Key, v => new ButtonOption(v.Key, v.Value.PositionRectangle));
 
             foreach (var b in _buttons.Values)
             {
@@ -91,13 +91,13 @@ namespace WhoWantsToBeMillionaire
                 gBack.DrawImage(questionBack, questionRectangle);
 
                 foreach (var op in _options.Values)
-                    gBack.DrawImage(optionBack, op.Rectangle);
+                    gBack.DrawImage(optionBack, op.PositionRectangle);
 
-                foreach (var yWire in _options.Values.Select(t => t.Rectangle.Y).Distinct())
+                foreach (var yWire in _options.Values.Select(t => t.PositionRectangle.Y).Distinct())
                     gWire.DrawImage(wire, 0, yWire, wires.Width, optionSize.Height);
 
                 foreach (var op in _options.Values)
-                    gWire.DrawImage(optionBack, op.Rectangle);
+                    gWire.DrawImage(optionBack, op.PositionRectangle);
 
                 _wires = new ImageAlpha(wires);
             }
@@ -152,14 +152,14 @@ namespace WhoWantsToBeMillionaire
             _g.Clear(Color.Transparent);
 
             _textQuestion.Text = question.Text;
-            _g.DrawImage(_textQuestion.ImageText, _textQuestion.Rectangle);
+            _g.DrawImage(_textQuestion.ImageText, _textQuestion.PositionRectangle);
 
             foreach (var op in _options.Values)
             {
                 op.Text = question.Options[op.Letter];
 
                 _buttons[op.Letter].Visible = op.Text != string.Empty;
-                _g.DrawImage(op.ImageText, op.Rectangle);
+                _g.DrawImage(op.ImageText, op.PositionRectangle);
             }
 
             Invalidate();
@@ -187,7 +187,7 @@ namespace WhoWantsToBeMillionaire
                     foreach (var a in alphas)
                     {
                         text.Alpha = a;
-                        _g.DrawImage(text.ImageText, text.Rectangle);
+                        _g.DrawImage(text.ImageText, text.PositionRectangle);
 
                         Invalidate();
                         await Task.Delay(MainForm.DeltaTime);
@@ -203,7 +203,7 @@ namespace WhoWantsToBeMillionaire
                     foreach (var text in _imageAlphaTexts)
                     {
                         text.Alpha = a;
-                        _g.DrawImage(text.ImageText, text.Rectangle);
+                        _g.DrawImage(text.ImageText, text.PositionRectangle);
                     }
 
                     Invalidate();
@@ -242,8 +242,8 @@ namespace WhoWantsToBeMillionaire
                 {
                     selectedOption.Alpha = a;
 
-                    _g.DrawImage(selectedOption.Image, option.Rectangle);
-                    _g.DrawImage(option.ImageText, option.Rectangle);
+                    _g.DrawImage(selectedOption.Image, option.PositionRectangle);
+                    _g.DrawImage(option.ImageText, option.PositionRectangle);
 
                     Invalidate();
                     await Task.Delay(MainForm.DeltaTime);
@@ -258,9 +258,9 @@ namespace WhoWantsToBeMillionaire
             option.Selected = _buttons[option.Letter].Visible = false;
 
             using (Image lockedOption = Resources.ButtonWire_Gray)
-                _g.DrawImage(lockedOption, option.Rectangle);
+                _g.DrawImage(lockedOption, option.PositionRectangle);
 
-            _g.DrawImage(option.ImageText, option.Rectangle);
+            _g.DrawImage(option.ImageText, option.PositionRectangle);
 
             Invalidate();
 
@@ -323,9 +323,9 @@ namespace WhoWantsToBeMillionaire
                     {
                         front.Alpha = a;
 
-                        _g.DrawImage(back, option.Rectangle);
-                        _g.DrawImage(front.Image, option.Rectangle);
-                        _g.DrawImage(option.ImageText, option.Rectangle);
+                        _g.DrawImage(back, option.PositionRectangle);
+                        _g.DrawImage(front.Image, option.PositionRectangle);
+                        _g.DrawImage(option.ImageText, option.PositionRectangle);
 
                         Invalidate();
                         await Task.Delay(MainForm.DeltaTime);
