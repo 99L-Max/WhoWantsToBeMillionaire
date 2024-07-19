@@ -6,7 +6,7 @@ namespace WhoWantsToBeMillionaire
 {
     class MovingTableControls : MovingControl, IReset, ISetSettings
     {
-        private float _percentsHeights = 0f;
+        private float _percentageHeight = 0f;
 
         public MovingTableControls(int width, int height) : base(width, height)
         {
@@ -16,11 +16,11 @@ namespace WhoWantsToBeMillionaire
         public void Add(Control ctrl, float percentHeight, float ratioWith, float ratioHeight)
         {
             var cellHeight = (int)(percentHeight / 100f * Height);
-            var yCell = (int)(_percentsHeights / 100f * Height);
+            var yCell = (int)(_percentageHeight / 100f * Height);
             var height = (int)(ratioHeight * cellHeight);
             var width = (int)(ratioWith * Width);
 
-            _percentsHeights += percentHeight;
+            _percentageHeight += percentHeight;
 
             ctrl.Size = new Size(width, height);
             ctrl.Location = new Point(Width - width >> 1, (cellHeight - height >> 1) + yCell);
@@ -31,11 +31,11 @@ namespace WhoWantsToBeMillionaire
         public void Reset(Mode mode = Mode.Classic)
         {
             foreach (Control ctrl in Controls)
-            { 
+            {
                 ctrl.Visible = false;
 
-                if (ctrl is IReset)
-                    (ctrl as IReset).Reset(mode);
+                if (ctrl is IReset res)
+                    res.Reset(mode);
             }
 
             X = MainForm.ScreenSize.Width;
@@ -44,8 +44,8 @@ namespace WhoWantsToBeMillionaire
         public void SetSettings(GameSettingsData data)
         {
             foreach (Control ctrl in Controls)
-                if (ctrl is ISetSettings)
-                    (ctrl as ISetSettings).SetSettings(data);
+                if (ctrl is ISetSettings set)
+                    set.SetSettings(data);
         }
     }
 }

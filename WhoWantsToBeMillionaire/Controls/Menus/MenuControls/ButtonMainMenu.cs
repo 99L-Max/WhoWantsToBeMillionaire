@@ -4,9 +4,9 @@
     {
         public readonly MainMenuCommand Command;
 
-        public ButtonMainMenu(MainMenuCommand cmd) : base()
+        public ButtonMainMenu(MainMenuCommand command) : base()
         {
-            Command = cmd;
+            Command = command;
         }
     }
 }

@@ -38,15 +38,15 @@ namespace WhoWantsToBeMillionaire
 
             foreach (var key in keys)
             {
-                LabelMenu label = new LabelMenu(fontSize);
-                GameComboBox comboBox = new GameComboBox(values[key], fontSize);
+                var label = new LabelMenu(fontSize);
+                var comboBox = new GameComboBox(values[key], fontSize);
 
                 label.Text = labels[key];
 
                 comboBox.Looped = key != GameSettings.Volume;
                 comboBox.Tag = key;
                 comboBox.SelectedValue = _settings[key];
-                comboBox.SelectedIndexChanged += UpdateSetting;
+                comboBox.SelectedIndexChanged += OnGameComboBoxValueChanged;
 
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1));
                 _table.Controls.Add(label, 0, i);
@@ -65,7 +65,7 @@ namespace WhoWantsToBeMillionaire
         {
             if (disposing)
             {
-                _comboBoxes.ForEach(c => c.SelectedIndexChanged -= UpdateSetting);
+                _comboBoxes.ForEach(c => c.SelectedIndexChanged -= OnGameComboBoxValueChanged);
 
                 foreach (Control ctrl in _table.Controls)
                     ctrl.Dispose();
@@ -76,14 +76,17 @@ namespace WhoWantsToBeMillionaire
             base.Dispose(disposing);
         }
 
-        private void UpdateSetting(object sender, EventArgs e)
+        private void OnGameComboBoxValueChanged(object sender, EventArgs e)
         {
-            var comboBox = sender as GameComboBox;
-            var key = (GameSettings)comboBox.Tag;
-            _settings[key] = comboBox.SelectedValue;
+            if (sender is GameComboBox comboBox)
+            {
+                var key = (GameSettings)comboBox.Tag;
 
-            if (key == GameSettings.Volume)
-                Sound.SetVolume(comboBox.SelectedValue);
+                _settings[key] = comboBox.SelectedValue;
+
+                if (key == GameSettings.Volume)
+                    Sound.SetVolume(comboBox.SelectedValue);
+            }
         }
     }
 }

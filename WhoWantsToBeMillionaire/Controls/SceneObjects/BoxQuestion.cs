@@ -214,18 +214,20 @@ namespace WhoWantsToBeMillionaire
 
         private void OnOptionClick(object sender, EventArgs e)
         {
-            Enabled = false;
-
-            Letter letter = (sender as ButtonOption).Letter;
-            SelectOption(letter);
-
-            if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Usual || AnswerMode == AnswerMode.DoubleDips))
+            if (sender is ButtonOption option)
             {
-                Sound.Play(Resources.Answer_Accepted);
-                Sound.PlayLooped(Resources.Answer_DrumRoll);
-            }
+                Enabled = false;
 
-            OptionClick?.Invoke(letter);
+                SelectOption(option.Letter);
+
+                if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Usual || AnswerMode == AnswerMode.DoubleDips))
+                {
+                    Sound.Play(Resources.Answer_Accepted);
+                    Sound.PlayLooped(Resources.Answer_DrumRoll);
+                }
+
+                OptionClick?.Invoke(option.Letter);
+            }
         }
 
         private async void SelectOption(Letter letter)

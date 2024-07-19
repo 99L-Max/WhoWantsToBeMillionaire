@@ -114,20 +114,21 @@ namespace WhoWantsToBeMillionaire
 
         private void OnHintClick(object sender, EventArgs e)
         {
-            var hint = sender as ButtonHint;
+            if (sender is ButtonHint hint)
+            {
+                hint.Enabled = false;
+                hint.Click -= OnHintClick;
 
-            hint.Enabled = false;
-            hint.Click -= OnHintClick;
+                if (++CountUsedHints >= Hint.MaxCountAllowedHints)
+                    foreach (var h in _hints)
+                        if (h.Enabled)
+                        {
+                            h.Click -= OnHintClick;
+                            h.Lock();
+                        }
 
-            if (++CountUsedHints >= Hint.MaxCountAllowedHints)
-                foreach (var h in _hints)
-                    if (h.Enabled)
-                    {
-                        h.Click -= OnHintClick;
-                        h.Lock();
-                    }
-
-            HintClick?.Invoke(hint.Type);
+                HintClick?.Invoke(hint.Type);
+            }
         }
 
         public void ShowHint()

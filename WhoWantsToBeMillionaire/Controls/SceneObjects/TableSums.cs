@@ -67,20 +67,21 @@ namespace WhoWantsToBeMillionaire
 
         private void SelectSaveSum(object sender, EventArgs e)
         {
-            var saveSum = sender as RowTableSums;
-
-            SetSelectedSum(saveSum.Number);
-
-            foreach (var row in _rowsSum)
+            if (sender is RowTableSums saveSum)
             {
-                row.Click -= SelectSaveSum;
-                row.RemoveMouseEvents();
+                SetSelectedSum(saveSum.Number);
+
+                foreach (var row in _rowsSum)
+                {
+                    row.Click -= SelectSaveSum;
+                    row.RemoveMouseEvents();
+                }
+
+                _rowsSum[_rowsSum.Length - 1].IsSaveSum = saveSum.IsSaveSum = true;
+
+                Sound.Play(Resources.SavaSumSelected);
+                SaveSumSelected?.Invoke(saveSum.Sum);
             }
-
-            _rowsSum[_rowsSum.Length - 1].IsSaveSum = saveSum.IsSaveSum = true;
-
-            Sound.Play(Resources.SavaSumSelected);
-            SaveSumSelected?.Invoke(saveSum.Sum);
         }
 
         public void Reset(Mode mode = Mode.Classic)
@@ -88,7 +89,7 @@ namespace WhoWantsToBeMillionaire
             _taskCanceled = true;
 
             foreach (var row in _rowsSum)
-            { 
+            {
                 row.Reset();
                 row.Click -= SelectSaveSum;
             }
@@ -101,7 +102,7 @@ namespace WhoWantsToBeMillionaire
             SetPrize(0);
         }
 
-        public bool CheckSaveSum(int number) => 
+        public bool CheckSaveSum(int number) =>
             number > 0 && number <= Question.MaxNumber && _rowsSum[number - 1].IsSaveSum;
 
         public void SetSelectedSum(int number)

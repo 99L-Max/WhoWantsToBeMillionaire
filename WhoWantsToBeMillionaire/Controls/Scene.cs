@@ -56,7 +56,7 @@ namespace WhoWantsToBeMillionaire
         private VotingChart _chart;
 
         public Action<bool> GameOver;
-        public Action<Achievement> AchievementСompleted;
+        public Action<Achievement> AchievementCompleted;
         public Action<StatsAttribute, int> StatisticsChanged;
 
         public Scene() : base(MainForm.ScreenSize)
@@ -88,7 +88,7 @@ namespace WhoWantsToBeMillionaire
             }
 
             _commandBoard.CommandClick += OnCommandClick;
-            _commandBoard.CancelClick += OnCacnelClick;
+            _commandBoard.CancelClick += OnCancelClick;
             _buttonTakeMoney.Click += OnTakeMoneyClick;
             _tableHints.HintClick += OnHintClick;
             _boxQuestion.OptionClick += OnOptionClick;
@@ -132,15 +132,15 @@ namespace WhoWantsToBeMillionaire
             QuestionVisible = MenuAllowed = false;
 
             foreach (Control ctrl in Controls)
-                if (ctrl is IReset)
-                    (ctrl as IReset).Reset(mode);
+                if (ctrl is IReset res)
+                    res.Reset(mode);
         }
 
         public void SetSettings(GameSettingsData data)
         {
             foreach (Control ctrl in Controls)
-                if (ctrl is ISetSettings)
-                    (ctrl as ISetSettings).SetSettings(data);
+                if (ctrl is ISetSettings set)
+                    set.SetSettings(data);
         }
 
         public async void Start(bool isRestart = false)
@@ -209,7 +209,7 @@ namespace WhoWantsToBeMillionaire
                         _boxQuestion.AnswerMode = AnswerMode.Usual;
                         _boxQuestion.LockOption(letter);
 
-                        AchievementСompleted?.Invoke(Achievement.SuccessfulOutcome);
+                        AchievementCompleted?.Invoke(Achievement.SuccessfulOutcome);
 
                         if (_boxQuestion.Question.CountOptions == 2)
                         {
@@ -217,7 +217,7 @@ namespace WhoWantsToBeMillionaire
 
                             _boxQuestion.ClickCorrect();
 
-                            AchievementСompleted?.Invoke(Achievement.NoOptions);
+                            AchievementCompleted?.Invoke(Achievement.NoOptions);
                         }
                         else
                         {
@@ -265,7 +265,7 @@ namespace WhoWantsToBeMillionaire
 
                     _boxQuestion.SetQuestion(new Question(q.Number, q.Index, q.Seed, 2));
 
-                    AchievementСompleted?.Invoke(Achievement.DearComputer);
+                    AchievementCompleted?.Invoke(Achievement.DearComputer);
                     break;
 
                 case TypeHint.PhoneFriend:
@@ -314,7 +314,7 @@ namespace WhoWantsToBeMillionaire
                     await _chart.ShowAnimationVote(3000);
                     await _chart.ShowPercents(percents, 15);
 
-                    AchievementСompleted?.Invoke(Achievement.AudienceAward);
+                    AchievementCompleted?.Invoke(Achievement.AudienceAward);
 
                     _commandBoard.ButtonCommandVisible = true;
                     break;
@@ -442,7 +442,7 @@ namespace WhoWantsToBeMillionaire
                         delay = _tableSums.NowSaveSum ? 7000 : 1500 + 500 * (int)_boxQuestion.Question.Difficulty;
 
                     if (_tableSums.NowSaveSum)
-                        AchievementСompleted?.Invoke(Achievement.MoneyNotBurn);
+                        AchievementCompleted?.Invoke(Achievement.MoneyNotBurn);
 
                     await ShowCorrectAndPrize(true, false, true);
                     await Task.Delay(delay);
@@ -474,10 +474,10 @@ namespace WhoWantsToBeMillionaire
 
                     if (command == SceneCommand.Victory)
                     {
-                        AchievementСompleted?.Invoke(Achievement.Millionaire);
+                        AchievementCompleted?.Invoke(Achievement.Millionaire);
 
                         if (_tableHints.CountUsedHints == 0)
-                            AchievementСompleted?.Invoke(Achievement.TriumphReason);
+                            AchievementCompleted?.Invoke(Achievement.TriumphReason);
 
                         await Task.Delay(16000);
                     }
@@ -552,7 +552,7 @@ namespace WhoWantsToBeMillionaire
                     _timer.Stop();
                     _timer.TimeUp -= OnCommandClick;
 
-                    AchievementСompleted?.Invoke(Achievement.AndToTalk);
+                    AchievementCompleted?.Invoke(Achievement.AndToTalk);
 
                     if (sender is CommandBoard)
                     {
@@ -589,14 +589,14 @@ namespace WhoWantsToBeMillionaire
                     await _boxQuestion.ShowCorrect(false, true);
                     await _boxQuestion.Clear();
 
-                    AchievementСompleted?.Invoke(Achievement.DefectiveQuestion);
+                    AchievementCompleted?.Invoke(Achievement.DefectiveQuestion);
                     QuestionVisible = false;
 
                     await _boxAnimation.HideImage(_boxQuestion.BackgroundImage);
                     await _boxAnimation.ShowImage(_boxQuestion.BackgroundImage);
 
                     if (_boxQuestion.Question.CountOptions == 2)
-                        AchievementСompleted?.Invoke(Achievement.WasTwoBecameFour);
+                        AchievementCompleted?.Invoke(Achievement.WasTwoBecameFour);
 
                     _boxQuestion.SetQuestion(_boxQuestion.Question.Number, newIndex);
                     QuestionVisible = true;
@@ -610,7 +610,7 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.End_AskHost:
                     _commandBoard.Clear();
 
-                    AchievementСompleted?.Invoke(Achievement.NoOneWillKnow);
+                    AchievementCompleted?.Invoke(Achievement.NoOneWillKnow);
 
                     PlayReflections(Resources.Question_Reflections);
 
@@ -647,13 +647,13 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.TakeMoney_ShowPrize:
                     await ShowCorrectAndPrize(false, true, false);
 
-                    AchievementСompleted?.Invoke(Achievement.StopGame);
+                    AchievementCompleted?.Invoke(Achievement.StopGame);
 
                     if (_tableSums.Prize == 0)
-                        AchievementСompleted?.Invoke(Achievement.IsPossible);
+                        AchievementCompleted?.Invoke(Achievement.IsPossible);
 
                     if (_tableSums.CheckSaveSum(_boxQuestion.Question.Number - 1))
-                        AchievementСompleted?.Invoke(Achievement.ExcessiveСaution);
+                        AchievementCompleted?.Invoke(Achievement.ExcessiveСaution);
 
                     _commandBoard.AskRestart();
                     break;
@@ -665,7 +665,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void OnCacnelClick(object sender, SceneCancelCommand command)
+        private void OnCancelClick(object sender, SceneCancelCommand command)
         {
             switch (command)
             {

@@ -8,9 +8,9 @@ namespace WhoWantsToBeMillionaire
     {
         public readonly ContextMenuCommand Command;
 
-        public ButtonContextMenu(ContextMenuCommand cmd) : base()
+        public ButtonContextMenu(ContextMenuCommand command) : base()
         {
-            Command = cmd;
+            Command = command;
         }
 
         public void AlignSize(float relativeWidth, float relativeHeight)
@@ -20,10 +20,10 @@ namespace WhoWantsToBeMillionaire
 
             SizeF ratio = new SizeF(relativeWidth, relativeHeight);
 
-            float wfactor = ratio.Width / ClientRectangle.Width;
-            float hfactor = ratio.Height / ClientRectangle.Height;
+            float wFactor = ratio.Width / ClientRectangle.Width;
+            float hFactor = ratio.Height / ClientRectangle.Height;
 
-            float resizeFactor = Math.Max(wfactor, hfactor);
+            float resizeFactor = Math.Max(wFactor, hFactor);
 
             Dock = DockStyle.None;
             Anchor = AnchorStyles.None;

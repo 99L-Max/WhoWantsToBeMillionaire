@@ -43,7 +43,7 @@ namespace WhoWantsToBeMillionaire
             _scene.StatisticsChanged += UpdateStatistics;
 
             if (!_achievementsData.AllGranted)
-                _scene.AchievementСompleted += GrantAchievement;
+                _scene.AchievementCompleted += GrantAchievement;
 
             Controls.Add(_scene);
             Controls.Add(_menuMain);
@@ -61,9 +61,9 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void OnMainMenuClick(MainMenuCommand cmd)
+        private void OnMainMenuClick(MainMenuCommand command)
         {
-            switch (cmd)
+            switch (command)
             {
                 case MainMenuCommand.Continue:
                     _menuMain.Visible = false;
@@ -93,16 +93,19 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private async void OnContextMenuClick(ContextMenuCommand cmd)
+        private async void OnContextMenuClick(ContextMenuCommand command)
         {
-            switch (cmd)
+            switch (command)
             {
                 default:
                     CloseContextMenu();
                     break;
 
                 case ContextMenuCommand.StartGame:
-                    _scene.Reset((_contextMenu as MenuMode).SelectedMode);
+                    if (_contextMenu is MenuMode menuMode)
+                        _scene.Reset(menuMode.SelectedMode);
+                    else
+                        _scene.Reset(_scene.Mode);
 
                     _menuMain.Visible = false;
                     _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.NewGame).ToArray());
@@ -117,9 +120,13 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case ContextMenuCommand.ApplySettings:
-                    _settingsData = new GameSettingsData((_contextMenu as MenuSettings).SettingsData);
-                    SetSettings(_settingsData);
-                    CloseContextMenu();
+                    if (_contextMenu is MenuSettings menuSettings)
+                    {
+                        _settingsData = new GameSettingsData(menuSettings.SettingsData);
+
+                        SetSettings(_settingsData);
+                        CloseContextMenu();
+                    }
                     break;
 
                 case ContextMenuCommand.Exit:
@@ -171,7 +178,7 @@ namespace WhoWantsToBeMillionaire
 
         private async Task ShowScreenSaver(bool isFullVersion)
         {
-            using (Screensaver saver = new Screensaver())
+            using (var saver = new Screensaver())
             {
                 Controls.Add(saver);
                 Cursor.Hide();
@@ -198,11 +205,11 @@ namespace WhoWantsToBeMillionaire
                 _achievementsData.Grant(achievement);
 
                 if (_achievementsData.AllGranted)
-                    _scene.AchievementСompleted -= GrantAchievement;
+                    _scene.AchievementCompleted -= GrantAchievement;
 
                 var countBoxes = Controls.OfType<BoxAchievement>().Count();
 
-                using (BoxAchievement box = new BoxAchievement(achievement, 280, 70))
+                using (var box = new BoxAchievement(achievement, 280, 70))
                 {
                     box.Y = -box.Height;
 
@@ -242,6 +249,7 @@ namespace WhoWantsToBeMillionaire
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             FileManager.CreateSaveDirectory();
+
             _settingsData.Save(FileManager.PathLocalAppData);
             _statisticsData.Save(FileManager.PathLocalAppData);
             _achievementsData.Save(FileManager.PathLocalAppData);
