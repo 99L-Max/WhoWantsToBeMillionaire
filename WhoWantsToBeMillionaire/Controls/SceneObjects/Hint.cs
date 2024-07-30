@@ -17,7 +17,7 @@ namespace WhoWantsToBeMillionaire
             return wrongKeys.ElementAt(_random.Next(wrongKeys.Count()));
         }
 
-        public Dictionary<Letter, int> GetPercentsAudience(Question question)
+        public Dictionary<Letter, int> GetPercentagesAudience(Question question)
         {
             var keys = question.Options.Where(x => x.Value != string.Empty).Select(x => x.Key).OrderBy(k => _random.Next()).ToList();
             var percents = new List<int>();
@@ -71,7 +71,7 @@ namespace WhoWantsToBeMillionaire
             }
             else
             {
-                answer = question.FullOption(GetWrongLetter(question));
+                answer = question.GetFullOption(GetWrongLetter(question));
                 array = Resources.Dialog_Hint_PhoneFriend_Incorrect;
             }
 
@@ -95,7 +95,7 @@ namespace WhoWantsToBeMillionaire
             }
             else
             {
-                answer = question.FullOption(GetWrongLetter(question));
+                answer = question.GetFullOption(GetWrongLetter(question));
                 array = Resources.Dialog_Hint_AskHost_Incorrect;
             }
 

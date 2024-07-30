@@ -8,13 +8,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum AnswerMode
-    {
-        Usual,
-        DoubleDips,
-        SwitchQuestion,
-        TakeMoney
-    }
+    enum AnswerMode { Usual, DoubleDips, SwitchQuestion, TakeMoney }
 
     class BoxQuestion : GameContol, IReset, ISetSettings
     {

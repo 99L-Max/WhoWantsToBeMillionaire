@@ -10,13 +10,7 @@ namespace WhoWantsToBeMillionaire
 {
     enum Letter { A, B, C, D }
 
-    enum DifficultyQuestion
-    {
-        Easy,
-        Normal,
-        Difficult,
-        Final
-    }
+    enum DifficultyQuestion { Easy, Normal, Difficult, Final }
 
     class Question
     {
@@ -63,7 +57,7 @@ namespace WhoWantsToBeMillionaire
         }
 
         public string FullCorrect =>
-            FullOption(Correct);
+            GetFullOption(Correct);
 
         public int CountOptions =>
             Options.Values.Where(x => x != string.Empty).Count();
@@ -74,7 +68,7 @@ namespace WhoWantsToBeMillionaire
         public static int RandomIndex(int number) =>
             s_random.Next(35 - (number - 1) / 3 * 5) + 1;
 
-        public string FullOption(Letter key) =>
+        public string GetFullOption(Letter key) =>
             $"«{key}: {Options[key]}»";
     }
 }

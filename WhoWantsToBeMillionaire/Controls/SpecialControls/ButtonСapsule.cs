@@ -7,13 +7,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ThemeButtonCapsule
-    {
-        Blue,
-        Orange,
-        Green,
-        Gray
-    }
+    enum ThemeButtonCapsule { Blue, Orange, Green, Gray }
 
     class ButtonСapsule : PictureBox
     {

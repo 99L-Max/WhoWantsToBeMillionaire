@@ -6,15 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum MainMenuCommand
-    {
-        Continue,
-        NewGame,
-        Achievements,
-        Statistics,
-        Settings,
-        Exit
-    }
+    enum MainMenuCommand { Continue, NewGame, Achievements, Statistics, Settings, Exit }
 
     class MenuMain : PictureBox
     {

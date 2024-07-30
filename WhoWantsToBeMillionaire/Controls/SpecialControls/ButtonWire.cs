@@ -7,13 +7,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ThemeButtonWire
-    {
-        Blue,
-        Orange,
-        Green,
-        Gray
-    }
+    enum ThemeButtonWire { Blue, Orange, Green, Gray }
 
     class ButtonWire : PictureBox, IDisposable
     {
@@ -98,10 +92,10 @@ namespace WhoWantsToBeMillionaire
         {
             Size sizeImage = s_imageButton[ThemeButtonWire.Blue].Size;
 
-            float wfactor = (float)sizeImage.Width / ClientRectangle.Width;
-            float hfactor = (float)sizeImage.Height / ClientRectangle.Height;
+            float wFactor = (float)sizeImage.Width / ClientRectangle.Width;
+            float hFactor = (float)sizeImage.Height / ClientRectangle.Height;
 
-            float resizeFactor = Math.Max(wfactor, hfactor);
+            float resizeFactor = Math.Max(wFactor, hFactor);
 
             Size sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
 

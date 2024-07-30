@@ -6,22 +6,9 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum StatusHint
-    {
-        Active,
-        Used,
-        Locked
-    }
+    enum StatusHint { Active, Used, Locked }
 
-    enum TypeHint
-    {
-        FiftyFifty,
-        PhoneFriend,
-        AskAudience,
-        DoubleDip,
-        SwitchQuestion,
-        AskHost
-    }
+    enum TypeHint { FiftyFifty, PhoneFriend, AskAudience, DoubleDip, SwitchQuestion, AskHost }
 
     class ButtonHint : PictureBox, IDisposable
     {
@@ -89,13 +76,13 @@ namespace WhoWantsToBeMillionaire
             Status = status;
             Enabled = enabled;
 
-            float proporsion = 0.75f;
+            float proportion = 0.75f;
 
             using (var icon = (Image)Resources.ResourceManager.GetObject($"Hint_{Type}_{Status}"))
             using (var g = Graphics.FromImage(_image))
             {
-                float width = _image.Width * proporsion;
-                float height = _image.Height * proporsion;
+                float width = _image.Width * proportion;
+                float height = _image.Height * proportion;
 
                 float x = (_image.Width - width) / 2f;
                 float y = (_image.Height - height) / 2f;
@@ -140,15 +127,15 @@ namespace WhoWantsToBeMillionaire
                 var data = JsonManager.GetObject<(float, float, bool)[]>(Resources.AnimationData_ButtonHint);
 
                 bool isFront;
-                float compression, proporsion;
+                float compression, proportion;
                 float x, y, width, height;
 
                 foreach (var el in data)
                 {
-                    (compression, proporsion, isFront) = el;
+                    (compression, proportion, isFront) = el;
 
-                    width = _image.Width * compression * proporsion;
-                    height = _image.Height * proporsion;
+                    width = _image.Width * compression * proportion;
+                    height = _image.Height * proportion;
 
                     x = (_image.Width - width) / 2f;
                     y = (_image.Height - height) / 2f;

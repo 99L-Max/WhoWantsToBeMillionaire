@@ -209,7 +209,7 @@ namespace WhoWantsToBeMillionaire
 
                 var countBoxes = Controls.OfType<BoxAchievement>().Count();
 
-                using (var box = new BoxAchievement(achievement, 280, 70))
+                using (var box = new BoxAchievement(achievement, ScreenSize.Width >> 2, ScreenSize.Height >> 3))
                 {
                     box.Y = -box.Height;
 

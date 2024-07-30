@@ -4,13 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ContextMenuCommand
-    {
-        Back,
-        StartGame,
-        ApplySettings,
-        Exit
-    }
+    enum ContextMenuCommand { Back, StartGame, ApplySettings, Exit }
 
     abstract class ContextMenu : PictureBox, IDisposable
     {

@@ -6,12 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum Mode
-    {
-        Classic,
-        Amateur,
-        Advanced
-    }
+    enum Mode { Classic, Amateur, Advanced }
 
     class MenuMode : ContextMenu, IDisposable
     {

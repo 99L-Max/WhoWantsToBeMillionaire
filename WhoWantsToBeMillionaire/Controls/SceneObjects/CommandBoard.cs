@@ -6,11 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum TextMode
-    {
-        Monologue,
-        Dialog
-    }
+    enum TextMode { Monologue, Dialog }
 
     class CommandBoard : TableLayoutPanel, IReset
     {

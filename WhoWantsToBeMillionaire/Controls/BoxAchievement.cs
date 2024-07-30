@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -14,16 +13,17 @@ namespace WhoWantsToBeMillionaire
 
             using (var icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{achievement}"))
             using (var g = Graphics.FromImage(image))
-            using (var brush = new LinearGradientBrush(ClientRectangle, Color.FromArgb(64, 64, 64), Color.FromArgb(32, 32, 32), 90f))
             {
                 var dict = JsonManager.GetDictionary<Achievement, (string, string)>(Resources.Dictionary_Achievements);
                 var (title, comment) = dict[achievement];
-                var artist = new Painter();
+                var painter = new Painter();
 
-                g.FillRectangle(brush, ClientRectangle);
-
-                using (var art = artist.GetAchievementImage(icon, title, comment, width, height))
-                    g.DrawImage(art, ClientRectangle);
+                using (var background = painter.GetFilledPanel(Size, 6, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f))
+                using (var imageAchievement = painter.GetAchievementImage(icon, title, comment, width, height))
+                {
+                    g.DrawImage(background, ClientRectangle);
+                    g.DrawImage(imageAchievement, ClientRectangle);
+                }
 
                 Image = image;
             }

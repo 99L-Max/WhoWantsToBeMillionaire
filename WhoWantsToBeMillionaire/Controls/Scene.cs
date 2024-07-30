@@ -177,16 +177,13 @@ namespace WhoWantsToBeMillionaire
 
         private async void OnOptionClick(Letter letter)
         {
-            var text = _boxQuestion.Question.Explanation;
-
-            if (!_boxQuestion.IsCorrectAnswer)
-                text += $"\nПравильный ответ: {_boxQuestion.Question.FullCorrect}.";
-
             switch (_boxQuestion.AnswerMode)
             {
                 default:
                     ControlEnabled = false;
                     StatisticsChanged?.Invoke(_boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers, 1);
+
+                    ShowExplanationText();
 
                     if (_boxQuestion.IsCorrectAnswer && _boxQuestion.Question.Number < Question.MaxNumber)
                     {
@@ -232,23 +229,35 @@ namespace WhoWantsToBeMillionaire
 
                 case AnswerMode.SwitchQuestion:
                     _commandBoard.Command = SceneCommand.SwitchQuestion;
-
+                    
                     var phrase1 = _boxQuestion.IsCorrectAnswer ? HostPhrases.SwitchQuestion_CorrectAnswer : HostPhrases.SwitchQuestion_IncorrectAnswer;
-
-                    text += $"\n{_host.Say(phrase1, _boxQuestion.Question.Number.ToString())}";
+                    
+                    ShowExplanationText($"\n{_host.Say(phrase1, _boxQuestion.Question.Number.ToString())}");
                     break;
 
                 case AnswerMode.TakeMoney:
                     _commandBoard.Command = SceneCommand.TakeMoney_ShowPrize;
-
+                    
                     var phrase2 = _boxQuestion.IsCorrectAnswer ? HostPhrases.TakingMoney_CorrectAnswer : HostPhrases.TakingMoney_IncorrectAnswer;
-
-                    text += $"\n{_host.Say(phrase2, _tableSums.NextSum)}";
+                    
+                    ShowExplanationText($"\n{_host.Say(phrase2, _tableSums.NextSum)}");
                     break;
             }
 
-            _commandBoard.Text = text;
             _commandBoard.ButtonCommandVisible = true;
+        }
+
+        private void ShowExplanationText(string phraseOfHost = "")
+        {
+            var text = _boxQuestion.Question.Explanation;
+
+            if (!_boxQuestion.IsCorrectAnswer)
+                text += $"\nПравильный ответ: {_boxQuestion.Question.FullCorrect}.";
+
+            if (phraseOfHost != "")
+                text += phraseOfHost;
+
+            _commandBoard.Text = text;
         }
 
         private async void OnHintClick(TypeHint type)
@@ -304,7 +313,7 @@ namespace WhoWantsToBeMillionaire
                     _boxQuestion.Enabled = false;
                     _commandBoard.Command = SceneCommand.End_AskAudience;
 
-                    var percents = _hint.GetPercentsAudience(_boxQuestion.Question);
+                    var percents = _hint.GetPercentagesAudience(_boxQuestion.Question);
                     var heigth = (int)(0.7f * _commandBoard.Height);
 
                     _chart = new VotingChart((int)(0.75f * heigth), heigth);
