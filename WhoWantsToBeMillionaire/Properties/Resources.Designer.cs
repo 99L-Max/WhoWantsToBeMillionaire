@@ -19,7 +19,7 @@ namespace WhoWantsToBeMillionaire.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -72,9 +72,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Achievement_AndToTalk {
+        internal static System.Drawing.Bitmap Achievement_Background {
             get {
-                object obj = ResourceManager.GetObject("Achievement_AndToTalk", resourceCulture);
+                object obj = ResourceManager.GetObject("Achievement_Background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -82,59 +82,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Achievement_AudienceAward {
+        internal static System.Drawing.Bitmap Achievement_Icons {
             get {
-                object obj = ResourceManager.GetObject("Achievement_AudienceAward", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_DearComputer {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_DearComputer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_DefectiveQuestion {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_DefectiveQuestion", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_ExcessiveСaution {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_ExcessiveСaution", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_IsPossible {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_IsPossible", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_Jubilee {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_Jubilee", resourceCulture);
+                object obj = ResourceManager.GetObject("Achievement_Icons", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -145,86 +95,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.Drawing.Bitmap Achievement_Locked {
             get {
                 object obj = ResourceManager.GetObject("Achievement_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_Millionaire {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_Millionaire", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_MoneyNotBurn {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_MoneyNotBurn", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_NoOneWillKnow {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_NoOneWillKnow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_NoOptions {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_NoOptions", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_StopGame {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_StopGame", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_SuccessfulOutcome {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_SuccessfulOutcome", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_TriumphReason {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_TriumphReason", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Achievement_WasTwoBecameFour {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_WasTwoBecameFour", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -261,15 +131,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Answer_Correct_Difficult {
-            get {
-                return ResourceManager.GetStream("Answer_Correct_Difficult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
         internal static System.IO.UnmanagedMemoryStream Answer_Correct_Easy {
             get {
                 return ResourceManager.GetStream("Answer_Correct_Easy", resourceCulture);
@@ -291,6 +152,15 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.IO.UnmanagedMemoryStream Answer_Correct_Final {
             get {
                 return ResourceManager.GetStream("Answer_Correct_Final", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Answer_Correct_Hard {
+            get {
+                return ResourceManager.GetStream("Answer_Correct_Hard", resourceCulture);
             }
         }
         
@@ -324,15 +194,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Answer_Incorrect_Difficult {
-            get {
-                return ResourceManager.GetStream("Answer_Incorrect_Difficult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
         internal static System.IO.UnmanagedMemoryStream Answer_Incorrect_Easy {
             get {
                 return ResourceManager.GetStream("Answer_Incorrect_Easy", resourceCulture);
@@ -345,6 +206,15 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.IO.UnmanagedMemoryStream Answer_Incorrect_Final {
             get {
                 return ResourceManager.GetStream("Answer_Incorrect_Final", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Answer_Incorrect_Hard {
+            get {
+                return ResourceManager.GetStream("Answer_Incorrect_Hard", resourceCulture);
             }
         }
         
@@ -400,9 +270,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ButtonArrow_Left {
+        internal static System.Drawing.Bitmap ButtonArrow {
             get {
-                object obj = ResourceManager.GetObject("ButtonArrow_Left", resourceCulture);
+                object obj = ResourceManager.GetObject("ButtonArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -410,9 +280,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ButtonArrow_Left_Click {
+        internal static System.Drawing.Bitmap ButtonCapsule {
             get {
-                object obj = ResourceManager.GetObject("ButtonArrow_Left_Click", resourceCulture);
+                object obj = ResourceManager.GetObject("ButtonCapsule", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -420,69 +290,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ButtonArrow_Right {
+        internal static System.Drawing.Bitmap ButtonWire {
             get {
-                object obj = ResourceManager.GetObject("ButtonArrow_Right", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonArrow_Right_Click {
-            get {
-                object obj = ResourceManager.GetObject("ButtonArrow_Right_Click", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonCapsule_Blue {
-            get {
-                object obj = ResourceManager.GetObject("ButtonCapsule_Blue", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonCapsule_Gray {
-            get {
-                object obj = ResourceManager.GetObject("ButtonCapsule_Gray", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonCapsule_Green {
-            get {
-                object obj = ResourceManager.GetObject("ButtonCapsule_Green", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonCapsule_Orange {
-            get {
-                object obj = ResourceManager.GetObject("ButtonCapsule_Orange", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonWire_Blue {
-            get {
-                object obj = ResourceManager.GetObject("ButtonWire_Blue", resourceCulture);
+                object obj = ResourceManager.GetObject("ButtonWire", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -493,36 +303,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.Drawing.Bitmap ButtonWire_Focused {
             get {
                 object obj = ResourceManager.GetObject("ButtonWire_Focused", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonWire_Gray {
-            get {
-                object obj = ResourceManager.GetObject("ButtonWire_Gray", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonWire_Green {
-            get {
-                object obj = ResourceManager.GetObject("ButtonWire_Green", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ButtonWire_Orange {
-            get {
-                object obj = ResourceManager.GetObject("ButtonWire_Orange", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -581,16 +361,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.Drawing.Bitmap Cursor {
             get {
                 object obj = ResourceManager.GetObject("Cursor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Dialog {
-            get {
-                object obj = ResourceManager.GetObject("Dialog", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -726,26 +496,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Focus_Hint {
-            get {
-                object obj = ResourceManager.GetObject("Focus_Hint", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_AskAudience_Active {
-            get {
-                object obj = ResourceManager.GetObject("Hint_AskAudience_Active", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Hint_AskAudience_Begin {
@@ -760,26 +510,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.IO.UnmanagedMemoryStream Hint_AskAudience_End {
             get {
                 return ResourceManager.GetStream("Hint_AskAudience_End", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_AskAudience_Locked {
-            get {
-                object obj = ResourceManager.GetObject("Hint_AskAudience_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_AskAudience_Used {
-            get {
-                object obj = ResourceManager.GetObject("Hint_AskAudience_Used", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -802,71 +532,11 @@ namespace WhoWantsToBeMillionaire.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_AskHost_Active {
-            get {
-                object obj = ResourceManager.GetObject("Hint_AskHost_Active", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_AskHost_Locked {
-            get {
-                object obj = ResourceManager.GetObject("Hint_AskHost_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_AskHost_Used {
-            get {
-                object obj = ResourceManager.GetObject("Hint_AskHost_Used", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Hint_DoubleDip {
             get {
                 return ResourceManager.GetStream("Hint_DoubleDip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_DoubleDip_Active {
-            get {
-                object obj = ResourceManager.GetObject("Hint_DoubleDip_Active", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_DoubleDip_Locked {
-            get {
-                object obj = ResourceManager.GetObject("Hint_DoubleDip_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_DoubleDip_Used {
-            get {
-                object obj = ResourceManager.GetObject("Hint_DoubleDip_Used", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -882,39 +552,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Hint_FiftyFifty_Active {
+        internal static System.Drawing.Bitmap Hint_Icons {
             get {
-                object obj = ResourceManager.GetObject("Hint_FiftyFifty_Active", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_FiftyFifty_Locked {
-            get {
-                object obj = ResourceManager.GetObject("Hint_FiftyFifty_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_FiftyFifty_Used {
-            get {
-                object obj = ResourceManager.GetObject("Hint_FiftyFifty_Used", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_PhoneFriend_Active {
-            get {
-                object obj = ResourceManager.GetObject("Hint_PhoneFriend_Active", resourceCulture);
+                object obj = ResourceManager.GetObject("Hint_Icons", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -947,16 +587,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_PhoneFriend_Locked {
-            get {
-                object obj = ResourceManager.GetObject("Hint_PhoneFriend_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Hint_PhoneFriend_Timer {
@@ -968,39 +598,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Hint_PhoneFriend_Used {
+        internal static System.Drawing.Bitmap Hint_ReverseSide {
             get {
-                object obj = ResourceManager.GetObject("Hint_PhoneFriend_Used", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_SwitchQuestion_Active {
-            get {
-                object obj = ResourceManager.GetObject("Hint_SwitchQuestion_Active", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_SwitchQuestion_Locked {
-            get {
-                object obj = ResourceManager.GetObject("Hint_SwitchQuestion_Locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Hint_SwitchQuestion_Used {
-            get {
-                object obj = ResourceManager.GetObject("Hint_SwitchQuestion_Used", resourceCulture);
+                object obj = ResourceManager.GetObject("Hint_ReverseSide", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1012,16 +612,6 @@ namespace WhoWantsToBeMillionaire.Properties {
             get {
                 object obj = ResourceManager.GetObject("Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IconSum_Circle {
-            get {
-                object obj = ResourceManager.GetObject("IconSum_Circle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1048,9 +638,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Medal_Empty {
+        internal static System.Drawing.Bitmap Medal {
             get {
-                object obj = ResourceManager.GetObject("Medal_Empty", resourceCulture);
+                object obj = ResourceManager.GetObject("Medal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1058,29 +648,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Medal_Granted {
+        internal static System.Drawing.Bitmap PhoneTimer {
             get {
-                object obj = ResourceManager.GetObject("Medal_Granted", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PhoneTimer_Back {
-            get {
-                object obj = ResourceManager.GetObject("PhoneTimer_Back", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PhoneTimer_Front {
-            get {
-                object obj = ResourceManager.GetObject("PhoneTimer_Front", resourceCulture);
+                object obj = ResourceManager.GetObject("PhoneTimer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -4869,16 +4439,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.IO.UnmanagedMemoryStream Question_Reflections {
             get {
                 return ResourceManager.GetStream("Question_Reflections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ReverseSide_Hint {
-            get {
-                object obj = ResourceManager.GetObject("ReverseSide_Hint", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

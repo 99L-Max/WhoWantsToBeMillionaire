@@ -20,8 +20,11 @@ namespace WhoWantsToBeMillionaire
             SizeMode = PictureBoxSizeMode.Zoom;
             BackColor = Color.Transparent;
 
-            _image = direction == DirectionArrow.Left ? Resources.ButtonArrow_Left : Resources.ButtonArrow_Right;
-            _imageClick = direction == DirectionArrow.Left ? Resources.ButtonArrow_Left_Click : Resources.ButtonArrow_Right_Click;
+            using (var sprite = Resources.ButtonArrow)
+            {
+                _image = Painter.CutSprite(sprite, 2, 2, 0, (int)direction);
+                _imageClick = Painter.CutSprite(sprite, 2, 2, 1, (int)direction);
+            }
 
             OnMouseLeave(EventArgs.Empty);
         }
@@ -37,16 +40,16 @@ namespace WhoWantsToBeMillionaire
             base.Dispose(disposing);
         }
 
-        protected override void OnMouseEnter(EventArgs e) => 
+        protected override void OnMouseEnter(EventArgs e) =>
             Image = _imageClick;
 
-        protected override void OnMouseUp(MouseEventArgs e) => 
+        protected override void OnMouseUp(MouseEventArgs e) =>
             Image = _imageClick;
 
-        protected override void OnMouseDown(MouseEventArgs e) => 
+        protected override void OnMouseDown(MouseEventArgs e) =>
             Image = _image;
 
-        protected override void OnMouseLeave(EventArgs e) => 
+        protected override void OnMouseLeave(EventArgs e) =>
             Image = _image;
     }
 }

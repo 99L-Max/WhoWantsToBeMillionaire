@@ -20,7 +20,7 @@ namespace WhoWantsToBeMillionaire
             Location = new Point(MainForm.ScreenSize.Width - Width >> 1, MainForm.ScreenSize.Height - Height >> 1);
             BackColor = Color.Transparent;
             BackgroundImageLayout = ImageLayout.Stretch;
-            BackgroundImage = new Painter().GetFilledPanel(Size, 12, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f);
+            BackgroundImage = Painter.CreateFilledPanel(Size, 12, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f);
 
             _table = new TableLayoutPanel();
             _labelTitle = new LabelMenu(fontSize, ContentAlignment.MiddleCenter);

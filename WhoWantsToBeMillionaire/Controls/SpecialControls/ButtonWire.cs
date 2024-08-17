@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -25,9 +26,13 @@ namespace WhoWantsToBeMillionaire
         static ButtonWire()
         {
             var keys = Enum.GetValues(typeof(ThemeButtonWire)).Cast<ThemeButtonWire>();
-            var img = keys.ToDictionary(k => k, v => (Image)Resources.ResourceManager.GetObject($"ButtonWire_{v}"));
+            var images = new Dictionary<ThemeButtonWire, Image>();
 
-            s_imageButton = new ReadOnlyDictionary<ThemeButtonWire, Image>(img);
+            using (var sprite = Resources.ButtonWire)
+                foreach (var key in keys)
+                    images.Add(key, Painter.CutSprite(sprite, 4, 1, (int)key, 0));
+
+            s_imageButton = new ReadOnlyDictionary<ThemeButtonWire, Image>(images);
             s_wire = Resources.Wire;
         }
 
@@ -120,5 +125,8 @@ namespace WhoWantsToBeMillionaire
             else
                 SetStyle(ThemeButtonWire.Gray, Color.Black);
         }
+
+        public static Image GetCopyTheme(ThemeButtonWire theme) =>
+            new Bitmap(s_imageButton[theme]);
     }
 }

@@ -101,16 +101,16 @@
     <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SpecialObjects\ImageAlpha.cs" />
-    <Compile Include="Processing\LoopedStream.cs" />
-    <Compile Include="Processing\Painter.cs" />
+    <Compile Include="Classes\GameClasses\ImageAlpha.cs" />
+    <Compile Include="Classes\Processing\LoopedStream.cs" />
+    <Compile Include="Classes\Processing\Painter.cs" />
     <Compile Include="Controls\BoxAchievement.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Menus\Context\MenuAchievements.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataObjects\AchievementsData.cs" />
+    <Compile Include="Classes\DataObjects\AchievementsData.cs" />
     <Compile Include="Controls\Menus\Context\MenuExit.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,32 +120,35 @@
     <Compile Include="Controls\Menus\MenuControls\TableImages.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\BoxAnimation.cs">
+    <Compile Include="Controls\SceneControls\BoxAnimationTransition.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataObjects\SettingsData.cs" />
-    <Compile Include="Controls\SceneObjects\ChartColumnPercent.cs" />
-    <Compile Include="Controls\SceneObjects\ButtonOption.cs">
+    <Compile Include="Classes\DataObjects\SettingsData.cs" />
+    <Compile Include="Classes\GameClasses\ChartColumnPercent.cs" />
+    <Compile Include="Controls\SceneControls\BoxAnimationRotation.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\GameToolTip.cs">
+    <Compile Include="Controls\SceneControls\ButtonOption.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Interfaces\ISetSettings.cs" />
-    <Compile Include="Interfaces\IReset.cs" />
+    <Compile Include="Controls\SceneControls\GameToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Interfaces\ISetSettings.cs" />
+    <Compile Include="Classes\Interfaces\IReset.cs" />
     <Compile Include="Controls\Menus\MenuControls\LabelMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\LabelDialog.cs">
+    <Compile Include="Controls\SceneControls\LabelDialog.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\MovingTableControls.cs">
+    <Compile Include="Controls\SceneControls\MovingTableControls.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Menus\Context\MenuSettings.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\Hint.cs" />
+    <Compile Include="Classes\GameClasses\Hint.cs" />
     <Compile Include="Controls\Menus\MenuControls\ButtonArrow.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -167,28 +170,28 @@
     <Compile Include="Controls\Menus\MenuControls\ButtonContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\Host.cs" />
+    <Compile Include="Classes\GameClasses\Host.cs" />
     <Compile Include="Controls\Menus\Context\MenuMode.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\BoxQuestion.cs">
+    <Compile Include="Controls\SceneControls\BoxQuestion.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Processing\FileManager.cs" />
-    <Compile Include="DataObjects\StatisticsData.cs" />
+    <Compile Include="Classes\Processing\FileManager.cs" />
+    <Compile Include="Classes\DataObjects\StatisticsData.cs" />
     <Compile Include="Controls\Menus\Context\MenuStatistics.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\VotingChart.cs">
+    <Compile Include="Controls\SceneControls\VotingChart.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\CentralIconHint.cs">
+    <Compile Include="Controls\SceneControls\CentralIconHint.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\ButtonHint.cs">
+    <Compile Include="Controls\SceneControls\ButtonHint.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\TableHints.cs">
+    <Compile Include="Controls\SceneControls\TableHints.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Menus\Main\MenuMain.cs">
@@ -197,7 +200,7 @@
     <Compile Include="Controls\SpecialControls\MovingControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\Option.cs" />
+    <Compile Include="Classes\GameClasses\Option.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,30 +210,54 @@
     <Compile Include="Controls\SpecialControls\GameContol.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\PhoneTimer.cs">
+    <Compile Include="Controls\SceneControls\PhoneTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Processing\Sound.cs" />
+    <Compile Include="Classes\Processing\Resizer.cs" />
+    <Compile Include="Classes\Processing\Sound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\SceneObjects\Question.cs" />
-    <Compile Include="Processing\JsonManager.cs" />
-    <Compile Include="Controls\SceneObjects\RowTableSums.cs">
+    <Compile Include="Classes\GameClasses\Question.cs" />
+    <Compile Include="Classes\Processing\JsonManager.cs" />
+    <Compile Include="Controls\SceneControls\RowTableSums.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SceneObjects\CommandBoard.cs">
+    <Compile Include="Controls\SceneControls\CommandBoard.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Screensaver.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SpecialObjects\ImageAlphaText.cs" />
-    <Compile Include="Controls\SceneObjects\TableSums.cs">
+    <Compile Include="Classes\GameClasses\ImageAlphaText.cs" />
+    <Compile Include="Controls\SceneControls\TableSums.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Scene.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Content Include="Resources\Textures\Achievement_Background.png" />
+    <Content Include="Resources\Textures\Achievement_Icons.png" />
+    <Content Include="Resources\Textures\Achievement_Locked.png" />
+    <Content Include="Resources\Textures\AudienceChart.png" />
+    <Content Include="Resources\Textures\Background_Main.png" />
+    <Content Include="Resources\Textures\Background_Screensaver.png" />
+    <Content Include="Resources\Textures\Background_Sums.png" />
+    <Content Include="Resources\Textures\ButtonArrow.png" />
+    <Content Include="Resources\Textures\ButtonCapsule.png" />
+    <Content Include="Resources\Textures\ButtonWire.png" />
+    <Content Include="Resources\Textures\ButtonWire_Focused.png" />
+    <Content Include="Resources\Textures\ChartColumn.png" />
+    <Content Include="Resources\Textures\ComboBox.png" />
+    <Content Include="Resources\Textures\CurrentAmount.png" />
+    <Content Include="Resources\Textures\Cursor.png" />
+    <Content Include="Resources\Textures\Hint_Icons.png" />
+    <Content Include="Resources\Textures\Hint_ReverseSide.png" />
+    <Content Include="Resources\Textures\IconSum_Rhomb.png" />
+    <Content Include="Resources\Textures\Logo.png" />
+    <Content Include="Resources\Textures\Medal.png" />
+    <Content Include="Resources\Textures\PhoneTimer.png" />
+    <Content Include="Resources\Textures\Question.png" />
+    <Content Include="Resources\Textures\Wire.png" />
     <EmbeddedResource Include="Controls\Scene.resx">
       <DependentUpon>Scene.cs</DependentUpon>
     </EmbeddedResource>
@@ -661,7 +688,7 @@
     <Content Include="Resources\Sounds\Answer_Accepted.wav" />
     <Content Include="Resources\Sounds\Answer_Correct_Easy.wav" />
     <Content Include="Resources\Sounds\Answer_Correct_Normal.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_Difficult.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_Hard.wav" />
     <Content Include="Resources\Sounds\Answer_Correct_Easy_Ending.wav" />
     <Content Include="Resources\Sounds\Answer_Correct_SaveSum.wav" />
     <Content Include="Resources\Sounds\Answer_DrumRoll.wav" />
@@ -698,76 +725,7 @@
     <Content Include="Resources\Sounds\Answer_Incorrect_Easy.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Sounds\Answer_Incorrect_Difficult.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Textures\Achievement_AndToTalk.png" />
-    <Content Include="Resources\Textures\Achievement_AudienceAward.png" />
-    <Content Include="Resources\Textures\Achievement_DearComputer.png" />
-    <Content Include="Resources\Textures\Achievement_DefectiveQuestion.png" />
-    <Content Include="Resources\Textures\Achievement_ExcessiveСaution.png" />
-    <Content Include="Resources\Textures\Achievement_IsPossible.png" />
-    <Content Include="Resources\Textures\Achievement_Jubilee.png" />
-    <Content Include="Resources\Textures\Achievement_Locked.png" />
-    <Content Include="Resources\Textures\Achievement_Millionaire.png" />
-    <Content Include="Resources\Textures\Achievement_MoneyNotBurn.png" />
-    <Content Include="Resources\Textures\Achievement_NoOneWillKnow.png" />
-    <Content Include="Resources\Textures\Achievement_NoOptions.png" />
-    <Content Include="Resources\Textures\Achievement_StopGame.png" />
-    <Content Include="Resources\Textures\Achievement_SuccessfulOutcome.png" />
-    <Content Include="Resources\Textures\Achievement_TriumphReason.png" />
-    <Content Include="Resources\Textures\Achievement_WasTwoBecameFour.png" />
-    <Content Include="Resources\Textures\AudienceChart.png" />
-    <Content Include="Resources\Textures\Background_Main.png" />
-    <Content Include="Resources\Textures\Background_Screensaver.png" />
-    <Content Include="Resources\Textures\Background_Sums.png" />
-    <Content Include="Resources\Textures\ButtonArrow_Left.png" />
-    <Content Include="Resources\Textures\ButtonArrow_Left_Click.png" />
-    <Content Include="Resources\Textures\ButtonArrow_Right.png" />
-    <Content Include="Resources\Textures\ButtonArrow_Right_Click.png" />
-    <Content Include="Resources\Textures\ButtonCapsule_Blue.png" />
-    <Content Include="Resources\Textures\ButtonCapsule_Gray.png" />
-    <Content Include="Resources\Textures\ButtonCapsule_Green.png" />
-    <Content Include="Resources\Textures\ButtonCapsule_Orange.png" />
-    <Content Include="Resources\Textures\ButtonWire_Blue.png" />
-    <Content Include="Resources\Textures\ButtonWire_Focused.png" />
-    <Content Include="Resources\Textures\ButtonWire_Gray.png" />
-    <Content Include="Resources\Textures\ButtonWire_Green.png" />
-    <Content Include="Resources\Textures\ButtonWire_Orange.png" />
-    <Content Include="Resources\Textures\ChartColumn.png" />
-    <Content Include="Resources\Textures\ComboBox.png" />
-    <Content Include="Resources\Textures\CurrentAmount.png" />
-    <Content Include="Resources\Textures\Cursor.png" />
-    <Content Include="Resources\Textures\Dialog.png" />
-    <Content Include="Resources\Textures\Focus_Hint.png" />
-    <Content Include="Resources\Textures\Hint_AskAudience_Active.png" />
-    <Content Include="Resources\Textures\Hint_AskAudience_Locked.png" />
-    <Content Include="Resources\Textures\Hint_AskAudience_Used.png" />
-    <Content Include="Resources\Textures\Hint_AskHost_Active.png" />
-    <Content Include="Resources\Textures\Hint_AskHost_Locked.png" />
-    <Content Include="Resources\Textures\Hint_AskHost_Used.png" />
-    <Content Include="Resources\Textures\Hint_DoubleDip_Active.png" />
-    <Content Include="Resources\Textures\Hint_DoubleDip_Locked.png" />
-    <Content Include="Resources\Textures\Hint_DoubleDip_Used.png" />
-    <Content Include="Resources\Textures\Hint_FiftyFifty_Active.png" />
-    <Content Include="Resources\Textures\Hint_FiftyFifty_Locked.png" />
-    <Content Include="Resources\Textures\Hint_FiftyFifty_Used.png" />
-    <Content Include="Resources\Textures\Hint_PhoneFriend_Active.png" />
-    <Content Include="Resources\Textures\Hint_PhoneFriend_Locked.png" />
-    <Content Include="Resources\Textures\Hint_PhoneFriend_Used.png" />
-    <Content Include="Resources\Textures\Hint_SwitchQuestion_Active.png" />
-    <Content Include="Resources\Textures\Hint_SwitchQuestion_Locked.png" />
-    <Content Include="Resources\Textures\Hint_SwitchQuestion_Used.png" />
-    <Content Include="Resources\Textures\IconSum_Circle.png" />
-    <Content Include="Resources\Textures\IconSum_Rhomb.png" />
-    <Content Include="Resources\Textures\Logo.png" />
-    <Content Include="Resources\Textures\Medal_Empty.png" />
-    <Content Include="Resources\Textures\Medal_Granted.png" />
-    <Content Include="Resources\Textures\PhoneTimer_Back.png" />
-    <Content Include="Resources\Textures\PhoneTimer_Front.png" />
-    <Content Include="Resources\Textures\Question.png" />
-    <Content Include="Resources\Textures\ReverseSide_Hint.png" />
-    <Content Include="Resources\Textures\Wire.png" />
+    <Content Include="Resources\Sounds\Answer_Incorrect_Hard.wav" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

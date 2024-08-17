@@ -47,7 +47,7 @@ namespace WhoWantsToBeMillionaire
             }
 
             if (_alpha > 0)
-                using (Brush brush = new SolidBrush(Color.FromArgb(_alpha, Color.White)))
+                using (var brush = new SolidBrush(Color.FromArgb(_alpha, Color.White)))
                     e.Graphics.FillRectangle(brush, ClientRectangle);
         }
 

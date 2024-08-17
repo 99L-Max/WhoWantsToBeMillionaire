@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -19,8 +20,13 @@ namespace WhoWantsToBeMillionaire
         static ButtonСapsule()
         {
             var keys = Enum.GetValues(typeof(ThemeButtonCapsule)).Cast<ThemeButtonCapsule>();
-            var img = keys.ToDictionary(k => k, v => (Image)Resources.ResourceManager.GetObject($"ButtonCapsule_{v}"));
-            s_imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(img);
+            var images = new Dictionary<ThemeButtonCapsule, Image>();
+
+            using (var sprite = Resources.ButtonCapsule)
+                foreach (var key in keys)
+                    images.Add(key, Painter.CutSprite(sprite, 4, 1, (int)key, 0));
+
+            s_imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(images);
         }
 
         public ButtonСapsule()

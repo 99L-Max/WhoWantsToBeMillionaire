@@ -121,53 +121,14 @@
   <data name="Achievement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\achievement.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Achievement_AndToTalk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_andtotalk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Achievement_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Achievement_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Achievement_AudienceAward" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_audienceaward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_DearComputer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_dearcomputer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_DefectiveQuestion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_defectivequestion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_ExcessiveСaution" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_excessiveсaution.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_IsPossible" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_ispossible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_Jubilee" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_jubilee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Achievement_Icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Achievement_Icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Achievement_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_Millionaire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_millionaire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_MoneyNotBurn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_moneynotburn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_NoOneWillKnow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_noonewillknow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_NoOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_nooptions.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_StopGame" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_stopgame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_SuccessfulOutcome" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_successfuloutcome.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_TriumphReason" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_triumphreason.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Achievement_WasTwoBecameFour" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\achievement_wastwobecamefour.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Achievement_Locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnimationData_ButtonHint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\animationdata\animationdata_buttonhint.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -178,9 +139,6 @@
   <data name="Answer_Accepted" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_accepted.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Answer_Correct_Difficult" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_correct_difficult.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Answer_Correct_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_correct_easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -189,6 +147,9 @@
   </data>
   <data name="Answer_Correct_Final" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_correct_final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Answer_Correct_Hard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Answer_Correct_Hard.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_correct_normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -199,68 +160,41 @@
   <data name="Answer_DrumRoll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_drumroll.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Answer_Incorrect_Difficult" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_incorrect_difficult.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Answer_Incorrect_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_incorrect_easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Incorrect_Final" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_incorrect_final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Answer_Incorrect_Hard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Answer_Incorrect_Hard.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Answer_Incorrect_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\answer_incorrect_normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="AudienceChart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\audiencechart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\AudienceChart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Background_Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\background_main.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Background_Main.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Background_Screensaver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\background_screensaver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Background_Screensaver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Background_Sums" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\background_sums.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Background_Sums.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonArrow_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonarrow_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\ButtonArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonArrow_Left_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonarrow_left_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonCapsule" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\ButtonCapsule.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonArrow_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonarrow_right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonArrow_Right_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonarrow_right_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonCapsule_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttoncapsule_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonCapsule_Gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttoncapsule_gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonCapsule_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttoncapsule_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonCapsule_Orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttoncapsule_orange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonWire_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonwire_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonWire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\ButtonWire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonWire_Focused" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonwire_focused.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonWire_Gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonwire_gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonWire_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonwire_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonWire_Orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\buttonwire_orange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\ButtonWire_Focused.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CentralIcon_Hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\centralicon_hide.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -269,19 +203,16 @@
     <value>..\resources\sounds\centralicon_show.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ChartColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\chartcolumn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\ChartColumn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ComboBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\combobox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\ComboBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CurrentAmount" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\currentamount.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\CurrentAmount.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Dialog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\dialog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dialog_Hint_AskHost_Correct" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dialogues\dialog_hint_askhost_correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -322,23 +253,11 @@
   <data name="Dictionary_Statistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dictionaries\dictionary_statistics.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Focus_Hint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\focus_hint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_AskAudience_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_askaudience_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Hint_AskAudience_Begin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_askaudience_begin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_AskAudience_End" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_askaudience_end.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Hint_AskAudience_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_askaudience_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_AskAudience_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_askaudience_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hint_AskAudience_Voting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_askaudience_voting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -346,41 +265,14 @@
   <data name="Hint_AskHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_askhost.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Hint_AskHost_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_askhost_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_AskHost_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_askhost_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_AskHost_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_askhost_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Hint_DoubleDip" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_doubledip.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Hint_DoubleDip_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_doubledip_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_DoubleDip_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_doubledip_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_DoubleDip_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_doubledip_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hint_FiftyFifty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_fiftyfifty.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Hint_FiftyFifty_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_fiftyfifty_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_FiftyFifty_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_fiftyfifty_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_FiftyFifty_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_fiftyfifty_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_PhoneFriend_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_phonefriend_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Hint_Icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Hint_Icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hint_PhoneFriend_Beeps" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_phonefriend_beeps.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -391,47 +283,26 @@
   <data name="Hint_PhoneFriend_End" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_phonefriend_end.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Hint_PhoneFriend_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_phonefriend_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Hint_PhoneFriend_Timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\hint_phonefriend_timer.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Hint_PhoneFriend_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_phonefriend_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_SwitchQuestion_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_switchquestion_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_SwitchQuestion_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_switchquestion_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hint_SwitchQuestion_Used" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\hint_switchquestion_used.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Hint_ReverseSide" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Hint_ReverseSide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IconSum_Circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\iconsum_circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="IconSum_Rhomb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\iconsum_rhomb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\IconSum_Rhomb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Medal_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\medal_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Medal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Medal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Medal_Granted" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\medal_granted.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PhoneTimer_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\phonetimer_back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PhoneTimer_Front" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\phonetimer_front.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PhoneTimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\PhoneTimer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerTakesMoney" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\playertakesmoney.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1562,16 +1433,13 @@
     <value>..\resources\questions\q15v15.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Question" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Question_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\question_next.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Question_Reflections" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\question_reflections.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ReverseSide_Hint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\reverseside_hint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Rules" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\rules.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1610,6 +1478,6 @@
     <value>..\resources\sounds\start.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Wire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\textures\wire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Textures\Wire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

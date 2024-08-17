@@ -37,7 +37,12 @@ namespace WhoWantsToBeMillionaire
         public void SetCommands(params MainMenuCommand[] commands)
         {
             foreach (Control ctrl in _table.Controls)
+            {
+                if(ctrl is ButtonMainMenu btn)
+                    btn.Click -= OnButtonClick;
+
                 ctrl.Dispose();
+            }
 
             var heightButton = (int)(0.08f * MainForm.ScreenSize.Height);
 
@@ -60,7 +65,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        protected void OnButtonClick(object sender, EventArgs e)
+        private void OnButtonClick(object sender, EventArgs e)
         {
             if (sender is ButtonMainMenu btn)
                 ButtonClick?.Invoke(btn.Command);

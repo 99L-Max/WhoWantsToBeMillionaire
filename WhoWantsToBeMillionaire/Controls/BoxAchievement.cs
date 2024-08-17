@@ -11,15 +11,14 @@ namespace WhoWantsToBeMillionaire
         {
             var image = new Bitmap(width, height);
 
-            using (var icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{achievement}"))
+            using (var icon = Painter.GetIconAchievement(achievement))
             using (var g = Graphics.FromImage(image))
             {
                 var dict = JsonManager.GetDictionary<Achievement, (string, string)>(Resources.Dictionary_Achievements);
                 var (title, comment) = dict[achievement];
-                var painter = new Painter();
 
-                using (var background = painter.GetFilledPanel(Size, 6, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f))
-                using (var imageAchievement = painter.GetAchievementImage(icon, title, comment, width, height))
+                using (var background = Painter.CreateFilledPanel(Size, 6, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f))
+                using (var imageAchievement = Painter.CreateAchievementImage(icon, title, comment, width, height))
                 {
                     g.DrawImage(background, ClientRectangle);
                     g.DrawImage(imageAchievement, ClientRectangle);

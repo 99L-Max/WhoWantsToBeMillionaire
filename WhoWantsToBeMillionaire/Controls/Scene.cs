@@ -41,7 +41,7 @@ namespace WhoWantsToBeMillionaire
 
     class Scene : GameContol, IReset, ISetSettings
     {
-        private readonly BoxAnimation _boxAnimation;
+        private readonly BoxAnimationTransition _boxAnimation;
         private readonly BoxQuestion _boxQuestion;
         private readonly ButtonСapsule _buttonTakeMoney;
         private readonly CommandBoard _commandBoard;
@@ -68,7 +68,7 @@ namespace WhoWantsToBeMillionaire
             _tableSums = new TableSums();
             _buttonTakeMoney = new ButtonСapsule();
             _tableControls = new MovingTableControls((int)(MainForm.ScreenSize.Width * 0.3f), MainForm.ScreenSize.Height);
-            _boxAnimation = new BoxAnimation(MainForm.ScreenSize.Width - _tableControls.Width, (int)(MainForm.ScreenSize.Height * 0.36f));
+            _boxAnimation = new BoxAnimationTransition(MainForm.ScreenSize.Width - _tableControls.Width, (int)(MainForm.ScreenSize.Height * 0.36f));
             _boxQuestion = new BoxQuestion(_boxAnimation.Width, _boxAnimation.Height);
             _commandBoard = new CommandBoard(MainForm.ScreenSize.Width - _tableControls.Width, MainForm.ScreenSize.Height - _boxQuestion.Height);
             _tableHints = new TableHints(_tableControls.Width, (int)(_tableControls.Height * 0.2f));

@@ -14,9 +14,8 @@ namespace WhoWantsToBeMillionaire
         {
             var dict = JsonManager.GetDictionary<string, (string, string)>(Resources.Dictionary_Achievements);
             var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
-            var painter = new Painter();
             var granted = achievements.Where(x => x.Value);
-            var image = painter.GetAchievementProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
+            var image = Painter.CreateAchievementProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
 
             string title, comment;
 
@@ -24,12 +23,12 @@ namespace WhoWantsToBeMillionaire
             _table.Dock = DockStyle.Fill;
             _table.Add(image);
 
-            foreach (var ach in granted)
+            foreach (var achievement in granted)
             {
-                (title, comment) = dict[ach.Key.ToString()];
+                (title, comment) = dict[achievement.Key.ToString()];
 
-                using (var icon = (Image)Resources.ResourceManager.GetObject($"Achievement_{ach.Key}"))
-                    image = painter.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+                using (var icon = Painter.GetIconAchievement(achievement.Key))
+                    image = Painter.CreateAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
                 _table.Add(image);
             }
@@ -40,10 +39,10 @@ namespace WhoWantsToBeMillionaire
                 _table.AddText("Неполученные достижения", 0.3f * sizeRow.Height, sizeText, Color.White);
 
                 using (var icon = Resources.Achievement_Locked)
-                    foreach (var ach in achievements.Where(x => !x.Value))
+                    foreach (var achievement in achievements.Where(x => !x.Value))
                     {
-                        (title, comment) = dict[ach.Key.ToString()];
-                        image = painter.GetAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+                        (title, comment) = dict[achievement.Key.ToString()];
+                        image = Painter.CreateAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
                         _table.Add(image);
                     }
