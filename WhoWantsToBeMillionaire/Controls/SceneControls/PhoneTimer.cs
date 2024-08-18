@@ -23,8 +23,8 @@ namespace WhoWantsToBeMillionaire
         {
             using (var sprite = Resources.PhoneTimer)
             {
-                BackgroundImage = Painter.CutSprite(sprite, 1, 2, 0, 0);
-                _ring = Painter.CutSprite(sprite, 1, 2, 0, 1);
+                BackgroundImage = Painter.CutSprite(sprite, 1, 2, 0, 0, false);
+                _ring = Painter.CutSprite(sprite, 1, 2, 0, 1, false);
             }
 
             Font = new Font("", 0.45f * side, FontStyle.Bold, GraphicsUnit.Pixel);

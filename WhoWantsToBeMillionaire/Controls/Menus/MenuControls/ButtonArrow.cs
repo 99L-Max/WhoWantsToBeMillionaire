@@ -22,8 +22,8 @@ namespace WhoWantsToBeMillionaire
 
             using (var sprite = Resources.ButtonArrow)
             {
-                _image = Painter.CutSprite(sprite, 2, 2, 0, (int)direction);
-                _imageClick = Painter.CutSprite(sprite, 2, 2, 1, (int)direction);
+                _image = Painter.CutSprite(sprite, 2, 2, 0, (int)direction, false);
+                _imageClick = Painter.CutSprite(sprite, 2, 2, 1, (int)direction, false);
             }
 
             OnMouseLeave(EventArgs.Empty);

@@ -42,6 +42,7 @@ namespace WhoWantsToBeMillionaire
                     foreach (var achievement in achievements.Where(x => !x.Value))
                     {
                         (title, comment) = dict[achievement.Key.ToString()];
+
                         image = Painter.CreateAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
 
                         _table.Add(image);

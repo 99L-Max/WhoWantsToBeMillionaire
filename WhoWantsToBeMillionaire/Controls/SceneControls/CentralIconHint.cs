@@ -38,17 +38,14 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowIcon(TypeHint type, bool playSound)
         {
-            using (var sprite = Resources.Hint_Icons)
-            {
-                var icon = Painter.CutSprite(sprite, 3, 6, 0, (int)type);
+            var icon = Painter.CutSprite(Resources.Hint_Icons, 3, 6, 0, (int)type);
 
-                await ShowAnimation(icon, true, playSound);
+            await ShowAnimation(icon, true, playSound);
 
-                BackgroundImage = icon;
-                Image = null;
+            BackgroundImage = icon;
+            Image = null;
 
-                _icons.Push(icon);
-            }
+            _icons.Push(icon);
         }
 
         public async Task HideIcon(bool playSound)

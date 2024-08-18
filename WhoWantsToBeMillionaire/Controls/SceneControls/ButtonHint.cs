@@ -31,11 +31,8 @@ namespace WhoWantsToBeMillionaire
             SizeMode = PictureBoxSizeMode.Zoom;
             BackgroundImageLayout = ImageLayout.Zoom;
 
-            using (var sprite = Resources.Hint_Icons)
-            {
-                _image = Painter.CutSprite(sprite, 3, 6, 0, (int)Type);
-                _focusImage = Painter.CreateGradientEllipse(_image.Size, Color.White, 0.5f);
-            }
+            _image = Painter.CutSprite(Resources.Hint_Icons, 3, 6, 0, (int)Type);
+            _focusImage = Painter.CreateGradientEllipse(_image.Size, Color.White, 0.5f);
         }
 
         public bool IsShown { get; private set; }
@@ -80,8 +77,7 @@ namespace WhoWantsToBeMillionaire
 
             var rectangle = new Rectangle(0, 0, _image.Width, _image.Height);
 
-            using (var sprite = Resources.Hint_Icons)
-            using (var icon = Painter.CutSprite(sprite, 3, 6, (int)status, (int)Type))
+            using (var icon = Painter.CutSprite(Resources.Hint_Icons, 3, 6, (int)status, (int)Type))
             using (var g = Graphics.FromImage(_image))
             {
                 g.Clear(Color.Transparent);

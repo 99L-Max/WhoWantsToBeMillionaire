@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -8,14 +9,46 @@ namespace WhoWantsToBeMillionaire
 {
     static class Painter
     {
+        public static Image CutSprite(Image sprite, int rowsCount, int columnsCount, int row, int column, bool isDisposeSprite = true)
+        {
+            var width = sprite.Width / columnsCount;
+            var height = sprite.Height / rowsCount;
+
+            var destRect = new Rectangle(0, 0, width, height);
+            var srcRect = new Rectangle(column * width, row * height, width, height);
+
+            var result = new Bitmap(destRect.Width, destRect.Height);
+
+            using (var g = Graphics.FromImage(result))
+                g.DrawImage(sprite, destRect, srcRect, GraphicsUnit.Pixel);
+
+            if (isDisposeSprite)
+                sprite.Dispose();
+
+            return result;
+        }
+
+        public static List<Image> CutSprite(Image sprite, int rowsCount, int columnsCount, bool isDisposeSprite = true)
+        {
+            var list = new List<Image>();
+
+            for (int row = 0; row < rowsCount; row++)
+                for (int column = 0; column < columnsCount; column++)
+                    list.Add(CutSprite(sprite, rowsCount, columnsCount, row, column, false));
+
+            if (isDisposeSprite)
+                sprite.Dispose();
+
+            return list;
+        }
+
         public static Image GetIconAchievement(Achievement achievement)
         {
             var spriteSize = new Size(3, 5);
-            var index = (int)(achievement);
+            var index = (int)achievement;
             var result = Resources.Achievement_Background;
 
-            using (var sprite = Resources.Achievement_Icons)
-            using (var icon = CutSprite(sprite, spriteSize.Width, spriteSize.Height, index / spriteSize.Height, index % spriteSize.Height))
+            using (var icon = CutSprite(Resources.Achievement_Icons, spriteSize.Width, spriteSize.Height, index / spriteSize.Height, index % spriteSize.Height))
             using (var g = Graphics.FromImage(result))
                 g.DrawImage(icon, 0, 0, result.Width, result.Height);
 
@@ -57,8 +90,7 @@ namespace WhoWantsToBeMillionaire
             progressRectangle = Resizer.ResizeRectangle(progressRectangle, 0.95f, 0.3f);
 
             using (var g = Graphics.FromImage(image))
-            using (var sprite = Resources.Medal)
-            using (var medal = CutSprite(sprite, 1, 2, 0, Convert.ToInt32(countGranted == countAchievements)))
+            using (var medal = CutSprite(Resources.Medal, 1, 2, 0, Convert.ToInt32(countGranted == countAchievements)))
             using (var font = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
             {
                 g.DrawImage(medal, 0, 0, image.Height, image.Height);
@@ -112,20 +144,6 @@ namespace WhoWantsToBeMillionaire
             }
 
             return ellipse;
-        }
-
-        public static Image CutSprite(Image sprite, int rowsCount, int columnsCount, int row, int column)
-        {
-            var width = sprite.Width / columnsCount;
-            var height = sprite.Height / rowsCount;
-
-            var cropArea = new Rectangle(column * width, row * height, width, height);
-            var croppedImage = new Bitmap(cropArea.Width, cropArea.Height);
-
-            using (var g = Graphics.FromImage(croppedImage))
-                g.DrawImage(sprite, new Rectangle(0, 0, croppedImage.Width, croppedImage.Height), cropArea, GraphicsUnit.Pixel);
-
-            return croppedImage;
         }
     }
 }
