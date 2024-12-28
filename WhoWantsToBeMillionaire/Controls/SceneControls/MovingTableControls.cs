@@ -38,7 +38,7 @@ namespace WhoWantsToBeMillionaire
                     res.Reset(mode);
             }
 
-            X = MainForm.ScreenSize.Width;
+            X = GameConst.ScreenSize.Width;
         }
 
         public void SetSettings(GameSettingsData data)

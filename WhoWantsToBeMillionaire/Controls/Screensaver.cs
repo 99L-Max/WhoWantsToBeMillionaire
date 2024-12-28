@@ -22,7 +22,7 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.Transparent;
 
-            _background = new Bitmap(Resources.Background_Screensaver, MainForm.ScreenSize);
+            _background = new Bitmap(Resources.Background_Screensaver, GameConst.ScreenSize);
             _logo = Resources.Logo;
             _logoRectangle = new Rectangle();
         }
@@ -68,7 +68,7 @@ namespace WhoWantsToBeMillionaire
             {
                 _alpha = a;
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
         }
 
@@ -91,7 +91,7 @@ namespace WhoWantsToBeMillionaire
                 _logoRectangle.Width = _logoRectangle.Height = sizeLogo;
 
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
 
             await Task.Delay(isFullVersion ? 7000 : 2000);

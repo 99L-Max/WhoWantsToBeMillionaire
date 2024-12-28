@@ -7,16 +7,16 @@ namespace WhoWantsToBeMillionaire
 {
     class BoxAchievement : MovingControl, IDisposable
     {
-        public BoxAchievement(Achievement achievement, int width, int height) : base(width, height)
+        public BoxAchievement(Achievement achievement, Size size) : base(size)
         {
-            var image = new Bitmap(width, height);
+            var image = new Bitmap(Width, Height);
             var dict = JsonManager.GetDictionary<Achievement, (string, string)>(Resources.Dictionary_Achievements);
             var (title, comment) = dict[achievement];
 
             using (var g = Graphics.FromImage(image))
             using (var icon = Painter.GetIconAchievement(achievement))
             using (var background = Painter.CreateFilledPanel(Size, 6, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f))
-            using (var imageAchievement = Painter.CreateAchievementImage(icon, title, comment, width, height))
+            using (var imageAchievement = Painter.CreateAchievementImage(icon, title, comment, Width, Height))
             {
                 g.DrawImage(background, ClientRectangle);
                 g.DrawImage(imageAchievement, ClientRectangle);
@@ -36,11 +36,11 @@ namespace WhoWantsToBeMillionaire
             base.Dispose(disposing);
         }
 
-        public async Task ShowAchievement(int y, int countFrames, int delay)
+        public async Task ShowAchievement(int countFramesMovement, int displayTime)
         {
-            await MoveY(y, countFrames);
-            await Task.Delay(delay);
-            await MoveX(-Width, countFrames);
+            await MoveX(0, countFramesMovement);
+            await Task.Delay(displayTime);
+            await MoveX(-Width, countFramesMovement);
         }
     }
 }

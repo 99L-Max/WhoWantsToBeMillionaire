@@ -11,12 +11,12 @@ namespace WhoWantsToBeMillionaire
 
         private bool _imageVisible;
 
-        public readonly Letter Letter;
+        public readonly LetterOption Letter;
 
         static ButtonOption() =>
             s_image = Resources.ButtonWire_Focused;
 
-        public ButtonOption(Letter letter, Rectangle rectangle)
+        public ButtonOption(LetterOption letter, Rectangle rectangle)
         {
             Letter = letter;
             Location = rectangle.Location;

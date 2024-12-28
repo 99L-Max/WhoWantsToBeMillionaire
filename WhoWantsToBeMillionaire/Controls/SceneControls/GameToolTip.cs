@@ -13,7 +13,7 @@ namespace WhoWantsToBeMillionaire
 
         public GameToolTip(int width, int height, int border, float fontSize)
         {
-            _font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
+            _font = FontManager.CreateFont(GameFont.Arial, fontSize, FontStyle.Bold);
             _clientRectangle = new Rectangle(0, 0, width, height);
             _textRectangle = Resizer.ResizeRectangle(_clientRectangle, border);
             _background = Painter.CreateFilledPanel(_clientRectangle.Size, border, Color.Gainsboro, Color.SlateGray, 45f, Color.Navy, Color.Black, 90f);

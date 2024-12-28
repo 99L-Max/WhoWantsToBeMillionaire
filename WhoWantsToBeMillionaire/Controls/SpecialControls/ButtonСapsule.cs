@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -16,14 +15,8 @@ namespace WhoWantsToBeMillionaire
         private ThemeButtonCapsule _theme;
         private Color _foreColor;
 
-        static ButtonСapsule()
-        {
-            var keys = Enum.GetValues(typeof(ThemeButtonCapsule)).Cast<ThemeButtonCapsule>();
-            var images = Painter.CutSprite(Resources.ButtonCapsule, keys.Count(), 1);
-            var dict = keys.Zip(images, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
-
-            s_imageButton = new ReadOnlyDictionary<ThemeButtonCapsule, Image>(dict);
-        }
+        static ButtonСapsule() =>
+            s_imageButton = Painter.GetThemeImages<ThemeButtonCapsule>(Resources.ButtonCapsule);
 
         public ButtonСapsule()
         {
@@ -72,7 +65,7 @@ namespace WhoWantsToBeMillionaire
         protected override void OnSizeChanged(EventArgs e)
         {
             Font?.Dispose();
-            Font = new Font("", 0.45f * ClientRectangle.Height, FontStyle.Bold, GraphicsUnit.Pixel);
+            Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height, FontStyle.Bold);
 
             Invalidate();
         }

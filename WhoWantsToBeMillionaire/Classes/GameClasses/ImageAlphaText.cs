@@ -27,7 +27,7 @@ namespace WhoWantsToBeMillionaire
             _foreColor = Color.White;
             _textRectangle = new Rectangle(0, 0, PositionRectangle.Width, PositionRectangle.Height);
             _formatText = new StringFormat();
-            _font = new Font("", 0.25f * PositionRectangle.Height, GraphicsUnit.Pixel);
+            _font = FontManager.CreateFont(GameFont.Arial, 0.25f * PositionRectangle.Height);
             _g = Graphics.FromImage(ImageText);
 
             _formatText.Alignment = StringAlignment.Center;

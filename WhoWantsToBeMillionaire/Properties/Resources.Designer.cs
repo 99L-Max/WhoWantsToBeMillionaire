@@ -228,6 +228,16 @@ namespace WhoWantsToBeMillionaire.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Arial {
+            get {
+                object obj = ResourceManager.GetObject("Arial", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AudienceChart {
@@ -342,6 +352,16 @@ namespace WhoWantsToBeMillionaire.Properties {
             get {
                 object obj = ResourceManager.GetObject("ComboBox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] COPRGTB {
+            get {
+                object obj = ResourceManager.GetObject("COPRGTB", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -648,9 +668,19 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PhoneTimer {
+        internal static System.Drawing.Bitmap PhoneTimer_Background {
             get {
-                object obj = ResourceManager.GetObject("PhoneTimer", resourceCulture);
+                object obj = ResourceManager.GetObject("PhoneTimer_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PhoneTimer_Foreground {
+            get {
+                object obj = ResourceManager.GetObject("PhoneTimer_Foreground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

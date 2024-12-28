@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum AnswerMode { Usual, DoubleDips, SwitchQuestion, TakeMoney }
+    enum AnswerMode { Default, DoubleDips, SwitchQuestion, TakeMoney }
 
     class BoxQuestion : GameContol, IReset, ISetSettings
     {
@@ -18,21 +19,22 @@ namespace WhoWantsToBeMillionaire
         private readonly Image _image;
         private readonly ImageAlpha _wires;
         private readonly ImageAlphaText _textQuestion;
-        private readonly Dictionary<Letter, Option> _options;
-        private readonly Dictionary<Letter, ButtonOption> _buttons;
+        private readonly Dictionary<LetterOption, Option> _options;
+        private readonly Dictionary<LetterOption, ButtonOption> _buttons;
         private readonly CentralIconHint _iconHint;
         private readonly List<ImageAlphaText> _imageAlphaTexts;
+        private readonly ReadOnlyDictionary<ThemeButtonWire, Image> _themeImagesOptions;
 
         private bool _isSequentially = true;
 
-        public Action<Letter> OptionClick;
+        public Action<LetterOption> OptionClick;
 
         public BoxQuestion(int width, int height) : base(width, height)
         {
             var questionRectangle = new Rectangle(0, 0, width, (int)(0.11f * width));
             var optionSize = new Size((int)(0.45f * width), questionRectangle.Height >> 1);
             var optionRectangle = new Rectangle(new Point(), optionSize);
-            var keys = Question.Letters.ToArray();
+            var lettersOption = Question.LettersOption.ToArray();
             var dy = (int)(0.1f * optionSize.Height);
             var background = new Bitmap(width, height);
             var iconHeight = optionSize.Height + dy;
@@ -40,26 +42,27 @@ namespace WhoWantsToBeMillionaire
             Option option;
 
             _image = new Bitmap(width, height);
-            _options = new Dictionary<Letter, Option>();
+            _options = new Dictionary<LetterOption, Option>();
             _iconHint = new CentralIconHint();
             _imageAlphaTexts = new List<ImageAlphaText>();
             _textQuestion = new ImageAlphaText(questionRectangle);
+            _themeImagesOptions = Painter.GetThemeImages<ThemeButtonWire>(Resources.ButtonWire);
             _g = Graphics.FromImage(_image);
 
             _iconHint.Size = new Size((int)(1.6f * iconHeight), iconHeight);
             _iconHint.Location = new Point((width - _iconHint.Width) >> 1, questionRectangle.Height + dy + (optionSize.Height >> 1));
             _iconHint.Visible = false;
 
-            _textQuestion.Font = new Font("", 0.45f * optionSize.Height, GraphicsUnit.Pixel);
+            _textQuestion.Font = FontManager.CreateFont(GameFont.Arial, 0.45f * optionSize.Height);
             _textQuestion.LengthLine = 64;
 
-            for (int i = 0; i < keys.Length; i++)
+            for (int i = 0; i < lettersOption.Length; i++)
             {
                 optionRectangle.X = (Width >> 1) - (i & 1 ^ 1) * optionSize.Width;
                 optionRectangle.Y = questionRectangle.Height + (i >> 1) * (optionSize.Height + dy) + dy;
 
-                option = new Option(keys[i], optionRectangle);
-                option.Font = new Font("", 0.4f * optionSize.Height, GraphicsUnit.Pixel);
+                option = new Option(lettersOption[i], optionRectangle);
+                option.Font = FontManager.CreateFont(GameFont.Arial, 0.4f * optionSize.Height);
 
                 _options.Add(option.Letter, option);
             }
@@ -80,18 +83,17 @@ namespace WhoWantsToBeMillionaire
             using (var gBack = Graphics.FromImage(background))
             using (var wire = Resources.Wire)
             using (var questionBack = Resources.Question)
-            using (var optionBack = ButtonWire.GetCopyTheme(ThemeButtonWire.Blue))
             {
                 gBack.DrawImage(questionBack, questionRectangle);
 
                 foreach (var op in _options.Values)
-                    gBack.DrawImage(optionBack, op.PositionRectangle);
+                    gBack.DrawImage(_themeImagesOptions[ThemeButtonWire.Blue], op.PositionRectangle);
 
                 foreach (var yWire in _options.Values.Select(t => t.PositionRectangle.Y).Distinct())
                     gWire.DrawImage(wire, 0, yWire, wires.Width, optionSize.Height);
 
                 foreach (var op in _options.Values)
-                    gWire.DrawImage(optionBack, op.PositionRectangle);
+                    gWire.DrawImage(_themeImagesOptions[ThemeButtonWire.Blue], op.PositionRectangle);
 
                 _wires = new ImageAlpha(wires);
             }
@@ -110,7 +112,7 @@ namespace WhoWantsToBeMillionaire
         public void Reset(Mode mode = Mode.Classic)
         {
             Enabled = false;
-            AnswerMode = AnswerMode.Usual;
+            AnswerMode = AnswerMode.Default;
 
             _iconHint.Reset();
             _imageAlphaTexts.ForEach(t => t.Reset());
@@ -169,7 +171,7 @@ namespace WhoWantsToBeMillionaire
             {
                 _wires.Alpha = a;
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
 
             if (_isSequentially)
@@ -184,7 +186,7 @@ namespace WhoWantsToBeMillionaire
                         _g.DrawImage(text.ImageText, text.PositionRectangle);
 
                         Invalidate();
-                        await Task.Delay(MainForm.DeltaTime);
+                        await Task.Delay(GameConst.DeltaTime);
                     }
 
                     await Task.Delay(delay);
@@ -201,7 +203,7 @@ namespace WhoWantsToBeMillionaire
                     }
 
                     Invalidate();
-                    await Task.Delay(MainForm.DeltaTime);
+                    await Task.Delay(GameConst.DeltaTime);
                 }
             }
         }
@@ -214,7 +216,7 @@ namespace WhoWantsToBeMillionaire
 
                 SelectOption(option.Letter);
 
-                if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Usual || AnswerMode == AnswerMode.DoubleDips))
+                if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Default || AnswerMode == AnswerMode.DoubleDips))
                 {
                     Sound.Play(Resources.Answer_Accepted);
                     Sound.PlayLooped(Resources.Answer_DrumRoll);
@@ -224,16 +226,16 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private async void SelectOption(Letter letter)
+        private async void SelectOption(LetterOption letter)
         {
             IsCorrectAnswer = letter == Question.Correct;
 
-            Option option = _options[letter];
+            var option = _options[letter];
 
             option.Selected = true;
             option.SetForeColors(Color.Black, Color.White);
 
-            using (var selectedOption = new ImageAlpha(ButtonWire.GetCopyTheme(ThemeButtonWire.Orange)))
+            using (var selectedOption = new ImageAlpha(_themeImagesOptions[ThemeButtonWire.Orange]))
                 foreach (var a in GetAlphas())
                 {
                     selectedOption.Alpha = a;
@@ -242,20 +244,18 @@ namespace WhoWantsToBeMillionaire
                     _g.DrawImage(option.ImageText, option.PositionRectangle);
 
                     Invalidate();
-                    await Task.Delay(MainForm.DeltaTime);
+                    await Task.Delay(GameConst.DeltaTime);
                 }
         }
 
-        public void LockOption(Letter letter)
+        public void LockOption(LetterOption letter)
         {
             var option = _options[letter];
 
             option.SetForeColors(Color.FromArgb(32, 32, 32), Color.DimGray);
             option.Selected = _buttons[option.Letter].Visible = false;
 
-            using (var lockedOption = ButtonWire.GetCopyTheme(ThemeButtonWire.Gray))
-                _g.DrawImage(lockedOption, option.PositionRectangle);
-
+            _g.DrawImage(_themeImagesOptions[ThemeButtonWire.Gray], option.PositionRectangle);
             _g.DrawImage(option.ImageText, option.PositionRectangle);
 
             Invalidate();
@@ -276,7 +276,7 @@ namespace WhoWantsToBeMillionaire
                 _iconHint.Clear();
             }
 
-            using (ImageAlpha frame = new ImageAlpha(_image))
+            using (var frame = new ImageAlpha(_image))
             {
                 foreach (var a in GetAlphas().Reverse())
                 {
@@ -286,7 +286,7 @@ namespace WhoWantsToBeMillionaire
                     _g.DrawImage(frame.Image, ClientRectangle);
 
                     Invalidate();
-                    await Task.Delay(MainForm.DeltaTime);
+                    await Task.Delay(GameConst.DeltaTime);
                 }
             }
 
@@ -303,13 +303,13 @@ namespace WhoWantsToBeMillionaire
                 else
                     Sound.Play($"Answer_Incorrect_{Question.Difficulty}");
 
-            Option option = _options[Question.Correct];
+            var option = _options[Question.Correct];
 
             option.SetForeColors(Color.White, Color.Black);
 
-            using (var back = ButtonWire.GetCopyTheme(option.Selected ? ThemeButtonWire.Orange : ThemeButtonWire.Blue))
-            using (var front = new ImageAlpha(ButtonWire.GetCopyTheme(ThemeButtonWire.Green)))
+            using (var front = new ImageAlpha(_themeImagesOptions[ThemeButtonWire.Green]))
             {
+                var back = _themeImagesOptions[option.Selected ? ThemeButtonWire.Orange : ThemeButtonWire.Blue];
                 var alphasUp = GetAlphas();
                 var alphasDown = alphasUp.Reverse();
 
@@ -323,7 +323,7 @@ namespace WhoWantsToBeMillionaire
                         _g.DrawImage(option.ImageText, option.PositionRectangle);
 
                         Invalidate();
-                        await Task.Delay(MainForm.DeltaTime);
+                        await Task.Delay(GameConst.DeltaTime);
                     }
             }
 

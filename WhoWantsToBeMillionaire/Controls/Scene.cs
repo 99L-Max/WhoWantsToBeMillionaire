@@ -59,7 +59,7 @@ namespace WhoWantsToBeMillionaire
         public Action<Achievement> AchievementCompleted;
         public Action<StatsAttribute, int> StatisticsChanged;
 
-        public Scene() : base(MainForm.ScreenSize)
+        public Scene() : base(GameConst.ScreenSize)
         {
             Dock = DockStyle.Fill;
 
@@ -67,14 +67,14 @@ namespace WhoWantsToBeMillionaire
             _hint = new Hint();
             _tableSums = new TableSums();
             _buttonTakeMoney = new ButtonСapsule();
-            _tableControls = new MovingTableControls((int)(MainForm.ScreenSize.Width * 0.3f), MainForm.ScreenSize.Height);
-            _boxAnimation = new BoxAnimationTransition(MainForm.ScreenSize.Width - _tableControls.Width, (int)(MainForm.ScreenSize.Height * 0.36f));
+            _tableControls = new MovingTableControls((int)(GameConst.ScreenSize.Width * 0.3f), GameConst.ScreenSize.Height);
+            _boxAnimation = new BoxAnimationTransition(GameConst.ScreenSize.Width - _tableControls.Width, (int)(GameConst.ScreenSize.Height * 0.36f));
             _boxQuestion = new BoxQuestion(_boxAnimation.Width, _boxAnimation.Height);
-            _commandBoard = new CommandBoard(MainForm.ScreenSize.Width - _tableControls.Width, MainForm.ScreenSize.Height - _boxQuestion.Height);
+            _commandBoard = new CommandBoard(GameConst.ScreenSize.Width - _tableControls.Width, GameConst.ScreenSize.Height - _boxQuestion.Height);
             _tableHints = new TableHints(_tableControls.Width, (int)(_tableControls.Height * 0.2f));
             _prizeImage = new Bitmap(_boxAnimation.Width, _boxAnimation.Height);
 
-            _boxAnimation.Location = _boxQuestion.Location = new Point(0, MainForm.ScreenSize.Height - _boxQuestion.Height);
+            _boxAnimation.Location = _boxQuestion.Location = new Point(0, GameConst.ScreenSize.Height - _boxQuestion.Height);
             _buttonTakeMoney.Text = "Забрать деньги";
 
             using (var g = Graphics.FromImage(_prizeImage))
@@ -82,7 +82,7 @@ namespace WhoWantsToBeMillionaire
             {
                 int height = _prizeImage.Width * img.Height / img.Width;
                 int y = _prizeImage.Height - height >> 1;
-                _boxAnimation.Font = new Font("", 0.6f * height, GraphicsUnit.Pixel);
+                _boxAnimation.FontText = FontManager.CreateFont(GameFont.Arial, 0.6f * height);
 
                 g.DrawImage(img, 0, y, _prizeImage.Width, height);
             }
@@ -148,7 +148,7 @@ namespace WhoWantsToBeMillionaire
             MenuAllowed = true;
             Sound.PlayLooped(Resources.Rules);
 
-            await _tableControls.MoveX(MainForm.ScreenSize.Width - _tableControls.Width, 600 / MainForm.DeltaTime);
+            await _tableControls.MoveX(GameConst.ScreenSize.Width - _tableControls.Width, 600 / GameConst.DeltaTime);
 
             _tableSums.Visible = _tableHints.Visible = true;
 
@@ -175,7 +175,7 @@ namespace WhoWantsToBeMillionaire
             _commandBoard.ButtonCommandEnabled = true;
         }
 
-        private async void OnOptionClick(Letter letter)
+        private async void OnOptionClick(LetterOption letter)
         {
             switch (_boxQuestion.AnswerMode)
             {
@@ -203,7 +203,7 @@ namespace WhoWantsToBeMillionaire
 
                         Sound.StopAll();
 
-                        _boxQuestion.AnswerMode = AnswerMode.Usual;
+                        _boxQuestion.AnswerMode = AnswerMode.Default;
                         _boxQuestion.LockOption(letter);
 
                         AchievementCompleted?.Invoke(Achievement.SuccessfulOutcome);
@@ -229,17 +229,17 @@ namespace WhoWantsToBeMillionaire
 
                 case AnswerMode.SwitchQuestion:
                     _commandBoard.Command = SceneCommand.SwitchQuestion;
-                    
+
                     var phrase1 = _boxQuestion.IsCorrectAnswer ? HostPhrases.SwitchQuestion_CorrectAnswer : HostPhrases.SwitchQuestion_IncorrectAnswer;
-                    
+
                     ShowExplanationText($"\n{_host.Say(phrase1, _boxQuestion.Question.Number.ToString())}");
                     break;
 
                 case AnswerMode.TakeMoney:
                     _commandBoard.Command = SceneCommand.TakeMoney_ShowPrize;
-                    
+
                     var phrase2 = _boxQuestion.IsCorrectAnswer ? HostPhrases.TakingMoney_CorrectAnswer : HostPhrases.TakingMoney_IncorrectAnswer;
-                    
+
                     ShowExplanationText($"\n{_host.Say(phrase2, _tableSums.NextSum)}");
                     break;
             }
@@ -272,7 +272,7 @@ namespace WhoWantsToBeMillionaire
                     Sound.Play(Resources.Hint_FiftyFifty);
                     Question q = _boxQuestion.Question;
 
-                    _boxQuestion.SetQuestion(new Question(q.Number, q.Index, q.Seed, 2));
+                    _boxQuestion.SetQuestion(new Question(q.Number, q.Version, q.Seed, 2));
 
                     AchievementCompleted?.Invoke(Achievement.DearComputer);
                     break;
@@ -284,7 +284,7 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.TextMode = TextMode.Dialog;
                     _commandBoard.Command = SceneCommand.End_PhoneFriend;
 
-                    _timer = new PhoneTimer((int)(0.3f * _commandBoard.Height));
+                    _timer = new PhoneTimer((int)(0.3f * _commandBoard.Height), 30);
                     _timer.TimeUp += OnCommandClick;
 
                     await Task.Delay(2000);
@@ -364,7 +364,7 @@ namespace WhoWantsToBeMillionaire
 
         private async Task RemoveMovingControl(MovingControl box, int milliseconds)
         {
-            await _commandBoard.RemoveMovingControls(box, milliseconds / MainForm.DeltaTime);
+            await _commandBoard.RemoveMovingControls(box, milliseconds / GameConst.DeltaTime);
             box.Dispose();
         }
 
@@ -423,7 +423,7 @@ namespace WhoWantsToBeMillionaire
 
             await _boxQuestion.ShowCorrect(playSound, addDelay, _tableSums.NowSaveSum);
 
-            if (_boxQuestion.Question.Number == 5 && !_tableSums.NowSaveSum)
+            if (_boxQuestion.Question.Number == 5 && _boxQuestion.IsCorrectAnswer && !_tableSums.NowSaveSum && _boxQuestion.AnswerMode < AnswerMode.SwitchQuestion)
                 Sound.Play(Resources.Answer_Correct_Easy_Ending);
 
             if (updatePrize)
@@ -589,11 +589,11 @@ namespace WhoWantsToBeMillionaire
                 case SceneCommand.SwitchQuestion:
                     _commandBoard.Clear();
 
-                    int newIndex;
+                    int replacedVersionQuestion;
 
                     do
-                        newIndex = Question.RandomIndex(_boxQuestion.Question.Number);
-                    while (newIndex == _boxQuestion.Question.Index);
+                        replacedVersionQuestion = Question.RandomVersion(_boxQuestion.Question.Number);
+                    while (replacedVersionQuestion == _boxQuestion.Question.Version);
 
                     await _boxQuestion.ShowCorrect(false, true);
                     await _boxQuestion.Clear();
@@ -607,7 +607,7 @@ namespace WhoWantsToBeMillionaire
                     if (_boxQuestion.Question.CountOptions == 2)
                         AchievementCompleted?.Invoke(Achievement.WasTwoBecameFour);
 
-                    _boxQuestion.SetQuestion(_boxQuestion.Question.Number, newIndex);
+                    _boxQuestion.SetQuestion(_boxQuestion.Question.Number, replacedVersionQuestion);
                     QuestionVisible = true;
 
                     await _boxQuestion.ShowCentralIcon(TypeHint.SwitchQuestion, false);

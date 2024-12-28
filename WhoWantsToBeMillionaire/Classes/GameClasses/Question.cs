@@ -8,7 +8,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum Letter { A, B, C, D }
+    enum LetterOption { A, B, C, D }
 
     enum DifficultyQuestion { Easy, Normal, Hard, Final }
 
@@ -20,55 +20,55 @@ namespace WhoWantsToBeMillionaire
 
         public readonly int Seed;
         public readonly int Number;
-        public readonly int Index;
+        public readonly int Version;
         public readonly string Text;
         public readonly string Explanation;
-        public readonly Letter Correct;
+        public readonly LetterOption Correct;
         public readonly DifficultyQuestion Difficulty;
-        public readonly ReadOnlyDictionary<Letter, string> Options;
+        public readonly ReadOnlyDictionary<LetterOption, string> Options;
 
         static Question() =>
             s_random = new Random();
 
-        public Question(int number) : this(number, RandomIndex(number), s_random.Next(), 4) { }
+        public Question(int number) : this(number, RandomVersion(number), s_random.Next(), 4) { }
 
-        public Question(int number, int index) : this(number, index, s_random.Next(), 4) { }
+        public Question(int number, int version) : this(number, version, s_random.Next(), 4) { }
 
-        public Question(int number, int index, int seed, int countOptions)
+        public Question(int number, int version, int seed, int countOptions)
         {
-            var array = (byte[])Resources.ResourceManager.GetObject($"Q{number:d2}V{index:d2}");
+            var array = (byte[])Resources.ResourceManager.GetObject($"Q{number:d2}V{version:d2}");
             var jObj = JsonManager.GetObject(array);
             var random = new Random(seed);
-            var letters = Letters.OrderBy(x => random.Next()).ToArray();
+            var letters = LettersOption.OrderBy(x => random.Next()).ToArray();
             var options = JsonConvert.DeserializeObject<string[]>(jObj["Options"].ToString());
-            var dict = new Dictionary<Letter, string>();
+            var dict = new Dictionary<LetterOption, string>();
 
             for (int i = 0; i < letters.Length; i++)
                 dict.Add(letters[i], i < countOptions ? options[i] : string.Empty);
 
             Seed = seed;
             Number = number;
-            Index = index;
+            Version = version;
             Difficulty = Number == MaxNumber ? DifficultyQuestion.Final : (DifficultyQuestion)((Number - 1) / 5);
             Text = jObj["Question"].Value<string>();
             Explanation = jObj["Explanation"].Value<string>();
-            Options = new ReadOnlyDictionary<Letter, string>(dict);
+            Options = new ReadOnlyDictionary<LetterOption, string>(dict);
             Correct = letters[0];
         }
 
         public string FullCorrect =>
-            GetFullOption(Correct);
+            FullOption(Correct);
 
         public int CountOptions =>
             Options.Values.Where(x => x != string.Empty).Count();
 
-        public static IEnumerable<Letter> Letters =>
-            Enum.GetValues(typeof(Letter)).Cast<Letter>();
+        public static IEnumerable<LetterOption> LettersOption =>
+            Enum.GetValues(typeof(LetterOption)).Cast<LetterOption>();
 
-        public static int RandomIndex(int number) =>
+        public static int RandomVersion(int number) =>
             s_random.Next(35 - (number - 1) / 3 * 5) + 1;
 
-        public string GetFullOption(Letter key) =>
+        public string FullOption(LetterOption key) =>
             $"«{key}: {Options[key]}»";
     }
 }

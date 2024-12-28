@@ -17,6 +17,7 @@ namespace WhoWantsToBeMillionaire
         public ButtonArrow(DirectionArrow direction)
         {
             DirectionArrow = direction;
+            Dock = direction == DirectionArrow.Left ? DockStyle.Left : DockStyle.Right;
             SizeMode = PictureBoxSizeMode.Zoom;
             BackColor = Color.Transparent;
 

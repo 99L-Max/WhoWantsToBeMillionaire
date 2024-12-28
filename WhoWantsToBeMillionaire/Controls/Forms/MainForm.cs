@@ -9,13 +9,11 @@ namespace WhoWantsToBeMillionaire
 {
     partial class MainForm : Form, ISetSettings
     {
-        public const int DeltaTime = 40;
-        public static readonly Size ScreenSize = Screen.PrimaryScreen.Bounds.Size;
-
         private readonly Scene _scene;
         private readonly MenuMain _menuMain;
         private readonly StatisticsData _statisticsData;
         private readonly AchievementsData _achievementsData;
+        private readonly AchievementShower _achievementShower;
 
         private bool _showScreenSaver = true;
         private ContextMenu _contextMenu;
@@ -26,13 +24,14 @@ namespace WhoWantsToBeMillionaire
             InitializeComponent();
 
             Cursor = new Cursor(Resources.Cursor.GetHicon());
-            BackgroundImage = new Bitmap(Resources.Background_Main, ScreenSize);
+            BackgroundImage = new Bitmap(Resources.Background_Main, GameConst.ScreenSize);
 
             _scene = new Scene();
             _menuMain = new MenuMain();
             _settingsData = new GameSettingsData(FileManager.PathLocalAppData);
             _statisticsData = new StatisticsData(FileManager.PathLocalAppData);
             _achievementsData = new AchievementsData(FileManager.PathLocalAppData);
+            _achievementShower = new AchievementShower(GameConst.ScreenSize.Width >> 2, GameConst.ScreenSize.Height >> 3, 5, 250 / GameConst.DeltaTime, 5000, this);
 
             SetSettings(_settingsData);
             _settingsData.ApplyGlobal();
@@ -71,24 +70,23 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case MainMenuCommand.NewGame:
-                    OpenContextMenu(new MenuMode(ScreenSize.Width / 3, ScreenSize.Height * 2 / 3));
+                    OpenContextMenu(new MenuMode(GameConst.ScreenSize.Width / 3, GameConst.ScreenSize.Height * 2 / 3));
                     break;
 
                 case MainMenuCommand.Statistics:
-                    OpenContextMenu(new MenuStatistics(ScreenSize.Width / 3, ScreenSize.Height * 2 / 3, _statisticsData.ToString()));
+                    OpenContextMenu(new MenuStatistics(GameConst.ScreenSize.Width / 3, GameConst.ScreenSize.Height * 2 / 3, _statisticsData.ToString()));
                     break;
 
                 case MainMenuCommand.Achievements:
-                    OpenContextMenu(new MenuAchievements(ScreenSize.Width / 2, ScreenSize.Height * 3 / 4, _achievementsData.Achievements));
-
+                    OpenContextMenu(new MenuAchievements(GameConst.ScreenSize.Width / 2, GameConst.ScreenSize.Height * 3 / 4, _achievementsData.Achievements));
                     break;
 
                 case MainMenuCommand.Settings:
-                    OpenContextMenu(new MenuSettings(ScreenSize.Width / 2, ScreenSize.Height * 2 / 3, _settingsData));
+                    OpenContextMenu(new MenuSettings(GameConst.ScreenSize.Width / 2, GameConst.ScreenSize.Height * 2 / 3, _settingsData));
                     break;
 
                 default:
-                    OpenContextMenu(new MenuExit(ScreenSize.Width / 3, ScreenSize.Height / 3));
+                    OpenContextMenu(new MenuExit(GameConst.ScreenSize.Width / 3, GameConst.ScreenSize.Height / 3));
                     break;
             }
         }
@@ -198,7 +196,7 @@ namespace WhoWantsToBeMillionaire
                 GrantAchievement(Achievement.Jubilee);
         }
 
-        private async void GrantAchievement(Achievement achievement)
+        private void GrantAchievement(Achievement achievement)
         {
             if (!_achievementsData.CheckGranted(achievement))
             {
@@ -207,22 +205,7 @@ namespace WhoWantsToBeMillionaire
                 if (_achievementsData.AllGranted)
                     _scene.AchievementCompleted -= GrantAchievement;
 
-                var countBoxes = Controls.OfType<BoxAchievement>().Count();
-
-                using (var box = new BoxAchievement(achievement, ScreenSize.Width >> 2, ScreenSize.Height >> 3))
-                {
-                    box.Y = -box.Height;
-
-                    Controls.Add(box);
-
-                    box.BringToFront();
-
-                    Sound.Play(Resources.Achievement, false);
-
-                    await box.ShowAchievement(countBoxes * box.Height, 250 / DeltaTime, 5000);
-
-                    Controls.Remove(box);
-                }
+                _achievementShower.ShowAchievement(achievement);
             }
         }
 

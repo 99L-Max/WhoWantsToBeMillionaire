@@ -9,11 +9,11 @@ namespace WhoWantsToBeMillionaire
 
         private Color _letterForeColor;
 
-        public readonly Letter Letter;
+        public readonly LetterOption Letter;
 
         public bool Selected { get; set; }
 
-        public Option(Letter letter, Rectangle rectangle) : base(rectangle)
+        public Option(LetterOption letter, Rectangle rectangle) : base(rectangle)
         {
             Letter = letter;
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -42,6 +44,15 @@ namespace WhoWantsToBeMillionaire
             return list;
         }
 
+        public static ReadOnlyDictionary<TKey, Image> GetThemeImages<TKey>(Image sprite)
+        {
+            var keys = Enum.GetValues(typeof(TKey)).Cast<TKey>();
+            var images = CutSprite(sprite, keys.Count(), 1);
+            var dict = keys.Zip(images, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
+
+            return new ReadOnlyDictionary<TKey, Image>(dict);
+        }
+
         public static Image GetIconAchievement(Achievement achievement)
         {
             var spriteSize = new Size(3, 5);
@@ -66,8 +77,8 @@ namespace WhoWantsToBeMillionaire
             commentRectangle.Y += commentRectangle.Height;
 
             using (var g = Graphics.FromImage(image))
-            using (var fontTitle = new Font("", 0.18f * height, FontStyle.Bold, GraphicsUnit.Pixel))
-            using (var fontComment = new Font("", 0.14f * height, GraphicsUnit.Pixel))
+            using (var fontTitle = FontManager.CreateFont(GameFont.Arial, 0.18f * height, FontStyle.Bold))
+            using (var fontComment = FontManager.CreateFont(GameFont.Arial, 0.14f * height))
             using (var format = new StringFormat())
             {
                 format.LineAlignment = StringAlignment.Center;
@@ -91,7 +102,7 @@ namespace WhoWantsToBeMillionaire
 
             using (var g = Graphics.FromImage(image))
             using (var medal = CutSprite(Resources.Medal, 1, 2, 0, Convert.ToInt32(countGranted == countAchievements)))
-            using (var font = new Font("", 0.2f * height, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (var font = FontManager.CreateFont(GameFont.Arial, 0.2f * height, FontStyle.Bold))
             {
                 g.DrawImage(medal, 0, 0, image.Height, image.Height);
 

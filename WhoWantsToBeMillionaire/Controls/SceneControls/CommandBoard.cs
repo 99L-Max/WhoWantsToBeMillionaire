@@ -133,7 +133,7 @@ namespace WhoWantsToBeMillionaire
 
             int x = centering ? _labelDialog.Width - box.Width >> 1 : _labelDialog.Width - box.Width;
 
-            await box.MoveX(x, milliseconds / MainForm.DeltaTime);
+            await box.MoveX(x, milliseconds / GameConst.DeltaTime);
         }
 
         public async Task RemoveMovingControls(MovingControl box, int countFrames)

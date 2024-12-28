@@ -19,7 +19,7 @@ namespace WhoWantsToBeMillionaire
 
         public GameComboBox(Dictionary<float, string> items, float fontSize)
         {
-            Font = new Font("", fontSize, GraphicsUnit.Pixel);
+            Font = FontManager.CreateFont(GameFont.Arial, fontSize);
             ForeColor = Color.White;
             Dock = DockStyle.Fill;
 
@@ -34,9 +34,6 @@ namespace WhoWantsToBeMillionaire
 
             _leftArrow.DoubleClick += OnLeftClick;
             _rightArrow.DoubleClick += OnRightClick;
-
-            _leftArrow.Dock = DockStyle.Left;
-            _rightArrow.Dock = DockStyle.Right;
 
             Controls.Add(_leftArrow);
             Controls.Add(_rightArrow);

@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -8,54 +8,46 @@ namespace WhoWantsToBeMillionaire
 {
     class PhoneTimer : MovingControl, IDisposable
     {
-        private readonly Image _image;
-        private readonly Image _ring;
-        private readonly Graphics _g;
-        private readonly Brush _brush;
-        private readonly Timer _timer;
-        private readonly int _maxSeconds;
+        private readonly List<Image> _framesBackground;
+        private readonly List<Image> _framesForeground;
+        private readonly Timer _timerSeconds = new Timer();
+        private readonly Timer _timerFrames = new Timer();
 
+        private int _indexFrame = 0;
         private int _seconds;
 
         public Action<object, SceneCommand> TimeUp;
 
-        public PhoneTimer(int side) : base(side, side)
+        public PhoneTimer(int side, int seconds) : base(side, side)
         {
-            using (var sprite = Resources.PhoneTimer)
-            {
-                BackgroundImage = Painter.CutSprite(sprite, 1, 2, 0, 0, false);
-                _ring = Painter.CutSprite(sprite, 1, 2, 0, 1, false);
-            }
+            _framesBackground = Painter.CutSprite(Resources.PhoneTimer_Background, 5, 5);
+            _framesForeground = Painter.CutSprite(Resources.PhoneTimer_Foreground, 5, 5);
 
-            Font = new Font("", 0.45f * side, FontStyle.Bold, GraphicsUnit.Pixel);
-            ForeColor = Color.White;
+            _seconds = seconds;
 
-            _image = new Bitmap(_ring.Width, _ring.Height);
-            _brush = new SolidBrush(Color.Transparent);
-            _timer = new Timer();
-            _g = Graphics.FromImage(_image);
+            Font = FontManager.CreateFont(GameFont.Copperplate, 0.42f * side, FontStyle.Bold);
+            ForeColor = Color.Silver;
 
-            _g.CompositingMode = CompositingMode.SourceCopy;
+            _timerSeconds.Interval = 1000;
+            _timerFrames.Interval = 40;
 
-            _timer.Interval = 1000;
-            _timer.Tick += OnTimerTick;
-
-            SetSeconds(_maxSeconds = 30);
+            _timerSeconds.Tick += OnTimerSecondsTick;
+            _timerFrames.Tick += OnTimerFramesTick;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _timer.Tick -= OnTimerTick;
+                _timerSeconds.Tick -= OnTimerSecondsTick;
+                _timerFrames.Tick -= OnTimerFramesTick;
 
-                _image.Dispose();
-                _ring.Dispose();
-                _g.Dispose();
-                _brush.Dispose();
-                _timer.Dispose();
+                _timerSeconds.Dispose();
+                _timerFrames.Dispose();
 
-                BackgroundImage.Dispose();
+                _framesBackground.ForEach(f => f.Dispose());
+                _framesForeground.ForEach(f => f.Dispose());
+
                 Font.Dispose();
             }
 
@@ -64,29 +56,26 @@ namespace WhoWantsToBeMillionaire
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
-            e.Graphics.DrawImage(_image, ClientRectangle);
+            e.Graphics.DrawImage(_framesBackground[_indexFrame], ClientRectangle);
 
             TextRenderer.DrawText(e.Graphics, $"{_seconds}", Font, ClientRectangle, ForeColor);
+
+            e.Graphics.DrawImage(_framesForeground[_indexFrame], ClientRectangle);
         }
 
-        private void SetSeconds(int value)
+        private void OnTimerFramesTick(object sender, EventArgs e)
         {
-            _seconds = value;
-
-            _g.DrawImage(_ring, 0, 0);
-            _g.FillPie(_brush, 0, 0, _ring.Width, _ring.Height, -90, (_maxSeconds - _seconds) * 360 / _maxSeconds);
+            if (++_indexFrame >= _framesBackground.Count)
+                _indexFrame = 0;
 
             Invalidate();
         }
 
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerSecondsTick(object sender, EventArgs e)
         {
-            SetSeconds(_seconds - 1);
-
-            if (_seconds <= 0)
+            if (--_seconds <= 0)
             {
-                _timer.Stop();
+                _timerSeconds.Stop();
                 TimeUp?.Invoke(this, SceneCommand.End_PhoneFriend);
             }
         }
@@ -96,10 +85,14 @@ namespace WhoWantsToBeMillionaire
             Sound.StopAll();
             Sound.Play(Resources.Hint_PhoneFriend_Timer);
 
-            _timer.Start();
+            _timerSeconds.Start();
+            _timerFrames.Start();
         }
 
-        public void Stop() =>
-            _timer.Stop();
+        public void Stop()
+        {
+            _timerSeconds.Stop();
+            _timerFrames.Stop();
+        }
     }
 }

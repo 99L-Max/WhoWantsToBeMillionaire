@@ -98,13 +98,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\GameClasses\AchievementShower.cs" />
+    <Compile Include="Classes\GameConst.cs" />
+    <Compile Include="Classes\Processing\FontManager.cs" />
     <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\GameClasses\ImageAlpha.cs" />
     <Compile Include="Classes\Processing\LoopedStream.cs" />
     <Compile Include="Classes\Processing\Painter.cs" />
-    <Compile Include="Controls\BoxAchievement.cs">
+    <Compile Include="Controls\SpecialControls\BoxAchievement.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Menus\Context\MenuAchievements.cs">
@@ -123,7 +126,7 @@
     <Compile Include="Controls\SceneControls\BoxAnimationTransition.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Classes\DataObjects\SettingsData.cs" />
+    <Compile Include="Classes\DataObjects\GameSettingsData.cs" />
     <Compile Include="Classes\GameClasses\ChartColumnPercent.cs" />
     <Compile Include="Controls\SceneControls\BoxAnimationRotation.cs">
       <SubType>Component</SubType>
@@ -201,10 +204,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\GameClasses\Option.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Controls\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Controls\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SpecialControls\GameContol.cs">
@@ -255,13 +258,14 @@
     <Content Include="Resources\Textures\IconSum_Rhomb.png" />
     <Content Include="Resources\Textures\Logo.png" />
     <Content Include="Resources\Textures\Medal.png" />
-    <Content Include="Resources\Textures\PhoneTimer.png" />
+    <Content Include="Resources\Textures\PhoneTimer_Background.png" />
+    <Content Include="Resources\Textures\PhoneTimer_Foreground.png" />
     <Content Include="Resources\Textures\Question.png" />
     <Content Include="Resources\Textures\Wire.png" />
     <EmbeddedResource Include="Controls\Scene.resx">
       <DependentUpon>Scene.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Controls\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -286,6 +290,8 @@
     </Compile>
     <Content Include="Resources\AnimationData\AnimationData_CentralIcon.json" />
     <Content Include="Resources\AnimationData\AnimationData_ButtonHint.json" />
+    <None Include="Resources\Fonts\Arial.ttf" />
+    <None Include="Resources\Fonts\COPRGTB.TTF" />
     <None Include="Resources\Icon.ico" />
     <Content Include="Resources\Questions\Q01V01.json" />
     <Content Include="Resources\Questions\Q01V02.json" />

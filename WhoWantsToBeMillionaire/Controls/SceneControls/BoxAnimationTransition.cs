@@ -22,7 +22,7 @@ namespace WhoWantsToBeMillionaire
             _imageAlphaText = new ImageAlphaText(width, height);
         }
 
-        public new Font Font { set => _imageAlphaText.Font = value; }
+        public Font FontText { set => _imageAlphaText.Font = value; }
 
         protected override void OnPaint(PaintEventArgs e) =>
             e.Graphics.DrawImage(_image, ClientRectangle);
@@ -44,7 +44,7 @@ namespace WhoWantsToBeMillionaire
                 _g.DrawImage(image, Resizer.ResizeRectangle(rectangle, ratio));
 
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
         }
 
@@ -73,7 +73,7 @@ namespace WhoWantsToBeMillionaire
                     _g.DrawImage(frame.Image, ClientRectangle);
 
                     Invalidate();
-                    await Task.Delay(MainForm.DeltaTime);
+                    await Task.Delay(GameConst.DeltaTime);
                 }
 
             _g.Clear(Color.Transparent);
@@ -92,7 +92,7 @@ namespace WhoWantsToBeMillionaire
                 DrawMovedResizedImage(image, rectangle, x);
 
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
 
             await ShowResizingImage(image, minRatio, 1f);
@@ -114,7 +114,7 @@ namespace WhoWantsToBeMillionaire
                 DrawMovedResizedImage(finalImage, rectangle, x);
 
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
 
             await ShowResizingImage(finalImage, minRatio, 1f);
@@ -132,7 +132,7 @@ namespace WhoWantsToBeMillionaire
                 _g.DrawImage(_imageAlphaText.ImageText, 0, 0, _image.Width, _image.Height);
 
                 Invalidate();
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             }
         }
     }

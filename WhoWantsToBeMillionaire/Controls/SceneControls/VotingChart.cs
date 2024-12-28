@@ -10,20 +10,20 @@ namespace WhoWantsToBeMillionaire
 {
     class VotingChart : MovingControl, IDisposable
     {
-        private readonly Dictionary<Letter, ChartColumnPercent> _columns;
+        private readonly Dictionary<LetterOption, ChartColumnPercent> _columns;
         private readonly Image _imageColumn;
         private readonly Image _image;
         private readonly Graphics _g;
 
         public VotingChart(int width, int height) : base(width, height)
         {
-            var keys = Question.Letters;
+            var keys = Question.LettersOption;
             var widthColumn = width / (2 * keys.Count() + 1);
             var maxHeightColumn = (int)(0.7f * height);
             var yDown = (int)(0.8f * height);
 
             BackgroundImage = Resources.AudienceChart;
-            Font = new Font("", 0.07f * height, FontStyle.Bold, GraphicsUnit.Pixel);
+            Font = FontManager.CreateFont(GameFont.Arial, 0.07f * height, FontStyle.Bold);
             ForeColor = Color.White;
 
             _imageColumn = Resources.ChartColumn;
@@ -71,7 +71,7 @@ namespace WhoWantsToBeMillionaire
         {
             Sound.PlayLooped(Resources.Hint_AskAudience_Voting);
 
-            var countFrames = millisecond / MainForm.DeltaTime;
+            var countFrames = millisecond / GameConst.DeltaTime;
             var random = new Random();
             var dp = _columns.Keys.ToDictionary(k => k, v => (float)random.NextDouble() * 7f + 3f);
 
@@ -89,11 +89,11 @@ namespace WhoWantsToBeMillionaire
                 }
 
                 DrawChart(false);
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             } while (--countFrames > 0);
         }
 
-        public async Task ShowPercents(Dictionary<Letter, int> percents, int countFrames)
+        public async Task ShowPercents(Dictionary<LetterOption, int> percents, int countFrames)
         {
             Sound.StopAll();
             Sound.Play(Resources.Hint_AskAudience_End);
@@ -109,7 +109,7 @@ namespace WhoWantsToBeMillionaire
                     _columns[key].Percent += dp[key];
 
                 DrawChart(false);
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             } while (--countFrames > 0);
 
             foreach (var p in percents)

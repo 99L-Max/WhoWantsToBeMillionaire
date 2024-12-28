@@ -8,6 +8,8 @@ namespace WhoWantsToBeMillionaire
     {
         public MovingControl(int width, int height) : base(width, height) { }
 
+        public MovingControl(Size size) : base(size) { }
+
         protected override CreateParams CreateParams
         {
             get
@@ -37,7 +39,7 @@ namespace WhoWantsToBeMillionaire
             do
             {
                 X += dx;
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             } while (--countFrames > 0);
 
             X = x;
@@ -50,7 +52,7 @@ namespace WhoWantsToBeMillionaire
             do
             {
                 Y += dy;
-                await Task.Delay(MainForm.DeltaTime);
+                await Task.Delay(GameConst.DeltaTime);
             } while (--countFrames > 0);
 
             Y = y;

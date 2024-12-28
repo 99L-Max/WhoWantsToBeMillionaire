@@ -44,13 +44,13 @@ namespace WhoWantsToBeMillionaire
                 ctrl.Dispose();
             }
 
-            var heightButton = (int)(0.08f * MainForm.ScreenSize.Height);
+            var heightButton = (int)(0.08f * GameConst.ScreenSize.Height);
 
             _table.Controls.Clear();
             _table.RowStyles.Clear();
 
-            _table.Size = new Size(MainForm.ScreenSize.Width, heightButton * commands.Length);
-            _table.Location = new Point(MainForm.ScreenSize.Width - _table.Width >> 1, MainForm.ScreenSize.Height - _table.Height >> 1);
+            _table.Size = new Size(GameConst.ScreenSize.Width, heightButton * commands.Length);
+            _table.Location = new Point(GameConst.ScreenSize.Width - _table.Width >> 1, GameConst.ScreenSize.Height - _table.Height >> 1);
 
             var buttons = new ButtonMainMenu[commands.Length];
             var dict = JsonManager.GetDictionary<MainMenuCommand, string>(Resources.Dictionary_MenuCommands);

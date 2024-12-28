@@ -24,6 +24,8 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_bar);
         }
 
+        public int MouseWheelDelta { get; set; } = 5;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -48,7 +50,7 @@ namespace WhoWantsToBeMillionaire
             e.Graphics.DrawImage(Image, 0, (ClientRectangle.Height - Image.Height) * _bar.Value / _bar.Maximum);
 
         protected override void OnMouseWheel(MouseEventArgs e) =>
-            _bar.ChangeValue(e.Delta > 0 ? -5 : 5);
+            _bar.ChangeValue(e.Delta > 0 ? -MouseWheelDelta : MouseWheelDelta);
 
         public void DrawTable()
         {
@@ -75,7 +77,7 @@ namespace WhoWantsToBeMillionaire
             var image = new Bitmap(size.Width, size.Height);
 
             using (var g = Graphics.FromImage(image))
-            using (var font = new Font("", fontSize, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (var font = FontManager.CreateFont(GameFont.Arial, fontSize, FontStyle.Bold))
             {
                 TextRenderer.DrawText(g, text, font, new Rectangle(0, 0, image.Width, image.Height), color, flags);
                 _images.Add(image);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
@@ -24,11 +23,7 @@ namespace WhoWantsToBeMillionaire
 
         static ButtonWire()
         {
-            var keys = Enum.GetValues(typeof(ThemeButtonWire)).Cast<ThemeButtonWire>();
-            var images = Painter.CutSprite(Resources.ButtonWire, keys.Count(), 1);
-            var dict = keys.Zip(images, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
-
-            s_imageButton = new ReadOnlyDictionary<ThemeButtonWire, Image>(dict);
+            s_imageButton = Painter.GetThemeImages<ThemeButtonWire>(Resources.ButtonWire);
             s_wire = Resources.Wire;
         }
 
@@ -91,17 +86,16 @@ namespace WhoWantsToBeMillionaire
 
         protected override void OnSizeChanged(EventArgs e)
         {
-            Size sizeImage = s_imageButton[ThemeButtonWire.Blue].Size;
+            var sizeImage = s_imageButton[ThemeButtonWire.Blue].Size;
 
-            float wFactor = (float)sizeImage.Width / ClientRectangle.Width;
-            float hFactor = (float)sizeImage.Height / ClientRectangle.Height;
+            var wFactor = (float)sizeImage.Width / ClientRectangle.Width;
+            var hFactor = (float)sizeImage.Height / ClientRectangle.Height;
 
-            float resizeFactor = Math.Max(wFactor, hFactor);
+            var resizeFactor = Math.Max(wFactor, hFactor);
+            var sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
 
-            Size sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
-
-            int x = ClientRectangle.Width - sizeRect.Width >> 1;
-            int y = ClientRectangle.Height - sizeRect.Height >> 1;
+            var x = ClientRectangle.Width - sizeRect.Width >> 1;
+            var y = ClientRectangle.Height - sizeRect.Height >> 1;
 
             _imageRectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
             _backgroundRectangle = new Rectangle(0, y, ClientRectangle.Width, sizeRect.Height);
@@ -109,7 +103,7 @@ namespace WhoWantsToBeMillionaire
             _rightBarrier.Size = _leftBarrier.Size = new Size(ClientRectangle.Width - _imageRectangle.Width >> 1, ClientRectangle.Height);
 
             Font?.Dispose();
-            Font = new Font("", 0.45f * ClientRectangle.Height, FontStyle.Bold, GraphicsUnit.Pixel);
+            Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height, FontStyle.Bold);
         }
 
         protected override void OnEnabledChanged(EventArgs e)
@@ -121,8 +115,5 @@ namespace WhoWantsToBeMillionaire
             else
                 SetStyle(ThemeButtonWire.Gray, Color.Black);
         }
-
-        public static Image GetCopyTheme(ThemeButtonWire theme) =>
-            new Bitmap(s_imageButton[theme]);
     }
 }

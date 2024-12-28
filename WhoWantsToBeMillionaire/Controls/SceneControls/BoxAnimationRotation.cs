@@ -32,7 +32,7 @@ namespace WhoWantsToBeMillionaire
 
                     Image = frame;
 
-                    await Task.Delay(MainForm.DeltaTime);
+                    await Task.Delay(GameConst.DeltaTime);
                 }
 
                 Image = finalFrame;

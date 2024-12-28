@@ -41,7 +41,7 @@ namespace WhoWantsToBeMillionaire
         {
             Number = number;
             Sum = sum;
-            Font = new Font("", 0.5f * s_background.Height, FontStyle.Bold, GraphicsUnit.Pixel);
+            Font = FontManager.CreateFont(GameFont.Arial, 0.5f * s_background.Height, FontStyle.Bold);
             Dock = DockStyle.Fill;
 
             _image = new Bitmap(s_background.Width, s_background.Height);
@@ -137,10 +137,10 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void OnRowMouseLeave(object sender, EventArgs e) => 
+        private void OnRowMouseLeave(object sender, EventArgs e) =>
             IsSelected = false;
 
-        private void OnRowMouseEnter(object sender, EventArgs e) => 
+        private void OnRowMouseEnter(object sender, EventArgs e) =>
             IsSelected = true;
     }
 }
