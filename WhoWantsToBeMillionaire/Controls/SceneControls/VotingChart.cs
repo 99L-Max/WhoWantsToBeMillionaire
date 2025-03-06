@@ -15,19 +15,19 @@ namespace WhoWantsToBeMillionaire
         private readonly Image _image;
         private readonly Graphics _g;
 
-        public VotingChart(int width, int height) : base(width, height)
+        public VotingChart(Size size) : base(size)
         {
             var keys = Question.LettersOption;
-            var widthColumn = width / (2 * keys.Count() + 1);
-            var maxHeightColumn = (int)(0.7f * height);
-            var yDown = (int)(0.8f * height);
+            var widthColumn = Width / (2 * keys.Count() + 1);
+            var maxHeightColumn = (int)(0.7f * Height);
+            var yDown = (int)(0.8f * Height);
 
             BackgroundImage = Resources.AudienceChart;
-            Font = FontManager.CreateFont(GameFont.Arial, 0.07f * height, FontStyle.Bold);
+            Font = FontManager.CreateFont(GameFont.Arial, 0.07f * Height, FontStyle.Bold);
             ForeColor = Color.White;
 
+            _image = new Bitmap(Width, Height);
             _imageColumn = Resources.ChartColumn;
-            _image = new Bitmap(width, height);
             _g = Graphics.FromImage(_image);
             _columns = keys.ToDictionary(k => k, v => new ChartColumnPercent((2 * (int)v + 1) * widthColumn, widthColumn, maxHeightColumn, yDown));
         }
@@ -47,12 +47,6 @@ namespace WhoWantsToBeMillionaire
             base.Dispose(disposing);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
-            e.Graphics.DrawImage(_image, ClientRectangle);
-        }
-
         private void DrawChart(bool labelsVisible)
         {
             _g.Clear(Color.Transparent);
@@ -64,12 +58,13 @@ namespace WhoWantsToBeMillionaire
                 foreach (var c in _columns.Values)
                     TextRenderer.DrawText(_g, $"{c.Percent:f0}%", Font, c.RectangleLabel, ForeColor);
 
-            Invalidate();
+            Image = _image;
         }
 
         public async Task ShowAnimationVote(int millisecond)
         {
-            Sound.PlayLooped(Resources.Hint_AskAudience_Voting);
+            GameSound.StopAll();
+            GameSound.Play(Resources.Hint_AskAudience_Voting);
 
             var countFrames = millisecond / GameConst.DeltaTime;
             var random = new Random();
@@ -95,8 +90,8 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowPercents(Dictionary<LetterOption, int> percents, int countFrames)
         {
-            Sound.StopAll();
-            Sound.Play(Resources.Hint_AskAudience_End);
+            GameSound.StopAll();
+            GameSound.Play(Resources.Hint_AskAudience_End);
 
             foreach (var col in _columns.Values)
                 col.Percent = 0;

@@ -2,6 +2,8 @@
 
 namespace WhoWantsToBeMillionaire
 {
+    enum BasicSize { Width, Height }
+
     static class Resizer
     {
         public static Image ResizeImage(Image image, float ratio) =>
@@ -45,6 +47,35 @@ namespace WhoWantsToBeMillionaire
             result.Y = (rectangle.Height - result.Height >> 1) + rectangle.Y;
 
             return result;
+        }
+
+        public static Size Resize(BasicSize basicSize, int size, int widthFraction, int heightFraction)
+        {
+            var result = new Size();
+
+            if (basicSize == BasicSize.Width)
+            {
+                result.Width = size;
+                result.Height = result.Width * heightFraction / widthFraction;
+            }
+            else
+            {
+                result.Height = size;
+                result.Width = result.Height * widthFraction / heightFraction;
+            }
+
+            return result;
+        }
+
+        public static Size Resize(Size size, float ratio) =>
+            Resize(size, ratio, ratio);
+
+        public static Size Resize(Size size, float ratioWidth, float ratioHeight)
+        {
+            size.Width = (int)(ratioWidth * size.Width);
+            size.Height = (int)(ratioHeight * size.Height);
+
+            return size;
         }
     }
 }

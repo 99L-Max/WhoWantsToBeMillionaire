@@ -100,7 +100,11 @@
   <ItemGroup>
     <Compile Include="Classes\GameClasses\AchievementShower.cs" />
     <Compile Include="Classes\GameConst.cs" />
+    <Compile Include="Classes\GameData\GameData.cs" />
+    <Compile Include="Classes\Interfaces\IAlignSize.cs" />
     <Compile Include="Classes\Processing\FontManager.cs" />
+    <Compile Include="Classes\Processing\GameMusic.cs" />
+    <Compile Include="Classes\Processing\GameSound.cs" />
     <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -113,7 +117,7 @@
     <Compile Include="Controls\Menus\Context\MenuAchievements.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Classes\DataObjects\AchievementsData.cs" />
+    <Compile Include="Classes\GameData\AchievementsData.cs" />
     <Compile Include="Controls\Menus\Context\MenuExit.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -126,7 +130,7 @@
     <Compile Include="Controls\SceneControls\BoxAnimationTransition.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Classes\DataObjects\GameSettingsData.cs" />
+    <Compile Include="Classes\GameData\SettingsData.cs" />
     <Compile Include="Classes\GameClasses\ChartColumnPercent.cs" />
     <Compile Include="Controls\SceneControls\BoxAnimationRotation.cs">
       <SubType>Component</SubType>
@@ -181,7 +185,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\Processing\FileManager.cs" />
-    <Compile Include="Classes\DataObjects\StatisticsData.cs" />
+    <Compile Include="Classes\GameData\StatisticsData.cs" />
     <Compile Include="Controls\Menus\Context\MenuStatistics.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -217,7 +221,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\Processing\Resizer.cs" />
-    <Compile Include="Classes\Processing\Sound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\GameClasses\Question.cs" />
@@ -238,7 +241,9 @@
     <Compile Include="Controls\Scene.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Content Include="Resources\Textures\Achievement_Background.png" />
+    <Content Include="Resources\Sounds\MainMenuTheme.wav" />
+    <Content Include="Resources\Sounds\Question_Reflections_Easy.wav" />
+    <Content Include="Resources\Sounds\Question_Reflections_Main.wav" />
     <Content Include="Resources\Textures\Achievement_Icons.png" />
     <Content Include="Resources\Textures\Achievement_Locked.png" />
     <Content Include="Resources\Textures\AudienceChart.png" />
@@ -250,7 +255,6 @@
     <Content Include="Resources\Textures\ButtonWire.png" />
     <Content Include="Resources\Textures\ButtonWire_Focused.png" />
     <Content Include="Resources\Textures\ChartColumn.png" />
-    <Content Include="Resources\Textures\ComboBox.png" />
     <Content Include="Resources\Textures\CurrentAmount.png" />
     <Content Include="Resources\Textures\Cursor.png" />
     <Content Include="Resources\Textures\Hint_Icons.png" />
@@ -270,19 +274,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -712,7 +716,6 @@
     <Content Include="Resources\Sounds\Hint_PhoneFriend_Timer.wav" />
     <Content Include="Resources\Sounds\PlayerTakesMoney.wav" />
     <Content Include="Resources\Sounds\Question_Next.wav" />
-    <Content Include="Resources\Sounds\Question_Reflections.wav" />
     <Content Include="Resources\Sounds\Rules.wav" />
     <Content Include="Resources\Sounds\Rules_Hint1.wav" />
     <Content Include="Resources\Sounds\Rules_Hint2.wav" />

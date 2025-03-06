@@ -2,6 +2,6 @@
 {
     interface ISetSettings
     {
-        void SetSettings(GameSettingsData data);
+        void SetSettings(SettingsData data);
     }
 }

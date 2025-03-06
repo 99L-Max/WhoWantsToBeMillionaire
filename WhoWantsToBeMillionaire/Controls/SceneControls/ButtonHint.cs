@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
@@ -21,15 +20,11 @@ namespace WhoWantsToBeMillionaire
         public readonly TypeHint Type;
         public readonly string Description;
 
-        public ButtonHint(TypeHint type, string description)
+        public ButtonHint(TypeHint type, string description) : base()
         {
             Type = type;
             Description = description;
             Enabled = IsShown = false;
-
-            BackColor = Color.Transparent;
-            SizeMode = PictureBoxSizeMode.Zoom;
-            BackgroundImageLayout = ImageLayout.Zoom;
 
             _image = Painter.CutSprite(Resources.Hint_Icons, 3, 6, 0, (int)Type);
             _focusImage = Painter.CreateGradientEllipse(_image.Size, Color.White, 0.5f);

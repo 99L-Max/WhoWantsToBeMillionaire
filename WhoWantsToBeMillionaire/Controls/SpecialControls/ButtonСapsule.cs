@@ -66,8 +66,6 @@ namespace WhoWantsToBeMillionaire
         {
             Font?.Dispose();
             Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height, FontStyle.Bold);
-
-            Invalidate();
         }
     }
 }

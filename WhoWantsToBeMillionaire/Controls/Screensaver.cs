@@ -23,8 +23,8 @@ namespace WhoWantsToBeMillionaire
             BackColor = Color.Transparent;
 
             _background = new Bitmap(Resources.Background_Screensaver, GameConst.ScreenSize);
-            _logo = Resources.Logo;
             _logoRectangle = new Rectangle();
+            _logo = Resources.Logo;
         }
 
         protected override void Dispose(bool disposing)
@@ -77,7 +77,7 @@ namespace WhoWantsToBeMillionaire
             int sizeLogo;
             _imageVisible = false;
 
-            Sound.Play(isFullVersion ? Resources.Screensaver_Full : Resources.Screensaver_Restart);
+            GameSound.Play(isFullVersion ? Resources.Screensaver_Full : Resources.Screensaver_Restart);
 
             await ShowTransition(10);
 

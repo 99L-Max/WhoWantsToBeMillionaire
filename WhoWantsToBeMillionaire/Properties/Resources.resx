@@ -121,9 +121,6 @@
   <data name="Achievement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\achievement.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Achievement_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Textures\Achievement_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Achievement_Icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Achievement_Icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -207,9 +204,6 @@
   </data>
   <data name="ChartColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\ChartColumn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ComboBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Textures\ComboBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="COPRGTB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fonts\COPRGTB.TTF;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -303,6 +297,9 @@
   </data>
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainMenuTheme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\MainMenuTheme.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Medal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Medal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1447,8 +1444,11 @@
   <data name="Question_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\question_next.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Question_Reflections" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\question_reflections.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Question_Reflections_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Question_Reflections_Easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Question_Reflections_Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Question_Reflections_Main.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Rules" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sounds\rules.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

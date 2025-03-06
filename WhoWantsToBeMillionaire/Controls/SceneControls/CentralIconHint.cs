@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
@@ -10,12 +9,8 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly Stack<Image> _icons;
 
-        public CentralIconHint()
+        public CentralIconHint() : base()
         {
-            BackColor = Color.Transparent;
-            BackgroundImageLayout = ImageLayout.Zoom;
-            SizeMode = PictureBoxSizeMode.Zoom;
-
             _icons = new Stack<Image>();
         }
 
@@ -28,7 +23,7 @@ namespace WhoWantsToBeMillionaire
         private async Task ShowAnimation(Image icon, bool isShow, bool playSound)
         {
             if (playSound)
-                Sound.Play(isShow ? Resources.CentralIcon_Show : Resources.CentralIcon_Hide);
+                GameSound.Play(isShow ? Resources.CentralIcon_Show : Resources.CentralIcon_Hide);
 
             var data = JsonManager.GetObject<(float, float, bool)[]>(Resources.AnimationData_CentralIcon);
 

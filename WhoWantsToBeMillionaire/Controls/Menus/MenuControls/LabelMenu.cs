@@ -8,7 +8,6 @@ namespace WhoWantsToBeMillionaire
         public LabelMenu(float fontSize, ContentAlignment alignment = ContentAlignment.MiddleLeft)
         {
             ForeColor = Color.White;
-            Dock = DockStyle.Fill;
             Font = FontManager.CreateFont(GameFont.Arial, fontSize, FontStyle.Bold);
             TextAlign = alignment;
         }

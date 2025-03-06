@@ -19,8 +19,7 @@ namespace WhoWantsToBeMillionaire
             Dock = DockStyle.Fill;
             BackColor = Color.FromArgb(byte.MaxValue >> 1, Color.Black);
 
-            _table = new TableLayoutPanel();
-            _table.BackColor = Color.Transparent;
+            _table = new TableLayoutPanel { BackColor = Color.Transparent };
 
             Controls.Add(_table);
         }
@@ -38,7 +37,7 @@ namespace WhoWantsToBeMillionaire
         {
             foreach (Control ctrl in _table.Controls)
             {
-                if(ctrl is ButtonMainMenu btn)
+                if (ctrl is ButtonMainMenu btn)
                     btn.Click -= OnButtonClick;
 
                 ctrl.Dispose();
@@ -63,6 +62,9 @@ namespace WhoWantsToBeMillionaire
                 _table.RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
                 _table.Controls.Add(buttons[i], 0, i);
             }
+
+            foreach (var b in buttons)
+                b.AlignSize();
         }
 
         private void OnButtonClick(object sender, EventArgs e)
