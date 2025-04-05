@@ -6,9 +6,7 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ThemeButtonWire { Blue, Orange, Green, Gray }
-
-    class ButtonWire : PictureBox, IDisposable
+    class ButtonWire : PictureBox, IDisposable, IAlignSize
     {
         private static readonly ReadOnlyDictionary<ThemeButtonWire, Image> s_imageButton;
         private static readonly Image s_wire;
@@ -43,6 +41,28 @@ namespace WhoWantsToBeMillionaire
 
             Controls.Add(_leftBarrier);
             Controls.Add(_rightBarrier);
+        }
+
+        public void AlignSize()
+        {
+            var sizeImage = s_imageButton[ThemeButtonWire.Blue].Size;
+
+            var wFactor = (float)sizeImage.Width / ClientRectangle.Width;
+            var hFactor = (float)sizeImage.Height / ClientRectangle.Height;
+
+            var resizeFactor = Math.Max(wFactor, hFactor);
+            var sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
+
+            var x = ClientRectangle.Width - sizeRect.Width >> 1;
+            var y = ClientRectangle.Height - sizeRect.Height >> 1;
+
+            _imageRectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
+            _backgroundRectangle = new Rectangle(0, y, ClientRectangle.Width, sizeRect.Height);
+
+            _rightBarrier.Size = _leftBarrier.Size = new Size(ClientRectangle.Width - _imageRectangle.Width >> 1, ClientRectangle.Height);
+
+            Font?.Dispose();
+            Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height, FontStyle.Bold);
         }
 
         protected override void Dispose(bool disposing)
@@ -83,28 +103,6 @@ namespace WhoWantsToBeMillionaire
 
         protected override void OnMouseUp(MouseEventArgs e) =>
             SetStyle(ThemeButtonWire.Orange, Color.Black);
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            var sizeImage = s_imageButton[ThemeButtonWire.Blue].Size;
-
-            var wFactor = (float)sizeImage.Width / ClientRectangle.Width;
-            var hFactor = (float)sizeImage.Height / ClientRectangle.Height;
-
-            var resizeFactor = Math.Max(wFactor, hFactor);
-            var sizeRect = new Size((int)(sizeImage.Width / resizeFactor), (int)(sizeImage.Height / resizeFactor));
-
-            var x = ClientRectangle.Width - sizeRect.Width >> 1;
-            var y = ClientRectangle.Height - sizeRect.Height >> 1;
-
-            _imageRectangle = new Rectangle(x, y, sizeRect.Width, sizeRect.Height);
-            _backgroundRectangle = new Rectangle(0, y, ClientRectangle.Width, sizeRect.Height);
-
-            _rightBarrier.Size = _leftBarrier.Size = new Size(ClientRectangle.Width - _imageRectangle.Width >> 1, ClientRectangle.Height);
-
-            Font?.Dispose();
-            Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height, FontStyle.Bold);
-        }
 
         protected override void OnEnabledChanged(EventArgs e)
         {

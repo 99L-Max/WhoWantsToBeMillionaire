@@ -7,8 +7,6 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum GameFont { Arial, Copperplate }
-
     static class FontManager
     {
         private static readonly PrivateFontCollection s_fontCollection = new PrivateFontCollection();

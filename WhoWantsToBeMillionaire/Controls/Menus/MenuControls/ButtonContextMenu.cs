@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class ButtonContextMenu : ButtonСapsule
+    class ButtonContextMenu : ButtonСapsule, IAlignSize
     {
         public readonly ContextMenuCommand Command;
 
@@ -13,12 +13,12 @@ namespace WhoWantsToBeMillionaire
             Command = command;
         }
 
-        public void AlignSize(float relativeWidth, float relativeHeight)
+        public void AlignSize()
         {
             Dock = DockStyle.Fill;
             Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
-            SizeF ratio = new SizeF(relativeWidth, relativeHeight);
+            SizeF ratio = new SizeF(6, 1);
 
             float wFactor = ratio.Width / ClientRectangle.Width;
             float hFactor = ratio.Height / ClientRectangle.Height;

@@ -6,14 +6,14 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum TextMode { Monologue, Dialog }
-
     class CommandBoard : TableLayoutPanel, IReset
     {
+        private readonly Image _logo;
         private readonly LabelDialog _labelDialog;
         private readonly ButtonWire _buttonCommand;
         private readonly ButtonWire _buttonCanсel;
-        private readonly Image _logo;
+
+        private PhoneTimer _phoneTimer;
 
         public SceneCommand Command;
         public SceneCancelCommand CancelCommand;
@@ -46,13 +46,16 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_labelDialog, 0, 0);
             Controls.Add(_buttonCommand, 0, 1);
             Controls.Add(_buttonCanсel, 0, 2);
+
+            _buttonCommand.AlignSize();
+            _buttonCanсel.AlignSize();
         }
 
-        public TextMode TextMode
+        public CommandBoardTextMode TextMode
         {
             set
             {
-                if (value == TextMode.Monologue)
+                if (value == CommandBoardTextMode.Monologue)
                 {
                     _labelDialog.SetRatioTextArea(0.8f, 0.8f);
                     _labelDialog.SetAlignment(StringAlignment.Center, StringAlignment.Center);
@@ -75,6 +78,25 @@ namespace WhoWantsToBeMillionaire
 
         public bool ButtonCommandEnabled { set => _buttonCommand.Enabled = value; }
 
+        private void OnTimerTimeUp(object sender)
+        {
+            if (sender is PhoneTimer timer)
+            {
+                timer.TimeUp -= OnTimerTimeUp;
+                CommandClick?.Invoke(timer, SceneCommand.End_PhoneFriend);
+            }
+        }
+
+        public void StopTimer()
+        {
+            if (_phoneTimer != null)
+            {
+                _phoneTimer.TimeUp -= OnTimerTimeUp;
+                _phoneTimer.Stop();
+                GameSound.Play(Resources.Hint_PhoneFriend_End);
+            }
+        }
+
         public void Reset(Mode mode = Mode.Classic)
         {
             _labelDialog.Text = string.Empty;
@@ -85,11 +107,8 @@ namespace WhoWantsToBeMillionaire
             _buttonCommand.Text = "Продолжить";
             _buttonCanсel.Text = "Пропустить";
 
-            TextMode = TextMode.Monologue;
+            TextMode = CommandBoardTextMode.Monologue;
         }
-
-        public void AddText(string text) =>
-            _labelDialog.Text += text;
 
         public void Clear()
         {
@@ -124,25 +143,69 @@ namespace WhoWantsToBeMillionaire
             ButtonsVisible = true;
         }
 
-        public async Task ShowMovingControl(MovingControl box, int milliseconds, bool centering)
+        public async Task RemoveMovingControls(int milliseconds)
         {
-            box.Location = new Point(_labelDialog.Width, centering ? _labelDialog.Height - box.Height >> 1 : 0);
-
-            _labelDialog.Image = null;
-            _labelDialog.Controls.Add(box);
-
-            int x = centering ? _labelDialog.Width - box.Width >> 1 : _labelDialog.Width - box.Width;
-
-            await box.MoveX(x, milliseconds / GameConst.DeltaTime);
+            foreach (Control ctrl in _labelDialog.Controls)
+                if (ctrl is MovingControl moving)
+                {
+                    await moving.MoveX(_labelDialog.Width, milliseconds / GameConst.DeltaTime);
+                    _labelDialog.Controls.Remove(moving);
+                    moving.Dispose();
+                }
         }
 
-        public async Task RemoveMovingControls(MovingControl box, int countFrames)
+        public async Task CallFriend(Question question, string sum)
         {
-            if (_labelDialog.Controls.Contains(box))
+            var dialog = Hint.GetFriendDialog(sum);
+            var answerFriend = Hint.GetFriendAnswer(question);
+
+            _phoneTimer = new PhoneTimer((int)(0.3f * Height), 30);
+            _phoneTimer.X = _labelDialog.Width;
+            _phoneTimer.TimeUp += OnTimerTimeUp;
+
+            _labelDialog.Controls.Add(_phoneTimer);
+
+            await Task.Delay(2000);
+
+            GameSound.Play(Resources.Hint_PhoneFriend_Beeps);
+
+            await Task.Delay(6000);
+
+            foreach (var phrase in dialog)
             {
-                await box.MoveX(_labelDialog.Width, countFrames);
-                _labelDialog.Controls.Remove(box);
+                _labelDialog.Text += phrase;
+                await Task.Delay(2000);
             }
+
+            var xEnd = _labelDialog.Width - _phoneTimer.Width;
+            var countFrames = 500 / GameConst.DeltaTime;
+
+            await _phoneTimer.MoveX(xEnd, countFrames);
+
+            Text = answerFriend;
+            _phoneTimer.Start();
+        }
+
+        public async Task HoldVote(Question question)
+        {
+            var percents = Hint.GetPercentagesAudience(question);
+            var sizeChart = Resizer.Resize(BasicSize.Height, (int)(0.7f * Height), 3, 4);
+            var chart = new VotingChart(sizeChart);
+            var xEnd = _labelDialog.Width - chart.Width >> 1;
+            var countFrames = 500 / GameConst.DeltaTime;
+
+            chart.X = _labelDialog.Width;
+            chart.Y = _labelDialog.Height - chart.Height >> 1;
+
+            _labelDialog.Image = null;
+            _labelDialog.Controls.Add(chart);
+
+            GameSound.Play(Resources.Hint_AskAudience_Begin);
+
+            await chart.MoveX(xEnd, countFrames);
+            await Task.Delay(3000);
+            await chart.ShowAnimationVote(3000);
+            await chart.ShowPercents(percents, 15);
         }
     }
 }

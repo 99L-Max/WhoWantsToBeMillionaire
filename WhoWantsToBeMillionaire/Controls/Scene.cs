@@ -8,37 +8,6 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum SceneCommand
-    {
-        Start,
-        Restart,
-        Show_SaveSums,
-        Show_CountHints,
-        Show_Hint,
-        About_RestrictionsHints,
-        About_TakingMoney,
-        About_Starting,
-        ChoosingSaveSum,
-        NextQuestion,
-        Loss,
-        Victory,
-        End_PhoneFriend,
-        End_AskAudience,
-        End_AskHost,
-        SwitchQuestion,
-        TakeMoney,
-        TakeMoney_Confirmation,
-        TakeMoney_ShowPrize,
-        FinalQuestion
-    }
-
-    enum SceneCancelCommand
-    {
-        SkipRules,
-        CancelTakingMoney,
-        ExitToMainMenu
-    }
-
     class Scene : GameContol, IReset, ISetSettings
     {
         private readonly BoxAnimationTransition _boxAnimation;
@@ -46,25 +15,20 @@ namespace WhoWantsToBeMillionaire
         private readonly ButtonСapsule _buttonTakeMoney;
         private readonly CommandBoard _commandBoard;
         private readonly Host _host;
-        private readonly Hint _hint;
         private readonly Image _prizeImage;
         private readonly MovingTableControls _tableControls;
         private readonly TableHints _tableHints;
         private readonly TableSums _tableSums;
 
-        private PhoneTimer _timer;
-        private VotingChart _chart;
-
         public Action<bool> GameOver;
         public Action<Achievement> AchievementCompleted;
-        public Action<StatsAttribute, int> StatisticsChanged;
+        public Action<StatisticsAttribute, int> StatisticsChanged;
 
         public Scene() : base(GameConst.ScreenSize)
         {
             Dock = DockStyle.Fill;
 
             _host = new Host();
-            _hint = new Hint();
             _tableSums = new TableSums();
             _buttonTakeMoney = new ButtonСapsule();
             _tableControls = new MovingTableControls((int)(GameConst.ScreenSize.Width * 0.3f), GameConst.ScreenSize.Height);
@@ -136,7 +100,7 @@ namespace WhoWantsToBeMillionaire
                     res.Reset(mode);
         }
 
-        public void SetSettings(GameSettingsData data)
+        public void SetSettings(SettingsData data)
         {
             foreach (Control ctrl in Controls)
                 if (ctrl is ISetSettings set)
@@ -146,7 +110,7 @@ namespace WhoWantsToBeMillionaire
         public async void Start(bool isRestart = false)
         {
             MenuAllowed = true;
-            Sound.PlayLooped(Resources.Rules);
+            GameMusic.Play(Resources.Rules);
 
             await _tableControls.MoveX(GameConst.ScreenSize.Width - _tableControls.Width, 600 / GameConst.DeltaTime);
 
@@ -181,7 +145,7 @@ namespace WhoWantsToBeMillionaire
             {
                 default:
                     ControlEnabled = false;
-                    StatisticsChanged?.Invoke(_boxQuestion.IsCorrectAnswer ? StatsAttribute.NumberCorrectAnswers : StatsAttribute.NumberIncorrectAnswers, 1);
+                    StatisticsChanged?.Invoke(_boxQuestion.IsCorrectAnswer ? StatisticsAttribute.NumberCorrectAnswers : StatisticsAttribute.NumberIncorrectAnswers, 1);
 
                     ShowExplanationText();
 
@@ -201,7 +165,8 @@ namespace WhoWantsToBeMillionaire
                     {
                         await Task.Delay(3000);
 
-                        Sound.StopAll();
+                        if (_boxQuestion.Question.Difficulty > DifficultyQuestion.Easy)
+                            GameMusic.Stop();
 
                         _boxQuestion.AnswerMode = AnswerMode.Default;
                         _boxQuestion.LockOption(letter);
@@ -218,7 +183,7 @@ namespace WhoWantsToBeMillionaire
                         }
                         else
                         {
-                            PlayReflections(Resources.Hint_DoubleDip);
+                            PlayLoopedHint(Resources.Hint_DoubleDip);
                             _boxQuestion.Enabled = true;
                             return;
                         }
@@ -262,66 +227,41 @@ namespace WhoWantsToBeMillionaire
 
         private async void OnHintClick(TypeHint type)
         {
-            StatisticsChanged?.Invoke(StatsAttribute.NumberHintsUsed, 1);
+            StatisticsChanged?.Invoke(StatisticsAttribute.NumberHintsUsed, 1);
 
             _buttonTakeMoney.Enabled = _tableHints.Enabled = type == TypeHint.FiftyFifty;
 
             switch (type)
             {
                 case TypeHint.FiftyFifty:
-                    Sound.Play(Resources.Hint_FiftyFifty);
-                    Question q = _boxQuestion.Question;
-
-                    _boxQuestion.SetQuestion(new Question(q.Number, q.Version, q.Seed, 2));
+                    var changedQuestion = new Question(_boxQuestion.Question, 2);
+                    _boxQuestion.SetQuestion(changedQuestion);
+                    GameSound.Play(Resources.Hint_FiftyFifty);
 
                     AchievementCompleted?.Invoke(Achievement.DearComputer);
                     break;
 
                 case TypeHint.PhoneFriend:
-                    Sound.PlayLooped(Resources.Hint_PhoneFriend_Dialing);
-
                     _boxQuestion.Enabled = false;
-                    _commandBoard.TextMode = TextMode.Dialog;
+                    _commandBoard.TextMode = CommandBoardTextMode.Dialog;
                     _commandBoard.Command = SceneCommand.End_PhoneFriend;
 
-                    _timer = new PhoneTimer((int)(0.3f * _commandBoard.Height), 30);
-                    _timer.TimeUp += OnCommandClick;
+                    GameMusic.Play(Resources.Hint_PhoneFriend_Dialing);
 
-                    await Task.Delay(2000);
+                    await _commandBoard.CallFriend(_boxQuestion.Question, _tableSums.NextSum);
 
-                    Sound.Play(Resources.Hint_PhoneFriend_Beeps);
-
-                    await Task.Delay(6000);
-
-                    foreach (var phrase in _hint.GetFriendDialog(_tableSums.NextSum))
-                    {
-                        _commandBoard.AddText(phrase);
-                        await Task.Delay(2000);
-                    }
-
-                    await _commandBoard.ShowMovingControl(_timer, 500, false);
-
-                    _commandBoard.Text = _hint.GetFriendAnswer(_boxQuestion.Question);
-                    _timer.Start();
+                    GameMusic.Stop();
 
                     _commandBoard.ButtonCommandVisible = true;
                     break;
 
                 case TypeHint.AskAudience:
-                    Sound.PlayLooped(Resources.Hint_AskAudience_Begin);
-
                     _boxQuestion.Enabled = false;
                     _commandBoard.Command = SceneCommand.End_AskAudience;
 
-                    var percents = _hint.GetPercentagesAudience(_boxQuestion.Question);
-                    var heigth = (int)(0.7f * _commandBoard.Height);
+                    GameMusic.Stop();
 
-                    _chart = new VotingChart((int)(0.75f * heigth), heigth);
-
-                    await _commandBoard.ShowMovingControl(_chart, 500, true);
-                    await Task.Delay(3000);
-                    await _chart.ShowAnimationVote(3000);
-                    await _chart.ShowPercents(percents, 15);
+                    await _commandBoard.HoldVote(_boxQuestion.Question);
 
                     AchievementCompleted?.Invoke(Achievement.AudienceAward);
 
@@ -330,7 +270,7 @@ namespace WhoWantsToBeMillionaire
 
                 case TypeHint.DoubleDip:
                     _boxQuestion.AnswerMode = AnswerMode.DoubleDips;
-                    PlayReflections(Resources.Hint_DoubleDip);
+                    PlayLoopedHint(Resources.Hint_DoubleDip);
 
                     await _boxQuestion.ShowCentralIcon(type, true);
                     break;
@@ -344,9 +284,9 @@ namespace WhoWantsToBeMillionaire
 
                 case TypeHint.AskHost:
                     _boxQuestion.Enabled = false;
-                    PlayReflections(Resources.Hint_AskHost);
+                    PlayLoopedHint(Resources.Hint_AskHost, true);
 
-                    _commandBoard.Text = _hint.GetHostAnswer(_boxQuestion.Question);
+                    _commandBoard.Text = Hint.GetHostAnswer(_boxQuestion.Question);
 
                     await _boxQuestion.ShowCentralIcon(type, true);
 
@@ -356,16 +296,18 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void PlayReflections(UnmanagedMemoryStream stream)
+        private void PlayLoopedHint(UnmanagedMemoryStream stream, bool isIgnoreDifficulty = false)
         {
-            if (_boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
-                Sound.PlayLooped(stream);
+            if (isIgnoreDifficulty || _boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
+                GameMusic.Play(stream);
         }
 
-        private async Task RemoveMovingControl(MovingControl box, int milliseconds)
+        private void PlayMusicReflections(DifficultyQuestion difficulty)
         {
-            await _commandBoard.RemoveMovingControls(box, milliseconds / GameConst.DeltaTime);
-            box.Dispose();
+            if (difficulty == DifficultyQuestion.Easy)
+                GameMusic.Play(Resources.Question_Reflections_Easy);
+            else
+                GameMusic.Play(Resources.Question_Reflections_Main);
         }
 
         private void SaveSumSelected(int sum)
@@ -391,22 +333,6 @@ namespace WhoWantsToBeMillionaire
             QuestionVisible = false;
             _boxQuestion.SetQuestion(number);
 
-            if (_boxQuestion.Question.Difficulty != DifficultyQuestion.Easy)
-            {
-                if (_boxQuestion.Question.Difficulty == DifficultyQuestion.Final)
-                {
-                    Sound.Play(Resources.Start);
-                    await Task.Delay(5000);
-                }
-                else
-                {
-                    Sound.Play(Resources.Question_Next);
-                    await Task.Delay(3000);
-                }
-
-                Sound.PlayLooped(Resources.Question_Reflections);
-            }
-
             await _boxAnimation.ShowImage(_boxQuestion.BackgroundImage);
 
             QuestionVisible = true;
@@ -416,15 +342,20 @@ namespace WhoWantsToBeMillionaire
             ControlEnabled = true;
         }
 
-        private async Task ShowCorrectAndPrize(bool playSound, bool addDelay, bool updatePrize)
+        private async Task ShowCorrectAndPrize(bool playSound, bool addDelay, bool updatePrize, bool stopLooped)
         {
             _commandBoard.Clear();
-            Sound.StopAll();
+
+            if (stopLooped)
+                GameMusic.Stop();
 
             await _boxQuestion.ShowCorrect(playSound, addDelay, _tableSums.NowSaveSum);
 
             if (_boxQuestion.Question.Number == 5 && _boxQuestion.IsCorrectAnswer && !_tableSums.NowSaveSum && _boxQuestion.AnswerMode < AnswerMode.SwitchQuestion)
-                Sound.Play(Resources.Answer_Correct_Easy_Ending);
+            {
+                GameSound.Play(Resources.Answer_Correct_Easy_Ending);
+                GameMusic.Stop();
+            }
 
             if (updatePrize)
                 _tableSums.Update(_boxQuestion.IsCorrectAnswer);
@@ -443,24 +374,36 @@ namespace WhoWantsToBeMillionaire
             switch (command)
             {
                 case SceneCommand.NextQuestion:
-                    int delay;
+                    var delay = 0;
+                    var numberNextQuestion = _boxQuestion.Question.Number + 1;
+                    var difficultyNexQuestion = Question.GetDifficulty(numberNextQuestion);
 
                     if (!_tableSums.NowSaveSum && _boxQuestion.Question.Number == 5)
-                        delay = 3500;
+                        delay = 4500;
                     else
                         delay = _tableSums.NowSaveSum ? 7000 : 1500 + 500 * (int)_boxQuestion.Question.Difficulty;
 
                     if (_tableSums.NowSaveSum)
                         AchievementCompleted?.Invoke(Achievement.MoneyNotBurn);
 
-                    await ShowCorrectAndPrize(true, false, true);
+                    await ShowCorrectAndPrize(true, false, true, _boxQuestion.Question.Difficulty > DifficultyQuestion.Easy || _tableSums.NowSaveSum);
                     await Task.Delay(delay);
                     await _boxAnimation.HideImage();
 
-                    if (_boxQuestion.Question.Number + 1 < Question.MaxNumber)
+                    if (difficultyNexQuestion != DifficultyQuestion.Final)
                     {
                         await Task.Delay(1000);
-                        await ShowQuestion(_boxQuestion.Question.Number + 1);
+
+                        if (difficultyNexQuestion != DifficultyQuestion.Easy)
+                        {
+                            GameSound.Play(Resources.Question_Next);
+                            await Task.Delay(3000);
+                        }
+
+                        if (!GameMusic.IsPlaying)
+                            PlayMusicReflections(difficultyNexQuestion);
+
+                        await ShowQuestion(numberNextQuestion);
                     }
                     else
                     {
@@ -472,14 +415,20 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.FinalQuestion:
                     _commandBoard.Clear();
+                    GameSound.Play(Resources.Start);
+
+                    await Task.Delay(5000);
+
+                    PlayMusicReflections(DifficultyQuestion.Final);
+
                     await ShowQuestion(Question.MaxNumber);
                     break;
 
                 case SceneCommand.Loss:
                 case SceneCommand.Victory:
-                    await ShowCorrectAndPrize(true, true, true);
+                    await ShowCorrectAndPrize(true, true, true, true);
 
-                    StatisticsChanged?.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
+                    StatisticsChanged?.Invoke(StatisticsAttribute.TotalPrize, _tableSums.Prize);
 
                     if (command == SceneCommand.Victory)
                     {
@@ -545,10 +494,13 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Clear();
                     _tableSums.Clear();
 
-                    Sound.StopLooped();
-                    Sound.Play(Resources.Start);
+                    GameMusic.Stop();
+                    GameSound.Play(Resources.Start);
 
                     await Task.Delay(3000);
+
+                    PlayMusicReflections(DifficultyQuestion.Easy);
+
                     await ShowQuestion(1);
 
                     _buttonTakeMoney.Visible = true;
@@ -556,32 +508,29 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.End_PhoneFriend:
                     _commandBoard.Clear();
-                    _commandBoard.TextMode = TextMode.Monologue;
-
-                    _timer.Stop();
-                    _timer.TimeUp -= OnCommandClick;
-
-                    AchievementCompleted?.Invoke(Achievement.AndToTalk);
+                    _commandBoard.TextMode = CommandBoardTextMode.Monologue;
 
                     if (sender is CommandBoard)
                     {
-                        Sound.StopLast();
-                        Sound.Play(Resources.Hint_PhoneFriend_End);
+                        GameSound.StopAll();
+                        _commandBoard.StopTimer();
                     }
 
-                    PlayReflections(Resources.Question_Reflections);
+                    AchievementCompleted?.Invoke(Achievement.AndToTalk);
+
+                    PlayMusicReflections(_boxQuestion.Question.Difficulty);
 
                     await Task.Delay(2000);
-                    await RemoveMovingControl(_timer, 500);
+                    await _commandBoard.RemoveMovingControls(500);
 
                     ControlEnabled = true;
                     break;
 
                 case SceneCommand.End_AskAudience:
                     _commandBoard.Clear();
-                    PlayReflections(Resources.Question_Reflections);
+                    PlayMusicReflections(_boxQuestion.Question.Difficulty);
 
-                    await RemoveMovingControl(_chart, 500);
+                    await _commandBoard.RemoveMovingControls(500);
 
                     ControlEnabled = true;
                     break;
@@ -621,7 +570,7 @@ namespace WhoWantsToBeMillionaire
 
                     AchievementCompleted?.Invoke(Achievement.NoOneWillKnow);
 
-                    PlayReflections(Resources.Question_Reflections);
+                    PlayMusicReflections(_boxQuestion.Question.Difficulty);
 
                     await _boxQuestion.HideCentralIcon(true);
 
@@ -641,10 +590,10 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommand.TakeMoney:
                     _commandBoard.Clear();
-                    StatisticsChanged?.Invoke(StatsAttribute.TotalPrize, _tableSums.Prize);
+                    StatisticsChanged?.Invoke(StatisticsAttribute.TotalPrize, _tableSums.Prize);
 
-                    Sound.StopAll();
-                    Sound.Play(Resources.PlayerTakesMoney);
+                    GameMusic.Stop();
+                    GameSound.Play(Resources.PlayerTakesMoney);
 
                     await Task.Delay(7000);
 
@@ -654,7 +603,7 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCommand.TakeMoney_ShowPrize:
-                    await ShowCorrectAndPrize(false, true, false);
+                    await ShowCorrectAndPrize(false, true, false, true);
 
                     AchievementCompleted?.Invoke(Achievement.StopGame);
 
@@ -668,7 +617,6 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case SceneCommand.Restart:
-                    Sound.StopAll();
                     GameOver?.Invoke(true);
                     break;
             }

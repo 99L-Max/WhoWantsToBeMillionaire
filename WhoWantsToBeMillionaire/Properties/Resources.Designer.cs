@@ -72,16 +72,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Achievement_Background {
-            get {
-                object obj = ResourceManager.GetObject("Achievement_Background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Achievement_Icons {
             get {
                 object obj = ResourceManager.GetObject("Achievement_Icons", resourceCulture);
@@ -341,16 +331,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.Drawing.Bitmap ChartColumn {
             get {
                 object obj = ResourceManager.GetObject("ChartColumn", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ComboBox {
-            get {
-                object obj = ResourceManager.GetObject("ComboBox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -652,6 +632,15 @@ namespace WhoWantsToBeMillionaire.Properties {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream MainMenuTheme {
+            get {
+                return ResourceManager.GetStream("MainMenuTheme", resourceCulture);
             }
         }
         
@@ -4466,9 +4455,18 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Question_Reflections {
+        internal static System.IO.UnmanagedMemoryStream Question_Reflections_Easy {
             get {
-                return ResourceManager.GetStream("Question_Reflections", resourceCulture);
+                return ResourceManager.GetStream("Question_Reflections_Easy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Question_Reflections_Main {
+            get {
+                return ResourceManager.GetStream("Question_Reflections_Main", resourceCulture);
             }
         }
         

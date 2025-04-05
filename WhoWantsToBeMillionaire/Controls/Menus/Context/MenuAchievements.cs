@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
@@ -10,25 +9,25 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly TableImages _table;
 
-        public MenuAchievements(int width, int height, Dictionary<Achievement, bool> achievements) : base("Достижения", width, height, 0.05f * height)
+        public MenuAchievements(float fractionScreenHeight, int widthFraction, int heightFraction, Dictionary<Achievement, bool> achievements) :
+            base("Достижения", fractionScreenHeight, widthFraction, heightFraction)
         {
-            var dict = JsonManager.GetDictionary<string, (string, string)>(Resources.Dictionary_Achievements);
-            var sizeRow = new Size((int)(0.8f * width), (int)(0.15f * height));
+            var dict = JsonManager.GetDictionary<Achievement, (string, string)>(Resources.Dictionary_Achievements);
+            var sizeRow = new Size((int)(0.8f * Width), (int)(0.15f * Height));
             var granted = achievements.Where(x => x.Value);
             var image = Painter.CreateAchievementProgress(granted.Count(), achievements.Count, sizeRow.Width, sizeRow.Height);
 
             string title, comment;
 
-            _table = new TableImages((int)(0.05f * height));
-            _table.Dock = DockStyle.Fill;
+            _table = new TableImages(10);
             _table.Add(image);
 
             foreach (var achievement in granted)
             {
-                (title, comment) = dict[achievement.Key.ToString()];
+                (title, comment) = dict[achievement.Key];
 
-                using (var icon = Painter.GetIconAchievement(achievement.Key))
-                    image = Painter.CreateAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+                using (var icon = Painter.GetIconAchievement(achievement.Key, true))
+                    image = Painter.CreateAchievementImage(icon, sizeRow, title, comment, Color.White, Color.White);
 
                 _table.Add(image);
             }
@@ -41,16 +40,16 @@ namespace WhoWantsToBeMillionaire
                 using (var icon = Resources.Achievement_Locked)
                     foreach (var achievement in achievements.Where(x => !x.Value))
                     {
-                        (title, comment) = dict[achievement.Key.ToString()];
+                        (title, comment) = dict[achievement.Key];
 
-                        image = Painter.CreateAchievementImage(icon, title, comment, sizeRow.Width, sizeRow.Height);
+                        image = Painter.CreateAchievementImage(icon, sizeRow, title, comment, Color.White, Color.White);
 
                         _table.Add(image);
                     }
             }
 
             SetControls(_table);
-            SetHeights(6f);
+            SetHeights(6);
 
             _table.DrawTable();
         }

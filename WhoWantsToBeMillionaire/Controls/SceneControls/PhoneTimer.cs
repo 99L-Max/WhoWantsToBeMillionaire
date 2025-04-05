@@ -10,13 +10,13 @@ namespace WhoWantsToBeMillionaire
     {
         private readonly List<Image> _framesBackground;
         private readonly List<Image> _framesForeground;
-        private readonly Timer _timerSeconds = new Timer();
-        private readonly Timer _timerFrames = new Timer();
+        private readonly Timer _timerSeconds;
+        private readonly Timer _timerFrames;
 
         private int _indexFrame = 0;
         private int _seconds;
 
-        public Action<object, SceneCommand> TimeUp;
+        public Action<object> TimeUp;
 
         public PhoneTimer(int side, int seconds) : base(side, side)
         {
@@ -24,12 +24,14 @@ namespace WhoWantsToBeMillionaire
             _framesForeground = Painter.CutSprite(Resources.PhoneTimer_Foreground, 5, 5);
 
             _seconds = seconds;
+            _timerFrames = new Timer();
+            _timerSeconds = new Timer();
 
             Font = FontManager.CreateFont(GameFont.Copperplate, 0.42f * side, FontStyle.Bold);
             ForeColor = Color.Silver;
 
             _timerSeconds.Interval = 1000;
-            _timerFrames.Interval = 40;
+            _timerFrames.Interval = GameConst.DeltaTime;
 
             _timerSeconds.Tick += OnTimerSecondsTick;
             _timerFrames.Tick += OnTimerFramesTick;
@@ -75,15 +77,14 @@ namespace WhoWantsToBeMillionaire
         {
             if (--_seconds <= 0)
             {
-                _timerSeconds.Stop();
-                TimeUp?.Invoke(this, SceneCommand.End_PhoneFriend);
+                Stop();
+                TimeUp?.Invoke(this);
             }
         }
 
         public void Start()
         {
-            Sound.StopAll();
-            Sound.Play(Resources.Hint_PhoneFriend_Timer);
+            GameSound.Play(Resources.Hint_PhoneFriend_Timer);
 
             _timerSeconds.Start();
             _timerFrames.Start();

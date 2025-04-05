@@ -46,5 +46,34 @@ namespace WhoWantsToBeMillionaire
 
             return result;
         }
+
+        public static Size Resize(BasicSize basicSize, int size, int widthFraction, int heightFraction)
+        {
+            var result = new Size();
+
+            if (basicSize == BasicSize.Width)
+            {
+                result.Width = size;
+                result.Height = result.Width * heightFraction / widthFraction;
+            }
+            else
+            {
+                result.Height = size;
+                result.Width = result.Height * widthFraction / heightFraction;
+            }
+
+            return result;
+        }
+
+        public static Size Resize(Size size, float ratio) =>
+            Resize(size, ratio, ratio);
+
+        public static Size Resize(Size size, float ratioWidth, float ratioHeight)
+        {
+            size.Width = (int)(ratioWidth * size.Width);
+            size.Height = (int)(ratioHeight * size.Height);
+
+            return size;
+        }
     }
 }

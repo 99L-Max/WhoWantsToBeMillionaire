@@ -29,21 +29,15 @@ namespace WhoWantsToBeMillionaire
         {
             get
             {
-                int count = _hints.Select(h => h.Enabled).Count();
+                var count = _hints.Select(h => h.Enabled).Count();
+                var lastNumber = count % 10;
 
-                switch (count % 10)
-                {
-                    default:
-                        return $"{count} подсказок";
-
-                    case 1:
-                        return $"{count} подсказка";
-
-                    case 2:
-                    case 3:
-                    case 4:
-                        return $"{count} подсказки";
-                }
+                if (lastNumber == 1)
+                    return $"{count} подсказка";
+                else if (lastNumber > 1 && lastNumber < 5)
+                    return $"{count} подсказки";
+                else
+                    return $"{count} подсказок";
             }
         }
 
@@ -57,15 +51,15 @@ namespace WhoWantsToBeMillionaire
 
             var countColumns = mode == Mode.Amateur ? 4 : 3;
             var types = JsonManager.GetDictionary<Mode, TypeHint[]>(Resources.Settings_Mode)[mode];
-            var width = (int)(0.9f * Width / countColumns);
-            var sizeHint = new Size(width, (int)(0.63f * width));
+            var widthHint = (int)(0.9f * Width / countColumns);
+            var sizeHint = Resizer.Resize(BasicSize.Width, widthHint, 100, 63);
             var descriptions = JsonManager.GetDictionary<TypeHint, string>(Resources.Dictionary_DescriptionHints);
 
             _hints?.ForEach(h => { h.Click -= OnHintClick; h.Dispose(); });
             _hints = types.Select(t => new ButtonHint(t, descriptions[t])).ToList();
             _hints.ForEach(h => { h.Click += OnHintClick; h.ToolTipVisible = _toolTipVisible; });
 
-            SetBoundsHints(new List<ButtonHint>(_hints), sizeHint, countColumns);
+            SetBoundsHints(_hints, sizeHint, countColumns);
         }
 
         private void SetBoundsHints(IEnumerable<ButtonHint> hints, Size hintSize, int columnCount)
@@ -80,20 +74,20 @@ namespace WhoWantsToBeMillionaire
             rowRectangle.Y = Size.Height - hintSize.Height * rowCount >> 1;
 
             int countInRow, rowX0;
-            IEnumerable<ButtonHint> listRow;
+            IEnumerable<ButtonHint> rowsButtons;
             ButtonHint button;
 
             for (int row = 0; row < rowCount; row++)
             {
                 countInRow = Math.Min(columnCount, hints.Count());
 
-                listRow = hints.Take(countInRow);
+                rowsButtons = hints.Take(countInRow);
                 hints = hints.Skip(countInRow);
 
-                for (int i = 0; i < listRow.Count(); i++)
+                for (int i = 0; i < rowsButtons.Count(); i++)
                 {
-                    button = listRow.ElementAt(i);
-                    rowX0 = (rowRectangle.Width - hintSize.Width * listRow.Count() >> 1) + rowRectangle.X;
+                    button = rowsButtons.ElementAt(i);
+                    rowX0 = (rowRectangle.Width - hintSize.Width * rowsButtons.Count() >> 1) + rowRectangle.X;
 
                     button.Location = new Point(rowX0 + i * hintSize.Width, rowRectangle.Y);
                     button.Size = hintSize;
@@ -105,7 +99,7 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void SetSettings(GameSettingsData data)
+        public void SetSettings(SettingsData data)
         {
             _toolTipVisible = Convert.ToBoolean(data.GetSettings(GameSettings.ShowDescriptionHints));
             _hints?.ForEach(h => h.ToolTipVisible = _toolTipVisible);
@@ -135,9 +129,9 @@ namespace WhoWantsToBeMillionaire
             _hints[_countShownHints++].ShowIcon();
 
             if (_countShownHints < 4)
-                Sound.Play($"Rules_Hint{_countShownHints}");
+                GameSound.Play($"Rules_Hint{_countShownHints}");
             else
-                Sound.Play(Resources.CentralIcon_Show);
+                GameSound.Play(Resources.CentralIcon_Show);
         }
 
         public void ShowAllHints() =>

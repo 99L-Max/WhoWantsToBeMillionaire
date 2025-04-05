@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
@@ -16,9 +15,9 @@ namespace WhoWantsToBeMillionaire
         private readonly Queue<Achievement> _queueAchievements;
         private readonly Control _parent;
 
-        public AchievementShower(int widthBoxAchievement, int heightBoxAchievement, int maxCountVisible, int countFramesMovement, int displayTime, Control parent)
+        public AchievementShower(float fractionScreenHeight, int widthFraction, int heightFraction, int maxCountVisible, int countFramesMovement, int displayTime, Control parent)
         {
-            _sizeBoxAchievement = new Size(widthBoxAchievement, heightBoxAchievement);
+            _sizeBoxAchievement = Resizer.Resize(BasicSize.Height, (int)(fractionScreenHeight * GameConst.ScreenSize.Height), widthFraction, heightFraction);
             _isPositionEmpty = Enumerable.Repeat(true, maxCountVisible).ToArray();
             _queueAchievements = new Queue<Achievement>();
             _countFramesMovement = countFramesMovement;
@@ -47,8 +46,6 @@ namespace WhoWantsToBeMillionaire
                         _parent.Controls.Add(box);
 
                         box.BringToFront();
-
-                        Sound.Play(Resources.Achievement, false);
 
                         await box.ShowAchievement(_countFramesMovement, _displayTime);
 

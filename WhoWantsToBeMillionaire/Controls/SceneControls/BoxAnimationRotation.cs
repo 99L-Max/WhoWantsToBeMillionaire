@@ -7,6 +7,13 @@ namespace WhoWantsToBeMillionaire
 {
     abstract class BoxAnimationRotation : PictureBox
     {
+        public BoxAnimationRotation()
+        {
+            BackColor = Color.Transparent;
+            BackgroundImageLayout = ImageLayout.Zoom;
+            SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
         protected async Task ShowAnimationRotation(Image front, Image back, Image finalFrame, (float, float, bool)[] animationData, bool isReverse = false)
         {
             if (isReverse)
