@@ -15,9 +15,9 @@ namespace WhoWantsToBeMillionaire
         private readonly AchievementsData _achievementsData;
         private readonly AchievementShower _achievementShower;
 
-        private bool _showScreenSaver = true;
+        private bool _isShowScreenSaver = true;
         private ContextMenu _contextMenu;
-        private GameSettingsData _settingsData;
+        private SettingsData _settingsData;
 
         public MainForm()
         {
@@ -28,10 +28,10 @@ namespace WhoWantsToBeMillionaire
 
             _scene = new Scene();
             _menuMain = new MenuMain();
-            _settingsData = new GameSettingsData(FileManager.PathLocalAppData);
+            _settingsData = new SettingsData(FileManager.PathLocalAppData);
             _statisticsData = new StatisticsData(FileManager.PathLocalAppData);
             _achievementsData = new AchievementsData(FileManager.PathLocalAppData);
-            _achievementShower = new AchievementShower(GameConst.ScreenSize.Width >> 2, GameConst.ScreenSize.Height >> 3, 5, 250 / GameConst.DeltaTime, 5000, this);
+            _achievementShower = new AchievementShower(0.12f, 5, 1, 5, 250 / GameConst.DeltaTime, 5000, this);
 
             SetSettings(_settingsData);
             _settingsData.ApplyGlobal();
@@ -48,6 +48,8 @@ namespace WhoWantsToBeMillionaire
             Controls.Add(_menuMain);
 
             _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.Continue).ToArray());
+
+            GameMusic.Play(Resources.MainMenuTheme);
         }
 
         protected override CreateParams CreateParams
@@ -70,23 +72,23 @@ namespace WhoWantsToBeMillionaire
                     break;
 
                 case MainMenuCommand.NewGame:
-                    OpenContextMenu(new MenuMode(GameConst.ScreenSize.Width / 3, GameConst.ScreenSize.Height * 2 / 3));
+                    OpenContextMenu(new MenuMode(0.67f, 7, 9));
                     break;
 
                 case MainMenuCommand.Statistics:
-                    OpenContextMenu(new MenuStatistics(GameConst.ScreenSize.Width / 3, GameConst.ScreenSize.Height * 2 / 3, _statisticsData.ToString()));
+                    OpenContextMenu(new MenuStatistics(0.75f, 8, 9, _statisticsData.ToString()));
                     break;
 
                 case MainMenuCommand.Achievements:
-                    OpenContextMenu(new MenuAchievements(GameConst.ScreenSize.Width / 2, GameConst.ScreenSize.Height * 3 / 4, _achievementsData.Achievements));
+                    OpenContextMenu(new MenuAchievements(0.75f, 1, 1, _achievementsData.Achievements));
                     break;
 
                 case MainMenuCommand.Settings:
-                    OpenContextMenu(new MenuSettings(GameConst.ScreenSize.Width / 2, GameConst.ScreenSize.Height * 2 / 3, _settingsData));
+                    OpenContextMenu(new MenuSettings(0.67f, 4, 3, _settingsData));
                     break;
 
-                default:
-                    OpenContextMenu(new MenuExit(GameConst.ScreenSize.Width / 3, GameConst.ScreenSize.Height / 3));
+                case MainMenuCommand.Exit:
+                    OpenContextMenu(new MenuExit(0.3f, 16, 9));
                     break;
             }
         }
@@ -108,9 +110,10 @@ namespace WhoWantsToBeMillionaire
                     _menuMain.Visible = false;
                     _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.NewGame).ToArray());
 
+                    GameMusic.Stop();
                     CloseContextMenu();
 
-                    if (_showScreenSaver)
+                    if (_isShowScreenSaver)
                         await ShowScreenSaver(true);
 
                     _scene.Visible = true;
@@ -120,7 +123,7 @@ namespace WhoWantsToBeMillionaire
                 case ContextMenuCommand.ApplySettings:
                     if (_contextMenu is MenuSettings menuSettings)
                     {
-                        _settingsData = new GameSettingsData(menuSettings.SettingsData);
+                        _settingsData = new SettingsData(FileManager.PathLocalAppData, menuSettings.SettingsData);
 
                         SetSettings(_settingsData);
                         CloseContextMenu();
@@ -162,7 +165,7 @@ namespace WhoWantsToBeMillionaire
             {
                 _scene.Reset(_scene.Mode);
 
-                if (_showScreenSaver)
+                if (_isShowScreenSaver)
                     await ShowScreenSaver(false);
 
                 _scene.Start(_scene.Visible = true);
@@ -171,6 +174,8 @@ namespace WhoWantsToBeMillionaire
             {
                 _menuMain.SetCommands(MenuMain.GetCommands.Where(x => x != MainMenuCommand.Continue).ToArray());
                 _menuMain.Visible = true;
+
+                GameMusic.Play(Resources.MainMenuTheme);
             }
         }
 
@@ -188,11 +193,11 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        private void UpdateStatistics(StatsAttribute attribute, int value)
+        private void UpdateStatistics(StatisticsAttribute attribute, int value)
         {
             _statisticsData.Update(attribute, value);
 
-            if (_statisticsData.GetAttribute(StatsAttribute.TotalPrize) >= 10000000)
+            if (_statisticsData.GetAttribute(StatisticsAttribute.TotalPrize) >= 10000000)
                 GrantAchievement(Achievement.Jubilee);
         }
 
@@ -209,9 +214,9 @@ namespace WhoWantsToBeMillionaire
             }
         }
 
-        public void SetSettings(GameSettingsData data)
+        public void SetSettings(SettingsData data)
         {
-            _showScreenSaver = Convert.ToBoolean(data.GetSettings(GameSettings.ShowScreensaver));
+            _isShowScreenSaver = Convert.ToBoolean(data.GetSettings(GameSettings.ShowScreensaver));
             _scene.SetSettings(data);
         }
 
@@ -233,9 +238,9 @@ namespace WhoWantsToBeMillionaire
         {
             FileManager.CreateSaveDirectory();
 
-            _settingsData.Save(FileManager.PathLocalAppData);
-            _statisticsData.Save(FileManager.PathLocalAppData);
-            _achievementsData.Save(FileManager.PathLocalAppData);
+            _settingsData.Save();
+            _statisticsData.Save();
+            _achievementsData.Save();
         }
     }
 }

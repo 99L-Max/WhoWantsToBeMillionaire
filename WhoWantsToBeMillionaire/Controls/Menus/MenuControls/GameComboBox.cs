@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace WhoWantsToBeMillionaire
 {
-    class GameComboBox : PictureBox, IDisposable
+    class GameComboBox : PictureBox, IDisposable, IAlignSize
     {
         private readonly List<float> _values;
         private readonly List<string> _texts;
@@ -21,13 +21,12 @@ namespace WhoWantsToBeMillionaire
         {
             Font = FontManager.CreateFont(GameFont.Arial, fontSize);
             ForeColor = Color.White;
-            Dock = DockStyle.Fill;
 
             _values = items.Keys.ToList();
             _texts = items.Values.ToList();
 
-            _leftArrow = new ButtonArrow(DirectionArrow.Left);
-            _rightArrow = new ButtonArrow(DirectionArrow.Right);
+            _leftArrow = new ButtonArrow(DirectionButtonArrow.Left);
+            _rightArrow = new ButtonArrow(DirectionButtonArrow.Right);
 
             _leftArrow.Click += OnLeftClick;
             _rightArrow.Click += OnRightClick;
@@ -66,8 +65,13 @@ namespace WhoWantsToBeMillionaire
         protected override void OnPaint(PaintEventArgs e) =>
             TextRenderer.DrawText(e.Graphics, _texts[_selectedIndex], Font, ClientRectangle, ForeColor);
 
-        protected override void OnSizeChanged(EventArgs e) =>
-            _leftArrow.Size = _rightArrow.Size = new Size((int)(0.15f * ClientRectangle.Width), ClientRectangle.Height);
+        public void AlignSize()
+        {
+            _leftArrow.Size = _rightArrow.Size = Resizer.Resize(ClientSize, 0.15f, 1f);
+
+            Font?.Dispose();
+            Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height);
+        }
 
         private void OnLeftClick(object sender, EventArgs e)
         {

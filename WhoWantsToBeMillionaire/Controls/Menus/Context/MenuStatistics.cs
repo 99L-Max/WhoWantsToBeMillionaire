@@ -2,13 +2,14 @@
 {
     class MenuStatistics : ContextMenu
     {
-        public MenuStatistics(int width, int height, string data) : base("Статистика", width, height, 0.05f * height)
+        public MenuStatistics(float fractionScreenHeight, int widthFraction, int heightFraction, string data) :
+            base("Статистика", fractionScreenHeight, widthFraction, heightFraction)
         {
-            LabelMenu label = new LabelMenu(0.045f * Height);
+            var label = new LabelMenu(0.045f * Height);
             label.Text = data;
 
             SetControls(label);
-            SetHeights(5f);
+            SetHeights(5);
         }
     }
 }

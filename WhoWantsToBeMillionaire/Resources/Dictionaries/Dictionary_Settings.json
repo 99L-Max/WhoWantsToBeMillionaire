@@ -1,6 +1,6 @@
 {
-  "Volume": "Громкость звуков",
-  "ShowScreensaver": "Показывать заставку",
-  "ShowOptionsSequentially": "Последовательно показывать варианты ответа",
-  "ShowDescriptionHints": "Описание подсказок при наведении курсора"
+    "Volume": "Общая громкость",
+    "ShowScreensaver": "Показывать заставку",
+    "ShowOptionsSequentially": "Последовательно показывать варианты ответа",
+    "ShowDescriptionHints": "Описание подсказок при наведении курсора"
 }

@@ -32,11 +32,11 @@ namespace WhoWantsToBeMillionaire
         public TableSums()
         {
             var sums = JsonManager.GetObject<int[]>(Resources.Settings_Sums);
+            int indexRow;
 
             _rowsSum = new RowTableSums[sums.Length];
-            RowCount = sums.Length;
 
-            int indexRow;
+            RowCount = sums.Length;
 
             for (int i = 0; i < RowCount; i++)
             {
@@ -79,7 +79,7 @@ namespace WhoWantsToBeMillionaire
 
                 _rowsSum[_rowsSum.Length - 1].IsSaveSum = saveSum.IsSaveSum = true;
 
-                Sound.Play(Resources.SavaSumSelected);
+                GameSound.Play(Resources.SavaSumSelected);
                 SaveSumSelected?.Invoke(saveSum.Sum);
             }
         }

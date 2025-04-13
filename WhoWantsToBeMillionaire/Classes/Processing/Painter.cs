@@ -53,40 +53,45 @@ namespace WhoWantsToBeMillionaire
             return new ReadOnlyDictionary<TKey, Image>(dict);
         }
 
-        public static Image GetIconAchievement(Achievement achievement)
+        public static Image GetIconAchievement(Achievement achievement, bool isAddBackground)
         {
             var spriteSize = new Size(3, 5);
             var index = (int)achievement;
-            var result = Resources.Achievement_Background;
+            var icon = CutSprite(Resources.Achievement_Icons, spriteSize.Width, spriteSize.Height, index / spriteSize.Height, index % spriteSize.Height);
 
-            using (var icon = CutSprite(Resources.Achievement_Icons, spriteSize.Width, spriteSize.Height, index / spriteSize.Height, index % spriteSize.Height))
-            using (var g = Graphics.FromImage(result))
-                g.DrawImage(icon, 0, 0, result.Width, result.Height);
+            if (!isAddBackground)
+                return icon;
 
-            return result;
+            var background = CreateFilledPanel(icon.Size, 3, Color.Gainsboro, Color.SlateGray, 45f, Color.Indigo, Color.Black, 90f);
+            var g = Graphics.FromImage(background);
+
+            g.DrawImage(icon, 0, 0, background.Width, background.Height);
+
+            g.Dispose();
+            icon.Dispose();
+
+            return background;
         }
 
-        public static Image CreateAchievementImage(Image icon, string title, string comment, int width, int height)
+        public static Image CreateAchievementImage(Image icon, Size size, string title, string comment, Color colorTitle, Color colorComment, float ratioFontTitle = 0.25f, float ratioFontComment = 0.18f)
         {
-            var image = new Bitmap(width, height);
-            var sizeIcon = (int)(0.7f * height);
-            var posIcon = height - sizeIcon >> 1;
-            var titleRectangle = new Rectangle(height, posIcon, width - height, sizeIcon >> 1);
+            var image = new Bitmap(size.Width, size.Height);
+            var sizeIcon = (int)(0.7f * size.Height);
+            var posIcon = size.Height - sizeIcon >> 1;
+            var titleRectangle = new Rectangle(size.Height, posIcon, size.Width - size.Height, sizeIcon >> 1);
             var commentRectangle = titleRectangle;
 
             commentRectangle.Y += commentRectangle.Height;
 
             using (var g = Graphics.FromImage(image))
-            using (var fontTitle = FontManager.CreateFont(GameFont.Arial, 0.18f * height, FontStyle.Bold))
-            using (var fontComment = FontManager.CreateFont(GameFont.Arial, 0.14f * height))
-            using (var format = new StringFormat())
+            using (var font = FontManager.CreateFont(GameFont.Arial, ratioFontTitle * size.Height, FontStyle.Bold))
+            using (var fontComment = FontManager.CreateFont(GameFont.Arial, ratioFontComment * size.Height))
             {
-                format.LineAlignment = StringAlignment.Center;
 
                 g.DrawImage(icon, posIcon, posIcon, sizeIcon, sizeIcon);
 
-                g.DrawString(title, fontTitle, Brushes.White, titleRectangle, format);
-                g.DrawString(comment, fontComment, Brushes.White, commentRectangle, format);
+                TextRenderer.DrawText(g, title, font, titleRectangle, colorTitle, TextFormatFlags.VerticalCenter);
+                TextRenderer.DrawText(g, comment, fontComment, commentRectangle, colorComment, TextFormatFlags.VerticalCenter);
             }
 
             return image;

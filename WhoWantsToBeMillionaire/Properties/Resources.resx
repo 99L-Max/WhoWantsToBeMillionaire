@@ -119,10 +119,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Achievement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\achievement.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Achievement_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Textures\Achievement_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Sounds\Achievement.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Achievement_Icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Achievement_Icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -137,40 +134,40 @@
     <value>..\resources\animationdata\animationdata_centralicon.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Accepted" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_accepted.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Accepted.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_correct_easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Correct_Easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_Easy_Ending" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_correct_easy_ending.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Correct_Easy_Ending.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_Final" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_correct_final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Correct_Final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_Hard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Answer_Correct_Hard.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_correct_normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Correct_Normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Correct_SaveSum" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_correct_savesum.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Correct_SaveSum.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_DrumRoll" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_drumroll.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_DrumRoll.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Incorrect_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_incorrect_easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Incorrect_Easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Incorrect_Final" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_incorrect_final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Incorrect_Final.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Incorrect_Hard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Answer_Incorrect_Hard.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Incorrect_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\answer_incorrect_normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Answer_Incorrect_Normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Arial" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fonts\Arial.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -200,16 +197,13 @@
     <value>..\Resources\Textures\ButtonWire_Focused.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CentralIcon_Hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\centralicon_hide.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\CentralIcon_Hide.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="CentralIcon_Show" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\centralicon_show.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\CentralIcon_Show.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ChartColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\ChartColumn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ComboBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Textures\ComboBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="COPRGTB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fonts\COPRGTB.TTF;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -260,37 +254,37 @@
     <value>..\resources\dictionaries\dictionary_statistics.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_AskAudience_Begin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_askaudience_begin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_AskAudience_Begin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_AskAudience_End" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_askaudience_end.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_AskAudience_End.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_AskAudience_Voting" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_askaudience_voting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_AskAudience_Voting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_AskHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_askhost.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_AskHost.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_DoubleDip" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_doubledip.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_DoubleDip.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_FiftyFifty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_fiftyfifty.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_FiftyFifty.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_Icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Hint_Icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hint_PhoneFriend_Beeps" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_phonefriend_beeps.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_PhoneFriend_Beeps.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_PhoneFriend_Dialing" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_phonefriend_dialing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_PhoneFriend_Dialing.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_PhoneFriend_End" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_phonefriend_end.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_PhoneFriend_End.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_PhoneFriend_Timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\hint_phonefriend_timer.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Hint_PhoneFriend_Timer.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_ReverseSide" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Hint_ReverseSide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -304,6 +298,9 @@
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MainMenuTheme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\MainMenuTheme.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Medal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Medal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -314,7 +311,7 @@
     <value>..\Resources\Textures\PhoneTimer_Foreground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerTakesMoney" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\playertakesmoney.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\PlayerTakesMoney.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Q01V01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Questions\Q01V01.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1445,31 +1442,34 @@
     <value>..\Resources\Textures\Question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Question_Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\question_next.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Question_Next.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Question_Reflections" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\question_reflections.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Question_Reflections_Easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Question_Reflections_Easy.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Question_Reflections_Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Question_Reflections_Main.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Rules" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\rules.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Rules.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Rules_Hint1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\rules_hint1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Rules_Hint1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Rules_Hint2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\rules_hint2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Rules_Hint2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Rules_Hint3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\rules_hint3.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Rules_Hint3.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="SavaSumSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\savasumselected.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\SavaSumSelected.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Screensaver_Full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\screensaver_full.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Screensaver_Full.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Screensaver_Restart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\screensaver_restart.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Screensaver_Restart.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Settings_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\settings\settings_default.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1484,7 +1484,7 @@
     <value>..\resources\settings\settings_values.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Start" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\sounds\start.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Sounds\Start.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Wire" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Wire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

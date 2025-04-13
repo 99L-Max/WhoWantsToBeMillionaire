@@ -6,8 +6,6 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum ThemeButtonCapsule { Blue, Orange, Green, Gray }
-
     class ButtonСapsule : PictureBox
     {
         private static readonly ReadOnlyDictionary<ThemeButtonCapsule, Image> s_imageButton;
@@ -66,8 +64,6 @@ namespace WhoWantsToBeMillionaire
         {
             Font?.Dispose();
             Font = FontManager.CreateFont(GameFont.Arial, 0.45f * ClientRectangle.Height, FontStyle.Bold);
-
-            Invalidate();
         }
     }
 }

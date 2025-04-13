@@ -99,146 +99,130 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\GameClasses\AchievementShower.cs" />
-    <Compile Include="Classes\GameConst.cs" />
-    <Compile Include="Classes\Processing\FontManager.cs" />
-    <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Classes\GameClasses\ChartColumnPercent.cs" />
+    <Compile Include="Classes\GameClasses\Hint.cs" />
+    <Compile Include="Classes\GameClasses\Host.cs" />
     <Compile Include="Classes\GameClasses\ImageAlpha.cs" />
+    <Compile Include="Classes\GameClasses\ImageAlphaText.cs" />
+    <Compile Include="Classes\GameClasses\Option.cs" />
+    <Compile Include="Classes\GameClasses\Question.cs" />
+    <Compile Include="Classes\GameConst.cs" />
+    <Compile Include="Classes\GameData\AchievementsData.cs" />
+    <Compile Include="Classes\GameData\GameData.cs" />
+    <Compile Include="Classes\GameData\SettingsData.cs" />
+    <Compile Include="Classes\GameData\StatisticsData.cs" />
+    <Compile Include="Classes\Interfaces\IAlignSize.cs" />
+    <Compile Include="Classes\Interfaces\IReset.cs" />
+    <Compile Include="Classes\Interfaces\ISetSettings.cs" />
+    <Compile Include="Classes\Processing\FileManager.cs" />
+    <Compile Include="Classes\Processing\FontManager.cs" />
+    <Compile Include="Classes\Processing\GameMusic.cs" />
+    <Compile Include="Classes\Processing\GameSound.cs" />
+    <Compile Include="Classes\Processing\JsonManager.cs" />
     <Compile Include="Classes\Processing\LoopedStream.cs" />
     <Compile Include="Classes\Processing\Painter.cs" />
-    <Compile Include="Controls\SpecialControls\BoxAchievement.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\Context\MenuAchievements.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\DataObjects\AchievementsData.cs" />
-    <Compile Include="Controls\Menus\Context\MenuExit.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\MenuControls\GameScrollBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\MenuControls\TableImages.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\BoxAnimationTransition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\DataObjects\GameSettingsData.cs" />
-    <Compile Include="Classes\GameClasses\ChartColumnPercent.cs" />
-    <Compile Include="Controls\SceneControls\BoxAnimationRotation.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\ButtonOption.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\GameToolTip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\Interfaces\ISetSettings.cs" />
-    <Compile Include="Classes\Interfaces\IReset.cs" />
-    <Compile Include="Controls\Menus\MenuControls\LabelMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\LabelDialog.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\MovingTableControls.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\Context\MenuSettings.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\GameClasses\Hint.cs" />
-    <Compile Include="Controls\Menus\MenuControls\ButtonArrow.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SpecialControls\ButtonСapsule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\MenuControls\ButtonMainMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SpecialControls\ButtonWire.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\MenuControls\GameComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\Context\ContextMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\MenuControls\ButtonContextMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\GameClasses\Host.cs" />
-    <Compile Include="Controls\Menus\Context\MenuMode.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\BoxQuestion.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\Processing\FileManager.cs" />
-    <Compile Include="Classes\DataObjects\StatisticsData.cs" />
-    <Compile Include="Controls\Menus\Context\MenuStatistics.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\VotingChart.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\CentralIconHint.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\ButtonHint.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\TableHints.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Menus\Main\MenuMain.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SpecialControls\MovingControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\GameClasses\Option.cs" />
-    <Compile Include="Controls\Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Classes\Processing\Resizer.cs" />
+    <Compile Include="Controls\Forms\MainForm.cs" />
     <Compile Include="Controls\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SpecialControls\GameContol.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\PhoneTimer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\Processing\Resizer.cs" />
-    <Compile Include="Classes\Processing\Sound.cs" />
+    <Compile Include="Controls\Menus\Context\ContextMenu.cs" />
+    <Compile Include="Controls\Menus\Context\MenuAchievements.cs" />
+    <Compile Include="Controls\Menus\Context\MenuExit.cs" />
+    <Compile Include="Controls\Menus\Context\MenuMode.cs" />
+    <Compile Include="Controls\Menus\Context\MenuSettings.cs" />
+    <Compile Include="Controls\Menus\Context\MenuStatistics.cs" />
+    <Compile Include="Controls\Menus\Main\MenuMain.cs" />
+    <Compile Include="Controls\Menus\MenuControls\ButtonArrow.cs" />
+    <Compile Include="Controls\Menus\MenuControls\ButtonContextMenu.cs" />
+    <Compile Include="Controls\Menus\MenuControls\ButtonMainMenu.cs" />
+    <Compile Include="Controls\Menus\MenuControls\GameComboBox.cs" />
+    <Compile Include="Controls\Menus\MenuControls\GameScrollBar.cs" />
+    <Compile Include="Controls\Menus\MenuControls\GameVScrollBar.cs" />
+    <Compile Include="Controls\Menus\MenuControls\LabelMenu.cs" />
+    <Compile Include="Controls\Menus\MenuControls\TableImages.cs" />
+    <Compile Include="Controls\Scene.cs" />
+    <Compile Include="Controls\SceneControls\BoxAnimationRotation.cs" />
+    <Compile Include="Controls\SceneControls\BoxAnimationTransition.cs" />
+    <Compile Include="Controls\SceneControls\BoxQuestion.cs" />
+    <Compile Include="Controls\SceneControls\ButtonHint.cs" />
+    <Compile Include="Controls\SceneControls\ButtonOption.cs" />
+    <Compile Include="Controls\SceneControls\CentralIconHint.cs" />
+    <Compile Include="Controls\SceneControls\CommandBoard.cs" />
+    <Compile Include="Controls\SceneControls\GameToolTip.cs" />
+    <Compile Include="Controls\SceneControls\LabelDialog.cs" />
+    <Compile Include="Controls\SceneControls\MovingTableControls.cs" />
+    <Compile Include="Controls\SceneControls\PhoneTimer.cs" />
+    <Compile Include="Controls\SceneControls\RowTableSums.cs" />
+    <Compile Include="Controls\SceneControls\TableHints.cs" />
+    <Compile Include="Controls\SceneControls\TableSums.cs" />
+    <Compile Include="Controls\SceneControls\VotingChart.cs" />
+    <Compile Include="Controls\Screensaver.cs" />
+    <Compile Include="Controls\SpecialControls\BoxAchievement.cs" />
+    <Compile Include="Controls\SpecialControls\ButtonWire.cs" />
+    <Compile Include="Controls\SpecialControls\ButtonСapsule.cs" />
+    <Compile Include="Controls\SpecialControls\GameContol.cs" />
+    <Compile Include="Controls\SpecialControls\MovingControl.cs" />
+    <Compile Include="Enums\Achievement.cs" />
+    <Compile Include="Enums\AnswerMode.cs" />
+    <Compile Include="Enums\BasicSize.cs" />
+    <Compile Include="Enums\CommandBoardTextMode.cs" />
+    <Compile Include="Enums\ContextMenuCommand.cs" />
+    <Compile Include="Enums\DifficultyQuestion.cs" />
+    <Compile Include="Enums\DirectionButtonArrow.cs" />
+    <Compile Include="Enums\GameFont.cs" />
+    <Compile Include="Enums\GameSettings.cs" />
+    <Compile Include="Enums\HostPhrases.cs" />
+    <Compile Include="Enums\LetterOption.cs" />
+    <Compile Include="Enums\MainMenuCommand.cs" />
+    <Compile Include="Enums\Mode.cs" />
+    <Compile Include="Enums\SceneCancelCommand.cs" />
+    <Compile Include="Enums\SceneCommand.cs" />
+    <Compile Include="Enums\StatisticsAttribute.cs" />
+    <Compile Include="Enums\StatusHint.cs" />
+    <Compile Include="Enums\ThemeButtonCapsule.cs" />
+    <Compile Include="Enums\ThemeButtonWire.cs" />
+    <Compile Include="Enums\TypeHint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\GameClasses\Question.cs" />
-    <Compile Include="Classes\Processing\JsonManager.cs" />
-    <Compile Include="Controls\SceneControls\RowTableSums.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SceneControls\CommandBoard.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Screensaver.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\GameClasses\ImageAlphaText.cs" />
-    <Compile Include="Controls\SceneControls\TableSums.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Scene.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Content Include="Resources\Textures\Achievement_Background.png" />
+    <Content Include="Resources\Sounds\Achievement.wav" />
+    <Content Include="Resources\Sounds\Answer_Accepted.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_Easy.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_Easy_Ending.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_Final.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_Hard.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_Normal.wav" />
+    <Content Include="Resources\Sounds\Answer_Correct_SaveSum.wav" />
+    <Content Include="Resources\Sounds\Answer_DrumRoll.wav" />
+    <Content Include="Resources\Sounds\Answer_Incorrect_Easy.wav" />
+    <Content Include="Resources\Sounds\Answer_Incorrect_Final.wav" />
+    <Content Include="Resources\Sounds\Answer_Incorrect_Hard.wav" />
+    <Content Include="Resources\Sounds\Answer_Incorrect_Normal.wav" />
+    <Content Include="Resources\Sounds\CentralIcon_Hide.wav" />
+    <Content Include="Resources\Sounds\CentralIcon_Show.wav" />
+    <Content Include="Resources\Sounds\Hint_AskAudience_Begin.wav" />
+    <Content Include="Resources\Sounds\Hint_AskAudience_End.wav" />
+    <Content Include="Resources\Sounds\Hint_AskAudience_Voting.wav" />
+    <Content Include="Resources\Sounds\Hint_AskHost.wav" />
+    <Content Include="Resources\Sounds\Hint_DoubleDip.wav" />
+    <Content Include="Resources\Sounds\Hint_FiftyFifty.wav" />
+    <Content Include="Resources\Sounds\Hint_PhoneFriend_Beeps.wav" />
+    <Content Include="Resources\Sounds\Hint_PhoneFriend_Dialing.wav" />
+    <Content Include="Resources\Sounds\Hint_PhoneFriend_End.wav" />
+    <Content Include="Resources\Sounds\Hint_PhoneFriend_Timer.wav" />
+    <Content Include="Resources\Sounds\MainMenuTheme.wav" />
+    <Content Include="Resources\Sounds\PlayerTakesMoney.wav" />
+    <Content Include="Resources\Sounds\Question_Next.wav" />
+    <Content Include="Resources\Sounds\Question_Reflections_Easy.wav" />
+    <Content Include="Resources\Sounds\Question_Reflections_Main.wav" />
+    <Content Include="Resources\Sounds\Rules.wav" />
+    <Content Include="Resources\Sounds\Rules_Hint1.wav" />
+    <Content Include="Resources\Sounds\Rules_Hint2.wav" />
+    <Content Include="Resources\Sounds\Rules_Hint3.wav" />
+    <Content Include="Resources\Sounds\SavaSumSelected.wav" />
+    <Content Include="Resources\Sounds\Screensaver_Full.wav" />
+    <Content Include="Resources\Sounds\Screensaver_Restart.wav" />
+    <Content Include="Resources\Sounds\Start.wav" />
     <Content Include="Resources\Textures\Achievement_Icons.png" />
     <Content Include="Resources\Textures\Achievement_Locked.png" />
     <Content Include="Resources\Textures\AudienceChart.png" />
@@ -250,7 +234,6 @@
     <Content Include="Resources\Textures\ButtonWire.png" />
     <Content Include="Resources\Textures\ButtonWire_Focused.png" />
     <Content Include="Resources\Textures\ChartColumn.png" />
-    <Content Include="Resources\Textures\ComboBox.png" />
     <Content Include="Resources\Textures\CurrentAmount.png" />
     <Content Include="Resources\Textures\Cursor.png" />
     <Content Include="Resources\Textures\Hint_Icons.png" />
@@ -262,27 +245,27 @@
     <Content Include="Resources\Textures\PhoneTimer_Foreground.png" />
     <Content Include="Resources\Textures\Question.png" />
     <Content Include="Resources\Textures\Wire.png" />
-    <EmbeddedResource Include="Controls\Scene.resx">
-      <DependentUpon>Scene.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Scene.resx">
+      <DependentUpon>Scene.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -690,50 +673,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Sounds\Achievement.wav" />
-    <Content Include="Resources\Sounds\Answer_Accepted.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_Easy.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_Normal.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_Hard.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_Easy_Ending.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_SaveSum.wav" />
-    <Content Include="Resources\Sounds\Answer_DrumRoll.wav" />
-    <Content Include="Resources\Sounds\Answer_Incorrect_Normal.wav" />
-    <Content Include="Resources\Sounds\Answer_Incorrect_Final.wav" />
-    <Content Include="Resources\Sounds\Hint_AskAudience_Begin.wav" />
-    <Content Include="Resources\Sounds\Hint_AskAudience_End.wav" />
-    <Content Include="Resources\Sounds\Hint_AskAudience_Voting.wav" />
-    <Content Include="Resources\Sounds\Hint_AskHost.wav" />
-    <Content Include="Resources\Sounds\Hint_DoubleDip.wav" />
-    <Content Include="Resources\Sounds\Hint_FiftyFifty.wav" />
-    <Content Include="Resources\Sounds\Hint_PhoneFriend_Beeps.wav" />
-    <Content Include="Resources\Sounds\Hint_PhoneFriend_Dialing.wav" />
-    <Content Include="Resources\Sounds\Hint_PhoneFriend_End.wav" />
-    <Content Include="Resources\Sounds\Hint_PhoneFriend_Timer.wav" />
-    <Content Include="Resources\Sounds\PlayerTakesMoney.wav" />
-    <Content Include="Resources\Sounds\Question_Next.wav" />
-    <Content Include="Resources\Sounds\Question_Reflections.wav" />
-    <Content Include="Resources\Sounds\Rules.wav" />
-    <Content Include="Resources\Sounds\Rules_Hint1.wav" />
-    <Content Include="Resources\Sounds\Rules_Hint2.wav" />
-    <Content Include="Resources\Sounds\Rules_Hint3.wav" />
-    <Content Include="Resources\Sounds\SavaSumSelected.wav" />
-    <Content Include="Resources\Sounds\Screensaver_Full.wav" />
-    <Content Include="Resources\Sounds\Screensaver_Restart.wav" />
-    <Content Include="Resources\Sounds\Start.wav" />
-    <Content Include="Resources\Sounds\Answer_Correct_Final.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Sounds\CentralIcon_Hide.wav" />
-    <Content Include="Resources\Sounds\CentralIcon_Show.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Sounds\Answer_Incorrect_Easy.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Sounds\Answer_Incorrect_Hard.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
@@ -744,6 +683,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\DataObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

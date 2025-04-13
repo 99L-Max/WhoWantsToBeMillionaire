@@ -9,8 +9,6 @@ using WhoWantsToBeMillionaire.Properties;
 
 namespace WhoWantsToBeMillionaire
 {
-    enum AnswerMode { Default, DoubleDips, SwitchQuestion, TakeMoney }
-
     class BoxQuestion : GameContol, IReset, ISetSettings
     {
         private const int CountFramesAlphaChange = 6;
@@ -19,10 +17,10 @@ namespace WhoWantsToBeMillionaire
         private readonly Image _image;
         private readonly ImageAlpha _wires;
         private readonly ImageAlphaText _textQuestion;
+        private readonly CentralIconHint _centralIconHint;
+        private readonly List<ImageAlphaText> _imageAlphaTexts;
         private readonly Dictionary<LetterOption, Option> _options;
         private readonly Dictionary<LetterOption, ButtonOption> _buttons;
-        private readonly CentralIconHint _iconHint;
-        private readonly List<ImageAlphaText> _imageAlphaTexts;
         private readonly ReadOnlyDictionary<ThemeButtonWire, Image> _themeImagesOptions;
 
         private bool _isSequentially = true;
@@ -38,20 +36,19 @@ namespace WhoWantsToBeMillionaire
             var dy = (int)(0.1f * optionSize.Height);
             var background = new Bitmap(width, height);
             var iconHeight = optionSize.Height + dy;
-
             Option option;
 
             _image = new Bitmap(width, height);
             _options = new Dictionary<LetterOption, Option>();
-            _iconHint = new CentralIconHint();
-            _imageAlphaTexts = new List<ImageAlphaText>();
+            _centralIconHint = new CentralIconHint();
             _textQuestion = new ImageAlphaText(questionRectangle);
+            _imageAlphaTexts = new List<ImageAlphaText>();
             _themeImagesOptions = Painter.GetThemeImages<ThemeButtonWire>(Resources.ButtonWire);
             _g = Graphics.FromImage(_image);
 
-            _iconHint.Size = new Size((int)(1.6f * iconHeight), iconHeight);
-            _iconHint.Location = new Point((width - _iconHint.Width) >> 1, questionRectangle.Height + dy + (optionSize.Height >> 1));
-            _iconHint.Visible = false;
+            _centralIconHint.Size = Resizer.Resize(BasicSize.Height, iconHeight, 8, 5);
+            _centralIconHint.Location = new Point(width - _centralIconHint.Width >> 1, questionRectangle.Height + dy + (optionSize.Height >> 1));
+            _centralIconHint.Visible = false;
 
             _textQuestion.Font = FontManager.CreateFont(GameFont.Arial, 0.45f * optionSize.Height);
             _textQuestion.LengthLine = 64;
@@ -100,7 +97,7 @@ namespace WhoWantsToBeMillionaire
 
             BackgroundImage = background;
 
-            Controls.Add(_iconHint);
+            Controls.Add(_centralIconHint);
         }
 
         public AnswerMode AnswerMode { get; set; }
@@ -114,7 +111,7 @@ namespace WhoWantsToBeMillionaire
             Enabled = false;
             AnswerMode = AnswerMode.Default;
 
-            _iconHint.Reset();
+            _centralIconHint.Reset();
             _imageAlphaTexts.ForEach(t => t.Reset());
             _wires.Alpha = 0;
             _g.Clear(Color.Transparent);
@@ -122,7 +119,7 @@ namespace WhoWantsToBeMillionaire
             Invalidate();
         }
 
-        public void SetSettings(GameSettingsData data) =>
+        public void SetSettings(SettingsData data) =>
             _isSequentially = Convert.ToBoolean(data.GetSettings(GameSettings.ShowOptionsSequentially));
 
         protected override void OnPaint(PaintEventArgs e)
@@ -216,10 +213,10 @@ namespace WhoWantsToBeMillionaire
 
                 SelectOption(option.Letter);
 
-                if (Question.Difficulty != DifficultyQuestion.Easy && (AnswerMode == AnswerMode.Default || AnswerMode == AnswerMode.DoubleDips))
+                if (Question.Difficulty > DifficultyQuestion.Easy && AnswerMode < AnswerMode.SwitchQuestion)
                 {
-                    Sound.Play(Resources.Answer_Accepted);
-                    Sound.PlayLooped(Resources.Answer_DrumRoll);
+                    GameSound.Play(Resources.Answer_Accepted);
+                    GameMusic.Play(Resources.Answer_DrumRoll);
                 }
 
                 OptionClick?.Invoke(option.Letter);
@@ -260,7 +257,7 @@ namespace WhoWantsToBeMillionaire
 
             Invalidate();
 
-            Sound.Play($"Answer_Incorrect_{Question.Difficulty}");
+            GameSound.Play($"Answer_Incorrect_{Question.Difficulty}");
         }
 
         public void ClickCorrect() =>
@@ -268,12 +265,12 @@ namespace WhoWantsToBeMillionaire
 
         public async Task Clear()
         {
-            if (_iconHint.Visible)
+            if (_centralIconHint.Visible)
             {
-                _g.DrawImage(_iconHint.BackgroundImage, new Rectangle(_iconHint.Location, _iconHint.Size));
+                _g.DrawImage(_centralIconHint.BackgroundImage, new Rectangle(_centralIconHint.Location, _centralIconHint.Size));
 
-                _iconHint.Visible = false;
-                _iconHint.Clear();
+                _centralIconHint.Visible = false;
+                _centralIconHint.Clear();
             }
 
             using (var frame = new ImageAlpha(_image))
@@ -297,11 +294,11 @@ namespace WhoWantsToBeMillionaire
         {
             if (playSound)
                 if (isSaveSum && IsCorrectAnswer && Question.Difficulty != DifficultyQuestion.Final)
-                    Sound.Play(Resources.Answer_Correct_SaveSum);
+                    GameSound.Play(Resources.Answer_Correct_SaveSum);
                 else if (IsCorrectAnswer)
-                    Sound.Play($"Answer_Correct_{Question.Difficulty}");
+                    GameSound.Play($"Answer_Correct_{Question.Difficulty}");
                 else
-                    Sound.Play($"Answer_Incorrect_{Question.Difficulty}");
+                    GameSound.Play($"Answer_Incorrect_{Question.Difficulty}");
 
             var option = _options[Question.Correct];
 
@@ -333,16 +330,16 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowCentralIcon(TypeHint hint, bool playSound)
         {
-            _iconHint.Visible = true;
-            _iconHint.BringToFront();
+            _centralIconHint.Visible = true;
+            _centralIconHint.BringToFront();
 
-            await _iconHint.ShowIcon(hint, playSound);
+            await _centralIconHint.ShowIcon(hint, playSound);
         }
 
         public async Task HideCentralIcon(bool playSound)
         {
-            await _iconHint.HideIcon(playSound);
-            _iconHint.Visible = _iconHint.BackgroundImage != null;
+            await _centralIconHint.HideIcon(playSound);
+            _centralIconHint.Visible = _centralIconHint.BackgroundImage != null;
         }
     }
 }

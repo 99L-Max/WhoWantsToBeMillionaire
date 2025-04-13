@@ -41,7 +41,7 @@ namespace WhoWantsToBeMillionaire
             X = GameConst.ScreenSize.Width;
         }
 
-        public void SetSettings(GameSettingsData data)
+        public void SetSettings(SettingsData data)
         {
             foreach (Control ctrl in Controls)
                 if (ctrl is ISetSettings set)

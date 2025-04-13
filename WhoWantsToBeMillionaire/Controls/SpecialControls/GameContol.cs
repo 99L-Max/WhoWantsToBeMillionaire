@@ -5,14 +5,26 @@ namespace WhoWantsToBeMillionaire
 {
     abstract class GameContol : PictureBox
     {
-        public GameContol(Size size)
+        private GameContol()
         {
-            Size = size;
             BackColor = Color.Transparent;
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        public GameContol(int width, int height) : this(new Size(width, height)) { }
+        public GameContol(Size size) : this()
+        {
+            Size = size;
+        }
+
+        public GameContol(int width, int height) : this()
+        {
+            Size = new Size(width, height);
+        }
+
+        public GameContol(BasicSize basicSize, int size, int widthFraction, int heightFraction) : this()
+        {
+            Size = Resizer.Resize(basicSize, size, widthFraction, heightFraction);
+        }
     }
 }
