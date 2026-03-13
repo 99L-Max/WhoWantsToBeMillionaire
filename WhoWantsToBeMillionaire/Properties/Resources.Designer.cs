@@ -72,9 +72,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Achievement_Icons {
+        internal static System.Drawing.Bitmap Achievement_Background {
             get {
-                object obj = ResourceManager.GetObject("Achievement_Icons", resourceCulture);
+                object obj = ResourceManager.GetObject("Achievement_Background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -82,9 +82,19 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Achievement_Locked {
+        internal static System.Drawing.Bitmap Achievement_Icon_Locked {
             get {
-                object obj = ResourceManager.GetObject("Achievement_Locked", resourceCulture);
+                object obj = ResourceManager.GetObject("Achievement_Icon_Locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Achievement_Icons {
+            get {
+                object obj = ResourceManager.GetObject("Achievement_Icons", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,9 +176,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Answer_Correct_SaveSum {
+        internal static System.IO.UnmanagedMemoryStream Answer_Correct_SavingSum {
             get {
-                return ResourceManager.GetStream("Answer_Correct_SaveSum", resourceCulture);
+                return ResourceManager.GetStream("Answer_Correct_SavingSum", resourceCulture);
             }
         }
         
@@ -448,16 +458,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Dictionary_DescriptionModes {
-            get {
-                object obj = ResourceManager.GetObject("Dictionary_DescriptionModes", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] Dictionary_MenuCommands {
             get {
                 object obj = ResourceManager.GetObject("Dictionary_MenuCommands", resourceCulture);
@@ -468,9 +468,9 @@ namespace WhoWantsToBeMillionaire.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Dictionary_Modes {
+        internal static byte[] Dictionary_ModeData {
             get {
-                object obj = ResourceManager.GetObject("Dictionary_Modes", resourceCulture);
+                object obj = ResourceManager.GetObject("Dictionary_ModeData", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -4534,51 +4534,21 @@ namespace WhoWantsToBeMillionaire.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Settings_Default {
-            get {
-                object obj = ResourceManager.GetObject("Settings_Default", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Settings_Mode {
-            get {
-                object obj = ResourceManager.GetObject("Settings_Mode", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Settings_Sums {
-            get {
-                object obj = ResourceManager.GetObject("Settings_Sums", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Settings_Values {
-            get {
-                object obj = ResourceManager.GetObject("Settings_Values", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Start {
             get {
                 return ResourceManager.GetStream("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Sums {
+            get {
+                object obj = ResourceManager.GetObject("Sums", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

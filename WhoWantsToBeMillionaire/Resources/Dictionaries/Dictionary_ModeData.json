@@ -1,0 +1,17 @@
+{
+  "Classic": {
+    "Name": "Классический",
+    "IndexesSavingSums": [ 4, 9 ],
+    "Hints": [ 0, 1, 2 ]
+  },
+  "Medium": {
+    "Name": "Средний",
+    "IndexesSavingSums": [],
+    "Hints": [ 0, 1, 2, 3 ]
+  },
+  "Advanced": {
+    "Name": "Расширенный",
+    "IndexesSavingSums": [],
+    "Hints": [ 5, 0, 3, 1, 4 ]
+  }
+}

@@ -1,1 +1,6 @@
-{"TotalPrize":"Общий выигрыш","NumberCorrectAnswers":"Правильных ответов","NumberIncorrectAnswers":"Неправильных ответов","NumberHintsUsed":"Потрачено подсказок"}
+{
+  "TotalPrize": "Общий выигрыш",
+  "NumberCorrectAnswers": "Правильных ответов",
+  "NumberIncorrectAnswers": "Неправильных ответов",
+  "NumberHintsUsed": "Потрачено подсказок"
+}

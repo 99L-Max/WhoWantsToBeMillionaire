@@ -121,17 +121,20 @@
   <data name="Achievement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Achievement.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Achievement_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Achievement_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Achievement_Icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Achievement_Icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Achievement_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Textures\Achievement_Locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Achievement_Icon_Locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Textures\Achievement_Icon_Locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnimationData_ButtonHint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\animationdata\animationdata_buttonhint.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\AnimationData\AnimationData_ButtonHint.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="AnimationData_CentralIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\animationdata\animationdata_centralicon.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\AnimationData\AnimationData_CentralIcon.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_Accepted" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Answer_Accepted.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -151,8 +154,8 @@
   <data name="Answer_Correct_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Answer_Correct_Normal.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Answer_Correct_SaveSum" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sounds\Answer_Correct_SaveSum.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Answer_Correct_SavingSum" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sounds\Answer_Correct_SavingSum.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Answer_DrumRoll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Answer_DrumRoll.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -215,43 +218,40 @@
     <value>..\Resources\Textures\Cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dialog_Hint_AskHost_Correct" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dialogues\dialog_hint_askhost_correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dialogues\Dialog_Hint_AskHost_Correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dialog_Hint_AskHost_Incorrect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dialogues\dialog_hint_askhost_incorrect.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dialogues\Dialog_Hint_AskHost_Incorrect.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dialog_Hint_PhoneFriend_Correct" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dialogues\dialog_hint_phonefriend_correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dialogues\Dialog_Hint_PhoneFriend_Correct.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dialog_Hint_PhoneFriend_Dialog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dialogues\dialog_hint_phonefriend_dialog.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dialogues\Dialog_Hint_PhoneFriend_Dialog.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dialog_Hint_PhoneFriend_Incorrect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dialogues\dialog_hint_phonefriend_incorrect.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dialogues\Dialog_Hint_PhoneFriend_Incorrect.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dialog_Host" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dialogues\dialog_host.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dialogues\Dialog_Host.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dictionary_Achievements" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_achievements.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dictionaries\Dictionary_Achievements.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dictionary_DescriptionHints" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_descriptionhints.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Dictionary_DescriptionModes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_descriptionmodes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dictionaries\Dictionary_DescriptionHints.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dictionary_MenuCommands" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_menucommands.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dictionaries\Dictionary_MenuCommands.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Dictionary_Modes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_modes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Dictionary_ModeData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dictionaries\Dictionary_ModeData.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dictionary_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_settings.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dictionaries\Dictionary_Settings.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Dictionary_Statistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\dictionaries\dictionary_statistics.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Dictionaries\Dictionary_Statistics.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Hint_AskAudience_Begin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Hint_AskAudience_Begin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1471,20 +1471,11 @@
   <data name="Screensaver_Restart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Screensaver_Restart.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Settings_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\settings\settings_default.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Settings_Mode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\settings\settings_mode.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Settings_Sums" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\settings\settings_sums.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Settings_Values" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\settings\settings_values.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Start" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sounds\Start.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Sums" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sums\Sums.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Wire" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textures\Wire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

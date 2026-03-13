@@ -1,6 +1,43 @@
 {
-    "Volume": "Общая громкость",
-    "ShowScreensaver": "Показывать заставку",
-    "ShowOptionsSequentially": "Последовательно показывать варианты ответа",
-    "ShowDescriptionHints": "Описание подсказок при наведении курсора"
+  "Volume": {
+    "Name": "Общая громкость",
+    "DefaultValue": 1.0,
+    "ComboBoxItems": {
+      "0": "0",
+      "0.1": "10",
+      "0.2": "20",
+      "0.3": "30",
+      "0.4": "40",
+      "0.5": "50",
+      "0.6": "60",
+      "0.7": "70",
+      "0.8": "80",
+      "0.9": "90",
+      "1": "100"
+    }
+  },
+  "ShowScreensaver": {
+    "Name": "Показывать заставку",
+    "DefaultValue": 1.0,
+    "ComboBoxItems": {
+      "0": "Выкл",
+      "1": "Вкл"
+    }
+  },
+  "ShowOptionsSequentially": {
+    "Name": "Демонстрация вариантов последовательно",
+    "DefaultValue": 1.0,
+    "ComboBoxItems": {
+      "0": "Выкл",
+      "1": "Вкл"
+    }
+  },
+  "ShowDescriptionHints": {
+    "Name": "Описание подсказок при наведении курсора",
+    "DefaultValue": 1.0,
+    "ComboBoxItems": {
+      "0": "Выкл",
+      "1": "Вкл"
+    }
+  }
 }

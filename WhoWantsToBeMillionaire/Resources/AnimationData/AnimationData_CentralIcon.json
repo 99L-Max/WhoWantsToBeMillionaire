@@ -1,67 +1,67 @@
 [
   {
-    "Item1": 1.0,
-    "Item2": 0.05,
-    "Item3": true
+    "Scale": 0.05,
+    "Compression": 1.0,
+    "IsFront": true
   },
   {
-    "Item1": 0.6,
-    "Item2": 0.13,
-    "Item3": true
+    "Scale": 0.13,
+    "Compression": 0.6,
+    "IsFront": true
   },
   {
-    "Item1": 0.2,
-    "Item2": 0.21,
-    "Item3": true
+    "Scale": 0.21,
+    "Compression": 0.2,
+    "IsFront": true
   },
   {
-    "Item1": 0.2,
-    "Item2": 0.29,
-    "Item3": false
+    "Scale": 0.29,
+    "Compression": 0.2,
+    "IsFront": false
   },
   {
-    "Item1": 0.6,
-    "Item2": 0.37,
-    "Item3": false
+    "Scale": 0.37,
+    "Compression": 0.6,
+    "IsFront": false
   },
   {
-    "Item1": 1.0,
-    "Item2": 0.45,
-    "Item3": false
+    "Scale": 0.45,
+    "Compression": 1.0,
+    "IsFront": false
   },
   {
-    "Item1": 0.6,
-    "Item2": 0.53,
-    "Item3": false
+    "Scale": 0.53,
+    "Compression": 0.6,
+    "IsFront": false
   },
   {
-    "Item1": 0.2,
-    "Item2": 0.6,
-    "Item3": false
+    "Scale": 0.6,
+    "Compression": 0.2,
+    "IsFront": false
   },
   {
-    "Item1": 0.2,
-    "Item2": 0.68,
-    "Item3": true
+    "Scale": 0.68,
+    "Compression": 0.2,
+    "IsFront": true
   },
   {
-    "Item1": 0.6,
-    "Item2": 0.76,
-    "Item3": true
+    "Scale": 0.76,
+    "Compression": 0.6,
+    "IsFront": true
   },
   {
-    "Item1": 1.0,
-    "Item2": 0.84,
-    "Item3": true
+    "Scale": 0.84,
+    "Compression": 1.0,
+    "IsFront": true
   },
   {
-    "Item1": 1.0,
-    "Item2": 0.92,
-    "Item3": true
+    "Scale": 0.92,
+    "Compression": 1.0,
+    "IsFront": true
   },
   {
-    "Item1": 1.0,
-    "Item2": 1.0,
-    "Item3": true
+    "Scale": 1.0,
+    "Compression": 1.0,
+    "IsFront": true
   }
 ]

@@ -1,0 +1,50 @@
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+using WhoWantsToBeMillionaire.Properties;
+
+namespace WhoWantsToBeMillionaire
+{
+    class ButtonOption : Label
+    {
+        private static readonly Image s_image;
+
+        private bool _imageVisible;
+
+        static ButtonOption()
+        {
+            s_image = Resources.ButtonWire_Focused;
+        }
+
+        public LetterOptions Letter { get; }
+
+        public ButtonOption(LetterOptions letter, Rectangle rectangle)
+        {
+            Letter = letter;
+            Location = rectangle.Location;
+            Size = rectangle.Size;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (_imageVisible)
+                e.Graphics.DrawImage(s_image, ClientRectangle);
+        }
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            ChangeImageVisible(true);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            ChangeImageVisible(false);
+        }
+
+        private void ChangeImageVisible(bool visible)
+        {
+            _imageVisible = visible;
+            Invalidate();
+        }
+    }
+}
