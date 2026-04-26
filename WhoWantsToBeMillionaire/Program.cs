@@ -15,7 +15,9 @@ namespace WhoWantsToBeMillionaire
             Application.Run(new MainForm());
         }
 
-        private static void ShowMessage(object sender, ThreadExceptionEventArgs e) =>
+        private static void ShowMessage(object sender, ThreadExceptionEventArgs e)
+        {
             MessageBox.Show(e.Exception.ToString());
+        }
     }
 }

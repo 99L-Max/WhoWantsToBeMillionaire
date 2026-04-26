@@ -108,7 +108,7 @@ namespace WhoWantsToBeMillionaire
                 return;
             }
 
-            _commandBoard.Command = Mode == Modes.Classic ? SceneCommands.Show_SavingSums : SceneCommands.Show_CountHints;
+            _commandBoard.Command = Mode == Modes.Classic ? SceneCommands.Show_SavingSums : SceneCommands.Show_HintsCount;
             _commandBoard.CancelCommand = SceneCancelCommands.SkipRules;
             _commandBoard.ButtonCommandEnabled = false;
             _commandBoard.Text = _host.Say(HostPhrases.Rules, $"{Question.MaxNumber}");
@@ -400,7 +400,7 @@ namespace WhoWantsToBeMillionaire
 
                 case SceneCommands.Show_SavingSums:
                     _commandBoard.ButtonCommandEnabled = false;
-                    _commandBoard.Command = SceneCommands.Show_CountHints;
+                    _commandBoard.Command = SceneCommands.Show_HintsCount;
                     _commandBoard.Text = _host.Say(HostPhrases.SavingSums, string.Join(", ", _tableSums.SavingSums.Select(sum => string.Format("{0:#,0}", sum))));
 
                     await _tableSums.ShowSavingSums();
@@ -408,9 +408,9 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.ButtonCommandEnabled = true;
                     break;
 
-                case SceneCommands.Show_CountHints:
+                case SceneCommands.Show_HintsCount:
                     _commandBoard.Command = SceneCommands.Show_Hint;
-                    _commandBoard.Text = _host.Say(HostPhrases.CountHints, _tableHints.TextActiveHints);
+                    _commandBoard.Text = _host.Say(HostPhrases.HintsCount, _tableHints.TextActiveHints);
                     break;
 
                 case SceneCommands.Show_Hint:

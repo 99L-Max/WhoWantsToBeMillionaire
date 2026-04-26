@@ -5,7 +5,7 @@
         Start,
         Restart,
         Show_SavingSums,
-        Show_CountHints,
+        Show_HintsCount,
         Show_Hint,
         About_RestrictionsHints,
         About_TakingMoney,

@@ -4,7 +4,7 @@
     {
         Rules,
         SavingSums,
-        CountHints,
+        HintsCount,
         AboutRestrictionsHints,
         AboutTakingMoney,
         AboutFinalQuestion,
