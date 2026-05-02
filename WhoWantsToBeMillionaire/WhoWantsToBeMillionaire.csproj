@@ -318,6 +318,7 @@
     <None Include="Resources\Dictionaries\Dictionary_ModeData.json" />
     <None Include="Resources\Dictionaries\Dictionary_Settings.json" />
     <None Include="Resources\Dictionaries\Dictionary_Statistics.json" />
+    <None Include="Resources\Dictionaries\Dictionary_Sums.json" />
     <None Include="Resources\Fonts\Arial.ttf" />
     <None Include="Resources\Fonts\COPRGTB.TTF" />
     <None Include="Resources\Icon.ico" />
@@ -696,7 +697,6 @@
     <None Include="Resources\Questions\Q15V13.json" />
     <None Include="Resources\Questions\Q15V14.json" />
     <None Include="Resources\Questions\Q15V15.json" />
-    <None Include="Resources\Sums\Sums.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

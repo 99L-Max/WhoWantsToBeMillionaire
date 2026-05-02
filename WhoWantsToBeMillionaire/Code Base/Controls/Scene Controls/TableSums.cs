@@ -9,27 +9,23 @@ namespace WhoWantsToBeMillionaire
 {
     class TableSums : TableLayoutPanel, IResettable
     {
-        private readonly RowTableSums[] _rowsSum;
+        private readonly Dictionary<int, RowTableSums> _rowsSum;
 
         private int _numberQuestion;
-        private bool _taskCanceled;
+        private bool _isTaskCanceled;
 
         public TableSums()
         {
-            var sums = JsonReader.GetObject<int[]>(Resources.Sums);
-            int indexRow;
+            var sums = JsonReader.GetDictionary<int, int>(Resources.Dictionary_Sums);
 
-            _rowsSum = new RowTableSums[sums.Length];
+            _rowsSum = sums.ToDictionary(pair => pair.Key, pair => new RowTableSums(pair.Key, pair.Value));
 
-            RowCount = sums.Length;
+            RowCount = _rowsSum.Count();
 
-            for (int i = 0; i < RowCount; i++)
+            foreach (var row in _rowsSum.Values.OrderByDescending(row => row.NumberQuestion))
             {
-                indexRow = RowCount - i - 1;
-                _rowsSum[indexRow] = new RowTableSums(indexRow + 1, sums[indexRow]);
-
                 RowStyles.Add(new RowStyle(SizeType.Percent, 1f));
-                Controls.Add(_rowsSum[indexRow]);
+                Controls.Add(row);
             }
         }
 
@@ -39,47 +35,58 @@ namespace WhoWantsToBeMillionaire
 
         public string TextPrize { get; private set; }
 
-        public string NextSum => string.Format("{0:#,0}", _rowsSum[Math.Min(_numberQuestion - 1, _rowsSum.Length - 1)].Sum);
+        public string NextSum => string.Format("{0:#,0}", _rowsSum[NumberQuestion].Sum);
 
-        public int[] SavingSums => _rowsSum.Where(row => row.IsSavingSum && row.Number < Question.MaxNumber).Select(row => row.Sum).ToArray();
+        public int[] SavingSums => _rowsSum.Values.Where(row => row.IsSavingSum && row.NumberQuestion < Question.MaxNumber).Select(row => row.Sum).OrderBy(_ => _).ToArray();
 
-        public bool IsCurrentSavingSum => _rowsSum[_numberQuestion - 1].IsSavingSum;
+        public bool IsCurrentSavingSum => _rowsSum[NumberQuestion].IsSavingSum;
+
+        private int NumberQuestion
+        {
+            get => _numberQuestion;
+            set => _numberQuestion = _rowsSum.ContainsKey(value) ? value : _rowsSum.First().Key;
+        }
 
         public void Reset(Modes mode = Modes.Classic)
         {
-            _taskCanceled = true;
+            _isTaskCanceled = true;
 
-            foreach (var row in _rowsSum)
+            foreach (var row in _rowsSum.Values)
             {
                 row.Reset();
                 row.Click -= SelectSavingSum;
             }
 
-            if (mode == Modes.Classic)
-                foreach (var row in _rowsSum)
-                    row.IsSavingSum = row.Number % 5 == 0;
+            var modesData = JsonReader.GetDictionary<Modes, ModeData>(Resources.Dictionary_ModeData);
+            var numbersQuestionsSavingSums = modesData[mode].NumbersQuestionsSavingSums;
 
-            _numberQuestion = 1;
+            foreach (var row in _rowsSum.Values)
+                row.IsSavingSum = numbersQuestionsSavingSums.Contains(row.NumberQuestion);
+            
+            if(numbersQuestionsSavingSums.Length > 0)
+                _rowsSum[Question.MaxNumber].IsSavingSum = true;
+
+            NumberQuestion = Question.MinNumber;
             SetPrize(0);
         }
 
-        public bool IsSavingSum(int number)
+        public bool IsSavingSum(int questionNumber)
         {
-            return number > 0 && number <= Question.MaxNumber && _rowsSum[number - 1].IsSavingSum;
+            return _rowsSum.ContainsKey(questionNumber) && _rowsSum[questionNumber].IsSavingSum;
         }
 
-        public void SetSelectedSum(int number)
+        public void SetSelectedSum(int questionNumber)
         {
-            foreach (var row in _rowsSum)
+            foreach (var row in _rowsSum.Values)
             {
-                row.IsSelected = row.Number == number;
-                row.IsIconVisible = row.Number <= number;
+                row.IsSelected = row.NumberQuestion == questionNumber;
+                row.IsIconVisible = row.NumberQuestion <= questionNumber;
             }
         }
 
-        public void AddSelectionSavingSum()
+        public void EnableSelectionSavingSum()
         {
-            foreach (var row in _rowsSum)
+            foreach (var row in _rowsSum.Values)
             {
                 row.Reset();
                 row.AddMouseEvents();
@@ -89,79 +96,73 @@ namespace WhoWantsToBeMillionaire
 
         public async Task ShowSums()
         {
-            _taskCanceled = false;
+            _isTaskCanceled = false;
 
-            Queue<RowTableSums> rows = new Queue<RowTableSums>(_rowsSum);
-            RowTableSums row = null;
+            Queue<RowTableSums> rows = new Queue<RowTableSums>(_rowsSum.Values.OrderBy(row => row.NumberQuestion));
+            RowTableSums currentRow = null;
 
             while (rows.Count > 0)
             {
                 rows.Peek().IsSelected = true;
 
-                if (row != null)
+                if (currentRow != null)
                 {
-                    row.IsSelected = false;
-                    row.IsIconVisible = true;
+                    currentRow.IsSelected = false;
+                    currentRow.IsIconVisible = true;
                 }
 
-                row = rows.Dequeue();
+                currentRow = rows.Dequeue();
 
                 await Task.Delay(250);
 
-                if (_taskCanceled)
+                if (_isTaskCanceled)
                 {
                     Clear();
                     return;
                 }
             }
 
-            _rowsSum[_rowsSum.Length - 1].IsIconVisible = true;
+            _rowsSum[Question.MaxNumber].IsIconVisible = true;
         }
 
         public async Task ShowSavingSums()
         {
-            _taskCanceled = false;
+            _isTaskCanceled = false;
 
             Clear();
 
-            foreach (var row in _rowsSum)
+            var rows = _rowsSum.Values.Where(row => row.IsSavingSum).OrderBy(row => row.NumberQuestion);
+
+            foreach (var row in rows)
             {
-                row.IsIconVisible = true;
+                SetSelectedSum(row.NumberQuestion);
+                await Task.Delay(1000);
 
-                if (row.IsSavingSum)
-                {
-                    row.IsSelected = true;
-
-                    await Task.Delay(1000);
-
-                    row.IsSelected = false;
-                }
-
-                if (_taskCanceled)
+                if (_isTaskCanceled)
                 {
                     Clear();
                     return;
                 }
             }
 
-            _rowsSum[_rowsSum.Length - 1].IsSelected = true;
+            _rowsSum[Question.MaxNumber].IsSelected = true;
         }
 
         public void CancelTask()
         {
-            _taskCanceled = true;
+            _isTaskCanceled = true;
         }
 
-        public void Update(bool isCorrectAnswer)
+        public void UpdateNumberQuestion(bool isCorrectAnswer)
         {
             if (isCorrectAnswer)
             {
-                SetPrize(_numberQuestion);
-                SetSelectedSum(_numberQuestion++);
+                SetPrize(NumberQuestion);
+                SetSelectedSum(NumberQuestion++);
             }
             else
             {
-                int number = _rowsSum.Where(row => row.IsSavingSum && row.Number < _numberQuestion).Select(row => row.Number).DefaultIfEmpty(0).Last();
+                int number = _rowsSum.Values.Where(row => row.IsSavingSum && row.NumberQuestion < NumberQuestion).Select(row => row.NumberQuestion).DefaultIfEmpty(0).Last();
                 SetSelectedSum(number);
                 SetPrize(number);
             }
@@ -169,7 +170,7 @@ namespace WhoWantsToBeMillionaire
 
         public void Clear()
         {
-            foreach (var row in _rowsSum)
+            foreach (var row in _rowsSum.Values)
                 row.IsSelected = row.IsIconVisible = false;
         }
 
@@ -178,14 +179,14 @@ namespace WhoWantsToBeMillionaire
             Height = Height / RowCount * RowCount + 1;
         }
 
-        private void SetPrize(int number)
+        private void SetPrize(int questionNumber)
         {
-            try
+            if (_rowsSum.ContainsKey(questionNumber))
             {
-                Prize = _rowsSum[number - 1].Sum;
-                TextPrize = number < _rowsSum.Length ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
+                Prize = _rowsSum[questionNumber].Sum;
+                TextPrize = questionNumber < Question.MaxNumber ? string.Format("{0:#,0}", Prize) : "МИЛЛИОНЕР!";
             }
-            catch (IndexOutOfRangeException)
+            else
             {
                 Prize = 0;
                 TextPrize = "0";
@@ -194,20 +195,20 @@ namespace WhoWantsToBeMillionaire
 
         private void SelectSavingSum(object sender, EventArgs e)
         {
-            if (sender is RowTableSums SavingSum)
+            if (sender is RowTableSums selectedRow)
             {
-                SetSelectedSum(SavingSum.Number);
+                SetSelectedSum(selectedRow.NumberQuestion);
 
-                foreach (var row in _rowsSum)
+                foreach (var row in _rowsSum.Values)
                 {
                     row.Click -= SelectSavingSum;
                     row.RemoveMouseEvents();
                 }
 
-                _rowsSum[_rowsSum.Length - 1].IsSavingSum = SavingSum.IsSavingSum = true;
+                _rowsSum[Question.MaxNumber].IsSavingSum = selectedRow.IsSavingSum = true;
 
                 Sound.Play(Resources.SavaSumSelected);
-                SavingSumSelected?.Invoke(SavingSum.Sum);
+                SavingSumSelected?.Invoke(selectedRow.Sum);
             }
         }
     }

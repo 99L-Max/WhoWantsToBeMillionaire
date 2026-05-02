@@ -36,7 +36,7 @@ namespace WhoWantsToBeMillionaire
 
         public RowTableSums(int number, int sum)
         {
-            Number = number;
+            NumberQuestion = number;
             Sum = sum;
             Font = FontFactory.CreateFont(GameFonts.Arial, 0.5f * s_background.Height, FontStyle.Bold);
             Dock = DockStyle.Fill;
@@ -44,7 +44,7 @@ namespace WhoWantsToBeMillionaire
             _image = new Bitmap(s_background.Width, s_background.Height);
         }
 
-        public int Number { get; }
+        public int NumberQuestion { get; }
 
         public int Sum { get; }
 
@@ -116,7 +116,7 @@ namespace WhoWantsToBeMillionaire
 
                 for (int i = 0; i < points.Length; i++)
                 {
-                    TextRenderer.DrawText(g, $"{Number}", Font, new Rectangle(points[i], s_sizeNumber), colors[i], s_textFormatFlags);
+                    TextRenderer.DrawText(g, $"{NumberQuestion}", Font, new Rectangle(points[i], s_sizeNumber), colors[i], s_textFormatFlags);
                     TextRenderer.DrawText(g, String.Format("{0:#,0}", Sum), Font, new Rectangle(points[i], s_sizeSum), colors[i], s_textFormatFlags);
                 }
 

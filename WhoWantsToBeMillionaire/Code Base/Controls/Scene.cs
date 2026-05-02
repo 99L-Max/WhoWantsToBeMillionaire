@@ -313,7 +313,7 @@ namespace WhoWantsToBeMillionaire
             }
 
             if (updatePrize)
-                _tableSums.Update(_boxQuestion.IsCorrectAnswer);
+                _tableSums.UpdateNumberQuestion(_boxQuestion.IsCorrectAnswer);
 
             await _boxQuestion.Clear();
             await Task.Delay(500);
@@ -436,7 +436,7 @@ namespace WhoWantsToBeMillionaire
                     _commandBoard.Text = _host.Say(HostPhrases.AskSavingSum);
 
                     _tableSums.SavingSumSelected += OnSavingSumSelected;
-                    _tableSums.AddSelectionSavingSum();
+                    _tableSums.EnableSelectionSavingSum();
                     break;
 
                 case SceneCommands.About_Starting:

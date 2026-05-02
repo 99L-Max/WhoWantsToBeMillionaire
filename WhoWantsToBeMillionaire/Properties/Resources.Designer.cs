@@ -496,6 +496,16 @@ namespace WhoWantsToBeMillionaire.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Dictionary_Sums {
+            get {
+                object obj = ResourceManager.GetObject("Dictionary_Sums", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Hint_AskAudience_Begin {
@@ -4539,16 +4549,6 @@ namespace WhoWantsToBeMillionaire.Properties {
         internal static System.IO.UnmanagedMemoryStream Start {
             get {
                 return ResourceManager.GetStream("Start", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Sums {
-            get {
-                object obj = ResourceManager.GetObject("Sums", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
