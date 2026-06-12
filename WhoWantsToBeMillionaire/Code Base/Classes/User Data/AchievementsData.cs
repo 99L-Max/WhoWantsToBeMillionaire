@@ -21,8 +21,10 @@ namespace WhoWantsToBeMillionaire
             _achievements = achievements;
         }
 
+        [JsonIgnore]
         public bool HaveAllGranted => _achievements.Values.All(_ => _);
 
+        [JsonIgnore]
         public Dictionary<Achievements, bool> CopyAchievements => new Dictionary<Achievements, bool>(_achievements);
 
         public bool CheckGranted(Achievements key)
